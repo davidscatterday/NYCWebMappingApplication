@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYC Mapping Web Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @*<link rel="stylesheet" href="http://js.arcgis.com/3.31/dijit/themes/claro/claro.css">*@
+    <link rel="stylesheet" href="https://js.arcgis.com/3.31/dijit/themes/tundra/tundra.css">
+
+    <link rel="stylesheet" href="http://js.arcgis.com/3.31/esri/css/esri.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @Scripts.Render("~/bundles/jquery")
+    <script src="http://js.arcgis.com/3.31/"></script>
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/customJs")
+    <script type="text/javascript">
+        var RootUrl = '@Url.Content("~/")';
+    </script>
+</head>
+<body class="tundra">
+    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color: white;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); border-color: white;">
+        <div class="container" style="width: 100%">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <img src="~/Images/NY-REI-Text-Only.png" style="height: 90px; width: auto" />
+            </div>
+            <div class="navbar-collapse collapse">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @Html.ActionLink("Logout", "Logout", "Account", null, new { @style = "float: right; margin-left: 15px; margin-top: 25px; font-size: 20px; font-family: auto; color: burlywood;" })
+                    <span style="float: right; margin-top: 25px; font-size: 20px; font-family: auto; color: burlywood;">Hello, @User.Identity.Name</span>
+                }
+                else
+                {
+                    @Html.ActionLink("Login", "Login", "Account", null, new { @style = "float: right; margin-left: 15px; margin-top: 25px; font-size: 20px; font-family: auto; color: burlywood;" })
+                }
+            </div>
+        </div>
+    </div>
+
+    <div style="height: 100%">
+        @RenderBody()
+    </div>
+    <div id="loading" style="display: none">
+        <img id="loading-image" src="images/ajax-loader-2.gif" alt="Loading..." />
+    </div>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

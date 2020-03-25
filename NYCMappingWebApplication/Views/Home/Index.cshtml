@@ -1,0 +1,542 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<script>
+    MapPlutoUrl = "@(System.Configuration.ConfigurationManager.AppSettings["MapPlutoUrl"])";
+</script>
+<div class="row" style="margin:0px; height: 100%">
+    <div class="col-md-3" style="height: 100%; overflow: auto;">
+        <form class="form-horizontal">
+            <button id="btnOpenMyReports" type="button" class="btn btn-primary btn-sm" style="float: right;" onclick="btnOpenMyReports_Click()">My Reports</button>
+            <h3>Location</h3>
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-11">
+                    <label for="cbBorough">
+                        <input id="cbBorough" type="checkbox">Borough
+                    </label>
+                    <input type="text" id="txtBoroughs" placeholder="Select Borough" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-4">
+                    <label for="cbZipCodeRange">
+                        <input id="cbZipCodeRange" type="checkbox">Zip Code Range
+                    </label>
+                </div>
+                <div class="col-sm-3" style="width: 29.166666655%"><input type="text" id="txtZipCodeRangeFrom" style="        width: 100%
+" onkeyup="this.value=this.value.replace(/[^\d]/,'')" /></div>
+                <div class="col-sm-3" style="width: 29.166666655%"><input type="text" id="txtZipCodeRangeTo" style="width: 100%" onkeyup="this.value=this.value.replace(/[^\d]/,'')" /></div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-4">
+                    <label for="cbStreetAddress">
+                        <input id="cbStreetAddress" type="checkbox">Street Address
+                    </label>
+                </div>
+                <div class="col-sm-7"><input type="text" id="txtStreetAddress" style="width: 100%" autocomplete="new-password" /></div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-4">
+                    <label for="cbLatLong">
+                        <input id="cbLatLong" type="checkbox">Lat / Long
+                    </label>
+                </div>
+                <div class="col-sm-3" style="width: 29.166666655%"><input type="text" id="txtLat" style="width: 100%" /></div>
+                <div class="col-sm-3" style="width: 29.166666655%"><input type="text" id="txtLong" style="width: 100%" /></div>
+            </div>
+            <h3>Property Size</h3>
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-11">
+                    <p id="sliderTotalBuildingFloorArea" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                        <label for="cbTotalBuildingFloorArea">
+                            <input id="cbTotalBuildingFloorArea" type="checkbox">Total Building Floor Area:
+                            <input type="text" id="txtTotalBuildingFloorArea" readonly style="border:0; color:#f6931f; font-weight:bold; max-width: 100%">
+                        </label>
+                    </p>
+                    <div id="slider-range-TotalBuildingFloorArea"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-11">
+                    <p id="sliderCommercialFloorArea" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                        <label for="cbCommercialFloorArea">
+                            <input id="cbCommercialFloorArea" type="checkbox">Commercial Floor Area:
+                            <input type="text" id="txtCommercialFloorArea" readonly style="border:0; color:#f6931f; font-weight:bold; max-width: 100%">
+                        </label>
+                    </p>
+                    <div id="slider-range-CommercialFloorArea"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-11">
+                    <p id="sliderResidentialFloorArea" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                        <label for="cbResidentialFloorArea">
+                            <input id="cbResidentialFloorArea" type="checkbox">Residential Floor Area:
+                            <input type="text" id="txtResidentialFloorArea" readonly style="border:0; color:#f6931f; font-weight:bold; max-width: 100%">
+                        </label>
+                    </p>
+                    <div id="slider-range-ResidentialFloorArea"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-11">
+                    <p id="sliderNumberOfFloors" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                        <label for="cbNumberOfFloors">
+                            <input id="cbNumberOfFloors" type="checkbox">Number of Floors:
+                            <input type="text" id="txtNumberOfFloors" readonly style="border:0; color:#f6931f; font-weight:bold; max-width: 100%">
+                        </label>
+                    </p>
+                    <div id="slider-range-NumberOfFloors"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-11">
+                    <p id="sliderResidentialUnits" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                        <label for="cbResidentialUnits">
+                            <input id="cbResidentialUnits" type="checkbox">Residential Units:
+                            <input type="text" id="txtResidentialUnits" readonly style="border:0; color:#f6931f; font-weight:bold; max-width: 100%">
+                        </label>
+                    </p>
+                    <div id="slider-range-ResidentialUnits"></div>
+                </div>
+            </div>
+            <h3>Property Characteristics</h3>
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-11">
+                    <label for="cbBuildingClass">
+                        <input id="cbBuildingClass" type="checkbox">Building Class
+                    </label>
+                    <div class="panel-group" id="accordion">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                                        Office
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse1" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbOfficeO1" value="(BldgClass = 'O1')" /> Office Only - 1 Story
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbOfficeO2" value="(BldgClass = 'O2')" /> Office Only - 2-6 Stories
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbOfficeO3" value="(BldgClass = 'O3')" /> Office Only - 7-19 Story
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbOfficeO4" value="(BldgClass = 'O4')" /> Office Only or Office with Comm – 20 Stories or More
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                                        Industrial
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse2" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbIndustrialF1" value="(BldgClass = 'F1')" /> Heavy Manufacturing - Fireproof
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbIndustrialF2" value="(BldgClass = 'F2')" /> Special Construction - Fireproof
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbIndustrialF4" value="(BldgClass = 'F4')" /> Semi-Fireproof
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbIndustrialF5" value="(BldgClass = 'F5')" /> Light Manufacturing
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbIndustrialF8" value="(BldgClass = 'F8')" /> Tank Farms
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbIndustrialF9" value="(BldgClass = 'F9')" /> Miscellaneous
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+                                        Retail
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse3" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbRetailK1" value="(BldgClass = 'K1')" /> One Story Retail Building
+                                    </label>
+                                    <label class="radio-inline col-sm-12">
+                                        <input type="radio" name="BuildingClass" id="rbRetailK2" value="(BldgClass = 'K2')" /> Multi-Story Retail Building
+                                    </label>
+                                    <label class="radio-inline col-sm-12">
+                                        <input type="radio" name="BuildingClass" id="rbRetailK3" value="(BldgClass = 'K3')" /> Multi-Story Department Store
+                                    </label>
+                                    <label class="radio-inline col-sm-12">
+                                        <input type="radio" name="BuildingClass" id="rbRetailK4" value="(BldgClass = 'K4')" /> Predominant Retail with Other Uses
+                                    </label>
+                                    <label class="radio-inline col-sm-12">
+                                        <input type="radio" name="BuildingClass" id="rbRetailK5" value="(BldgClass = 'K5')" /> Stand Alone Food Establishment
+                                    </label>
+                                    <label class="radio-inline col-sm-12">
+                                        <input type="radio" name="BuildingClass" id="rbRetailK6" value="(BldgClass = 'K6')" /> Shopping Centers with or without Parking
+                                    </label>
+                                    <label class="radio-inline col-sm-12">
+                                        <input type="radio" name="BuildingClass" id="rbRetailK7" value="(BldgClass = 'K7')" /> Banking Facilities with or without Parking
+                                    </label>
+                                    <label class="radio-inline col-sm-12">
+                                        <input type="radio" name="BuildingClass" id="rbRetailK8" value="(BldgClass = 'K8')" /> Big Box Retail Not Affixed & Standing on Own Lot with Parking
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+                                        Hotel
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse4" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbHotelH1" value="(BldgClass = 'H1')" /> Luxury Type
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbHotelH2" value="(BldgClass = 'H2')" /> Full Service Hotel
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbHotelH3" value="(BldgClass = 'H3')" /> Limited Service – Many Affiliated with National Chain
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbHotelH4" value="(BldgClass = 'H4')" /> Motels
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbHotelH5" value="(BldgClass = 'H5')" /> Private Club, Luxury Type
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbHotelH6" value="(BldgClass = 'H6')" /> Apartment Hotels
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbHotelH7" value="(BldgClass = 'H7')" /> Apartment Hotels-Co-op Owned
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">
+                                        Condominiums/coop
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse5" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbCondominiumsCoopR1" value="(BldgClass = 'R1')" /> Residential Unit in 2-10 Unit Bldg
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbCondominiumsCoopR2" value="(BldgClass = 'R2')" /> Residential Unit in Walk-Up Bldg
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbCondominiumsCoopR3" value="(BldgClass = 'R3')" /> Residential Unit in 1-3 Story Bldg
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbCondominiumsCoopR4" value="(BldgClass = 'R4')" /> Residential Unit in Elevator Bldg
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbCondominiumsCoopR5" value="(BldgClass = 'R5')" /> Miscellaneous Commercial
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbCondominiumsCoopR6" value="(BldgClass = 'R6')" /> Residential Unit of 1-3 Unit Bldg-Orig Class 1
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbCondominiumsCoopR7" value="(BldgClass = 'R7')" /> Commercial Unit of 1-3 Units Bldg- Orig Class 1
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbCondominiumsCoopR8" value="(BldgClass = 'R8')" /> Commercial Unit of 2-10 Unit Bldg
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbCondominiumsCoopR9" value="(BldgClass = 'R9')" /> Co-op within a Condominium
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbCondominiumsCoopC8" value="(BldgClass = 'C8')" /> (WALK UP APARTMENTS)Co-Op Conversion from Loft/Warehouse
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbCondominiumsCoopD0" value="(BldgClass = 'D0')" /> (ELEVATOR APARTMENTS)Co-op Conversion from Loft/Warehouse
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbCondominiumsCoopD5" value="(BldgClass = 'D5')" /> (ELEVATOR APARTMENTS)Converted
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">
+                                        Rental residential
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse6" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbRentalResidentialC0" value="(BldgClass = 'C0')" /> (WALK UP APARTMENTS)Three Families
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbRentalResidentialC1" value="(BldgClass = 'C1')" /> (WALK UP APARTMENTS)Over Six Families Without Stores
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbRentalResidentialC2" value="(BldgClass = 'C2')" /> (WALK UP APARTMENTS)Five to Six Families
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbRentalResidentialC3" value="(BldgClass = 'C3')" /> (WALK UP APARTMENTS)Four Families
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbRentalResidentialC4" value="(BldgClass = 'C4')" /> (WALK UP APARTMENTS)Old Law Tenements
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbRentalResidentialC5" value="(BldgClass = 'C5')" /> (WALK UP APARTMENTS)Converted Dwelling or Rooming House
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbRentalResidentialC6" value="(BldgClass = 'C6')" /> (WALK UP APARTMENTS)Cooperative
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbRentalResidentialD1" value="(BldgClass = 'D1')" /> (ELEVATOR APARTMENTS)Semi-fireproof (Without Stores)
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbRentalResidentialD2" value="(BldgClass = 'D2')" /> (ELEVATOR APARTMENTS)Artists in Residence
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbRentalResidentialD3" value="(BldgClass = 'D3')" /> (ELEVATOR APARTMENTS)Fireproof (Without Stores)
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbRentalResidentialD6" value="(BldgClass = 'D6')" /> (ELEVATOR APARTMENTS)Fireproof with Stores
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbRentalResidentialD7" value="(BldgClass = 'D7')" /> (ELEVATOR APARTMENTS)Semi-Fireproof with Stores
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbRentalResidentialD8" value="(BldgClass = 'D8')" /> (ELEVATOR APARTMENTS)Luxury Type
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">
+                                        For-profit owned healthcare
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse7" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbForProfitOwnedHealthcareI1" value="(BldgClass = 'I1')" /> Hospitals, Sanitariums, Mental Institutions
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbForProfitOwnedHealthcareI2" value="(BldgClass = 'I2')" /> Infirmary
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbForProfitOwnedHealthcareI3" value="(BldgClass = 'I3')" /> Dispensary
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbForProfitOwnedHealthcareI4" value="(BldgClass = 'I4')" /> Staff Facilities
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbForProfitOwnedHealthcareI5" value="(BldgClass = 'I5')" /> Health Center, Child Center, Clinic
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbForProfitOwnedHealthcareI6" value="(BldgClass = 'I6')" /> Nursing Home
+                                    </label>
+                                    <label class="radio-inline col-sm-12" style="margin-left: 10px;">
+                                        <input type="radio" name="BuildingClass" id="rbForProfitOwnedHealthcareI7" value="(BldgClass = 'I7')" /> Adult Care Facility
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-11">
+                    <label for="cbZoningDistrict">
+                        <input id="cbZoningDistrict" type="checkbox">Zoning District
+                    </label>
+                    @Html.DropDownList("ddlZoningDistrict", (IEnumerable<SelectListItem>)ViewBag.ZoningDistricts, "Select Zoning District", new { @class = "form-control input-width-xlarge", @onchange = "ddlZoningDistrict_SelectionChange()" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-11">
+                    <label for="cbCommercialOverlay">
+                        <input id="cbCommercialOverlay" type="checkbox" disabled>Commercial Overlay
+                    </label>
+                    @Html.DropDownList("ddlCommercialOverlay", (IEnumerable<SelectListItem>)ViewBag.CommercialOverlays, "Select Commercial Overlay", new { @class = "form-control input-width-xlarge", @disabled = true })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-11">
+                    <p id="sliderAssessedTotalValue" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                        <label for="cbAssessedTotalValue">
+                            <input id="cbAssessedTotalValue" type="checkbox">Assessed Total Value:
+                            <input type="text" id="txtAssessedTotalValue" readonly style="border:0; color:#f6931f; font-weight:bold; max-width: 100%">
+                        </label>
+                    </p>
+                    <div id="slider-range-AssessedTotalValue"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-11">
+                    <p id="sliderYearBuild" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                        <label for="cbYearBuild">
+                            <input id="cbYearBuild" type="checkbox">Year Build:
+                            <input type="text" id="txtYearBuild" readonly style="border:0; color:#f6931f; font-weight:bold; max-width: 100%">
+                        </label>
+                    </p>
+                    <div id="slider-range-YearBuild"></div>
+                </div>
+            </div>
+            <h3>Energy Efficiency Measurement</h3>
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-11">
+                    <p id="sliderEnergyStarScore" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                        <label for="cbEnergyStarScore">
+                            <input id="cbEnergyStarScore" type="checkbox">EnergyStar Score / (kBtu/ft²) :
+                            <input type="text" id="txtEnergyStarScore" readonly style="border:0; color:#f6931f; font-weight:bold; max-width: 65px">
+                        </label>
+                    </p>
+                    <div id="slider-range-EnergyStarScore"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-11">
+                    <p id="sliderSourceEUI" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                        <label for="cbSourceEUI">
+                            <input id="cbSourceEUI" type="checkbox">Source Energy Use Intensity (EUI) / (kBtu/ft²) :
+                            <input type="text" id="txtSourceEUI" readonly style="border:0; color:#f6931f; font-weight:bold; max-width: 140px">
+                        </label>
+                    </p>
+                    <div id="slider-range-SourceEUI"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-11">
+                    <p id="sliderSiteEUI" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                        <label for="cbSiteEUI">
+                            <input id="cbSiteEUI" type="checkbox">Site Energy Use Intensity (EUI) / (kBtu/ft²) :
+                            <input type="text" id="txtSiteEUI" readonly style="border:0; color:#f6931f; font-weight:bold; max-width: 140px">
+                        </label>
+                    </p>
+                    <div id="slider-range-SiteEUI"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-11">
+                    <p id="sliderAnnualMaximumDemand" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                        <label for="cbAnnualMaximumDemand">
+                            <input id="cbAnnualMaximumDemand" type="checkbox">Annual Maximum Demand / (kW) :
+                            <input type="text" id="txtAnnualMaximumDemand" readonly style="border:0; color:#f6931f; font-weight:bold; max-width: 140px">
+                        </label>
+                    </p>
+                    <div id="slider-range-AnnualMaximumDemand"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-11">
+                    <p id="sliderTotalGHGEmissions" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                        <label for="cbTotalGHGEmissions">
+                            <input id="cbTotalGHGEmissions" type="checkbox">Total Greenhouse Gas (GHG) Emissions / Metric Tons CO2e :
+                            <input type="text" id="txtTotalGHGEmissions" readonly style="border:0; color:#f6931f; font-weight:bold; max-width: 160px">
+                        </label>
+                    </p>
+                    <div id="slider-range-TotalGHGEmissions"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-11">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="btnSearch()">Search</button>
+                    <button type="button" class="btn btn-primary btn-sm" onclick="btnReset()">Reset</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-9" style="height: 100%; padding-right: 0px;padding-left: 0px;">
+        <div id="mapDiv" style="height: 100%">
+        </div>
+        <a href="javascript:void(0);" class="slider-bottom-arrow showBottomPanel">&ReverseUpEquilibrium;</a>
+        <div class="bottomPanel">
+            <div class="form-group" style="margin-bottom: 5px;">
+                <div class="col-sm-11">
+                    <div id="divSelectItemsCount"></div>
+                    <div id="divSelectItemsMoreInfo" style="display: none">Select record to zoom on the map</div>
+                </div>
+                <div class="col-sm-1">
+                    <button id="btnOpenSaveReport" type="button" class="btn btn-primary btn-sm" onclick="btnOpenSaveReport_Click()">Save Report</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <div id="divSelectItemsTable" style="max-height: 304px; overflow: auto;"></div>
+                    <div id="divSelectItemsMessage" style="font-size: 14px; color: red; display: none">There are no selected records</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Save Report -->
+    <div class="modal fade" id="myModalSaveReport" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width: 670px; height: 150px">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" style="margin-top: 5px;">Report Name</label>
+                        <div class="col-sm-9">
+                            @Html.TextBox("txtReportName", null, new { @class = "form-control input-width-xlarge", autocomplete = "off" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <button id="btnSaveMyReport" type="button" class="btn btn-primary btn-sm" style="margin-top: 10px;" onclick="btnSaveMyReport_Click()">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $("#txtBoroughs").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetBoroughs',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.BoroughsList,
+                };
+            }
+        }
+    });
+</script>
