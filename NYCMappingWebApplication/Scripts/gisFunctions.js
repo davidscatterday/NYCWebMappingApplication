@@ -35,8 +35,7 @@ require(["esri/map", "dojo/parser", "esri/layers/FeatureLayer", "esri/config", "
 
     map = new Map("mapDiv", {
         basemap: "NYCbasemap", // dark-gray, gray, hybrid, national-geographic, oceans, osm, satellite, streets, terrain, topo
-        extent: initExtent,
-        slider: false
+        extent: initExtent
     });
 
     map.addLayers([serviceFeatures, selectionLayer]);

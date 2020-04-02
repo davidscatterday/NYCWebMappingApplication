@@ -3,11 +3,13 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
     <title>NYC Mapping Web Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @*<link rel="stylesheet" href="http://js.arcgis.com/3.31/dijit/themes/claro/claro.css">*@
     <link rel="stylesheet" href="https://js.arcgis.com/3.31/dijit/themes/tundra/tundra.css">
+    <link href="http://mottie.github.io/tablesorter/css/theme.default.css" rel="stylesheet">
 
     <link rel="stylesheet" href="http://js.arcgis.com/3.31/esri/css/esri.css">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -28,7 +30,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <img src="~/Images/NY-REI-Text-Only.png" style="height: 90px; width: auto" />
+                <img src="~/Images/NY-REI-Text-Only.png" style="height: 60px; width: auto" />
             </div>
             <div class="navbar-collapse collapse">
                 @if (User.Identity.IsAuthenticated)
@@ -48,7 +50,7 @@
         @RenderBody()
     </div>
     <div id="loading" style="display: none">
-        <img id="loading-image" src="images/ajax-loader-2.gif" alt="Loading..." />
+        <img id="loading-image" src="images/ajax-loader-2.gif" alt="Loading..." style="width: 178px; height: 178px" />
     </div>
     @RenderSection("scripts", required: false)
 </body>
