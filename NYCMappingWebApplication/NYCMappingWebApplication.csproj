@@ -260,6 +260,7 @@
       <DependentUpon>DataModel.edmx</DependentUpon>
     </Content>
     <Content Include="Grid.mvc.readme" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\NYC.pubxml" />
     <None Include="README.md" />
     <Content Include="Images\ajax-loader-2.gif" />
