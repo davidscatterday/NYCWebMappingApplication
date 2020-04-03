@@ -3,11 +3,13 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
     <title>NYC Mapping Web Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @*<link rel="stylesheet" href="http://js.arcgis.com/3.31/dijit/themes/claro/claro.css">*@
     <link rel="stylesheet" href="https://js.arcgis.com/3.31/dijit/themes/tundra/tundra.css">
+    <link href="http://mottie.github.io/tablesorter/css/theme.default.css" rel="stylesheet">
 
     <link rel="stylesheet" href="http://js.arcgis.com/3.31/esri/css/esri.css">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -20,6 +22,71 @@
     </script>
 </head>
 <body class="tundra">
+    @*<nav class="navbar navbar-light navbar-expand-xl bg-light border-0">
+        <div class="container px-4">
+            <div class="navbar-brand workbench-brand">
+                <img src="/Images/NY-REI-Text-Only.png" style="height: 60px; width: auto" class="w-100" alt="eOriginal"> <span class="sr-only">eOriginal</span>
+            </div>
+            <div class="product-name-image workbench-product-name-image">
+                <img src="/closing/ui/dist/img/product_name_closing_center.svg" class="w-100" alt="Closing Center">
+            </div>
+            <div class="righthand-name-menu flex-column align-items-end" id="menuUsername">
+                <div class="header-name d-none d-xl-block text-right">
+                    <span>David</span>
+                    <span>Scatterday</span>
+                </div>
+                <div class="header-hamburger d-xl-none text-right">
+                    <div class="dropdown">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="d-none d-sm-inline">Menu</span>
+                            <span class="eo-icon eo-icon-header-menu ml-1"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="/closing/ui/dashboard">My closings</a>
+                            <a class="dropdown-item d-none" href="/closing/ui/profile/enotary">eNotary setup</a>
+                            <a class="dropdown-item" href="/closing/ui/profile">View/edit profile</a>
+                            <a class="dropdown-item" href="/closing/ui/password">Change password</a>
+                            <a class="dropdown-item" href="#support-modal" data-toggle="modal" data-backdrop="static">Support</a>
+                            <a class="dropdown-item logout-link" href="/closing/ui/signOut">Sign out</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <nav class="navbar navbar-light bg-light d-none d-xl-flex">
+        <div class="container px-4 d-none d-xl-flex justify-content-end">
+            <ul class="header-menu list-inline mb-2" id="menuLinks">
+                <li class="list-inline-item text-md">
+                    <a href="/closing/ui/dashboard" class="menu-item" id="closings">
+                        <span class="eo-icon eo-icon-my-closings-small"></span> My closings
+                    </a>
+                </li>
+                <li class="list-inline-item text-md">
+                    <div class="dropdown">
+                        <a class="dropdown-toggle" href="#" role="button" id="myAccountDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="eo-icon eo-icon-my-account"></span> My account
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="myAccountDropdown">
+                            <a class="dropdown-item d-none" href="/closing/ui/profile/enotary">eNotary setup</a>
+                            <a class="dropdown-item" href="/closing/ui/profile">View/edit profile</a>
+                            <a class="dropdown-item" href="/closing/ui/password">Change password</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-inline-item text-md">
+                    <a href="#support-modal" class="menu-item" id="support-menu-link" data-toggle="modal" data-backdrop="static">
+                        <span class="eo-icon eo-icon-footer-phone"></span> Support
+                    </a>
+                </li>
+                <li class="list-inline-item text-md">
+                    <a href="/closing/ui/signOut" class="menu-item logout-link" id="signout">
+                        <span class="eo-icon eo-icon-sign-out"></span> Sign out
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>*@
     <div class="navbar navbar-inverse navbar-fixed-top" style="background-color: white;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); border-color: white;">
         <div class="container" style="width: 100%">
             <div class="navbar-header">
@@ -28,18 +95,26 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <img src="~/Images/NY-REI-Text-Only.png" style="height: 90px; width: auto" />
+                <img src="~/Images/NY-REI-Text-Only.png" style="height: 60px; width: auto" />
             </div>
-            <div class="navbar-collapse collapse">
-                @if (User.Identity.IsAuthenticated)
-                {
-                    @Html.ActionLink("Logout", "Logout", "Account", null, new { @style = "float: right; margin-left: 15px; margin-top: 25px; font-size: 20px; font-family: auto; color: burlywood;" })
-                    <span style="float: right; margin-top: 25px; font-size: 20px; font-family: auto; color: burlywood;">Hello, @User.Identity.Name</span>
-                }
-                else
-                {
-                    @Html.ActionLink("Login", "Login", "Account", null, new { @style = "float: right; margin-left: 15px; margin-top: 25px; font-size: 20px; font-family: auto; color: burlywood;" })
-                }
+            <div class="navbar-collapse collapse" style="margin-right: 120px">
+                <span style="float: right; margin-top: 10px; font-size: 17px; font-family: auto;">@User.Identity.Name</span>
+            </div>
+        </div>
+        <div class="navbar navbar-light" style="min-height: 34px; margin-bottom: 0px;">
+            <div class="container" style="width: 100%;">
+                <ul class="header-menu list-inline mb-2" id="menuLinks" style="float: right;margin-right: 120px;">
+                    <li class="list-inline-item text-md">
+                        <a href="#" class="menu-item" id="support-menu-link"  onclick="btnOpenMyReports_Click()">
+                            <span class="myReportsIcon"></span> Saved Reports
+                        </a>
+                    </li>
+                    <li class="list-inline-item text-md">
+                        <a href="/Account/Logout" class="menu-item" id="signout">
+                            <span class="signOutIcon"></span> Sign out
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -48,7 +123,7 @@
         @RenderBody()
     </div>
     <div id="loading" style="display: none">
-        <img id="loading-image" src="images/ajax-loader-2.gif" alt="Loading..." />
+        <img id="loading-image" src="images/ajax-loader-2.gif" alt="Loading..." style="width: 178px; height: 178px" />
     </div>
     @RenderSection("scripts", required: false)
 </body>

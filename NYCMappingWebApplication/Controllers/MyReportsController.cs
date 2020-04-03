@@ -14,7 +14,7 @@ namespace NYCMappingWebApp.Controllers
         // GET: MyReports
         public ActionResult Preview()
         {
-            return View(db.MyReports.Where(w => w.Username == User.Identity.Name).ToList());
+            return View(db.MyReports.Where(w => w.Username == User.Identity.Name).OrderByDescending(w => w.ID).ToList());
         }
     }
 }

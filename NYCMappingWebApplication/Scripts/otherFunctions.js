@@ -1,6 +1,17 @@
 ﻿var maxTotalBuildingFloorArea = 67000000, maxCommercialFloorArea = 24000000, maxResidentialFloorArea = 14000000
-    , maxNumberOfFloors = 210, maxResidentialUnits = 11000, AssessedTotalValue = 7200000000
+    , maxNumberOfFloors = 210, maxResidentialUnits = 11000, maxAssessedTotalValue = 7200000000
     , maxEnergyStarScore = 100, maxSourceEUI = 29000000, maxSiteEUI = 25000000, maxAnnualMaximumDemand = 2600000, maxTotalGHGEmissions = 540000000
+
+var lstBuildingClass = ["cbOfficeO1", "cbOfficeO2", "cbOfficeO3", "cbOfficeO4"
+    , "cbIndustrialF1", "cbIndustrialF2", "cbIndustrialF4", "cbIndustrialF5", "cbIndustrialF8", "cbIndustrialF9", "cbRetailK1", "cbOfficeO4"
+    , "cbRetailK2", "cbRetailK3", "cbRetailK4", "cbRetailK5", "cbRetailK6", "cbRetailK8", "cbHotelH1", "cbHotelH2"
+    , "cbHotelH3", "cbHotelH4", "cbHotelH5", "cbHotelH6", "cbHotelH7", "cbCondominiumsCoopR1", "cbCondominiumsCoopR2"
+    , "cbCondominiumsCoopR3", "cbCondominiumsCoopR4", "cbCondominiumsCoopR5", "cbCondominiumsCoopR6", "cbCondominiumsCoopR7", "cbCondominiumsCoopR8", "cbCondominiumsCoopR9"
+    , "cbCondominiumsCoopC8", "cbCondominiumsCoopD0", "cbCondominiumsCoopD5", "cbRentalResidentialC0", "cbRentalResidentialC1", "cbRentalResidentialC2", "cbRentalResidentialC3"
+    , "cbRentalResidentialC4", "cbRentalResidentialC5", "cbRentalResidentialC6", "cbRentalResidentialD1", "cbRentalResidentialD2", "cbRentalResidentialD3", "cbRentalResidentialD6"
+    , "cbRentalResidentialD7", "cbRentalResidentialD8", "cbForProfitOwnedHealthcareI1", "cbForProfitOwnedHealthcareI2", "cbForProfitOwnedHealthcareI3", "cbForProfitOwnedHealthcareI4"
+    , "cbForProfitOwnedHealthcareI5", "cbForProfitOwnedHealthcareI6", "cbForProfitOwnedHealthcareI7"];
+var lstTableAttributes = [];
 $(function () {
     $("#slider-range-TotalBuildingFloorArea").slider({
         range: true,
@@ -8,11 +19,11 @@ $(function () {
         max: maxTotalBuildingFloorArea,
         values: [0, maxTotalBuildingFloorArea],
         slide: function (event, ui) {
-            $("#txtTotalBuildingFloorArea").val(ui.values[0] + " - " + ui.values[1]);
+            $("#txtTotalBuildingFloorArea").val(ui.values[0].toLocaleString('en') + " - " + ui.values[1].toLocaleString('en'));
         }
     });
-    $("#txtTotalBuildingFloorArea").val($("#slider-range-TotalBuildingFloorArea").slider("values", 0) +
-      " - " + $("#slider-range-TotalBuildingFloorArea").slider("values", 1));
+    $("#txtTotalBuildingFloorArea").val($("#slider-range-TotalBuildingFloorArea").slider("values", 0).toLocaleString('en') +
+        " - " + $("#slider-range-TotalBuildingFloorArea").slider("values", 1).toLocaleString('en'));
 
     $("#slider-range-CommercialFloorArea").slider({
         range: true,
@@ -20,11 +31,11 @@ $(function () {
         max: maxCommercialFloorArea,
         values: [0, maxCommercialFloorArea],
         slide: function (event, ui) {
-            $("#txtCommercialFloorArea").val(ui.values[0] + " - " + ui.values[1]);
+            $("#txtCommercialFloorArea").val(ui.values[0].toLocaleString('en') + " - " + ui.values[1].toLocaleString('en'));
         }
     });
-    $("#txtCommercialFloorArea").val($("#slider-range-CommercialFloorArea").slider("values", 0) +
-      " - " + $("#slider-range-CommercialFloorArea").slider("values", 1));
+    $("#txtCommercialFloorArea").val($("#slider-range-CommercialFloorArea").slider("values", 0).toLocaleString('en') +
+        " - " + $("#slider-range-CommercialFloorArea").slider("values", 1).toLocaleString('en'));
 
     $("#slider-range-ResidentialFloorArea").slider({
         range: true,
@@ -32,11 +43,11 @@ $(function () {
         max: maxResidentialFloorArea,
         values: [0, maxResidentialFloorArea],
         slide: function (event, ui) {
-            $("#txtResidentialFloorArea").val(ui.values[0] + " - " + ui.values[1]);
+            $("#txtResidentialFloorArea").val(ui.values[0].toLocaleString('en') + " - " + ui.values[1].toLocaleString('en'));
         }
     });
-    $("#txtResidentialFloorArea").val($("#slider-range-ResidentialFloorArea").slider("values", 0) +
-      " - " + $("#slider-range-ResidentialFloorArea").slider("values", 1));
+    $("#txtResidentialFloorArea").val($("#slider-range-ResidentialFloorArea").slider("values", 0).toLocaleString('en') +
+        " - " + $("#slider-range-ResidentialFloorArea").slider("values", 1).toLocaleString('en'));
 
     $("#slider-range-NumberOfFloors").slider({
         range: true,
@@ -44,11 +55,11 @@ $(function () {
         max: maxNumberOfFloors,
         values: [0, maxNumberOfFloors],
         slide: function (event, ui) {
-            $("#txtNumberOfFloors").val(ui.values[0] + " - " + ui.values[1]);
+            $("#txtNumberOfFloors").val(ui.values[0].toLocaleString('en') + " - " + ui.values[1].toLocaleString('en'));
         }
     });
-    $("#txtNumberOfFloors").val($("#slider-range-NumberOfFloors").slider("values", 0) +
-      " - " + $("#slider-range-NumberOfFloors").slider("values", 1));
+    $("#txtNumberOfFloors").val($("#slider-range-NumberOfFloors").slider("values", 0).toLocaleString('en') +
+        " - " + $("#slider-range-NumberOfFloors").slider("values", 1).toLocaleString('en'));
 
     $("#slider-range-ResidentialUnits").slider({
         range: true,
@@ -56,23 +67,23 @@ $(function () {
         max: maxResidentialUnits,
         values: [0, maxResidentialUnits],
         slide: function (event, ui) {
-            $("#txtResidentialUnits").val(ui.values[0] + " - " + ui.values[1]);
+            $("#txtResidentialUnits").val(ui.values[0].toLocaleString('en') + " - " + ui.values[1].toLocaleString('en'));
         }
     });
-    $("#txtResidentialUnits").val($("#slider-range-ResidentialUnits").slider("values", 0) +
-      " - " + $("#slider-range-ResidentialUnits").slider("values", 1));
+    $("#txtResidentialUnits").val($("#slider-range-ResidentialUnits").slider("values", 0).toLocaleString('en') +
+        " - " + $("#slider-range-ResidentialUnits").slider("values", 1).toLocaleString('en'));
 
     $("#slider-range-AssessedTotalValue").slider({
         range: true,
         min: 0,
-        max: AssessedTotalValue,
-        values: [0, AssessedTotalValue],
+        max: maxAssessedTotalValue,
+        values: [0, maxAssessedTotalValue],
         slide: function (event, ui) {
-            $("#txtAssessedTotalValue").val(ui.values[0] + " - " + ui.values[1]);
+            $("#txtAssessedTotalValue").val("$" + ui.values[0].toLocaleString('en') + " - $" + ui.values[1].toLocaleString('en'));
         }
     });
-    $("#txtAssessedTotalValue").val($("#slider-range-AssessedTotalValue").slider("values", 0) +
-      " - " + $("#slider-range-AssessedTotalValue").slider("values", 1));
+    $("#txtAssessedTotalValue").val("$" + $("#slider-range-AssessedTotalValue").slider("values", 0).toLocaleString('en') +
+        " - $" + $("#slider-range-AssessedTotalValue").slider("values", 1).toLocaleString('en'));
 
     $("#slider-range-YearBuild").slider({
         range: true,
@@ -84,7 +95,7 @@ $(function () {
         }
     });
     $("#txtYearBuild").val($("#slider-range-YearBuild").slider("values", 0) +
-      " - " + $("#slider-range-YearBuild").slider("values", 1));
+        " - " + $("#slider-range-YearBuild").slider("values", 1));
 
     $("#slider-range-EnergyStarScore").slider({
         range: true,
@@ -92,11 +103,11 @@ $(function () {
         max: maxEnergyStarScore,
         values: [0, maxEnergyStarScore],
         slide: function (event, ui) {
-            $("#txtEnergyStarScore").val(ui.values[0] + " - " + ui.values[1]);
+            $("#txtEnergyStarScore").val(ui.values[0].toLocaleString('en') + " - " + ui.values[1].toLocaleString('en'));
         }
     });
-    $("#txtEnergyStarScore").val($("#slider-range-EnergyStarScore").slider("values", 0) +
-      " - " + $("#slider-range-EnergyStarScore").slider("values", 1));
+    $("#txtEnergyStarScore").val($("#slider-range-EnergyStarScore").slider("values", 0).toLocaleString('en') +
+        " - " + $("#slider-range-EnergyStarScore").slider("values", 1).toLocaleString('en'));
 
     $("#slider-range-SourceEUI").slider({
         range: true,
@@ -104,11 +115,11 @@ $(function () {
         max: maxSourceEUI,
         values: [0, maxSourceEUI],
         slide: function (event, ui) {
-            $("#txtSourceEUI").val(ui.values[0] + " - " + ui.values[1]);
+            $("#txtSourceEUI").val(ui.values[0].toLocaleString('en') + " - " + ui.values[1].toLocaleString('en'));
         }
     });
-    $("#txtSourceEUI").val($("#slider-range-SourceEUI").slider("values", 0) +
-      " - " + $("#slider-range-SourceEUI").slider("values", 1));
+    $("#txtSourceEUI").val($("#slider-range-SourceEUI").slider("values", 0).toLocaleString('en') +
+        " - " + $("#slider-range-SourceEUI").slider("values", 1).toLocaleString('en'));
 
     $("#slider-range-SiteEUI").slider({
         range: true,
@@ -116,11 +127,11 @@ $(function () {
         max: maxSiteEUI,
         values: [0, maxSiteEUI],
         slide: function (event, ui) {
-            $("#txtSiteEUI").val(ui.values[0] + " - " + ui.values[1]);
+            $("#txtSiteEUI").val(ui.values[0].toLocaleString('en') + " - " + ui.values[1].toLocaleString('en'));
         }
     });
-    $("#txtSiteEUI").val($("#slider-range-SiteEUI").slider("values", 0) +
-      " - " + $("#slider-range-SiteEUI").slider("values", 1));
+    $("#txtSiteEUI").val($("#slider-range-SiteEUI").slider("values", 0).toLocaleString('en') +
+        " - " + $("#slider-range-SiteEUI").slider("values", 1).toLocaleString('en'));
 
     $("#slider-range-AnnualMaximumDemand").slider({
         range: true,
@@ -128,11 +139,11 @@ $(function () {
         max: maxAnnualMaximumDemand,
         values: [0, maxAnnualMaximumDemand],
         slide: function (event, ui) {
-            $("#txtAnnualMaximumDemand").val(ui.values[0] + " - " + ui.values[1]);
+            $("#txtAnnualMaximumDemand").val(ui.values[0].toLocaleString('en') + " - " + ui.values[1].toLocaleString('en'));
         }
     });
-    $("#txtAnnualMaximumDemand").val($("#slider-range-AnnualMaximumDemand").slider("values", 0) +
-      " - " + $("#slider-range-AnnualMaximumDemand").slider("values", 1));
+    $("#txtAnnualMaximumDemand").val($("#slider-range-AnnualMaximumDemand").slider("values", 0).toLocaleString('en') +
+        " - " + $("#slider-range-AnnualMaximumDemand").slider("values", 1).toLocaleString('en'));
 
     $("#slider-range-TotalGHGEmissions").slider({
         range: true,
@@ -140,11 +151,11 @@ $(function () {
         max: maxTotalGHGEmissions,
         values: [0, maxTotalGHGEmissions],
         slide: function (event, ui) {
-            $("#txtTotalGHGEmissions").val(ui.values[0] + " - " + ui.values[1]);
+            $("#txtTotalGHGEmissions").val(ui.values[0].toLocaleString('en') + " - " + ui.values[1].toLocaleString('en'));
         }
     });
-    $("#txtTotalGHGEmissions").val($("#slider-range-TotalGHGEmissions").slider("values", 0) +
-      " - " + $("#slider-range-TotalGHGEmissions").slider("values", 1));
+    $("#txtTotalGHGEmissions").val($("#slider-range-TotalGHGEmissions").slider("values", 0).toLocaleString('en') +
+        " - " + $("#slider-range-TotalGHGEmissions").slider("values", 1).toLocaleString('en'));
 
 });
 
@@ -163,27 +174,27 @@ function btnReset() {
     document.getElementById("cbTotalBuildingFloorArea").checked = false;
     $("#slider-range-TotalBuildingFloorArea").slider("values", 0, 0);
     $("#slider-range-TotalBuildingFloorArea").slider("values", 1, maxTotalBuildingFloorArea);
-    $("#txtTotalBuildingFloorArea").val($("#slider-range-TotalBuildingFloorArea").slider("values", 0) + " - " + $("#slider-range-TotalBuildingFloorArea").slider("values", 1));
+    $("#txtTotalBuildingFloorArea").val($("#slider-range-TotalBuildingFloorArea").slider("values", 0) + " - " + $("#slider-range-TotalBuildingFloorArea").slider("values", 1).toLocaleString('en'));
 
     document.getElementById("cbCommercialFloorArea").checked = false;
     $("#slider-range-CommercialFloorArea").slider("values", 0, 0);
     $("#slider-range-CommercialFloorArea").slider("values", 1, maxCommercialFloorArea);
-    $("#txtCommercialFloorArea").val($("#slider-range-CommercialFloorArea").slider("values", 0) + " - " + $("#slider-range-CommercialFloorArea").slider("values", 1));
+    $("#txtCommercialFloorArea").val($("#slider-range-CommercialFloorArea").slider("values", 0) + " - " + $("#slider-range-CommercialFloorArea").slider("values", 1).toLocaleString('en'));
 
     document.getElementById("cbResidentialFloorArea").checked = false;
     $("#slider-range-ResidentialFloorArea").slider("values", 0, 0);
     $("#slider-range-ResidentialFloorArea").slider("values", 1, maxResidentialFloorArea);
-    $("#txtResidentialFloorArea").val($("#slider-range-ResidentialFloorArea").slider("values", 0) + " - " + $("#slider-range-ResidentialFloorArea").slider("values", 1));
+    $("#txtResidentialFloorArea").val($("#slider-range-ResidentialFloorArea").slider("values", 0) + " - " + $("#slider-range-ResidentialFloorArea").slider("values", 1).toLocaleString('en'));
 
     document.getElementById("cbNumberOfFloors").checked = false;
     $("#slider-range-NumberOfFloors").slider("values", 0, 0);
     $("#slider-range-NumberOfFloors").slider("values", 1, maxNumberOfFloors);
-    $("#txtNumberOfFloors").val($("#slider-range-NumberOfFloors").slider("values", 0) + " - " + $("#slider-range-NumberOfFloors").slider("values", 1));
+    $("#txtNumberOfFloors").val($("#slider-range-NumberOfFloors").slider("values", 0) + " - " + $("#slider-range-NumberOfFloors").slider("values", 1).toLocaleString('en'));
 
     document.getElementById("cbResidentialUnits").checked = false;
     $("#slider-range-ResidentialUnits").slider("values", 0, 0);
     $("#slider-range-ResidentialUnits").slider("values", 1, maxResidentialUnits);
-    $("#txtResidentialUnits").val($("#slider-range-ResidentialUnits").slider("values", 0) + " - " + $("#slider-range-ResidentialUnits").slider("values", 1));
+    $("#txtResidentialUnits").val($("#slider-range-ResidentialUnits").slider("values", 0) + " - " + $("#slider-range-ResidentialUnits").slider("values", 1).toLocaleString('en'));
 
     document.getElementById("cbZoningDistrict").checked = false;
     document.getElementById("cbCommercialOverlay").checked = false;
@@ -197,8 +208,8 @@ function btnReset() {
 
     document.getElementById("cbAssessedTotalValue").checked = false;
     $("#slider-range-AssessedTotalValue").slider("values", 0, 0);
-    $("#slider-range-AssessedTotalValue").slider("values", 1, AssessedTotalValue);
-    $("#txtAssessedTotalValue").val($("#slider-range-AssessedTotalValue").slider("values", 0) + " - " + $("#slider-range-AssessedTotalValue").slider("values", 1));
+    $("#slider-range-AssessedTotalValue").slider("values", 1, maxAssessedTotalValue);
+    $("#txtAssessedTotalValue").val("$" + $("#slider-range-AssessedTotalValue").slider("values", 0) + " - $" + $("#slider-range-AssessedTotalValue").slider("values", 1).toLocaleString('en'));
 
     document.getElementById("cbYearBuild").checked = false;
     $("#slider-range-YearBuild").slider("values", 0, 1650);
@@ -210,36 +221,33 @@ function btnReset() {
     $('#divSelectItemsMessage').hide();
     $('#divSelectItemsCount').hide();
 
-    var rbSelected = document.querySelector('input[name="BuildingClass"]:checked');
-    if (rbSelected != undefined) {
-        document.querySelector('input[name="BuildingClass"]:checked').checked = false;
-    }
+    uncheckBuildingClass();
     $('.panel-collapse.in').collapse('toggle');
 
     document.getElementById("cbEnergyStarScore").checked = false;
     $("#slider-range-EnergyStarScore").slider("values", 0, 0);
     $("#slider-range-EnergyStarScore").slider("values", 1, maxEnergyStarScore);
-    $("#txtEnergyStarScore").val($("#slider-range-EnergyStarScore").slider("values", 0) + " - " + $("#slider-range-EnergyStarScore").slider("values", 1));
+    $("#txtEnergyStarScore").val($("#slider-range-EnergyStarScore").slider("values", 0) + " - " + $("#slider-range-EnergyStarScore").slider("values", 1).toLocaleString('en'));
 
     document.getElementById("cbSourceEUI").checked = false;
     $("#slider-range-SourceEUI").slider("values", 0, 0);
     $("#slider-range-SourceEUI").slider("values", 1, maxSourceEUI);
-    $("#txtSourceEUI").val($("#slider-range-SourceEUI").slider("values", 0) + " - " + $("#slider-range-SourceEUI").slider("values", 1));
+    $("#txtSourceEUI").val($("#slider-range-SourceEUI").slider("values", 0) + " - " + $("#slider-range-SourceEUI").slider("values", 1).toLocaleString('en'));
 
     document.getElementById("cbSiteEUI").checked = false;
     $("#slider-range-SiteEUI").slider("values", 0, 0);
     $("#slider-range-SiteEUI").slider("values", 1, maxSiteEUI);
-    $("#txtSiteEUI").val($("#slider-range-SiteEUI").slider("values", 0) + " - " + $("#slider-range-SiteEUI").slider("values", 1));
+    $("#txtSiteEUI").val($("#slider-range-SiteEUI").slider("values", 0) + " - " + $("#slider-range-SiteEUI").slider("values", 1).toLocaleString('en'));
 
     document.getElementById("cbAnnualMaximumDemand").checked = false;
     $("#slider-range-AnnualMaximumDemand").slider("values", 0, 0);
     $("#slider-range-AnnualMaximumDemand").slider("values", 1, maxAnnualMaximumDemand);
-    $("#txtAnnualMaximumDemand").val($("#slider-range-AnnualMaximumDemand").slider("values", 0) + " - " + $("#slider-range-AnnualMaximumDemand").slider("values", 1));
+    $("#txtAnnualMaximumDemand").val($("#slider-range-AnnualMaximumDemand").slider("values", 0) + " - " + $("#slider-range-AnnualMaximumDemand").slider("values", 1).toLocaleString('en'));
 
     document.getElementById("cbTotalGHGEmissions").checked = false;
     $("#slider-range-TotalGHGEmissions").slider("values", 0, 0);
     $("#slider-range-TotalGHGEmissions").slider("values", 1, maxTotalGHGEmissions);
-    $("#txtTotalGHGEmissions").val($("#slider-range-TotalGHGEmissions").slider("values", 0) + " - " + $("#slider-range-TotalGHGEmissions").slider("values", 1));
+    $("#txtTotalGHGEmissions").val($("#slider-range-TotalGHGEmissions").slider("values", 0) + " - " + $("#slider-range-TotalGHGEmissions").slider("values", 1).toLocaleString('en'));
 
     if ($('.slider-bottom-arrow').hasClass("hideBottomPanel")) {
         $('.slider-bottom-arrow').click();
@@ -251,14 +259,15 @@ function btnReset() {
 }
 
 function btnSearch() {
+    lstTableAttributes = [{ name: 'Borough', attribute: "Borough", dataset: "Pluto" }, { name: 'Address', attribute: "Address", dataset: "Pluto" }];
     var Borough = null, ZipCodeRangeFrom = null, ZipCodeRangeTo = null, StreetAddress = null, Lat = null, Long = null
-    , TotalBuildingFloorAreaStart = null, TotalBuildingFloorAreaEnd = null, CommercialFloorAreaStart = null, CommercialFloorAreaEnd = null
-    , ResidentialFloorAreaStart = null, ResidentialFloorAreaEnd = null, NumberOfFloorsStart = null, NumberOfFloorsEnd = null
-    , ResidentialUnitsStart = null, ResidentialUnitsEnd = null
-    , ZoningDistrict, CommercialOverlay, AssessedTotalValueStart, AssessedTotalValueEnd, YearBuildStart, YearBuildEnd
-    , EnergyStarScoreStart = null, EnergyStarScoreEnd = null, SourceEUIStart = null, SourceEUIEnd = null
-    , SiteEUIStart = null, SiteEUIEnd = null, AnnualMaximumDemandStart = null, AnnualMaximumDemandEnd = null
-    , TotalGHGEmissionsStart = null, TotalGHGEmissionsEnd = null;
+        , TotalBuildingFloorAreaStart = null, TotalBuildingFloorAreaEnd = null, CommercialFloorAreaStart = null, CommercialFloorAreaEnd = null
+        , ResidentialFloorAreaStart = null, ResidentialFloorAreaEnd = null, NumberOfFloorsStart = null, NumberOfFloorsEnd = null
+        , ResidentialUnitsStart = null, ResidentialUnitsEnd = null
+        , ZoningDistrict, CommercialOverlay, AssessedTotalValueStart, AssessedTotalValueEnd, YearBuildStart, YearBuildEnd
+        , EnergyStarScoreStart = null, EnergyStarScoreEnd = null, SourceEUIStart = null, SourceEUIEnd = null
+        , SiteEUIStart = null, SiteEUIEnd = null, AnnualMaximumDemandStart = null, AnnualMaximumDemandEnd = null
+        , TotalGHGEmissionsStart = null, TotalGHGEmissionsEnd = null;
     var whereClause = "";
     var whereEnergyClause = "";
     if (document.getElementById("cbBorough").checked == true) {
@@ -276,6 +285,7 @@ function btnSearch() {
         ZipCodeRangeFrom = document.getElementById("txtZipCodeRangeFrom").value;
         ZipCodeRangeTo = document.getElementById("txtZipCodeRangeTo").value;
         if (ZipCodeRangeFrom != "" || ZipCodeRangeTo != "") {
+            lstTableAttributes.push({ name: 'Zip Code', attribute: "ZipCode", dataset: "Pluto" });
             if (whereClause != "") {
                 whereClause += " AND ";
             }
@@ -309,18 +319,23 @@ function btnSearch() {
                 whereClause += " AND ";
             }
             if (Lat != "" && Long != "") {
+                lstTableAttributes.push({ name: 'Latitude', attribute: "Latitude", dataset: "Pluto" });
+                lstTableAttributes.push({ name: 'Longitude', attribute: "Longitude", dataset: "Pluto" });
                 whereClause += "Latitude = " + Lat + " AND Longitude = " + Long;
             }
             else if (Lat != "") {
+                lstTableAttributes.push({ name: 'Latitude', attribute: "Latitude", dataset: "Pluto" });
                 whereClause += "Latitude = " + Lat;;
             }
             else if (Long != "") {
+                lstTableAttributes.push({ name: 'Longitude', attribute: "Longitude", dataset: "Pluto" });
                 whereClause += "Longitude = " + Long;;
             }
         }
     }
 
     if (document.getElementById("cbTotalBuildingFloorArea").checked == true) {
+        lstTableAttributes.push({ name: 'Total Building Floor Area', attribute: "BldgArea", dataset: "Pluto" });
         TotalBuildingFloorAreaStart = $("#slider-range-TotalBuildingFloorArea").slider("values", 0);
         TotalBuildingFloorAreaEnd = $("#slider-range-TotalBuildingFloorArea").slider("values", 1);
         if (whereClause == "") {
@@ -331,6 +346,7 @@ function btnSearch() {
         }
     }
     if (document.getElementById("cbCommercialFloorArea").checked == true) {
+        lstTableAttributes.push({ name: 'Commercial Floor Area', attribute: "ComArea", dataset: "Pluto" });
         CommercialFloorAreaStart = $("#slider-range-CommercialFloorArea").slider("values", 0);
         CommercialFloorAreaEnd = $("#slider-range-CommercialFloorArea").slider("values", 1);
         if (whereClause == "") {
@@ -341,6 +357,7 @@ function btnSearch() {
         }
     }
     if (document.getElementById("cbResidentialFloorArea").checked == true) {
+        lstTableAttributes.push({ name: 'Residential Floor Area', attribute: "ResArea", dataset: "Pluto" });
         ResidentialFloorAreaStart = $("#slider-range-ResidentialFloorArea").slider("values", 0);
         ResidentialFloorAreaEnd = $("#slider-range-ResidentialFloorArea").slider("values", 1);
         if (whereClause == "") {
@@ -351,6 +368,7 @@ function btnSearch() {
         }
     }
     if (document.getElementById("cbNumberOfFloors").checked == true) {
+        lstTableAttributes.push({ name: 'Number of Floors', attribute: "NumFloors", dataset: "Pluto" });
         NumberOfFloorsStart = $("#slider-range-NumberOfFloors").slider("values", 0);
         NumberOfFloorsEnd = $("#slider-range-NumberOfFloors").slider("values", 1);
         if (whereClause == "") {
@@ -361,6 +379,7 @@ function btnSearch() {
         }
     }
     if (document.getElementById("cbResidentialUnits").checked == true) {
+        lstTableAttributes.push({ name: 'Residential Units', attribute: "UnitsRes", dataset: "Pluto" });
         ResidentialUnitsStart = $("#slider-range-ResidentialUnits").slider("values", 0);
         ResidentialUnitsEnd = $("#slider-range-ResidentialUnits").slider("values", 1);
         if (whereClause == "") {
@@ -376,6 +395,7 @@ function btnSearch() {
         var ddlZoningDistrict = document.getElementById("ddlZoningDistrict");
         var selectedZoningDistrict = ddlZoningDistrict.options[ddlZoningDistrict.selectedIndex].value;
         if (selectedZoningDistrict != "") {
+            lstTableAttributes.push({ name: 'Zoning District', attribute: "ZoneDist1", dataset: "Pluto" });
             if (whereClause == "") {
                 whereClause = selectedZoningDistrict;
             }
@@ -388,6 +408,8 @@ function btnSearch() {
         var ddlCommercialOverlay = document.getElementById("ddlCommercialOverlay");
         var selectedCommercialOverlay = ddlCommercialOverlay.options[ddlCommercialOverlay.selectedIndex].value;
         if (selectedCommercialOverlay != "") {
+            lstTableAttributes.push({ name: 'Commercial Overlay 1', attribute: "Overlay1", dataset: "Pluto" });
+            lstTableAttributes.push({ name: 'Commercial Overlay 2', attribute: "Overlay2", dataset: "Pluto" });
             if (whereClause == "") {
                 whereClause = selectedCommercialOverlay;
             }
@@ -397,6 +419,7 @@ function btnSearch() {
         }
     }
     if (document.getElementById("cbAssessedTotalValue").checked == true) {
+        lstTableAttributes.push({ name: 'Assessed Total Value', attribute: "AssessTot", dataset: "Pluto" });
         AssessedTotalValueStart = $("#slider-range-AssessedTotalValue").slider("values", 0);
         AssessedTotalValueEnd = $("#slider-range-AssessedTotalValue").slider("values", 1);
         if (whereClause == "") {
@@ -407,6 +430,7 @@ function btnSearch() {
         }
     }
     if (document.getElementById("cbYearBuild").checked == true) {
+        lstTableAttributes.push({ name: 'Year Built', attribute: "YearBuilt", dataset: "Pluto" });
         YearBuildStart = $("#slider-range-YearBuild").slider("values", 0);
         YearBuildEnd = $("#slider-range-YearBuild").slider("values", 1);
         if (whereClause == "") {
@@ -417,18 +441,32 @@ function btnSearch() {
         }
     }
     if (document.getElementById("cbBuildingClass").checked == true) {
-        var selectedBuildingClass = document.querySelector('input[name="BuildingClass"]:checked').value;
-        if (selectedBuildingClass != "") {
+        var buildingClassValues = "";
+        for (var i = 0; i < lstBuildingClass.length; i++) {
+            var name = lstBuildingClass[i];
+            if (document.getElementById(name).checked == true) {
+                if (buildingClassValues == "") {
+                    buildingClassValues = document.getElementById(name).value;
+                }
+                else {
+                    buildingClassValues += "," + document.getElementById(name).value;
+                }
+            }
+        }
+
+        if (buildingClassValues != "") {
+            lstTableAttributes.push({ name: 'Building Class', attribute: "BldgClass", dataset: "Pluto" });
             if (whereClause == "") {
-                whereClause = selectedBuildingClass;
+                whereClause = "BldgClass IN (" + buildingClassValues + ")";
             }
             else {
-                whereClause += " AND " + selectedBuildingClass;
+                whereClause += " AND BldgClass IN (" + buildingClassValues + ")";
             }
         }
     }
 
     if (document.getElementById("cbEnergyStarScore").checked == true) {
+        lstTableAttributes.push({ name: 'Energy Star Score', attribute: "energy_star_score", dataset: "Energy" });
         EnergyStarScoreStart = $("#slider-range-EnergyStarScore").slider("values", 0);
         EnergyStarScoreEnd = $("#slider-range-EnergyStarScore").slider("values", 1);
         if (whereEnergyClause == "") {
@@ -440,6 +478,7 @@ function btnSearch() {
     }
 
     if (document.getElementById("cbSourceEUI").checked == true) {
+        lstTableAttributes.push({ name: 'Source EUI', attribute: "source_eui_kbtu_ft", dataset: "Energy" });
         SourceEUIStart = $("#slider-range-SourceEUI").slider("values", 0);
         SourceEUIEnd = $("#slider-range-SourceEUI").slider("values", 1);
         if (whereEnergyClause == "") {
@@ -451,6 +490,7 @@ function btnSearch() {
     }
 
     if (document.getElementById("cbSiteEUI").checked == true) {
+        lstTableAttributes.push({ name: 'Site EUI', attribute: "site_eui_kbtu_ft", dataset: "Energy" });
         SiteEUIStart = $("#slider-range-SiteEUI").slider("values", 0);
         SiteEUIEnd = $("#slider-range-SiteEUI").slider("values", 1);
         if (whereEnergyClause == "") {
@@ -462,6 +502,7 @@ function btnSearch() {
     }
 
     if (document.getElementById("cbAnnualMaximumDemand").checked == true) {
+        lstTableAttributes.push({ name: 'Annual Maximum Demand', attribute: "annual_maximum_demand_kw", dataset: "Energy" });
         AnnualMaximumDemandStart = $("#slider-range-AnnualMaximumDemand").slider("values", 0);
         AnnualMaximumDemandEnd = $("#slider-range-AnnualMaximumDemand").slider("values", 1);
         if (whereEnergyClause == "") {
@@ -473,6 +514,7 @@ function btnSearch() {
     }
 
     if (document.getElementById("cbTotalGHGEmissions").checked == true) {
+        lstTableAttributes.push({ name: 'Total GHG Emissions', attribute: "total_ghg_emissions_metric", dataset: "Energy" });
         TotalGHGEmissionsStart = $("#slider-range-TotalGHGEmissions").slider("values", 0);
         TotalGHGEmissionsEnd = $("#slider-range-TotalGHGEmissions").slider("values", 1);
         if (whereEnergyClause == "") {
@@ -483,8 +525,7 @@ function btnSearch() {
         }
     }
 
-    if (whereClause != "" || whereEnergyClause != "") {
-        whereEnergyClause = whereEnergyClause != "" ? whereEnergyClause : "1=2";
+    if (whereEnergyClause != "") {
         $('#loading').show();
         $.ajax({
             url: "https://data.cityofnewyork.us/resource/n2mv-q2ia.json",
@@ -501,17 +542,15 @@ function btnSearch() {
                     bblList += field.bbl_10_digits + ",";
                 }
             });
-            if (whereEnergyClause != "1=2") {
-                bblList = bblList.replace(/.$/, ")");
-                bblList = bblList == "(" ? "(-1)" : bblList;
-                MapPlutoSearch(whereClause, bblList, dataEnergy);
-            }
-            else {
-                MapPlutoSearch(whereClause, null, null);
-            }
+            bblList = bblList.replace(/.$/, ")");
+            bblList = bblList == "(" ? "(-1)" : bblList;
+            MapPlutoSearch(whereClause, bblList, dataEnergy);
         }).fail(function () {
             $('#loading').hide();
         });
+    }
+    else if (whereClause != "") {
+        MapPlutoSearch(whereClause, null, null);
     }
     else {
         swal("Please choose some searching criteria first");
@@ -573,16 +612,10 @@ function MapPlutoSearch(whereClause, bblList, dataEnergy) {
 
 function CreateResultTable(resultFeatures, dataEnergy) {
     var features = [];
-    var htmlQueryRecords = '<div class="table-responsive"><table id=\"tblQueryRecords\" class="table table-bordered"><thead><tr class=\"clickableRow\">';
-    htmlQueryRecords += "<th>Borough</th>"
-        + "<th>Address</th>"
-        + "<th>Block</th>"
-        + "<th>Lot</th>"
-        + "<th>EnergyStar Score</th>"
-        + "<th>Source EUI</th>"
-        + "<th>Site EUI</th>"
-        + "<th>Annual Maximum Demand</th>"
-        + "<th>Total GHG Emissions</th>";
+    var htmlQueryRecords = '<div class="table-responsive"><table id=\"tblQueryRecords\" class="tablesorter"><thead><tr class=\"clickableRow\">';
+    for (var i = 0; i < lstTableAttributes.length; i++) {
+        htmlQueryRecords += "<th>" + lstTableAttributes[i].name + "</th>"
+    }
     htmlQueryRecords += "</tr></thead><tbody>";
     var dataEnergyItem = [];
     //Loop through each feature returned
@@ -594,39 +627,28 @@ function CreateResultTable(resultFeatures, dataEnergy) {
             });
         }
         var myGraphic = new esri.Graphic({
-            geometry: graphic.geometry,
-            attributes: {
-                "Borough": graphic.attributes.Borough,
-                "Address": graphic.attributes.Address,
-                "Block": graphic.attributes.Block,
-                "Lot": graphic.attributes.Lot,
-                "EnergyStarScore": (dataEnergyItem.length == 0 || dataEnergyItem[0].energy_star_score === undefined) ? "" : dataEnergyItem[0].energy_star_score,
-                "SourceEUI": (dataEnergyItem.length == 0 || dataEnergyItem[0].source_eui_kbtu_ft === undefined) ? "" : dataEnergyItem[0].source_eui_kbtu_ft,
-                "SiteEUI": (dataEnergyItem.length == 0 || dataEnergyItem[0].site_eui_kbtu_ft === undefined) ? "" : dataEnergyItem[0].site_eui_kbtu_ft,
-                "AnnualMaximumDemand": (dataEnergyItem.length == 0 || dataEnergyItem[0].annual_maximum_demand_kw === undefined) ? "" : dataEnergyItem[0].annual_maximum_demand_kw,
-                "TotalGHGEmissions": (dataEnergyItem.length == 0 || dataEnergyItem[0].total_ghg_emissions_metric === undefined) ? "" : dataEnergyItem[0].total_ghg_emissions_metric
-            }
+            geometry: graphic.geometry
         });
+        var jsonData = {};
+        for (var j = 0; j < lstTableAttributes.length; j++) {
+            var name = lstTableAttributes[j].name;
+            if (lstTableAttributes[j].dataset == "Pluto") {
+                value = graphic.attributes[lstTableAttributes[j].attribute];
+            }
+            else if (lstTableAttributes[j].dataset == "Energy") {
+                value = dataEnergyItem[0][lstTableAttributes[j].attribute];
+            }
+            jsonData[lstTableAttributes[j].attribute] = value;
+        }
+        myGraphic.setAttributes(jsonData);
         myGraphic.setSymbol(symbolFill);
         selectionLayer.add(myGraphic);
         features.push(graphic);
-        htmlQueryRecords += "<tr class=\"clickableRow\" OnClick=\"ShowInfoForSelectedRecord('" + graphic.attributes.OBJECTID + "');\"><td>" + graphic.attributes.Borough + "</td>"
-            + "<td>" + graphic.attributes.Address + "</td>"
-            + "<td>" + graphic.attributes.Block + "</td>"
-            + "<td>" + graphic.attributes.Lot + "</td>";
-        if (dataEnergyItem.length > 0) {
-            htmlQueryRecords += (dataEnergyItem[0].energy_star_score === undefined) ? "<td></td>" : "<td>" + dataEnergyItem[0].energy_star_score + "</td>";
-            htmlQueryRecords += (dataEnergyItem[0].source_eui_kbtu_ft === undefined) ? "<td></td>" : "<td>" + dataEnergyItem[0].source_eui_kbtu_ft + "</td>";
-            htmlQueryRecords += (dataEnergyItem[0].site_eui_kbtu_ft === undefined) ? "<td></td>" : "<td>" + dataEnergyItem[0].site_eui_kbtu_ft + "</td>";
-            htmlQueryRecords += (dataEnergyItem[0].annual_maximum_demand_kw === undefined) ? "<td></td>" : "<td>" + dataEnergyItem[0].annual_maximum_demand_kw + "</td>";
-            htmlQueryRecords += (dataEnergyItem[0].total_ghg_emissions_metric === undefined) ? "<td></td>" : "<td>" + dataEnergyItem[0].total_ghg_emissions_metric + "</td>";
-        }
-        else {
-            htmlQueryRecords += "<td></td>"
-                             + "<td></td>"
-                             + "<td></td>"
-                             + "<td></td>"
-                             + "<td></td>";
+        htmlQueryRecords += "<tr class=\"clickableRow\" OnClick=\"ShowInfoForSelectedRecord('" + graphic.attributes.OBJECTID + "');\">";
+        for (var key in myGraphic.attributes) {
+            if (myGraphic.attributes.hasOwnProperty(key)) {
+                htmlQueryRecords += "<td>" + myGraphic.attributes[key] + "</td>";
+            }
         }
         htmlQueryRecords += "</tr>";
     }
@@ -641,7 +663,7 @@ function CreateResultTable(resultFeatures, dataEnergy) {
     htmlQueryRecords += '</tr></tbody></table></div>';
     $('#divSelectItemsTable').text('');
     $('#divSelectItemsTable').append(htmlQueryRecords);
-    $("#tblQueryRecords").tablesorter();
+    $("#tblQueryRecords").tablesorter({ widgets: ['zebra'] });
     $('#divSelectItemsMessage').hide();
     $('#divSelectItemsMoreInfo').show();
     $('#divSelectItemsCount').show();
@@ -711,17 +733,12 @@ function btnSaveMyReport_Click() {
         var tableFeatures = [];
         var tblTableItems = selectionLayer.graphics;
         tblTableItems.forEach((item) => {
-            var obj = {
-                "Borough": item.attributes.Borough,
-                "Address": item.attributes.Address,
-                "Block": item.attributes.Block,
-                "Lot": item.attributes.Lot,
-                "EnergyStarScore": item.attributes.EnergyStarScore,
-                "SourceEUI": item.attributes.SourceEUI,
-                "SiteEUI": item.attributes.SiteEUI,
-                "AnnualMaximumDemand": item.attributes.AnnualMaximumDemand,
-                "TotalGHGEmissions": item.attributes.TotalGHGEmissions
-            };
+            var obj = {};
+            for (var j = 0; j < lstTableAttributes.length; j++) {
+                var name = lstTableAttributes[j].name;
+                var value = item.attributes[lstTableAttributes[j].attribute];
+                obj[lstTableAttributes[j].attribute] = value;
+            }
             tableFeatures.push(obj);
         });
         var tableFeatures = JSON.stringify(tableFeatures);
@@ -773,10 +790,10 @@ $(function () {
         var anchor = this;
         var removeClass = "showPanel";
         var addClass = "hidePanel";
-        var diff = "+=40%";
+        var diff = "+=260px";
         var arrows = "&laquo;Close Panel";
         if ($(anchor).hasClass("hidePanel")) {
-            diff = "-=40%";
+            diff = "-=260px";
             removeClass = "hidePanel";
             addClass = "showPanel";
             arrows = "&raquo;Search Options";
@@ -797,10 +814,10 @@ $(function () {
         var anchor = this;
         var removeClass = "showBottomPanel";
         var addClass = "hideBottomPanel";
-        var diff = "+=40%";
+        var diff = "+=260px";
         var arrows = "&ReverseUpEquilibrium;";
         if ($(anchor).hasClass("hideBottomPanel")) {
-            diff = "-=40%";
+            diff = "-=260px";
             removeClass = "hideBottomPanel";
             addClass = "showBottomPanel";
         }
@@ -826,24 +843,24 @@ function openModalWindow(url, w, h, title, isModal, iframeId) {
         height = h;
 
     var $dialog = $('<div></div>')
-               .css({ overflow: "hidden" })
-               .html('<iframe id=' + iframeId + ' style="border: 0px; " src="' + url + '" width="100%" height="100%"></iframe>')
-               .dialog({
-                   autoOpen: false,
-                   modal: isModal,
-                   height: height,
-                   width: w,
-                   title: title,
-                   buttons: {
-                       Close: function () {
-                           $(this).dialog("close");
-                       }
-                   },
-                   closeOnEscape: false,
-                   open: function (event, ui) {
-                       $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
-                   }
-               });
+        .css({ overflow: "hidden" })
+        .html('<iframe id=' + iframeId + ' style="border: 0px; " src="' + url + '" width="100%" height="100%"></iframe>')
+        .dialog({
+            autoOpen: false,
+            modal: isModal,
+            height: height,
+            width: w,
+            title: title,
+            buttons: {
+                Close: function () {
+                    $(this).dialog("close");
+                }
+            },
+            closeOnEscape: false,
+            open: function (event, ui) {
+                $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+            }
+        });
     $dialog.dialog('open');
 }
 if (!$.ui.dialog.prototype._makeDraggableBase) {
@@ -852,4 +869,61 @@ if (!$.ui.dialog.prototype._makeDraggableBase) {
         this._makeDraggableBase();
         this.uiDialog.draggable("option", "containment", false);
     };
+}
+
+function txtSlider_KeyUp(x, name) {
+    var maxValueTotal;
+    switch (name) {
+        case "TotalBuildingFloorArea": maxValueTotal = maxTotalBuildingFloorArea; break
+        case "CommercialFloorArea": maxValueTotal = maxCommercialFloorArea; break
+        case "ResidentialFloorArea": maxValueTotal = maxResidentialFloorArea; break
+        case "ResidentialUnits": maxValueTotal = maxResidentialUnits; break
+        case "SourceEUI": maxValueTotal = maxSourceEUI; break
+        case "SiteEUI": maxValueTotal = maxSiteEUI; break
+        case "AnnualMaximumDemand": maxValueTotal = maxAnnualMaximumDemand; break
+        case "TotalGHGEmissions": maxValueTotal = maxTotalGHGEmissions; break
+        case "AssessedTotalValue": maxValueTotal = maxAssessedTotalValue; break
+        default: return
+    }
+    try {
+        var array = x.value.split('-');
+        var minValue = array[0].trim().startsWith("$") ? Number(array[0].trim().substr(1).replace(/,/g, '')) : Number(array[0].trim().replace(/,/g, ''));
+        var maxValue = array[1].trim().startsWith("$") ? Number(array[1].trim().substr(1).replace(/,/g, '')) : Number(array[1].trim().replace(/,/g, ''));
+        var cond1 = array.length == 2;
+        var cond2 = !isNaN(minValue);
+        var cond3 = !isNaN(maxValue);
+        var minValue = minValue < 0 ? 0 : minValue;
+        var maxValue = maxValue > maxValueTotal ? maxValueTotal : maxValue;
+        if (cond1 && cond2 && cond3) {
+            $("#slider-range-" + name).slider("values", 0, minValue);
+            $("#slider-range-" + name).slider("values", 1, maxValue);
+        }
+        else {
+            $("#slider-range-" + name).slider("values", 0, 0);
+            $("#slider-range-" + name).slider("values", 1, maxValueTotal);
+            if (name == "AssessedTotalValue") {
+                $("#txt" + name).val("$0 - $" + maxValueTotal.toLocaleString('en'));
+            }
+            else {
+                $("#txt" + name).val("0 - " + maxValueTotal.toLocaleString('en'));
+            }
+        }
+    }
+    catch (e) {
+        $("#slider-range-" + name).slider("values", 0, 0);
+        $("#slider-range-" + name).slider("values", 1, maxValueTotal);
+        if (name == "AssessedTotalValue") {
+            $("#txt" + name).val("$0 - $" + maxValueTotal.toLocaleString('en'));
+        }
+        else {
+            $("#txt" + name).val("0 - " + maxValueTotal.toLocaleString('en'));
+        }
+    }
+}
+
+function uncheckBuildingClass() {
+    for (var i = 0; i < lstBuildingClass.length; i++) {
+        var name = lstBuildingClass[i];
+        document.getElementById(name).checked = false;
+    }
 }
