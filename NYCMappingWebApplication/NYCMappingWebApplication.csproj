@@ -257,6 +257,8 @@
       <LastGenOutput>DataModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <Content Include="Images\favicon.png" />
+    <Content Include="Images\i_logout.png" />
+    <Content Include="Images\i_saved_reports.png" />
     <Content Include="Models\DataModel.edmx.diagram">
       <DependentUpon>DataModel.edmx</DependentUpon>
     </Content>

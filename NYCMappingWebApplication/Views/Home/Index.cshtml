@@ -3,11 +3,31 @@
 }
 <script>
     MapPlutoUrl = "@(System.Configuration.ConfigurationManager.AppSettings["MapPlutoUrl"])";
+    $(function () {
+        $(".leftcolumn").resizable(
+            {
+                autoHide: true,
+                handles: 'e',
+                resize: function (e, ui) {
+                    var parent = ui.element.parent();
+                    var greenboxspace = parent.width() - ui.element.outerWidth(),
+                        redbox = ui.element.next(),
+                        redboxwidth = (greenboxspace - (redbox.outerWidth() - redbox.width())) / parent.width() * 100 + "%";
+                    redbox.width(redboxwidth);
+                },
+                stop: function (e, ui) {
+                    var parent = ui.element.parent();
+                    ui.element.css(
+                        {
+                            width: ui.element.width() / parent.width() * 100 + "%",
+                        });
+                }
+            });
+    });
 </script>
 <div class="row" style="margin:0px; height: 100%">
-    <div class="col-md-3" style="height: 100%; overflow: auto;">
+    <div class="col-md-3 leftcolumn" style="height: 100%; overflow: auto; overflow-x: hidden">
         <form class="form-horizontal">
-            <button id="btnOpenMyReports" type="button" class="btn btn-primary btn-sm" style="float: right;" onclick="btnOpenMyReports_Click()">My Reports</button>
             <h3>Location</h3>
             <div class="form-group">
                 <div class="col-sm-offset-1 col-sm-11">

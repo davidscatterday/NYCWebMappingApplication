@@ -790,10 +790,10 @@ $(function () {
         var anchor = this;
         var removeClass = "showPanel";
         var addClass = "hidePanel";
-        var diff = "+=40%";
+        var diff = "+=260px";
         var arrows = "&laquo;Close Panel";
         if ($(anchor).hasClass("hidePanel")) {
-            diff = "-=40%";
+            diff = "-=260px";
             removeClass = "hidePanel";
             addClass = "showPanel";
             arrows = "&raquo;Search Options";
@@ -814,10 +814,10 @@ $(function () {
         var anchor = this;
         var removeClass = "showBottomPanel";
         var addClass = "hideBottomPanel";
-        var diff = "+=40%";
+        var diff = "+=260px";
         var arrows = "&ReverseUpEquilibrium;";
         if ($(anchor).hasClass("hideBottomPanel")) {
-            diff = "-=40%";
+            diff = "-=260px";
             removeClass = "hideBottomPanel";
             addClass = "showBottomPanel";
         }

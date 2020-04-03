@@ -8,7 +8,7 @@ html, body, body-content, map {
 }
 
 body {
-    padding-top: 65px;
+    padding-top: 94px;
     overflow: hidden;
 }
 
@@ -98,4 +98,21 @@ input[type=text] {
 
 .showBottomPanel {
     width: 50px;
+}
+
+.myReportsIcon {
+    background: url(/Images/i_saved_reports.png) no-repeat top left;
+    width: 16px;
+    height: 16px;
+    display: block;
+    float: left;
+    margin-right: 5px;
+}
+.signOutIcon {
+    background: url(/Images/i_logout.png) no-repeat top left;
+    width: 16px;
+    height: 16px;
+    display: block;
+    float: left;
+    margin-right: 5px;
 }
