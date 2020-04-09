@@ -37,5 +37,12 @@ namespace NYCMappingWebApp.Entities
         public string site_eui_kbtu_ft { get; set; }
         public string annual_maximum_demand_kw { get; set; }
         public string total_ghg_emissions_metric { get; set; }
+        public string OwnerName { get; set; }
+        public string job_start_date { get; set; }
+        public string job_type { get; set; }
+        public string work_type { get; set; }
+        public string issue_date { get; set; }
+        public string violation_type { get; set; }
+        public string violation_category { get; set; }
     }
 }

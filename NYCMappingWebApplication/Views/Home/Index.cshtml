@@ -28,463 +28,616 @@
 <div class="row" style="margin:0px; height: 100%">
     <div class="col-md-3 leftcolumn" style="height: 100%; overflow: auto; overflow-x: hidden">
         <form class="form-horizontal">
-            <h3>Location</h3>
             <div class="form-group">
-                <div class="col-sm-offset-1 col-sm-11">
-                    <label for="cbBorough">
-                        <input id="cbBorough" type="checkbox">Borough
-                    </label>
-                    <input type="text" id="txtBoroughs" placeholder="Select Borough" />
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-1 col-sm-4">
-                    <label for="cbZipCodeRange">
-                        <input id="cbZipCodeRange" type="checkbox">Zip Code Range
-                    </label>
-                </div>
-                <div class="col-sm-3" style="width: 29.166666655%">
-                    <input type="text" id="txtZipCodeRangeFrom" style="width: 100%" onkeyup="this.value=this.value.replace(/[^\d]/,'')" />
-                </div>
-                <div class="col-sm-3" style="width: 29.166666655%"><input type="text" id="txtZipCodeRangeTo" style="width: 100%" onkeyup="this.value=this.value.replace(/[^\d]/,'')" /></div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-1 col-sm-4">
-                    <label for="cbStreetAddress">
-                        <input id="cbStreetAddress" type="checkbox">Street Address
-                    </label>
-                </div>
-                <div class="col-sm-7"><input type="text" id="txtStreetAddress" style="width: 100%" autocomplete="new-password" /></div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-1 col-sm-4">
-                    <label for="cbLatLong">
-                        <input id="cbLatLong" type="checkbox">Lat / Long
-                    </label>
-                </div>
-                <div class="col-sm-3" style="width: 29.166666655%"><input type="text" id="txtLat" style="width: 100%" /></div>
-                <div class="col-sm-3" style="width: 29.166666655%"><input type="text" id="txtLong" style="width: 100%" /></div>
-            </div>
-            <h3>Property Characteristics</h3>
-            <div class="form-group">
-                <div class="col-sm-offset-1 col-sm-11">
-                    <label for="cbBuildingClass">
-                        <input id="cbBuildingClass" type="checkbox">Building Class
-                    </label>
-                    <div class="panel-group" id="accordion">
+                <div class="col-sm-12">
+                    <div class="panel-group" id="accordionMain">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                                        Office
+                                    <a data-toggle="collapse" data-parent="#accordionMain" href="#collapse11">
+                                        Location
                                     </a>
                                 </h4>
                             </div>
-                            <div id="collapse1" class="panel-collapse collapse">
+                            <div id="collapse11" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbOfficeO1" value="'O1'" /> Office Only - 1 Story
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbOfficeO2" value="'O2'" /> Office Only - 2-6 Stories
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbOfficeO3" value="'O3'" /> Office Only - 7-19 Story
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbOfficeO4" value="'O4'" /> Office Only or Office with Comm – 20 Stories or More
-                                    </label>
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <label for="cbBorough">
+                                                <input id="cbBorough" type="checkbox">Borough
+                                            </label>
+                                            <input type="text" id="txtBoroughs" placeholder="Select Borough" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-5">
+                                            <label for="cbZipCodeRange">
+                                                <input id="cbZipCodeRange" type="checkbox">Zip Code Range
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-3" style="width: 29.166666655%">
+                                            <input type="text" id="txtZipCodeRangeFrom" style="width: 100%" onkeyup="this.value=this.value.replace(/[^\d]/,'')" />
+                                        </div>
+                                        <div class="col-sm-3" style="width: 29.166666655%"><input type="text" id="txtZipCodeRangeTo" style="width: 100%" onkeyup="this.value=this.value.replace(/[^\d]/,'')" /></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-5">
+                                            <label for="cbStreetAddress">
+                                                <input id="cbStreetAddress" type="checkbox">Street Address
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-7"><input type="text" id="txtStreetAddress" style="width: 100%" autocomplete="new-password" /></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-5">
+                                            <label for="cbLatLong">
+                                                <input id="cbLatLong" type="checkbox">Lat / Long
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-3" style="width: 29.166666655%"><input type="text" id="txtLat" style="width: 100%" /></div>
+                                        <div class="col-sm-3" style="width: 29.166666655%"><input type="text" id="txtLong" style="width: 100%" /></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-                                        Industrial
+                                    <a data-toggle="collapse" data-parent="#accordionMain" href="#collapse12">
+                                        Property Characteristics
                                     </a>
                                 </h4>
                             </div>
-                            <div id="collapse2" class="panel-collapse collapse">
+                            <div id="collapse12" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbIndustrialF1" value="'F1'" /> Heavy Manufacturing - Fireproof
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbIndustrialF2" value="'F2'" /> Special Construction - Fireproof
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbIndustrialF4" value="'F4'" /> Semi-Fireproof
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbIndustrialF5" value="'F5'" /> Light Manufacturing
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbIndustrialF8" value="'F8'" /> Tank Farms
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbIndustrialF9" value="'F9'" /> Miscellaneous
-                                    </label>
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <label for="cbBuildingClass">
+                                                <input id="cbBuildingClass" type="checkbox">Building Class
+                                            </label>
+                                            <div class="panel-group" id="accordion">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <h4 class="panel-title">
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                                                                Office
+                                                            </a>
+                                                        </h4>
+                                                    </div>
+                                                    <div id="collapse1" class="panel-collapse collapse">
+                                                        <div class="panel-body">
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbOfficeO1" value="'O1'" /> Office Only - 1 Story
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbOfficeO2" value="'O2'" /> Office Only - 2-6 Stories
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbOfficeO3" value="'O3'" /> Office Only - 7-19 Story
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbOfficeO4" value="'O4'" /> Office Only or Office with Comm – 20 Stories or More
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <h4 class="panel-title">
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                                                                Industrial
+                                                            </a>
+                                                        </h4>
+                                                    </div>
+                                                    <div id="collapse2" class="panel-collapse collapse">
+                                                        <div class="panel-body">
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbIndustrialF1" value="'F1'" /> Heavy Manufacturing - Fireproof
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbIndustrialF2" value="'F2'" /> Special Construction - Fireproof
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbIndustrialF4" value="'F4'" /> Semi-Fireproof
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbIndustrialF5" value="'F5'" /> Light Manufacturing
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbIndustrialF8" value="'F8'" /> Tank Farms
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbIndustrialF9" value="'F9'" /> Miscellaneous
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <h4 class="panel-title">
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+                                                                Retail
+                                                            </a>
+                                                        </h4>
+                                                    </div>
+                                                    <div id="collapse3" class="panel-collapse collapse">
+                                                        <div class="panel-body">
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbRetailK1" value="'K1'" /> One Story Retail Building
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbRetailK2" value="'K2'" /> Multi-Story Retail Building
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbRetailK3" value="'K3'" /> Multi-Story Department Store
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbRetailK4" value="'K4'" /> Predominant Retail with Other Uses
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbRetailK5" value="'K5'" /> Stand Alone Food Establishment
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbRetailK6" value="'K6'" /> Shopping Centers with or without Parking
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbRetailK7" value="'K7'" /> Banking Facilities with or without Parking
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbRetailK8" value="'K8'" /> Big Box Retail Not Affixed & Standing on Own Lot with Parking
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <h4 class="panel-title">
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+                                                                Hotel
+                                                            </a>
+                                                        </h4>
+                                                    </div>
+                                                    <div id="collapse4" class="panel-collapse collapse">
+                                                        <div class="panel-body">
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbHotelH1" value="'H1'" /> Luxury Type
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbHotelH2" value="'H2'" /> Full Service Hotel
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbHotelH3" value="'H3'" /> Limited Service – Many Affiliated with National Chain
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbHotelH4" value="'H4'" /> Motels
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbHotelH5" value="'H5'" /> Private Club, Luxury Type
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbHotelH6" value="'H6'" /> Apartment Hotels
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbHotelH7" value="'H7'" /> Apartment Hotels-Co-op Owned
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <h4 class="panel-title">
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">
+                                                                Condominiums/coop
+                                                            </a>
+                                                        </h4>
+                                                    </div>
+                                                    <div id="collapse5" class="panel-collapse collapse">
+                                                        <div class="panel-body">
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbCondominiumsCoopR1" value="'R1'" /> Residential Unit in 2-10 Unit Bldg
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbCondominiumsCoopR2" value="'R2'" /> Residential Unit in Walk-Up Bldg
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbCondominiumsCoopR3" value="'R3'" /> Residential Unit in 1-3 Story Bldg
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbCondominiumsCoopR4" value="'R4'" /> Residential Unit in Elevator Bldg
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbCondominiumsCoopR5" value="'R5'" /> Miscellaneous Commercial
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbCondominiumsCoopR6" value="'R6'" /> Residential Unit of 1-3 Unit Bldg-Orig Class 1
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbCondominiumsCoopR7" value="'R7'" /> Commercial Unit of 1-3 Units Bldg- Orig Class 1
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbCondominiumsCoopR8" value="'R8'" /> Commercial Unit of 2-10 Unit Bldg
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbCondominiumsCoopR9" value="'R9'" /> Co-op within a Condominium
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbCondominiumsCoopC8" value="'C8'" /> (WALK UP APARTMENTS)Co-Op Conversion from Loft/Warehouse
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbCondominiumsCoopD0" value="'D0'" /> (ELEVATOR APARTMENTS)Co-op Conversion from Loft/Warehouse
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbCondominiumsCoopD5" value="'D5'" /> (ELEVATOR APARTMENTS)Converted
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <h4 class="panel-title">
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">
+                                                                Rental residential
+                                                            </a>
+                                                        </h4>
+                                                    </div>
+                                                    <div id="collapse6" class="panel-collapse collapse">
+                                                        <div class="panel-body">
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbRentalResidentialC0" value="'C0'" /> (WALK UP APARTMENTS)Three Families
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbRentalResidentialC1" value="'C1'" /> (WALK UP APARTMENTS)Over Six Families Without Stores
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbRentalResidentialC2" value="'C2'" /> (WALK UP APARTMENTS)Five to Six Families
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbRentalResidentialC3" value="'C3'" /> (WALK UP APARTMENTS)Four Families
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbRentalResidentialC4" value="'C4'" /> (WALK UP APARTMENTS)Old Law Tenements
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbRentalResidentialC5" value="'C5'" /> (WALK UP APARTMENTS)Converted Dwelling or Rooming House
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbRentalResidentialC6" value="'C6'" /> (WALK UP APARTMENTS)Cooperative
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbRentalResidentialD1" value="'D1'" /> (ELEVATOR APARTMENTS)Semi-fireproof (Without Stores)
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbRentalResidentialD2" value="'D2'" /> (ELEVATOR APARTMENTS)Artists in Residence
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbRentalResidentialD3" value="'D3'" /> (ELEVATOR APARTMENTS)Fireproof (Without Stores)
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbRentalResidentialD6" value="'D6'" /> (ELEVATOR APARTMENTS)Fireproof with Stores
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbRentalResidentialD7" value="'D7'" /> (ELEVATOR APARTMENTS)Semi-Fireproof with Stores
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbRentalResidentialD8" value="'D8'" /> (ELEVATOR APARTMENTS)Luxury Type
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <h4 class="panel-title">
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">
+                                                                For-profit owned healthcare
+                                                            </a>
+                                                        </h4>
+                                                    </div>
+                                                    <div id="collapse7" class="panel-collapse collapse">
+                                                        <div class="panel-body">
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbForProfitOwnedHealthcareI1" value="'I1'" /> Hospitals, Sanitariums, Mental Institutions
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbForProfitOwnedHealthcareI2" value="'I2'" /> Infirmary
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbForProfitOwnedHealthcareI3" value="'I3'" /> Dispensary
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbForProfitOwnedHealthcareI4" value="'I4'" /> Staff Facilities
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbForProfitOwnedHealthcareI5" value="'I5'" /> Health Center, Child Center, Clinic
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbForProfitOwnedHealthcareI6" value="'I6'" /> Nursing Home
+                                                            </label>
+                                                            <label class="col-sm-12">
+                                                                <input type="checkbox" name="BuildingClass" id="cbForProfitOwnedHealthcareI7" value="'I7'" /> Adult Care Facility
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <label for="cbZoningDistrict">
+                                                <input id="cbZoningDistrict" type="checkbox">Zoning District
+                                            </label>
+                                            @Html.DropDownList("ddlZoningDistrict", (IEnumerable<SelectListItem>)ViewBag.ZoningDistricts, "Select Zoning District", new { @class = "form-control input-width-xlarge", @onchange = "ddlZoningDistrict_SelectionChange()" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <label for="cbCommercialOverlay">
+                                                <input id="cbCommercialOverlay" type="checkbox" disabled>Commercial Overlay
+                                            </label>
+                                            @Html.DropDownList("ddlCommercialOverlay", (IEnumerable<SelectListItem>)ViewBag.CommercialOverlays, "Select Commercial Overlay", new { @class = "form-control input-width-xlarge", @disabled = true })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <p id="sliderAssessedTotalValue" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                                <label for="cbAssessedTotalValue">
+                                                    <input id="cbAssessedTotalValue" type="checkbox">Assessed Total Value:
+                                                    <input type="text" id="txtAssessedTotalValue" style="border:0; color:rgb(213,168,72); font-weight:bold; width: 211px" onkeyup="txtSlider_KeyUp(this,'AssessedTotalValue')">
+                                                </label>
+                                            </p>
+                                            <div id="slider-range-AssessedTotalValue"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <p id="sliderYearBuild" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                                <label for="cbYearBuild">
+                                                    <input id="cbYearBuild" type="checkbox">Year Build:
+                                                    <input type="text" id="txtYearBuild" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%">
+                                                </label>
+                                            </p>
+                                            <div id="slider-range-YearBuild"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <label for="cbOwnerName">
+                                                <input id="cbOwnerName" type="checkbox">Owner Name
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-                                        Retail
+                                    <a data-toggle="collapse" data-parent="#accordionMain" href="#collapse13">
+                                        Property Size
                                     </a>
                                 </h4>
                             </div>
-                            <div id="collapse3" class="panel-collapse collapse">
+                            <div id="collapse13" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbRetailK1" value="'K1'" /> One Story Retail Building
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbRetailK2" value="'K2'" /> Multi-Story Retail Building
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbRetailK3" value="'K3'" /> Multi-Story Department Store
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbRetailK4" value="'K4'" /> Predominant Retail with Other Uses
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbRetailK5" value="'K5'" /> Stand Alone Food Establishment
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbRetailK6" value="'K6'" /> Shopping Centers with or without Parking
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbRetailK7" value="'K7'" /> Banking Facilities with or without Parking
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbRetailK8" value="'K8'" /> Big Box Retail Not Affixed & Standing on Own Lot with Parking
-                                    </label>
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <p id="sliderTotalBuildingFloorArea" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                                <label for="cbTotalBuildingFloorArea">
+                                                    <input id="cbTotalBuildingFloorArea" type="checkbox">Total Building Floor Area (sq. ft.):
+                                                    <input type="text" id="txtTotalBuildingFloorArea" style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%" onkeyup="txtSlider_KeyUp(this,'TotalBuildingFloorArea')">
+                                                </label>
+                                            </p>
+                                            <div id="slider-range-TotalBuildingFloorArea"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <p id="sliderCommercialFloorArea" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                                <label for="cbCommercialFloorArea">
+                                                    <input id="cbCommercialFloorArea" type="checkbox">Commercial Floor Area (sq. ft.):
+                                                    <input type="text" id="txtCommercialFloorArea" style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%" onkeyup="txtSlider_KeyUp(this,'CommercialFloorArea')">
+                                                </label>
+                                            </p>
+                                            <div id="slider-range-CommercialFloorArea"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <p id="sliderResidentialFloorArea" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                                <label for="cbResidentialFloorArea">
+                                                    <input id="cbResidentialFloorArea" type="checkbox">Residential Floor Area (sq. ft.):
+                                                    <input type="text" id="txtResidentialFloorArea" style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%" onkeyup="txtSlider_KeyUp(this,'ResidentialFloorArea')">
+                                                </label>
+                                            </p>
+                                            <div id="slider-range-ResidentialFloorArea"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <p id="sliderNumberOfFloors" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                                <label for="cbNumberOfFloors">
+                                                    <input id="cbNumberOfFloors" type="checkbox">Number of Floors:
+                                                    <input type="text" id="txtNumberOfFloors" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%">
+                                                </label>
+                                            </p>
+                                            <div id="slider-range-NumberOfFloors"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <p id="sliderResidentialUnits" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                                <label for="cbResidentialUnits">
+                                                    <input id="cbResidentialUnits" type="checkbox">Residential Units (sq. ft.):
+                                                    <input type="text" id="txtResidentialUnits" style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%" onkeyup="txtSlider_KeyUp(this,'ResidentialUnits')">
+                                                </label>
+                                            </p>
+                                            <div id="slider-range-ResidentialUnits"></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
-                                        Hotel
+                                    <a data-toggle="collapse" data-parent="#accordionMain" href="#collapse14">
+                                        Energy Efficiency Performance
                                     </a>
                                 </h4>
                             </div>
-                            <div id="collapse4" class="panel-collapse collapse">
+                            <div id="collapse14" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbHotelH1" value="'H1'" /> Luxury Type
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbHotelH2" value="'H2'" /> Full Service Hotel
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbHotelH3" value="'H3'" /> Limited Service – Many Affiliated with National Chain
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbHotelH4" value="'H4'" /> Motels
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbHotelH5" value="'H5'" /> Private Club, Luxury Type
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbHotelH6" value="'H6'" /> Apartment Hotels
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbHotelH7" value="'H7'" /> Apartment Hotels-Co-op Owned
-                                    </label>
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <p id="sliderEnergyStarScore" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                                <label for="cbEnergyStarScore">
+                                                    <input id="cbEnergyStarScore" type="checkbox">Energy Star Score / (kBtu/ft²) :
+                                                    <input type="text" id="txtEnergyStarScore" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 65px">
+                                                </label>
+                                            </p>
+                                            <div id="slider-range-EnergyStarScore"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <p id="sliderSourceEUI" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                                <label for="cbSourceEUI">
+                                                    <input id="cbSourceEUI" type="checkbox">Source Energy Use Intensity (EUI) / (kBtu/ft²) :
+                                                    <input type="text" id="txtSourceEUI" style="border:0; color:rgb(213,168,72); font-weight:bold; width: 155px" onkeyup="txtSlider_KeyUp(this,'SourceEUI')">
+                                                </label>
+                                            </p>
+                                            <div id="slider-range-SourceEUI"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <p id="sliderSiteEUI" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                                <label for="cbSiteEUI">
+                                                    <input id="cbSiteEUI" type="checkbox">Site Energy Use Intensity (EUI) / (kBtu/ft²) :
+                                                    <input type="text" id="txtSiteEUI" style="border:0; color:rgb(213,168,72); font-weight:bold; width: 155px" onkeyup="txtSlider_KeyUp(this,'SiteEUI')">
+                                                </label>
+                                            </p>
+                                            <div id="slider-range-SiteEUI"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <p id="sliderAnnualMaximumDemand" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                                <label for="cbAnnualMaximumDemand">
+                                                    <input id="cbAnnualMaximumDemand" type="checkbox">Annual Maximum Demand / (kW) :
+                                                    <input type="text" id="txtAnnualMaximumDemand" style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 140px" onkeyup="txtSlider_KeyUp(this,'AnnualMaximumDemand')">
+                                                </label>
+                                            </p>
+                                            <div id="slider-range-AnnualMaximumDemand"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <p id="sliderTotalGHGEmissions" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                                <label for="cbTotalGHGEmissions">
+                                                    <input id="cbTotalGHGEmissions" type="checkbox">Total Greenhouse Gas (GHG) Emissions / Metric Tons CO2e :
+                                                    <input type="text" id="txtTotalGHGEmissions" style="border:0; color:rgb(213,168,72); font-weight:bold; width: 175px" onkeyup="txtSlider_KeyUp(this,'TotalGHGEmissions')">
+                                                </label>
+                                            </p>
+                                            <div id="slider-range-TotalGHGEmissions"></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">
-                                        Condominiums/coop
+                                    <a data-toggle="collapse" data-parent="#accordionMain" href="#collapse15">
+                                        Property Permits
                                     </a>
                                 </h4>
                             </div>
-                            <div id="collapse5" class="panel-collapse collapse">
+                            <div id="collapse15" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbCondominiumsCoopR1" value="'R1'" /> Residential Unit in 2-10 Unit Bldg
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbCondominiumsCoopR2" value="'R2'" /> Residential Unit in Walk-Up Bldg
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbCondominiumsCoopR3" value="'R3'" /> Residential Unit in 1-3 Story Bldg
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbCondominiumsCoopR4" value="'R4'" /> Residential Unit in Elevator Bldg
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbCondominiumsCoopR5" value="'R5'" /> Miscellaneous Commercial
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbCondominiumsCoopR6" value="'R6'" /> Residential Unit of 1-3 Unit Bldg-Orig Class 1
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbCondominiumsCoopR7" value="'R7'" /> Commercial Unit of 1-3 Units Bldg- Orig Class 1
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbCondominiumsCoopR8" value="'R8'" /> Commercial Unit of 2-10 Unit Bldg
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbCondominiumsCoopR9" value="'R9'" /> Co-op within a Condominium
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbCondominiumsCoopC8" value="'C8'" /> (WALK UP APARTMENTS)Co-Op Conversion from Loft/Warehouse
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbCondominiumsCoopD0" value="'D0'" /> (ELEVATOR APARTMENTS)Co-op Conversion from Loft/Warehouse
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbCondominiumsCoopD5" value="'D5'" /> (ELEVATOR APARTMENTS)Converted
-                                    </label>
+                                    <div class="form-group">
+                                        <div class="col-sm-4">
+                                            <label for="cbJobStartDate">
+                                                <input id="cbJobStartDate" type="checkbox">Date
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="date" id="txtJobStartDateFrom" style="width: 100%" />
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="date" id="txtJobStartDateTo" style="width: 100%" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-4">
+                                            <label for="cbJobType">
+                                                <input id="cbJobType" type="checkbox">Job Type
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            @Html.DropDownList("ddlJobType", (IEnumerable<SelectListItem>)ViewBag.JobTypes, "Select Job Type", new { @class = "form-control input-width-xlarge" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-4">
+                                            <label for="cbWorkType">
+                                                <input id="cbWorkType" type="checkbox">Work Type
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            @Html.DropDownList("ddlWorkType", (IEnumerable<SelectListItem>)ViewBag.WorkTypes, "Select Work Type", new { @class = "form-control input-width-xlarge" })
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">
-                                        Rental residential
+                                    <a data-toggle="collapse" data-parent="#accordionMain" href="#collapse16">
+                                        Property Violations
                                     </a>
                                 </h4>
                             </div>
-                            <div id="collapse6" class="panel-collapse collapse">
+                            <div id="collapse16" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbRentalResidentialC0" value="'C0'" /> (WALK UP APARTMENTS)Three Families
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbRentalResidentialC1" value="'C1'" /> (WALK UP APARTMENTS)Over Six Families Without Stores
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbRentalResidentialC2" value="'C2'" /> (WALK UP APARTMENTS)Five to Six Families
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbRentalResidentialC3" value="'C3'" /> (WALK UP APARTMENTS)Four Families
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbRentalResidentialC4" value="'C4'" /> (WALK UP APARTMENTS)Old Law Tenements
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbRentalResidentialC5" value="'C5'" /> (WALK UP APARTMENTS)Converted Dwelling or Rooming House
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbRentalResidentialC6" value="'C6'" /> (WALK UP APARTMENTS)Cooperative
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbRentalResidentialD1" value="'D1'" /> (ELEVATOR APARTMENTS)Semi-fireproof (Without Stores)
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbRentalResidentialD2" value="'D2'" /> (ELEVATOR APARTMENTS)Artists in Residence
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbRentalResidentialD3" value="'D3'" /> (ELEVATOR APARTMENTS)Fireproof (Without Stores)
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbRentalResidentialD6" value="'D6'" /> (ELEVATOR APARTMENTS)Fireproof with Stores
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbRentalResidentialD7" value="'D7'" /> (ELEVATOR APARTMENTS)Semi-Fireproof with Stores
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbRentalResidentialD8" value="'D8'" /> (ELEVATOR APARTMENTS)Luxury Type
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">
-                                        For-profit owned healthcare
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="collapse7" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbForProfitOwnedHealthcareI1" value="'I1'" /> Hospitals, Sanitariums, Mental Institutions
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbForProfitOwnedHealthcareI2" value="'I2'" /> Infirmary
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbForProfitOwnedHealthcareI3" value="'I3'" /> Dispensary
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbForProfitOwnedHealthcareI4" value="'I4'" /> Staff Facilities
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbForProfitOwnedHealthcareI5" value="'I5'" /> Health Center, Child Center, Clinic
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbForProfitOwnedHealthcareI6" value="'I6'" /> Nursing Home
-                                    </label>
-                                    <label class="col-sm-12">
-                                        <input type="checkbox" name="BuildingClass" id="cbForProfitOwnedHealthcareI7" value="'I7'" /> Adult Care Facility
-                                    </label>
+                                    <div class="form-group">
+                                        <div class="col-sm-4">
+                                            <label for="cbIssueDate">
+                                                <input id="cbIssueDate" type="checkbox">Date
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="date" id="txtIssueDateFrom" style="width: 100%" />
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="date" id="txtIssueDateTo" style="width: 100%" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-4">
+                                            <label for="cbViolationType">
+                                                <input id="cbViolationType" type="checkbox">Violation Type
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            @Html.DropDownList("ddlViolationType", (IEnumerable<SelectListItem>)ViewBag.ViolationTypes, "Select Violation Type", new { @class = "form-control input-width-xlarge" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-4">
+                                            <label for="cbViolationCategory">
+                                                <input id="cbViolationCategory" type="checkbox">Violation Category
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            @Html.DropDownList("ddlViolationCategory", (IEnumerable<SelectListItem>)ViewBag.ViolationCategories, "Select Violation Category", new { @class = "form-control input-width-xlarge" })
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-1 col-sm-11">
-                    <label for="cbZoningDistrict">
-                        <input id="cbZoningDistrict" type="checkbox">Zoning District
-                    </label>
-                    @Html.DropDownList("ddlZoningDistrict", (IEnumerable<SelectListItem>)ViewBag.ZoningDistricts, "Select Zoning District", new { @class = "form-control input-width-xlarge", @onchange = "ddlZoningDistrict_SelectionChange()" })
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-1 col-sm-11">
-                    <label for="cbCommercialOverlay">
-                        <input id="cbCommercialOverlay" type="checkbox" disabled>Commercial Overlay
-                    </label>
-                    @Html.DropDownList("ddlCommercialOverlay", (IEnumerable<SelectListItem>)ViewBag.CommercialOverlays, "Select Commercial Overlay", new { @class = "form-control input-width-xlarge", @disabled = true })
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-1 col-sm-11">
-                    <p id="sliderAssessedTotalValue" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
-                        <label for="cbAssessedTotalValue">
-                            <input id="cbAssessedTotalValue" type="checkbox">Assessed Total Value:
-                            <input type="text" id="txtAssessedTotalValue" style="border:0; color:rgb(213,168,72); font-weight:bold; width: 211px" onkeyup="txtSlider_KeyUp(this,'AssessedTotalValue')">
-                        </label>
-                    </p>
-                    <div id="slider-range-AssessedTotalValue"></div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-1 col-sm-11">
-                    <p id="sliderYearBuild" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
-                        <label for="cbYearBuild">
-                            <input id="cbYearBuild" type="checkbox">Year Build:
-                            <input type="text" id="txtYearBuild" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%">
-                        </label>
-                    </p>
-                    <div id="slider-range-YearBuild"></div>
-                </div>
-            </div>
-            <h3>Property Size</h3>
-            <div class="form-group">
-                <div class="col-sm-offset-1 col-sm-11">
-                    <p id="sliderTotalBuildingFloorArea" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
-                        <label for="cbTotalBuildingFloorArea">
-                            <input id="cbTotalBuildingFloorArea" type="checkbox">Total Building Floor Area (sq. ft.):
-                            <input type="text" id="txtTotalBuildingFloorArea" style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%" onkeyup="txtSlider_KeyUp(this,'TotalBuildingFloorArea')">
-                        </label>
-                    </p>
-                    <div id="slider-range-TotalBuildingFloorArea"></div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-1 col-sm-11">
-                    <p id="sliderCommercialFloorArea" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
-                        <label for="cbCommercialFloorArea">
-                            <input id="cbCommercialFloorArea" type="checkbox">Commercial Floor Area (sq. ft.):
-                            <input type="text" id="txtCommercialFloorArea" style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%" onkeyup="txtSlider_KeyUp(this,'CommercialFloorArea')">
-                        </label>
-                    </p>
-                    <div id="slider-range-CommercialFloorArea"></div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-1 col-sm-11">
-                    <p id="sliderResidentialFloorArea" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
-                        <label for="cbResidentialFloorArea">
-                            <input id="cbResidentialFloorArea" type="checkbox">Residential Floor Area (sq. ft.):
-                            <input type="text" id="txtResidentialFloorArea" style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%" onkeyup="txtSlider_KeyUp(this,'ResidentialFloorArea')">
-                        </label>
-                    </p>
-                    <div id="slider-range-ResidentialFloorArea"></div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-1 col-sm-11">
-                    <p id="sliderNumberOfFloors" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
-                        <label for="cbNumberOfFloors">
-                            <input id="cbNumberOfFloors" type="checkbox">Number of Floors:
-                            <input type="text" id="txtNumberOfFloors" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%">
-                        </label>
-                    </p>
-                    <div id="slider-range-NumberOfFloors"></div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-1 col-sm-11">
-                    <p id="sliderResidentialUnits" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
-                        <label for="cbResidentialUnits">
-                            <input id="cbResidentialUnits" type="checkbox">Residential Units (sq. ft.):
-                            <input type="text" id="txtResidentialUnits" style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%" onkeyup="txtSlider_KeyUp(this,'ResidentialUnits')">
-                        </label>
-                    </p>
-                    <div id="slider-range-ResidentialUnits"></div>
-                </div>
-            </div>
-            <h3>Energy Efficiency Performance</h3>
-            <div class="form-group">
-                <div class="col-sm-offset-1 col-sm-11">
-                    <p id="sliderEnergyStarScore" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
-                        <label for="cbEnergyStarScore">
-                            <input id="cbEnergyStarScore" type="checkbox">Energy Star Score / (kBtu/ft²) :
-                            <input type="text" id="txtEnergyStarScore" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 65px">
-                        </label>
-                    </p>
-                    <div id="slider-range-EnergyStarScore"></div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-1 col-sm-11">
-                    <p id="sliderSourceEUI" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
-                        <label for="cbSourceEUI">
-                            <input id="cbSourceEUI" type="checkbox">Source Energy Use Intensity (EUI) / (kBtu/ft²) :
-                            <input type="text" id="txtSourceEUI" style="border:0; color:rgb(213,168,72); font-weight:bold; width: 155px" onkeyup="txtSlider_KeyUp(this,'SourceEUI')">
-                        </label>
-                    </p>
-                    <div id="slider-range-SourceEUI"></div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-1 col-sm-11">
-                    <p id="sliderSiteEUI" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
-                        <label for="cbSiteEUI">
-                            <input id="cbSiteEUI" type="checkbox">Site Energy Use Intensity (EUI) / (kBtu/ft²) :
-                            <input type="text" id="txtSiteEUI" style="border:0; color:rgb(213,168,72); font-weight:bold; width: 155px" onkeyup="txtSlider_KeyUp(this,'SiteEUI')">
-                        </label>
-                    </p>
-                    <div id="slider-range-SiteEUI"></div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-1 col-sm-11">
-                    <p id="sliderAnnualMaximumDemand" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
-                        <label for="cbAnnualMaximumDemand">
-                            <input id="cbAnnualMaximumDemand" type="checkbox">Annual Maximum Demand / (kW) :
-                            <input type="text" id="txtAnnualMaximumDemand" style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 140px" onkeyup="txtSlider_KeyUp(this,'AnnualMaximumDemand')">
-                        </label>
-                    </p>
-                    <div id="slider-range-AnnualMaximumDemand"></div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-1 col-sm-11">
-                    <p id="sliderTotalGHGEmissions" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
-                        <label for="cbTotalGHGEmissions">
-                            <input id="cbTotalGHGEmissions" type="checkbox">Total Greenhouse Gas (GHG) Emissions / Metric Tons CO2e :
-                            <input type="text" id="txtTotalGHGEmissions" style="border:0; color:rgb(213,168,72); font-weight:bold; width: 175px" onkeyup="txtSlider_KeyUp(this,'TotalGHGEmissions')">
-                        </label>
-                    </p>
-                    <div id="slider-range-TotalGHGEmissions"></div>
                 </div>
             </div>
             <div class="form-group">
@@ -539,6 +692,9 @@
     </div>
 </div>
 <script>
+    $(document).ready(function () {
+        $('.date').datepicker({ dateFormat: "mm/dd/yy", changeYear: true });
+    });
     $("#txtBoroughs").select2({
         minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
         width: '100%',   // to adjust proper width of select2 wrapped elements
