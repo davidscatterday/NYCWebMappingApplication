@@ -23,6 +23,10 @@ namespace NYCMappingWebApp.Controllers
             }
             ViewBag.ZoningDistricts = mainDAL.GetAllZoningDistricts();
             ViewBag.CommercialOverlays = mainDAL.GetAllCommercialOverlays();
+            ViewBag.JobTypes = mainDAL.GetAllJobTypes();
+            ViewBag.WorkTypes = mainDAL.GetAllWorkTypes();
+            ViewBag.ViolationTypes = mainDAL.GetAllViolationTypes();
+            ViewBag.ViolationCategories = mainDAL.GetAllViolationCategories();
             return View();
         }
 
@@ -77,6 +81,7 @@ namespace NYCMappingWebApp.Controllers
             }
 
         }
+
         public string CreateCsvLine(TableFeatures elem, bool isHeader)
         {
             string csvLine = isHeader ? "Borough,Address" : elem.Borough + "," + elem.Address;
@@ -118,6 +123,20 @@ namespace NYCMappingWebApp.Controllers
                 csvLine += isHeader ? ",Annual Maximum Demand" : "," + elem.annual_maximum_demand_kw;
             if (elem.total_ghg_emissions_metric != null)
                 csvLine += isHeader ? ",Total GHG Emissions" : "," + elem.total_ghg_emissions_metric;
+            if (elem.OwnerName != null)
+                csvLine += isHeader ? ",Owner Name" : "," + elem.OwnerName;
+            if (elem.job_start_date != null)
+                csvLine += isHeader ? ",Job Start Date" : "," + elem.job_start_date;
+            if (elem.job_type != null)
+                csvLine += isHeader ? ",Job Type" : "," + elem.job_type;
+            if (elem.work_type != null)
+                csvLine += isHeader ? ",Work Type" : "," + elem.work_type;
+            if (elem.issue_date != null)
+                csvLine += isHeader ? ",Issue Date" : "," + elem.issue_date;
+            if (elem.violation_type != null)
+                csvLine += isHeader ? ",Violation Type" : "," + elem.violation_type;
+            if (elem.violation_category != null)
+                csvLine += isHeader ? ",Violation Category" : "," + elem.violation_category;
 
             return csvLine;
         }
