@@ -553,13 +553,13 @@ function btnSearch() {
                 wherePermitClause += " AND ";
             }
             if (JobStartDateFrom != "" && JobStartDateTo != "") {
-                wherePermitClause += "job_start_date >= " + JobStartDateFrom + " AND job_start_date <= " + JobStartDateTo;
+                wherePermitClause += "job_start_date >= '" + JobStartDateFrom + "' AND job_start_date <= '" + JobStartDateTo + "'";
             }
             else if (JobStartDateFrom != "") {
-                wherePermitClause += "job_start_date >= " + JobStartDateFrom;
+                wherePermitClause += "job_start_date >= '" + JobStartDateFrom + "'";
             }
             else if (JobStartDateTo != "") {
-                wherePermitClause += "job_start_date <= " + JobStartDateTo;
+                wherePermitClause += "job_start_date <= '" + JobStartDateTo + "'";
             }
         }
     }
@@ -599,13 +599,42 @@ function btnSearch() {
                 whereViolationClause += " AND ";
             }
             if (IssueDateFrom != "" && IssueDateTo != "") {
-                whereViolationClause += "issue_date >= " + IssueDateFrom + " AND issue_date <= " + IssueDateTo;
+                var dFrom = new Date(IssueDateFrom);
+                var yearFrom = dFrom.getFullYear();
+                var monthFrom = dFrom.getMonth() + 1;
+                monthFrom = monthFrom < 10 ? "0" + monthFrom : monthFrom;
+                var dayFrom = dFrom.getDate();
+                dayFrom = dayFrom < 10 ? "0" + dayFrom : dayFrom;
+                var valueFrom = yearFrom + monthFrom + dayFrom;
+
+                var dTo = new Date(IssueDateTo);
+                var yearTo = dTo.getFullYear();
+                var monthTo = dTo.getMonth() + 1;
+                monthTo = monthTo < 10 ? "0" + monthTo : monthTo;
+                var dayTo = dTo.getDate();
+                dayTo = dayTo < 10 ? "0" + dayTo : dayTo;
+                var valueTo = yearTo + monthTo + dayTo;
+                whereViolationClause += "issue_date >= '" + valueFrom + "' AND issue_date <= '" + valueTo + "'";
             }
             else if (IssueDateFrom != "") {
-                whereViolationClause += "issue_date >= " + IssueDateFrom;
+                var dFrom = new Date(IssueDateFrom);
+                var yearFrom = dFrom.getFullYear();
+                var monthFrom = dFrom.getMonth() + 1;
+                monthFrom = monthFrom < 10 ? "0" + monthFrom : monthFrom;
+                var dayFrom = dFrom.getDate();
+                dayFrom = dayFrom < 10 ? "0" + dayFrom : dayFrom;
+                var valueFrom = yearFrom + monthFrom + dayFrom;
+                whereViolationClause += "issue_date >= '" + valueFrom + "'";
             }
             else if (IssueDateTo != "") {
-                whereViolationClause += "issue_date <= " + IssueDateTo;
+                var dTo = new Date(IssueDateTo);
+                var yearTo = dTo.getFullYear();
+                var monthTo = dTo.getMonth() + 1;
+                monthTo = monthTo < 10 ? "0" + monthTo : monthTo;
+                var dayTo = dTo.getDate();
+                dayTo = dayTo < 10 ? "0" + dayTo : dayTo;
+                var valueTo = yearTo + monthTo + dayTo;
+                whereViolationClause += "issue_date <= '" + valueTo + "'";
             }
         }
     }
@@ -898,13 +927,38 @@ function CreateResultTable(resultFeatures, dataEnergy, dataPermit, dataViolation
                 value = graphic.attributes[lstTableAttributes[j].attribute];
             }
             else if (lstTableAttributes[j].dataset == "Energy") {
-                value = dataEnergyItem.length == 0 ? "" : dataEnergyItem[0][lstTableAttributes[j].attribute];
+                value = dataEnergyItem[0][lstTableAttributes[j].attribute];
             }
             else if (lstTableAttributes[j].dataset == "Permit") {
-                value = dataPermitItem.length == 0 ? "" : dataPermitItem[0][lstTableAttributes[j].attribute];
+                if (lstTableAttributes[j].attribute == "job_start_date") {
+                    var d = new Date(dataPermitItem[0][lstTableAttributes[j].attribute]);
+                    var year = d.getFullYear();
+                    var month = d.getMonth() + 1;
+                    month = month < 10 ? "0" + month : month;
+                    var day = d.getDate();
+                    day = day < 10 ? "0" + day : day;
+                    value = year + "-" + month + "-" + day;
+                }
+                else {
+                    value = dataPermitItem[0][lstTableAttributes[j].attribute];
+                }
             }
             else if (lstTableAttributes[j].dataset == "Violation") {
-                value = dataViolationItem.length == 0 ? "" : dataViolationItem[0][lstTableAttributes[j].attribute];
+                if (lstTableAttributes[j].attribute == "issue_date") {
+                    var d = dataViolationItem[0][lstTableAttributes[j].attribute];
+                    if (d.length == 8) {
+                        var year = d.substring(0, 4);
+                        var month = d.substring(4, 6);
+                        var day = d.substring(6, 8);
+                        value = year + "-" + month + "-" + day;
+                    }
+                    else {
+                        value = "";
+                    }
+                }
+                else {
+                    value = dataViolationItem[0][lstTableAttributes[j].attribute];
+                }
             }
             jsonData[lstTableAttributes[j].attribute] = value;
         }
