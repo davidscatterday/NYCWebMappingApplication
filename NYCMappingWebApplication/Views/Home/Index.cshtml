@@ -27,7 +27,7 @@
 </script>
 <div class="row" style="margin:0px; height: 100%">
     <div class="col-md-3 leftcolumn" style="height: 100%; overflow: auto; overflow-x: hidden">
-        <form class="form-horizontal">
+        <form class="form-horizontal" style="margin-top: 10px">
             <div class="form-group">
                 <div class="col-sm-12">
                     <div class="panel-group" id="accordionMain">
@@ -569,24 +569,36 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-12">
+                                            <label for="cbJobType">
+                                                <input id="cbJobType" type="checkbox">Job Type
+                                            </label>
+                                            <input type="text" id="txtJobTypes" placeholder="Select Job Type" />
+                                        </div>
+                                        @*<div class="col-sm-4">
                                             <label for="cbJobType">
                                                 <input id="cbJobType" type="checkbox">Job Type
                                             </label>
                                         </div>
                                         <div class="col-sm-8">
                                             @Html.DropDownList("ddlJobType", (IEnumerable<SelectListItem>)ViewBag.JobTypes, "Select Job Type", new { @class = "form-control input-width-xlarge" })
-                                        </div>
+                                        </div>*@
                                     </div>
                                     <div class="form-group">
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-12">
+                                            <label for="cbWorkType">
+                                                <input id="cbWorkType" type="checkbox">Work Type
+                                            </label>
+                                            <input type="text" id="txtWorkTypes" placeholder="Select Work Type" />
+                                        </div>
+                                        @*<div class="col-sm-4">
                                             <label for="cbWorkType">
                                                 <input id="cbWorkType" type="checkbox">Work Type
                                             </label>
                                         </div>
                                         <div class="col-sm-8">
                                             @Html.DropDownList("ddlWorkType", (IEnumerable<SelectListItem>)ViewBag.WorkTypes, "Select Work Type", new { @class = "form-control input-width-xlarge" })
-                                        </div>
+                                        </div>*@
                                     </div>
                                 </div>
                             </div>
@@ -615,24 +627,36 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-12">
+                                            <label for="cbViolationType">
+                                                <input id="cbViolationType" type="checkbox">Violation Type
+                                            </label>
+                                            <input type="text" id="txtViolationTypes" placeholder="Select Violation Type" />
+                                        </div>
+                                        @*<div class="col-sm-4">
                                             <label for="cbViolationType">
                                                 <input id="cbViolationType" type="checkbox">Violation Type
                                             </label>
                                         </div>
                                         <div class="col-sm-8">
                                             @Html.DropDownList("ddlViolationType", (IEnumerable<SelectListItem>)ViewBag.ViolationTypes, "Select Violation Type", new { @class = "form-control input-width-xlarge" })
-                                        </div>
+                                        </div>*@
                                     </div>
                                     <div class="form-group">
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-12">
+                                            <label for="cbViolationCategory">
+                                                <input id="cbViolationCategory" type="checkbox">Violation Category
+                                            </label>
+                                            <input type="text" id="txtViolationCategories" placeholder="Select Violation Category" />
+                                        </div>
+                                        @*<div class="col-sm-4">
                                             <label for="cbViolationCategory">
                                                 <input id="cbViolationCategory" type="checkbox">Violation Category
                                             </label>
                                         </div>
                                         <div class="col-sm-8">
                                             @Html.DropDownList("ddlViolationCategory", (IEnumerable<SelectListItem>)ViewBag.ViolationCategories, "Select Violation Category", new { @class = "form-control input-width-xlarge" })
-                                        </div>
+                                        </div>*@
                                     </div>
                                 </div>
                             </div>
@@ -712,6 +736,90 @@
             results: function (data, page) {
                 return {
                     results: data.BoroughsList,
+                };
+            }
+        }
+    });
+    $("#txtJobTypes").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetAllJobTypes',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.JobTypesList,
+                };
+            }
+        }
+    });
+    $("#txtWorkTypes").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetAllWorkTypes',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.WorkTypesList,
+                };
+            }
+        }
+    });
+    $("#txtViolationTypes").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetAllViolationTypes',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.ViolationTypesList,
+                };
+            }
+        }
+    });
+    $("#txtViolationCategories").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetAllViolationCategories',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.ViolationCategoriesList,
                 };
             }
         }
