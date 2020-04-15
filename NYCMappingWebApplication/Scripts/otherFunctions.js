@@ -564,28 +564,26 @@ function btnSearch() {
         }
     }
     if (document.getElementById("cbJobType").checked == true) {
-        var ddlJobType = document.getElementById("ddlJobType");
-        var selectedJobType = ddlJobType.options[ddlJobType.selectedIndex].value;
-        if (selectedJobType != "") {
+        JobType = $(txtJobTypes).val();
+        if (JobType != "") {
             lstTableAttributes.push({ name: 'Job Type', attribute: "job_type", dataset: "Permit" });
             if (wherePermitClause == "") {
-                wherePermitClause = "job_type = '" + selectedJobType + "'";
+                wherePermitClause = "job_type IN (" + JobType + ")";
             }
             else {
-                wherePermitClause += " AND job_type = '" + selectedJobType + "'";
+                wherePermitClause += " AND job_type IN (" + JobType + ")";
             }
         }
     }
     if (document.getElementById("cbWorkType").checked == true) {
-        var ddlWorkType = document.getElementById("ddlWorkType");
-        var selectedWorkType = ddlWorkType.options[ddlWorkType.selectedIndex].value;
-        if (selectedWorkType != "") {
+        WorkType = $(txtWorkTypes).val();
+        if (WorkType != "") {
             lstTableAttributes.push({ name: 'Work Type', attribute: "work_type", dataset: "Permit" });
             if (wherePermitClause == "") {
-                wherePermitClause = "work_type = '" + selectedWorkType + "'";
+                wherePermitClause = "work_type IN (" + WorkType + ")";
             }
             else {
-                wherePermitClause += " AND work_type = '" + selectedWorkType + "'";
+                wherePermitClause += " AND work_type IN (" + WorkType + ")";
             }
         }
     }
@@ -639,28 +637,26 @@ function btnSearch() {
         }
     }
     if (document.getElementById("cbViolationType").checked == true) {
-        var ddlViolationType = document.getElementById("ddlViolationType");
-        var selectedViolationType = ddlViolationType.options[ddlViolationType.selectedIndex].value;
-        if (selectedViolationType != "") {
+        ViolationType = $(txtViolationTypes).val();
+        if (ViolationType != "") {
             lstTableAttributes.push({ name: 'Violation Type', attribute: "violation_type", dataset: "Violation" });
             if (whereViolationClause == "") {
-                whereViolationClause = "violation_type = '" + selectedViolationType + "'";
+                whereViolationClause = "violation_type IN (" + ViolationType + ")";
             }
             else {
-                whereViolationClause += " AND violation_type = '" + selectedViolationType + "'";
+                whereViolationClause += " AND violation_type IN (" + ViolationType + ")";
             }
         }
     }
     if (document.getElementById("cbViolationCategory").checked == true) {
-        var ddlViolationCategory = document.getElementById("ddlViolationCategory");
-        var selectedViolationCategory = ddlViolationCategory.options[ddlViolationCategory.selectedIndex].value;
-        if (selectedViolationCategory != "") {
+        ViolationCategory = $(txtViolationCategories).val();
+        if (ViolationCategory != "") {
             lstTableAttributes.push({ name: 'Violation Category', attribute: "violation_category", dataset: "Violation" });
             if (whereViolationClause == "") {
-                whereViolationClause = "violation_category = '" + selectedViolationCategory + "'";
+                whereViolationClause = "violation_category IN (" + ViolationCategory + ")";
             }
             else {
-                whereViolationClause += " AND violation_category = '" + selectedViolationCategory + "'";
+                whereViolationClause += " AND violation_category IN (" + ViolationCategory + ")";
             }
         }
     }
@@ -700,7 +696,12 @@ function EnergySearch(whereEnergyClause, wherePermitClause, whereViolationClause
                         }
                     }
                 });
-                PermitSearch(wherePermitClause, whereViolationClause, whereClause, bblEnergyList, dataEnergy);
+                if (bblEnergyList != "") {
+                    PermitSearch(wherePermitClause, whereViolationClause, whereClause, bblEnergyList, dataEnergy);
+                }
+                else {
+                    PermitSearch(wherePermitClause, whereViolationClause, whereClause, "0", null);
+                }
             }
             catch (e) {
                 $('#loading').hide();
@@ -749,7 +750,12 @@ function PermitSearch(wherePermitClause, whereViolationClause, whereClause, bblE
                         }
                     }
                 });
-                ViolationSearch(whereViolationClause, whereClause, bblEnergyList, bblPermitList, dataEnergy, dataPermit);
+                if (bblPermitList != "") {
+                    ViolationSearch(whereViolationClause, whereClause, bblEnergyList, bblPermitList, dataEnergy, dataPermit);
+                }
+                else {
+                    ViolationSearch(whereViolationClause, whereClause, bblEnergyList, "0", dataEnergy, null);
+                }
             }
             catch (e) {
                 $('#loading').hide();
@@ -789,7 +795,12 @@ function ViolationSearch(whereViolationClause, whereClause, bblEnergyList, bblPe
                         }
                     }
                 });
-                MapPlutoSearch(whereClause, bblEnergyList, bblPermitList, bblViolationList, dataEnergy, dataPermit, dataViolation);
+                if (bblViolationList != "") {
+                    MapPlutoSearch(whereClause, bblEnergyList, bblPermitList, bblViolationList, dataEnergy, dataPermit, dataViolation);
+                }
+                else {
+                    MapPlutoSearch(whereClause, bblEnergyList, bblPermitList, "0", dataEnergy, dataPermit, null);
+                }
             }
             catch (e) {
                 $('#loading').hide();
@@ -864,6 +875,9 @@ function MapPlutoSearch(whereClause, bblEnergyList, bblPermitList, bblViolationL
         });
     }
     else {
+        if ($('.slider-bottom-arrow').hasClass("showBottomPanel")) {
+            $('.slider-bottom-arrow').click();
+        }
         $('#divSelectItemsTable').text('');
         $('#divSelectItemsMoreInfo').hide();
         $('#divSelectItemsMessage').show();

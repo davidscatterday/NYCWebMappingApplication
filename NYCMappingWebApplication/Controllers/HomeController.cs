@@ -23,10 +23,6 @@ namespace NYCMappingWebApp.Controllers
             }
             ViewBag.ZoningDistricts = mainDAL.GetAllZoningDistricts();
             ViewBag.CommercialOverlays = mainDAL.GetAllCommercialOverlays();
-            ViewBag.JobTypes = mainDAL.GetAllJobTypes();
-            ViewBag.WorkTypes = mainDAL.GetAllWorkTypes();
-            ViewBag.ViolationTypes = mainDAL.GetAllViolationTypes();
-            ViewBag.ViolationCategories = mainDAL.GetAllViolationCategories();
             return View();
         }
 
@@ -34,6 +30,30 @@ namespace NYCMappingWebApp.Controllers
         {
             var BoroughsList = mainDAL.GetAllBoroughs(term);
             return Json(new { BoroughsList }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetAllJobTypes(string term)
+        {
+            var JobTypesList = mainDAL.GetAllJobTypes(term);
+            return Json(new { JobTypesList }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetAllWorkTypes(string term)
+        {
+            var WorkTypesList = mainDAL.GetAllWorkTypes(term);
+            return Json(new { WorkTypesList }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetAllViolationTypes(string term)
+        {
+            var ViolationTypesList = mainDAL.GetAllViolationTypes(term);
+            return Json(new { ViolationTypesList }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetAllViolationCategories(string term)
+        {
+            var ViolationCategoriesList = mainDAL.GetAllViolationCategories(term);
+            return Json(new { ViolationCategoriesList }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult SaveReport(string ReportName, string TableFeatures)
