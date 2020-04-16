@@ -553,13 +553,42 @@ function btnSearch() {
                 wherePermitClause += " AND ";
             }
             if (JobStartDateFrom != "" && JobStartDateTo != "") {
-                wherePermitClause += "job_start_date >= '" + JobStartDateFrom + "' AND job_start_date <= '" + JobStartDateTo + "'";
+                var dFrom = new Date(JobStartDateFrom);
+                var yearFrom = dFrom.getFullYear();
+                var monthFrom = dFrom.getMonth() + 1;
+                monthFrom = monthFrom < 10 ? "0" + monthFrom : monthFrom;
+                var dayFrom = dFrom.getDate();
+                dayFrom = dayFrom < 10 ? "0" + dayFrom : dayFrom;
+                var valueFrom = yearFrom + "-" + monthFrom + "-" + dayFrom;
+
+                var dTo = new Date(JobStartDateTo);
+                var yearTo = dTo.getFullYear();
+                var monthTo = dTo.getMonth() + 1;
+                monthTo = monthTo < 10 ? "0" + monthTo : monthTo;
+                var dayTo = dTo.getDate();
+                dayTo = dayTo < 10 ? "0" + dayTo : dayTo;
+                var valueTo = yearTo + "-" + monthTo + "-" + dayTo;
+                wherePermitClause += "job_start_date >= '" + valueFrom + "' AND job_start_date <= '" + valueTo + "'";
             }
             else if (JobStartDateFrom != "") {
-                wherePermitClause += "job_start_date >= '" + JobStartDateFrom + "'";
+                var dFrom = new Date(JobStartDateFrom);
+                var yearFrom = dFrom.getFullYear();
+                var monthFrom = dFrom.getMonth() + 1;
+                monthFrom = monthFrom < 10 ? "0" + monthFrom : monthFrom;
+                var dayFrom = dFrom.getDate();
+                dayFrom = dayFrom < 10 ? "0" + dayFrom : dayFrom;
+                var valueFrom = yearFrom + "-" + monthFrom + "-" + dayFrom;
+                wherePermitClause += "job_start_date >= '" + valueFrom + "'";
             }
             else if (JobStartDateTo != "") {
-                wherePermitClause += "job_start_date <= '" + JobStartDateTo + "'";
+                var dTo = new Date(JobStartDateTo);
+                var yearTo = dTo.getFullYear();
+                var monthTo = dTo.getMonth() + 1;
+                monthTo = monthTo < 10 ? "0" + monthTo : monthTo;
+                var dayTo = dTo.getDate();
+                dayTo = dayTo < 10 ? "0" + dayTo : dayTo;
+                var valueTo = yearTo + "-" + monthTo + "-" + dayTo;
+                wherePermitClause += "job_start_date <= '" + valueTo + "'";
             }
         }
     }
@@ -951,7 +980,7 @@ function CreateResultTable(resultFeatures, dataEnergy, dataPermit, dataViolation
                     month = month < 10 ? "0" + month : month;
                     var day = d.getDate();
                     day = day < 10 ? "0" + day : day;
-                    value = year + "-" + month + "-" + day;
+                    value = month + "/" + day + "/" + year;
                 }
                 else {
                     value = dataPermitItem[0][lstTableAttributes[j].attribute];
@@ -964,7 +993,7 @@ function CreateResultTable(resultFeatures, dataEnergy, dataPermit, dataViolation
                         var year = d.substring(0, 4);
                         var month = d.substring(4, 6);
                         var day = d.substring(6, 8);
-                        value = year + "-" + month + "-" + day;
+                        value = month + "/" + day + "/" + year;
                     }
                     else {
                         value = "";

@@ -575,14 +575,6 @@
                                             </label>
                                             <input type="text" id="txtJobTypes" placeholder="Select Job Type" />
                                         </div>
-                                        @*<div class="col-sm-4">
-                                            <label for="cbJobType">
-                                                <input id="cbJobType" type="checkbox">Job Type
-                                            </label>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            @Html.DropDownList("ddlJobType", (IEnumerable<SelectListItem>)ViewBag.JobTypes, "Select Job Type", new { @class = "form-control input-width-xlarge" })
-                                        </div>*@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-12">
@@ -591,14 +583,6 @@
                                             </label>
                                             <input type="text" id="txtWorkTypes" placeholder="Select Work Type" />
                                         </div>
-                                        @*<div class="col-sm-4">
-                                            <label for="cbWorkType">
-                                                <input id="cbWorkType" type="checkbox">Work Type
-                                            </label>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            @Html.DropDownList("ddlWorkType", (IEnumerable<SelectListItem>)ViewBag.WorkTypes, "Select Work Type", new { @class = "form-control input-width-xlarge" })
-                                        </div>*@
                                     </div>
                                 </div>
                             </div>
@@ -633,14 +617,6 @@
                                             </label>
                                             <input type="text" id="txtViolationTypes" placeholder="Select Violation Type" />
                                         </div>
-                                        @*<div class="col-sm-4">
-                                            <label for="cbViolationType">
-                                                <input id="cbViolationType" type="checkbox">Violation Type
-                                            </label>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            @Html.DropDownList("ddlViolationType", (IEnumerable<SelectListItem>)ViewBag.ViolationTypes, "Select Violation Type", new { @class = "form-control input-width-xlarge" })
-                                        </div>*@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-12">
@@ -649,14 +625,6 @@
                                             </label>
                                             <input type="text" id="txtViolationCategories" placeholder="Select Violation Category" />
                                         </div>
-                                        @*<div class="col-sm-4">
-                                            <label for="cbViolationCategory">
-                                                <input id="cbViolationCategory" type="checkbox">Violation Category
-                                            </label>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            @Html.DropDownList("ddlViolationCategory", (IEnumerable<SelectListItem>)ViewBag.ViolationCategories, "Select Violation Category", new { @class = "form-control input-width-xlarge" })
-                                        </div>*@
                                     </div>
                                 </div>
                             </div>
@@ -717,7 +685,7 @@
 </div>
 <script>
     $(document).ready(function () {
-        $('.date').datepicker({ dateFormat: "yy-mm-dd", changeYear: true });
+        $('.date').datepicker({ dateFormat: "mm/dd/yy", changeYear: true });
     });
     $("#txtBoroughs").select2({
         minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
