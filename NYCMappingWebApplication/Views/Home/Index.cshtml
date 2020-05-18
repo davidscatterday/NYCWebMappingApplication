@@ -629,6 +629,40 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordionMain" href="#collapse17">
+                                        Housing Evictions
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse17" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <div class="col-sm-4">
+                                            <label for="cbExecutedDate">
+                                                <input id="cbExecutedDate" type="checkbox">Date
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="date" id="txtExecutedDateFrom" style="width: 100%" />
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="date" id="txtExecutedDateTo" style="width: 100%" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <label for="cbEvictionStatus">
+                                                <input id="cbEvictionStatus" type="checkbox">Eviction Status
+                                            </label>
+                                            @Html.DropDownList("ddlEvictionStatus", (IEnumerable<SelectListItem>)ViewBag.EvictionStatuses, "Select Eviction Status", new { @class = "form-control input-width-xlarge" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -675,7 +709,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-3 col-sm-9">
-                            <button id="btnSaveMyReport" type="button" class="btn btn-primary btn-sm" style="margin-top: 10px;" onclick="btnSaveMyReport_Click()">Save</button>
+                            <button id="btnSaveMyReport" type="button" class="btn btn-primary btn-sm" style="margin-top: 10px;" onclick="btnSaveMyReportDatabase_Click()">Save</button>
                         </div>
                     </div>
                 </div>

@@ -23,6 +23,7 @@ namespace NYCMappingWebApp.Controllers
             }
             ViewBag.ZoningDistricts = mainDAL.GetAllZoningDistricts();
             ViewBag.CommercialOverlays = mainDAL.GetAllCommercialOverlays();
+            ViewBag.EvictionStatuses = mainDAL.GetAllEvictionStatuses();
             return View();
         }
 
@@ -56,13 +57,26 @@ namespace NYCMappingWebApp.Controllers
             return Json(new { ViolationCategoriesList }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult SaveReport(string ReportName, string TableFeatures)
+        public JsonResult SearchDatabase(string sqlQuery)
+        {
+            var data = mainDAL.SearchDatabase(sqlQuery);
+
+            //return Json(data, JsonRequestBehavior.AllowGet);
+            return new JsonResult()
+            {
+                Data = data,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                MaxJsonLength = Int32.MaxValue
+            };
+        }
+
+        public JsonResult SaveDatabaseReport(string ReportName, string sqlQuery)
         {
             string msg = "Report saved successfully";
             try
             {
                 StringBuilder csvContent = new StringBuilder();
-                List<TableFeatures> lstTableFeatures = JsonConvert.DeserializeObject<List<TableFeatures>>(TableFeatures);
+                List<DatabaseAttributes> lstTableFeatures = mainDAL.SearchDatabase(sqlQuery);
 
                 for (int i = 0; i < lstTableFeatures.Count; i++)
                 {
@@ -76,7 +90,7 @@ namespace NYCMappingWebApp.Controllers
                         csvContent.AppendLine(CreateCsvLine(lstTableFeatures[i], false));
                     }
                 }
-                
+
                 string targetFolder = Server.MapPath("~/Reports");
                 string fileName = ReportName + "_" + DateTime.Now.Ticks.ToString() + ".csv";
                 string targetPath = Path.Combine(targetFolder, fileName);
@@ -102,7 +116,53 @@ namespace NYCMappingWebApp.Controllers
 
         }
 
-        public string CreateCsvLine(TableFeatures elem, bool isHeader)
+        //public JsonResult SaveReport(string ReportName, string TableFeatures)
+        //{
+        //    string msg = "Report saved successfully";
+        //    try
+        //    {
+        //        StringBuilder csvContent = new StringBuilder();
+        //        List<TableFeatures> lstTableFeatures = JsonConvert.DeserializeObject<List<TableFeatures>>(TableFeatures);
+
+        //        for (int i = 0; i < lstTableFeatures.Count; i++)
+        //        {
+        //            if (i == 0)
+        //            {
+        //                csvContent.AppendLine(CreateCsvLine(lstTableFeatures[i], true));
+        //                csvContent.AppendLine(CreateCsvLine(lstTableFeatures[i], false));
+        //            }
+        //            else
+        //            {
+        //                csvContent.AppendLine(CreateCsvLine(lstTableFeatures[i], false));
+        //            }
+        //        }
+
+        //        string targetFolder = Server.MapPath("~/Reports");
+        //        string fileName = ReportName + "_" + DateTime.Now.Ticks.ToString() + ".csv";
+        //        string targetPath = Path.Combine(targetFolder, fileName);
+
+        //        System.IO.File.AppendAllText(targetPath, csvContent.ToString());
+
+        //        MyReport myReport = new MyReport()
+        //        {
+        //            Username = User.Identity.Name,
+        //            ReportName = ReportName,
+        //            FileName = fileName
+        //        };
+        //        db.MyReports.Add(myReport);
+        //        db.SaveChanges();
+
+        //        return Json(new { msg }, JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        msg = ex.Message;
+        //        return Json(new { msg }, JsonRequestBehavior.AllowGet);
+        //    }
+
+        //}
+
+        public string CreateCsvLine(DatabaseAttributes elem, bool isHeader)
         {
             string csvLine = isHeader ? "Borough,Address" : elem.Borough + "," + elem.Address;
             if (elem.ZipCode != null)
@@ -146,17 +206,19 @@ namespace NYCMappingWebApp.Controllers
             if (elem.OwnerName != null)
                 csvLine += isHeader ? ",Owner Name" : "," + elem.OwnerName;
             if (elem.job_start_date != null)
-                csvLine += isHeader ? ",Job Start Date" : "," + elem.job_start_date;
+                csvLine += isHeader ? ",Job Start Date" : "," + elem.job_start_date_string_format;
             if (elem.job_type != null)
                 csvLine += isHeader ? ",Job Type" : "," + elem.job_type;
             if (elem.work_type != null)
                 csvLine += isHeader ? ",Work Type" : "," + elem.work_type;
             if (elem.issue_date != null)
-                csvLine += isHeader ? ",Issue Date" : "," + elem.issue_date;
+                csvLine += isHeader ? ",Issue Date" : "," + elem.issue_date_string_format;
             if (elem.violation_type != null)
                 csvLine += isHeader ? ",Violation Type" : "," + elem.violation_type;
             if (elem.violation_category != null)
                 csvLine += isHeader ? ",Violation Category" : "," + elem.violation_category;
+            if (elem.executed_date != null)
+                csvLine += isHeader ? ",Executed Date" : "," + elem.executed_date_string_format;
 
             return csvLine;
         }

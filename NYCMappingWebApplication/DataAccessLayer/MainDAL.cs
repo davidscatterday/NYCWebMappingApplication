@@ -1,4 +1,5 @@
 ﻿using NYCMappingWebApp.Entities;
+using NYCMappingWebApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -133,6 +134,22 @@ namespace NYCMappingWebApp.DataAccessLayer
             returnResult.Add(new Select2DTO() { text = "V*-DOB VIOLATION - Resolved", id = "'V*-DOB VIOLATION - Resolved'" });
             returnResult.Add(new Select2DTO() { text = "V-DOB VIOLATION - ACTIVE", id = "'V-DOB VIOLATION - ACTIVE'" });
             return returnResult.Where(w => w.text.Contains(term)).ToList();
+        }
+        public List<SelectListItem> GetAllEvictionStatuses()
+        {
+            List<SelectListItem> returnResult = new List<SelectListItem>();
+            returnResult.Add(new SelectListItem() { Text = "Completed", Value = "1=1" });
+            returnResult.Add(new SelectListItem() { Text = "Scheduled", Value = "1=2" });
+            return returnResult;
+        }
+        public List<DatabaseAttributes> SearchDatabase(string sqlQuery)
+        {
+            List<DatabaseAttributes> returnResult = new List<DatabaseAttributes>();
+            using (var ctx = new NYC_Web_Mapping_AppEntities())
+            {
+                returnResult = ctx.Database.SqlQuery<DatabaseAttributes>(sqlQuery).ToList();
+            }
+            return returnResult;
         }
     }
 }

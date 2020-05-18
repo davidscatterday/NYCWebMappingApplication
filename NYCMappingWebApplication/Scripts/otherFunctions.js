@@ -12,6 +12,7 @@ var lstBuildingClass = ["cbOfficeO1", "cbOfficeO2", "cbOfficeO3", "cbOfficeO4"
     , "cbRentalResidentialD7", "cbRentalResidentialD8", "cbForProfitOwnedHealthcareI1", "cbForProfitOwnedHealthcareI2", "cbForProfitOwnedHealthcareI3", "cbForProfitOwnedHealthcareI4"
     , "cbForProfitOwnedHealthcareI5", "cbForProfitOwnedHealthcareI6", "cbForProfitOwnedHealthcareI7"];
 var lstTableAttributes = [];
+var sqlQuery = "";
 $(function () {
     $("#slider-range-TotalBuildingFloorArea").slider({
         range: true,
@@ -271,6 +272,12 @@ function btnReset() {
     $("#ddlViolationType").val($("#ddlViolationType option:first").val());
     $("#ddlViolationCategory").val($("#ddlViolationCategory option:first").val());
 
+    document.getElementById("cbExecutedDate").checked = false;
+    document.getElementById("cbEvictionStatus").checked = false;
+    document.getElementById("txtExecutedDateFrom").value = "";
+    document.getElementById("txtExecutedDateTo").value = "";
+    $("#ddlEvictionStatus").val($("#ddlEvictionStatus option:first").val());
+
     map.graphics.clear();
     selectionLayer.clear();
     map.setExtent(initExtent);
@@ -290,6 +297,7 @@ function btnSearch() {
     var whereEnergyClause = "";
     var wherePermitClause = "";
     var whereViolationClause = "";
+    var whereEvictionsClause = "";
     if (document.getElementById("cbBorough").checked == true) {
         Borough = $(txtBoroughs).val();
         if (Borough != "") {
@@ -690,19 +698,312 @@ function btnSearch() {
         }
     }
 
-    if (whereEnergyClause != "" || wherePermitClause != "" || whereViolationClause != "") {
-        $('#loading').show();
-        EnergySearch(whereEnergyClause, wherePermitClause, whereViolationClause, whereClause);
+    if (document.getElementById("cbExecutedDate").checked == true) {
+        ExecutedDateFrom = document.getElementById("txtExecutedDateFrom").value;
+        ExecutedDateTo = document.getElementById("txtExecutedDateTo").value;
+        if (ExecutedDateFrom != "" || ExecutedDateTo != "") {
+            lstTableAttributes.push({ name: 'Executed Date', attribute: "executed_date", dataset: "Evictions" });
+            if (whereEvictionsClause != "") {
+                whereEvictionsClause += " AND ";
+            }
+            if (ExecutedDateFrom != "" && ExecutedDateTo != "") {
+                var dFrom = new Date(ExecutedDateFrom);
+                var yearFrom = dFrom.getFullYear();
+                var monthFrom = dFrom.getMonth() + 1;
+                monthFrom = monthFrom < 10 ? "0" + monthFrom : monthFrom;
+                var dayFrom = dFrom.getDate();
+                dayFrom = dayFrom < 10 ? "0" + dayFrom : dayFrom;
+                var valueFrom = yearFrom + "-" + monthFrom + "-" + dayFrom;
+
+                var dTo = new Date(ExecutedDateTo);
+                var yearTo = dTo.getFullYear();
+                var monthTo = dTo.getMonth() + 1;
+                monthTo = monthTo < 10 ? "0" + monthTo : monthTo;
+                var dayTo = dTo.getDate();
+                dayTo = dayTo < 10 ? "0" + dayTo : dayTo;
+                var valueTo = yearTo + "-" + monthTo + "-" + dayTo;
+                whereEvictionsClause += "executed_date >= '" + valueFrom + "' AND executed_date <= '" + valueTo + "'";
+            }
+            else if (ExecutedDateFrom != "") {
+                var dFrom = new Date(ExecutedDateFrom);
+                var yearFrom = dFrom.getFullYear();
+                var monthFrom = dFrom.getMonth() + 1;
+                monthFrom = monthFrom < 10 ? "0" + monthFrom : monthFrom;
+                var dayFrom = dFrom.getDate();
+                dayFrom = dayFrom < 10 ? "0" + dayFrom : dayFrom;
+                var valueFrom = yearFrom + "-" + monthFrom + "-" + dayFrom;
+                whereEvictionsClause += "executed_date >= '" + valueFrom + "'";
+            }
+            else if (ExecutedDateTo != "") {
+                var dTo = new Date(ExecutedDateTo);
+                var yearTo = dTo.getFullYear();
+                var monthTo = dTo.getMonth() + 1;
+                monthTo = monthTo < 10 ? "0" + monthTo : monthTo;
+                var dayTo = dTo.getDate();
+                dayTo = dayTo < 10 ? "0" + dayTo : dayTo;
+                var valueTo = yearTo + "-" + monthTo + "-" + dayTo;
+                whereEvictionsClause += "executed_date <= '" + valueTo + "'";
+            }
+        }
     }
-    else if (whereClause != "") {
-        MapPlutoSearch(whereClause, "", "", "", null, null, null);
+    if (document.getElementById("cbEvictionStatus").checked == true) {
+        var cbEvictionStatus = document.getElementById("cbEvictionStatus");
+        var selectedEvictionStatus = ddlEvictionStatus.options[ddlEvictionStatus.selectedIndex].value;
+        if (selectedEvictionStatus != "") {
+            if (whereEvictionsClause == "") {
+                whereEvictionsClause = selectedEvictionStatus;
+            }
+            else {
+                whereEvictionsClause += " AND " + selectedEvictionStatus;
+            }
+        }
+    }
+
+    if (whereClause != "" || whereEnergyClause != "" || wherePermitClause != "" || whereViolationClause != "" || whereEvictionsClause) {
+        $('#loading').show();
+        DatabaseSearch(whereEnergyClause, wherePermitClause, whereViolationClause, whereEvictionsClause, whereClause, lstTableAttributes);
     }
     else {
         swal("Please choose some searching criteria first");
     }
+
+    //if (whereEnergyClause != "" || wherePermitClause != "" || whereViolationClause != "" || whereEvictionsClause) {
+    //    $('#loading').show();
+    //    EnergySearch(whereEnergyClause, wherePermitClause, whereViolationClause, whereEvictionsClause, whereClause);
+    //}
+    //else if (whereClause != "") {
+    //    MapPlutoSearch(whereClause, "", "", "", "", null, null, null);
+    //}
+    //else {
+    //    swal("Please choose some searching criteria first");
+    //}
 }
 
-function EnergySearch(whereEnergyClause, wherePermitClause, whereViolationClause, whereClause) {
+function DatabaseSearch(whereEnergyClause, wherePermitClause, whereViolationClause, whereEvictionsClause, whereClause, lstTableAttributes) {
+    var selectStatement = "", fromStatement = "dbo.Pluto p", whereStatement = "", selectStatementList = ["p.OBJECTID"], fromStatementList = [];
+    if (whereEnergyClause != "") {
+        if (whereStatement == "") {
+            whereStatement += whereEnergyClause;
+        }
+        else {
+            whereStatement += " AND " + whereEnergyClause;
+        }
+    }
+    if (wherePermitClause != "") {
+        if (whereStatement == "") {
+            whereStatement += wherePermitClause;
+        }
+        else {
+            whereStatement += " AND " + wherePermitClause;
+        }
+    } if (whereViolationClause != "") {
+        if (whereStatement == "") {
+            whereStatement += whereViolationClause;
+        }
+        else {
+            whereStatement += " AND " + whereViolationClause;
+        }
+    } if (whereEvictionsClause != "") {
+        if (whereStatement == "") {
+            whereStatement += whereEvictionsClause;
+        }
+        else {
+            whereStatement += " AND " + whereEvictionsClause;
+        }
+    } if (whereClause != "") {
+        if (whereStatement == "") {
+            whereStatement += whereClause;
+        }
+        else {
+            whereStatement += " AND " + whereClause;
+        }
+    }
+
+    for (var i = 0; i < lstTableAttributes.length; i++) {
+        switch (lstTableAttributes[i].dataset) {
+            case "Pluto":
+                selectStatementList.push("p." + lstTableAttributes[i].attribute);
+                break;
+            case "Energy":
+                if (!fromStatementList.includes(lstTableAttributes[i].dataset)) {
+                    fromStatement += " LEFT JOIN dbo.Energy en on p.BBL = en.bbl_10_digits";
+                }
+                selectStatementList.push("en." + lstTableAttributes[i].attribute);
+                break;
+            case "Permit":
+                if (!fromStatementList.includes(lstTableAttributes[i].dataset)) {
+                    fromStatement += " LEFT JOIN dbo.Permit pe on p.BBL = pe.bbl_10_digits";
+                }
+                selectStatementList.push("pe." + lstTableAttributes[i].attribute);
+                break;
+            case "Violation":
+                if (!fromStatementList.includes(lstTableAttributes[i].dataset)) {
+                    fromStatement += " LEFT JOIN dbo.Violation v on p.BBL = v.bbl_10_digits";
+                }
+                selectStatementList.push("v." + lstTableAttributes[i].attribute);
+                break;
+            case "Evictions":
+                if (!fromStatementList.includes(lstTableAttributes[i].dataset)) {
+                    fromStatement += " LEFT JOIN dbo.Evictions ev on p.Address = ev.EVICTION_ADDRESS";
+                }
+                selectStatementList.push("ev." + lstTableAttributes[i].attribute);
+                break;
+        }
+        fromStatementList.push(lstTableAttributes[i].dataset);
+    }
+    selectStatement = selectStatementList.join(", ");
+    sqlQuery = "SELECT " + selectStatement + " FROM " + fromStatement + " WHERE " + whereStatement;
+    $.ajax({
+        url: RootUrl + 'Home/SearchDatabase',
+        type: "POST",
+        data: {
+            "sqlQuery": sqlQuery
+        }
+    }).done(function (data) {
+        CreateDatabaseTable(data);
+    }).fail(function (f) {
+        $('#loading').hide();
+        swal("Failed to search the query");
+    });
+}
+
+function CreateDatabaseTable(data) {
+    map.graphics.clear();
+    selectionLayer.clear();
+    if ($('.slider-bottom-arrow').hasClass("showBottomPanel")) {
+        $('.slider-bottom-arrow').click();
+    }
+    if (data.length > 0) {
+        var objectIDs = "";
+        var htmlQueryRecords = '<div class="table-responsive"><table id=\"tblQueryRecords\" class="tablesorter"><thead><tr class=\"clickableRow\">';
+        for (var i = 0; i < lstTableAttributes.length; i++) {
+            htmlQueryRecords += "<th>" + lstTableAttributes[i].name + "</th>"
+        }
+        htmlQueryRecords += "</tr></thead><tbody>";
+        //Loop through each feature returned
+        for (var i = 0; i < data.length; i++) {
+            if (objectIDs == "") {
+                objectIDs += data[i].OBJECTID;
+            }
+            else {
+                objectIDs += "," + data[i].OBJECTID;
+            }
+            htmlQueryRecords += "<tr class=\"clickableRow\" OnClick=\"ShowInfoForSelectedRecord('" + data[i].OBJECTID + "');\">";
+
+            for (var j = 0; j < lstTableAttributes.length; j++) {
+                switch (lstTableAttributes[j].attribute) {
+                    case "job_start_date":
+                        value = data[i]["job_start_date_string_format"];
+                        break;
+                    case "issue_date":
+                        value = data[i]["issue_date_string_format"];
+                        break;
+                    case "executed_date":
+                        value = data[i]["executed_date_string_format"];
+                        break;
+                    default:
+                        value = data[i][lstTableAttributes[j].attribute];
+                        break;
+                }
+                htmlQueryRecords += "<td>" + value + "</td>";
+            }
+            htmlQueryRecords += "</tr>";
+        }
+        if (data.length < 2000) {
+            MapPlutoGeometrySearch(objectIDs);
+        }
+        else {
+            $('#loading').hide();
+            swal("Your query has more than 2000 records and they won't be selected on the map");
+        }
+        htmlQueryRecords += '</tr></tbody></table></div>';
+        $('#divSelectItemsTable').text('');
+        $('#divSelectItemsTable').append(htmlQueryRecords);
+        $("#tblQueryRecords").tablesorter({ widgets: ['zebra'] });
+        $('#divSelectItemsMessage').hide();
+        $('#divSelectItemsMoreInfo').show();
+        $('#divSelectItemsCount').show();
+        if (data.length == 1) {
+            $('#divSelectItemsCount').text('There is ' + data.length + ' record returned');
+        }
+        else {
+            $('#divSelectItemsCount').text('There are ' + data.length + ' records returned');
+        }
+        highlightTableRow('tblQueryRecords');
+    }
+    else {
+        $('#divSelectItemsTable').text('');
+        $('#divSelectItemsMoreInfo').hide();
+        $('#divSelectItemsMessage').show();
+        $('#divSelectItemsCount').hide();
+        $('#loading').hide();
+    }
+}
+
+function MapPlutoGeometrySearch(objectIDs) {
+    queryTask = new esri.tasks.QueryTask(MapPlutoUrl);
+
+    //initialize query
+    query = new esri.tasks.Query();
+    query.returnGeometry = true;
+
+    query.where = "OBJECTID IN (" + objectIDs + ")";
+
+    //execute query
+    queryTask.execute(query, function executeMapPlutoSearch(featureSet) {
+        var features = [];
+        var resultFeatures = featureSet.features;
+        //Loop through each feature returned
+        for (var i = 0, il = resultFeatures.length; i < il; i++) {
+            var graphic = resultFeatures[i];
+            var myGraphic = new esri.Graphic({
+                geometry: graphic.geometry
+            });
+            selectionLayer.add(myGraphic);
+            features.push(graphic);
+            var spatialRef = new esri.SpatialReference({ wkid: 102718 });
+            var zoomExtent = new esri.geometry.Extent();
+            zoomExtent.spatialReference = spatialRef;
+            zoomExtent.xmin = esri.graphicsExtent(features).xmin - 10000;
+            zoomExtent.ymin = esri.graphicsExtent(features).ymin - 10000;
+            zoomExtent.xmax = esri.graphicsExtent(features).xmax + 10000;
+            zoomExtent.ymax = esri.graphicsExtent(features).ymax + 10000;
+            map.setExtent(zoomExtent);
+            $('#loading').hide();
+        }
+    }, function (error) {
+        $('#loading').hide();
+        swal(error.message);
+        console.log(error);
+    });
+}
+
+function btnSaveMyReportDatabase_Click() {
+    if (document.getElementById("txtReportName").value == "") {
+        swal("Please enter name");
+    }
+    else {
+        $.ajax({
+            url: RootUrl + 'Home/SaveDatabaseReport',
+            type: "POST",
+            data: {
+                "ReportName": document.getElementById("txtReportName").value,
+                "sqlQuery": sqlQuery,
+                "lstTableAttributes": lstTableAttributes
+            }
+        }).done(function (data) {
+            swal(data.msg);
+        }).fail(function () {
+            swal("Failed to save the report");
+        });
+    }
+}
+
+
+
+
+
+function EnergySearch(whereEnergyClause, wherePermitClause, whereViolationClause, whereEvictionsClause, whereClause) {
     if (whereEnergyClause != "") {
         $.ajax({
             url: "https://data.cityofnewyork.us/resource/n2mv-q2ia.json",
@@ -726,10 +1027,10 @@ function EnergySearch(whereEnergyClause, wherePermitClause, whereViolationClause
                     }
                 });
                 if (bblEnergyList != "") {
-                    PermitSearch(wherePermitClause, whereViolationClause, whereClause, bblEnergyList, dataEnergy);
+                    PermitSearch(wherePermitClause, whereViolationClause, whereEvictionsClause, whereClause, bblEnergyList, dataEnergy);
                 }
                 else {
-                    PermitSearch(wherePermitClause, whereViolationClause, whereClause, "0", null);
+                    PermitSearch(wherePermitClause, whereViolationClause, whereEvictionsClause, whereClause, "0", null);
                 }
             }
             catch (e) {
@@ -740,11 +1041,11 @@ function EnergySearch(whereEnergyClause, wherePermitClause, whereViolationClause
         });
     }
     else {
-        PermitSearch(wherePermitClause, whereViolationClause, whereClause, "", null);
+        PermitSearch(wherePermitClause, whereViolationClause, whereEvictionsClause, whereClause, "", null);
     }
 }
 
-function PermitSearch(wherePermitClause, whereViolationClause, whereClause, bblEnergyList, dataEnergy) {
+function PermitSearch(wherePermitClause, whereViolationClause, whereEvictionsClause, whereClause, bblEnergyList, dataEnergy) {
     if (wherePermitClause != "") {
         $.ajax({
             url: "https://data.cityofnewyork.us/resource/ipu4-2q9a.json",
@@ -780,10 +1081,10 @@ function PermitSearch(wherePermitClause, whereViolationClause, whereClause, bblE
                     }
                 });
                 if (bblPermitList != "") {
-                    ViolationSearch(whereViolationClause, whereClause, bblEnergyList, bblPermitList, dataEnergy, dataPermit);
+                    ViolationSearch(whereViolationClause, whereEvictionsClause, whereClause, bblEnergyList, bblPermitList, dataEnergy, dataPermit);
                 }
                 else {
-                    ViolationSearch(whereViolationClause, whereClause, bblEnergyList, "0", dataEnergy, null);
+                    ViolationSearch(whereViolationClause, whereEvictionsClause, whereClause, bblEnergyList, "0", dataEnergy, null);
                 }
             }
             catch (e) {
@@ -794,11 +1095,11 @@ function PermitSearch(wherePermitClause, whereViolationClause, whereClause, bblE
         });
     }
     else {
-        ViolationSearch(whereViolationClause, whereClause, bblEnergyList, "", dataEnergy, null);
+        ViolationSearch(whereViolationClause, whereEvictionsClause, whereClause, bblEnergyList, "", dataEnergy, null);
     }
 }
 
-function ViolationSearch(whereViolationClause, whereClause, bblEnergyList, bblPermitList, dataEnergy, dataPermit) {
+function ViolationSearch(whereViolationClause, whereEvictionsClause, whereClause, bblEnergyList, bblPermitList, dataEnergy, dataPermit) {
     if (whereViolationClause != "") {
         $.ajax({
             url: "https://data.cityofnewyork.us/resource/3h2n-5cm9.json",
@@ -825,10 +1126,10 @@ function ViolationSearch(whereViolationClause, whereClause, bblEnergyList, bblPe
                     }
                 });
                 if (bblViolationList != "") {
-                    MapPlutoSearch(whereClause, bblEnergyList, bblPermitList, bblViolationList, dataEnergy, dataPermit, dataViolation);
+                    EvictionsSearch(whereEvictionsClause, whereClause, bblEnergyList, bblPermitList, bblViolationList, dataEnergy, dataPermit, dataViolation);
                 }
                 else {
-                    MapPlutoSearch(whereClause, bblEnergyList, bblPermitList, "0", dataEnergy, dataPermit, null);
+                    EvictionsSearch(whereEvictionsClause, whereClause, bblEnergyList, bblPermitList, "0", dataEnergy, dataPermit, null);
                 }
             }
             catch (e) {
@@ -839,11 +1140,51 @@ function ViolationSearch(whereViolationClause, whereClause, bblEnergyList, bblPe
         });
     }
     else {
-        MapPlutoSearch(whereClause, bblEnergyList, bblPermitList, "", dataEnergy, dataPermit, null);
+        EvictionsSearch(whereEvictionsClause, whereClause, bblEnergyList, bblPermitList, "", dataEnergy, dataPermit, null);
     }
 }
 
-function MapPlutoSearch(whereClause, bblEnergyList, bblPermitList, bblViolationList, dataEnergy, dataPermit, dataViolation) {
+function EvictionsSearch(whereEvictionsClause, whereClause, bblEnergyList, bblPermitList, bblViolationList, dataEnergy, dataPermit, dataViolation) {
+    if (whereEvictionsClause != "") {
+        $.ajax({
+            url: "https://data.cityofnewyork.us/resource/6z8x-wfk4.json",
+            type: "GET",
+            data: {
+                "$limit": 20000,
+                "$$app_token": "CNInYnGGBkU5zuF516GolLbHQ",
+                "$where": whereEvictionsClause
+            }
+        }).done(function (dataEvictions) {
+            try {
+                var addressEvictionsList = "";
+                dataEvictions.forEach((field) => {
+                    if (addressEvictionsList == "") {
+                        addressEvictionsList += "'" + field.eviction_address + "'";
+                    }
+                    else {
+                        addressEvictionsList += ",'" + field.eviction_address + "'";
+                    }
+                });
+                if (addressEvictionsList != "") {
+                    MapPlutoSearch(whereClause, bblEnergyList, bblPermitList, bblViolationList, addressEvictionsList, dataEnergy, dataPermit, dataViolation, dataEvictions);
+                }
+                else {
+                    MapPlutoSearch(whereClause, bblEnergyList, bblPermitList, bblViolationList, "'0'", dataEnergy, dataPermit, dataViolation, null);
+                }
+            }
+            catch (e) {
+                $('#loading').hide();
+            }
+        }).fail(function () {
+            $('#loading').hide();
+        });
+    }
+    else {
+        MapPlutoSearch(whereClause, bblEnergyList, bblPermitList, bblViolationList, "", dataEnergy, dataPermit, dataViolation, null);
+    }
+}
+
+function MapPlutoSearch(whereClause, bblEnergyList, bblPermitList, bblViolationList, addressEvictionsList, dataEnergy, dataPermit, dataViolation, dataEvictions) {
     $('#loading').show();
     if (bblEnergyList != "") {
         if (whereClause == "") {
@@ -869,6 +1210,14 @@ function MapPlutoSearch(whereClause, bblEnergyList, bblPermitList, bblViolationL
             whereClause += " AND BBL IN (" + bblViolationList + ")";
         }
     }
+    if (addressEvictionsList != "") {
+        if (whereClause == "") {
+            whereClause = "address IN (" + addressEvictionsList + ")";
+        }
+        else {
+            whereClause += " AND address IN (" + addressEvictionsList + ")";
+        }
+    }
     if (whereClause != "") {
         map.graphics.clear();
         selectionLayer.clear();
@@ -888,7 +1237,7 @@ function MapPlutoSearch(whereClause, bblEnergyList, bblPermitList, bblViolationL
             }
             var resultFeatures = featureSet.features;
             if (resultFeatures.length > 0) {
-                CreateResultTable(resultFeatures, dataEnergy, dataPermit, dataViolation);
+                CreateResultTable(resultFeatures, dataEnergy, dataPermit, dataViolation, dataEvictions);
             }
             else {
                 $('#divSelectItemsTable').text('');
@@ -915,7 +1264,7 @@ function MapPlutoSearch(whereClause, bblEnergyList, bblPermitList, bblViolationL
     }
 }
 
-function CreateResultTable(resultFeatures, dataEnergy, dataPermit, dataViolation) {
+function CreateResultTable(resultFeatures, dataEnergy, dataPermit, dataViolation, dataEvictions) {
     var features = [];
     var htmlQueryRecords = '<div class="table-responsive"><table id=\"tblQueryRecords\" class="tablesorter"><thead><tr class=\"clickableRow\">';
     for (var i = 0; i < lstTableAttributes.length; i++) {
@@ -925,6 +1274,7 @@ function CreateResultTable(resultFeatures, dataEnergy, dataPermit, dataViolation
     var dataEnergyItem = [];
     var dataPermitItem = [];
     var dataViolationItem = [];
+    var dataEvictionsItem = [];
     //Loop through each feature returned
     for (var i = 0, il = resultFeatures.length; i < il; i++) {
         var graphic = resultFeatures[i];
@@ -958,6 +1308,11 @@ function CreateResultTable(resultFeatures, dataEnergy, dataPermit, dataViolation
                     bbl = obj.boro + obj.block + obj.lot.substring(1);
                 }
                 return bbl != "" && bbl == graphic.attributes.BBL;
+            });
+        }
+        if (dataEvictions != null) {
+            dataEvictionsItem = dataEvictions.filter(function (obj) {
+                return obj.eviction_address == graphic.attributes.Address;
             });
         }
         var myGraphic = new esri.Graphic({
@@ -1001,6 +1356,20 @@ function CreateResultTable(resultFeatures, dataEnergy, dataPermit, dataViolation
                 }
                 else {
                     value = dataViolationItem[0][lstTableAttributes[j].attribute];
+                }
+            }
+            else if (lstTableAttributes[j].dataset == "Evictions") {
+                if (lstTableAttributes[j].attribute == "executed_date") {
+                    var d = new Date(dataEvictionsItem[0][lstTableAttributes[j].attribute]);
+                    var year = d.getFullYear();
+                    var month = d.getMonth() + 1;
+                    month = month < 10 ? "0" + month : month;
+                    var day = d.getDate();
+                    day = day < 10 ? "0" + day : day;
+                    value = month + "/" + day + "/" + year;
+                }
+                else {
+                    value = dataEvictionsItem[0][lstTableAttributes[j].attribute];
                 }
             }
             jsonData[lstTableAttributes[j].attribute] = value;
