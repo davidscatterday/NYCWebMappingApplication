@@ -13,6 +13,7 @@ var lstBuildingClass = ["cbOfficeO1", "cbOfficeO2", "cbOfficeO3", "cbOfficeO4"
     , "cbForProfitOwnedHealthcareI5", "cbForProfitOwnedHealthcareI6", "cbForProfitOwnedHealthcareI7"];
 var lstTableAttributes = [];
 var sqlQuery = "";
+var IsPlutoSearch = false, IsEnergySearch = false, IsPermitSearch = false, IsViolationSearch = false, IsEvictionSearch = false;
 $(function () {
     $("#slider-range-TotalBuildingFloorArea").slider({
         range: true,
@@ -223,6 +224,8 @@ function btnReset() {
     $('#divSelectItemsMoreInfo').hide();
     $('#divSelectItemsMessage').hide();
     $('#divSelectItemsCount').hide();
+    $('#btnOpenSaveReport').hide();
+    $('#btnOpenAlerts').hide();
 
     uncheckBuildingClass();
     $('.panel-collapse.in').collapse('toggle');
@@ -301,11 +304,12 @@ function btnSearch() {
     if (document.getElementById("cbBorough").checked == true) {
         Borough = $(txtBoroughs).val();
         if (Borough != "") {
+            IsPlutoSearch = true;
             if (whereClause == "") {
-                whereClause = "Borough IN (" + Borough + ")";
+                whereClause = "p.Borough IN (" + Borough + ")";
             }
             else {
-                whereClause += " AND Borough IN (" + Borough + ")";
+                whereClause += " AND p.Borough IN (" + Borough + ")";
             }
         }
     }
@@ -313,29 +317,31 @@ function btnSearch() {
         ZipCodeRangeFrom = document.getElementById("txtZipCodeRangeFrom").value;
         ZipCodeRangeTo = document.getElementById("txtZipCodeRangeTo").value;
         if (ZipCodeRangeFrom != "" || ZipCodeRangeTo != "") {
+            IsPlutoSearch = true;
             lstTableAttributes.push({ name: 'Zip Code', attribute: "ZipCode", dataset: "Pluto" });
             if (whereClause != "") {
                 whereClause += " AND ";
             }
             if (ZipCodeRangeFrom != "" && ZipCodeRangeTo != "") {
-                whereClause += "ZipCode >= " + ZipCodeRangeFrom + " AND ZipCode <= " + ZipCodeRangeTo;
+                whereClause += "p.ZipCode >= " + ZipCodeRangeFrom + " AND p.ZipCode <= " + ZipCodeRangeTo;
             }
             else if (ZipCodeRangeFrom != "") {
-                whereClause += "ZipCode >= " + ZipCodeRangeFrom;;
+                whereClause += "p.ZipCode >= " + ZipCodeRangeFrom;;
             }
             else if (ZipCodeRangeTo != "") {
-                whereClause += "ZipCode <= " + ZipCodeRangeTo;;
+                whereClause += "p.ZipCode <= " + ZipCodeRangeTo;;
             }
         }
     }
     if (document.getElementById("cbStreetAddress").checked == true) {
         StreetAddress = document.getElementById("txtStreetAddress").value;
         if (StreetAddress != "") {
+            IsPlutoSearch = true;
             if (whereClause == "") {
-                whereClause = "Address LIKE '%" + StreetAddress + "%'";
+                whereClause = "p.Address LIKE '%" + StreetAddress + "%'";
             }
             else {
-                whereClause += " AND Address LIKE '%" + StreetAddress + "%'";
+                whereClause += " AND p.Address LIKE '%" + StreetAddress + "%'";
             }
         }
     }
@@ -343,83 +349,90 @@ function btnSearch() {
         Lat = document.getElementById("txtLat").value;
         Long = document.getElementById("txtLong").value;
         if (Lat != "" || Long != "") {
+            IsPlutoSearch = true;
             if (whereClause != "") {
                 whereClause += " AND ";
             }
             if (Lat != "" && Long != "") {
                 lstTableAttributes.push({ name: 'Latitude', attribute: "Latitude", dataset: "Pluto" });
                 lstTableAttributes.push({ name: 'Longitude', attribute: "Longitude", dataset: "Pluto" });
-                whereClause += "Latitude = " + Lat + " AND Longitude = " + Long;
+                whereClause += "p.Latitude = " + Lat + " AND p.Longitude = " + Long;
             }
             else if (Lat != "") {
                 lstTableAttributes.push({ name: 'Latitude', attribute: "Latitude", dataset: "Pluto" });
-                whereClause += "Latitude = " + Lat;;
+                whereClause += "p.Latitude = " + Lat;;
             }
             else if (Long != "") {
                 lstTableAttributes.push({ name: 'Longitude', attribute: "Longitude", dataset: "Pluto" });
-                whereClause += "Longitude = " + Long;;
+                whereClause += "p.Longitude = " + Long;;
             }
         }
     }
 
     if (document.getElementById("cbTotalBuildingFloorArea").checked == true) {
+        IsPlutoSearch = true;
         lstTableAttributes.push({ name: 'Total Building Floor Area', attribute: "BldgArea", dataset: "Pluto" });
         TotalBuildingFloorAreaStart = $("#slider-range-TotalBuildingFloorArea").slider("values", 0);
         TotalBuildingFloorAreaEnd = $("#slider-range-TotalBuildingFloorArea").slider("values", 1);
         if (whereClause == "") {
-            whereClause = "BldgArea >= " + TotalBuildingFloorAreaStart + " AND BldgArea <= " + TotalBuildingFloorAreaEnd;
+            whereClause = "p.BldgArea >= " + TotalBuildingFloorAreaStart + " AND p.BldgArea <= " + TotalBuildingFloorAreaEnd;
         }
         else {
-            whereClause += " AND BldgArea >= " + TotalBuildingFloorAreaStart + " AND BldgArea <= " + TotalBuildingFloorAreaEnd;
+            whereClause += " AND p.BldgArea >= " + TotalBuildingFloorAreaStart + " AND p.BldgArea <= " + TotalBuildingFloorAreaEnd;
         }
     }
     if (document.getElementById("cbCommercialFloorArea").checked == true) {
+        IsPlutoSearch = true;
         lstTableAttributes.push({ name: 'Commercial Floor Area', attribute: "ComArea", dataset: "Pluto" });
         CommercialFloorAreaStart = $("#slider-range-CommercialFloorArea").slider("values", 0);
         CommercialFloorAreaEnd = $("#slider-range-CommercialFloorArea").slider("values", 1);
         if (whereClause == "") {
-            whereClause = "ComArea >= " + CommercialFloorAreaStart + " AND ComArea <= " + CommercialFloorAreaEnd;
+            whereClause = "p.ComArea >= " + CommercialFloorAreaStart + " AND p.ComArea <= " + CommercialFloorAreaEnd;
         }
         else {
-            whereClause += " AND ComArea >= " + CommercialFloorAreaStart + " AND ComArea <= " + CommercialFloorAreaEnd;
+            whereClause += " AND p.ComArea >= " + CommercialFloorAreaStart + " AND p.ComArea <= " + CommercialFloorAreaEnd;
         }
     }
     if (document.getElementById("cbResidentialFloorArea").checked == true) {
+        IsPlutoSearch = true;
         lstTableAttributes.push({ name: 'Residential Floor Area', attribute: "ResArea", dataset: "Pluto" });
         ResidentialFloorAreaStart = $("#slider-range-ResidentialFloorArea").slider("values", 0);
         ResidentialFloorAreaEnd = $("#slider-range-ResidentialFloorArea").slider("values", 1);
         if (whereClause == "") {
-            whereClause = "ResArea >= " + ResidentialFloorAreaStart + " AND ResArea <= " + ResidentialFloorAreaEnd;
+            whereClause = "p.ResArea >= " + ResidentialFloorAreaStart + " AND p.ResArea <= " + ResidentialFloorAreaEnd;
         }
         else {
-            whereClause += " AND ResArea >= " + ResidentialFloorAreaStart + " AND ResArea <= " + ResidentialFloorAreaEnd;
+            whereClause += " AND p.ResArea >= " + ResidentialFloorAreaStart + " AND p.ResArea <= " + ResidentialFloorAreaEnd;
         }
     }
     if (document.getElementById("cbNumberOfFloors").checked == true) {
+        IsPlutoSearch = true;
         lstTableAttributes.push({ name: 'Number of Floors', attribute: "NumFloors", dataset: "Pluto" });
         NumberOfFloorsStart = $("#slider-range-NumberOfFloors").slider("values", 0);
         NumberOfFloorsEnd = $("#slider-range-NumberOfFloors").slider("values", 1);
         if (whereClause == "") {
-            whereClause = "NumFloors >= " + NumberOfFloorsStart + " AND NumFloors <= " + NumberOfFloorsEnd;
+            whereClause = "p.NumFloors >= " + NumberOfFloorsStart + " AND p.NumFloors <= " + NumberOfFloorsEnd;
         }
         else {
-            whereClause += " AND NumFloors >= " + NumberOfFloorsStart + " AND NumFloors <= " + NumberOfFloorsEnd;
+            whereClause += " AND p.NumFloors >= " + NumberOfFloorsStart + " AND p.NumFloors <= " + NumberOfFloorsEnd;
         }
     }
     if (document.getElementById("cbResidentialUnits").checked == true) {
+        IsPlutoSearch = true;
         lstTableAttributes.push({ name: 'Residential Units', attribute: "UnitsRes", dataset: "Pluto" });
         ResidentialUnitsStart = $("#slider-range-ResidentialUnits").slider("values", 0);
         ResidentialUnitsEnd = $("#slider-range-ResidentialUnits").slider("values", 1);
         if (whereClause == "") {
-            whereClause = "UnitsRes >= " + ResidentialUnitsStart + " AND UnitsRes <= " + ResidentialUnitsEnd;
+            whereClause = "p.UnitsRes >= " + ResidentialUnitsStart + " AND p.UnitsRes <= " + ResidentialUnitsEnd;
         }
         else {
-            whereClause += " AND UnitsRes >= " + ResidentialUnitsStart + " AND UnitsRes <= " + ResidentialUnitsEnd;
+            whereClause += " AND p.UnitsRes >= " + ResidentialUnitsStart + " AND p.UnitsRes <= " + ResidentialUnitsEnd;
         }
     }
 
 
     if (document.getElementById("cbZoningDistrict").checked == true) {
+        IsPlutoSearch = true;
         var ddlZoningDistrict = document.getElementById("ddlZoningDistrict");
         var selectedZoningDistrict = ddlZoningDistrict.options[ddlZoningDistrict.selectedIndex].value;
         if (selectedZoningDistrict != "") {
@@ -433,6 +446,7 @@ function btnSearch() {
         }
     }
     if (document.getElementById("cbCommercialOverlay").checked == true) {
+        IsPlutoSearch = true;
         var ddlCommercialOverlay = document.getElementById("ddlCommercialOverlay");
         var selectedCommercialOverlay = ddlCommercialOverlay.options[ddlCommercialOverlay.selectedIndex].value;
         if (selectedCommercialOverlay != "") {
@@ -447,25 +461,27 @@ function btnSearch() {
         }
     }
     if (document.getElementById("cbAssessedTotalValue").checked == true) {
+        IsPlutoSearch = true;
         lstTableAttributes.push({ name: 'Assessed Total Value', attribute: "AssessTot", dataset: "Pluto" });
         AssessedTotalValueStart = $("#slider-range-AssessedTotalValue").slider("values", 0);
         AssessedTotalValueEnd = $("#slider-range-AssessedTotalValue").slider("values", 1);
         if (whereClause == "") {
-            whereClause = "AssessTot >= " + AssessedTotalValueStart + " AND AssessTot <= " + AssessedTotalValueEnd;
+            whereClause = "p.AssessTot >= " + AssessedTotalValueStart + " AND p.AssessTot <= " + AssessedTotalValueEnd;
         }
         else {
-            whereClause += " AND AssessTot >= " + AssessedTotalValueStart + " AND AssessTot <= " + AssessedTotalValueEnd;
+            whereClause += " AND p.AssessTot >= " + AssessedTotalValueStart + " AND p.AssessTot <= " + AssessedTotalValueEnd;
         }
     }
     if (document.getElementById("cbYearBuild").checked == true) {
+        IsPlutoSearch = true;
         lstTableAttributes.push({ name: 'Year Built', attribute: "YearBuilt", dataset: "Pluto" });
         YearBuildStart = $("#slider-range-YearBuild").slider("values", 0);
         YearBuildEnd = $("#slider-range-YearBuild").slider("values", 1);
         if (whereClause == "") {
-            whereClause = "YearBuilt >= " + YearBuildStart + " AND YearBuilt <= " + YearBuildEnd;
+            whereClause = "p.YearBuilt >= " + YearBuildStart + " AND p.YearBuilt <= " + YearBuildEnd;
         }
         else {
-            whereClause += " AND YearBuilt >= " + YearBuildStart + " AND YearBuilt <= " + YearBuildEnd;
+            whereClause += " AND p.YearBuilt >= " + YearBuildStart + " AND p.YearBuilt <= " + YearBuildEnd;
         }
     }
     if (document.getElementById("cbOwnerName").checked == true) {
@@ -486,73 +502,80 @@ function btnSearch() {
         }
 
         if (buildingClassValues != "") {
+            IsPlutoSearch = true;
             lstTableAttributes.push({ name: 'Building Class', attribute: "BldgClass", dataset: "Pluto" });
             if (whereClause == "") {
-                whereClause = "BldgClass IN (" + buildingClassValues + ")";
+                whereClause = "p.BldgClass IN (" + buildingClassValues + ")";
             }
             else {
-                whereClause += " AND BldgClass IN (" + buildingClassValues + ")";
+                whereClause += " AND p.BldgClass IN (" + buildingClassValues + ")";
             }
         }
     }
 
     if (document.getElementById("cbEnergyStarScore").checked == true) {
+        IsEnergySearch = true;
         lstTableAttributes.push({ name: 'Energy Star Score', attribute: "energy_star_score", dataset: "Energy" });
         EnergyStarScoreStart = $("#slider-range-EnergyStarScore").slider("values", 0);
         EnergyStarScoreEnd = $("#slider-range-EnergyStarScore").slider("values", 1);
         if (whereEnergyClause == "") {
-            whereEnergyClause = "energy_star_score >= " + EnergyStarScoreStart + " AND energy_star_score <= " + EnergyStarScoreEnd;
+            whereEnergyClause = "en.energy_star_score >= " + EnergyStarScoreStart + " AND en.energy_star_score <= " + EnergyStarScoreEnd;
         }
         else {
-            whereEnergyClause += " AND energy_star_score >= " + EnergyStarScoreStart + " AND energy_star_score <= " + EnergyStarScoreEnd;
+            whereEnergyClause += " AND en.energy_star_score >= " + EnergyStarScoreStart + " AND en.energy_star_score <= " + EnergyStarScoreEnd;
         }
     }
     if (document.getElementById("cbSourceEUI").checked == true) {
+        IsEnergySearch = true;
         lstTableAttributes.push({ name: 'Source EUI', attribute: "source_eui_kbtu_ft", dataset: "Energy" });
         SourceEUIStart = $("#slider-range-SourceEUI").slider("values", 0);
         SourceEUIEnd = $("#slider-range-SourceEUI").slider("values", 1);
         if (whereEnergyClause == "") {
-            whereEnergyClause = "source_eui_kbtu_ft >= " + SourceEUIStart + " AND source_eui_kbtu_ft <= " + SourceEUIEnd;
+            whereEnergyClause = "en.source_eui_kbtu_ft >= " + SourceEUIStart + " AND en.source_eui_kbtu_ft <= " + SourceEUIEnd;
         }
         else {
-            whereEnergyClause += " AND source_eui_kbtu_ft >= " + SourceEUIStart + " AND source_eui_kbtu_ft <= " + SourceEUIEnd;
+            whereEnergyClause += " AND en.source_eui_kbtu_ft >= " + SourceEUIStart + " AND en.source_eui_kbtu_ft <= " + SourceEUIEnd;
         }
     }
     if (document.getElementById("cbSiteEUI").checked == true) {
+        IsEnergySearch = true;
         lstTableAttributes.push({ name: 'Site EUI', attribute: "site_eui_kbtu_ft", dataset: "Energy" });
         SiteEUIStart = $("#slider-range-SiteEUI").slider("values", 0);
         SiteEUIEnd = $("#slider-range-SiteEUI").slider("values", 1);
         if (whereEnergyClause == "") {
-            whereEnergyClause = "site_eui_kbtu_ft >= " + SiteEUIStart + " AND site_eui_kbtu_ft <= " + SiteEUIEnd;
+            whereEnergyClause = "en.site_eui_kbtu_ft >= " + SiteEUIStart + " AND en.site_eui_kbtu_ft <= " + SiteEUIEnd;
         }
         else {
-            whereEnergyClause += " AND site_eui_kbtu_ft >= " + SiteEUIStart + " AND site_eui_kbtu_ft <= " + SiteEUIEnd;
+            whereEnergyClause += " AND en.site_eui_kbtu_ft >= " + SiteEUIStart + " AND en.site_eui_kbtu_ft <= " + SiteEUIEnd;
         }
     }
     if (document.getElementById("cbAnnualMaximumDemand").checked == true) {
+        IsEnergySearch = true;
         lstTableAttributes.push({ name: 'Annual Maximum Demand', attribute: "annual_maximum_demand_kw", dataset: "Energy" });
         AnnualMaximumDemandStart = $("#slider-range-AnnualMaximumDemand").slider("values", 0);
         AnnualMaximumDemandEnd = $("#slider-range-AnnualMaximumDemand").slider("values", 1);
         if (whereEnergyClause == "") {
-            whereEnergyClause = "annual_maximum_demand_kw >= " + AnnualMaximumDemandStart + " AND annual_maximum_demand_kw <= " + AnnualMaximumDemandEnd;
+            whereEnergyClause = "en.annual_maximum_demand_kw >= " + AnnualMaximumDemandStart + " AND en.annual_maximum_demand_kw <= " + AnnualMaximumDemandEnd;
         }
         else {
-            whereEnergyClause += " AND annual_maximum_demand_kw >= " + AnnualMaximumDemandStart + " AND annual_maximum_demand_kw <= " + AnnualMaximumDemandEnd;
+            whereEnergyClause += " AND en.annual_maximum_demand_kw >= " + AnnualMaximumDemandStart + " AND en.annual_maximum_demand_kw <= " + AnnualMaximumDemandEnd;
         }
     }
     if (document.getElementById("cbTotalGHGEmissions").checked == true) {
+        IsEnergySearch = true;
         lstTableAttributes.push({ name: 'Total GHG Emissions', attribute: "total_ghg_emissions_metric", dataset: "Energy" });
         TotalGHGEmissionsStart = $("#slider-range-TotalGHGEmissions").slider("values", 0);
         TotalGHGEmissionsEnd = $("#slider-range-TotalGHGEmissions").slider("values", 1);
         if (whereEnergyClause == "") {
-            whereEnergyClause = "total_ghg_emissions_metric >= " + TotalGHGEmissionsStart + " AND total_ghg_emissions_metric <= " + TotalGHGEmissionsEnd;
+            whereEnergyClause = "en.total_ghg_emissions_metric >= " + TotalGHGEmissionsStart + " AND en.total_ghg_emissions_metric <= " + TotalGHGEmissionsEnd;
         }
         else {
-            whereEnergyClause += " AND total_ghg_emissions_metric >= " + TotalGHGEmissionsStart + " AND total_ghg_emissions_metric <= " + TotalGHGEmissionsEnd;
+            whereEnergyClause += " AND en.total_ghg_emissions_metric >= " + TotalGHGEmissionsStart + " AND en.total_ghg_emissions_metric <= " + TotalGHGEmissionsEnd;
         }
     }
 
     if (document.getElementById("cbJobStartDate").checked == true) {
+        IsPermitSearch = true;
         JobStartDateFrom = document.getElementById("txtJobStartDateFrom").value;
         JobStartDateTo = document.getElementById("txtJobStartDateTo").value;
         if (JobStartDateFrom != "" || JobStartDateTo != "") {
@@ -576,7 +599,7 @@ function btnSearch() {
                 var dayTo = dTo.getDate();
                 dayTo = dayTo < 10 ? "0" + dayTo : dayTo;
                 var valueTo = yearTo + "-" + monthTo + "-" + dayTo;
-                wherePermitClause += "job_start_date >= '" + valueFrom + "' AND job_start_date <= '" + valueTo + "'";
+                wherePermitClause += "pe.job_start_date >= '" + valueFrom + "' AND pe.job_start_date <= '" + valueTo + "'";
             }
             else if (JobStartDateFrom != "") {
                 var dFrom = new Date(JobStartDateFrom);
@@ -586,7 +609,7 @@ function btnSearch() {
                 var dayFrom = dFrom.getDate();
                 dayFrom = dayFrom < 10 ? "0" + dayFrom : dayFrom;
                 var valueFrom = yearFrom + "-" + monthFrom + "-" + dayFrom;
-                wherePermitClause += "job_start_date >= '" + valueFrom + "'";
+                wherePermitClause += "pe.job_start_date >= '" + valueFrom + "'";
             }
             else if (JobStartDateTo != "") {
                 var dTo = new Date(JobStartDateTo);
@@ -596,31 +619,33 @@ function btnSearch() {
                 var dayTo = dTo.getDate();
                 dayTo = dayTo < 10 ? "0" + dayTo : dayTo;
                 var valueTo = yearTo + "-" + monthTo + "-" + dayTo;
-                wherePermitClause += "job_start_date <= '" + valueTo + "'";
+                wherePermitClause += "pe.job_start_date <= '" + valueTo + "'";
             }
         }
     }
     if (document.getElementById("cbJobType").checked == true) {
         JobType = $(txtJobTypes).val();
         if (JobType != "") {
+            IsPermitSearch = true;
             lstTableAttributes.push({ name: 'Job Type', attribute: "job_type", dataset: "Permit" });
             if (wherePermitClause == "") {
-                wherePermitClause = "job_type IN (" + JobType + ")";
+                wherePermitClause = "pe.job_type IN (" + JobType + ")";
             }
             else {
-                wherePermitClause += " AND job_type IN (" + JobType + ")";
+                wherePermitClause += " AND pe.job_type IN (" + JobType + ")";
             }
         }
     }
     if (document.getElementById("cbWorkType").checked == true) {
         WorkType = $(txtWorkTypes).val();
         if (WorkType != "") {
+            IsPermitSearch = true;
             lstTableAttributes.push({ name: 'Work Type', attribute: "work_type", dataset: "Permit" });
             if (wherePermitClause == "") {
-                wherePermitClause = "work_type IN (" + WorkType + ")";
+                wherePermitClause = "pe.work_type IN (" + WorkType + ")";
             }
             else {
-                wherePermitClause += " AND work_type IN (" + WorkType + ")";
+                wherePermitClause += " AND pe.work_type IN (" + WorkType + ")";
             }
         }
     }
@@ -629,6 +654,7 @@ function btnSearch() {
         IssueDateFrom = document.getElementById("txtIssueDateFrom").value;
         IssueDateTo = document.getElementById("txtIssueDateTo").value;
         if (IssueDateFrom != "" || IssueDateTo != "") {
+            IsViolationSearch = true;
             lstTableAttributes.push({ name: 'Issue Date', attribute: "issue_date", dataset: "Violation" });
             if (whereViolationClause != "") {
                 whereViolationClause += " AND ";
@@ -649,7 +675,7 @@ function btnSearch() {
                 var dayTo = dTo.getDate();
                 dayTo = dayTo < 10 ? "0" + dayTo : dayTo;
                 var valueTo = yearTo + monthTo + dayTo;
-                whereViolationClause += "issue_date >= '" + valueFrom + "' AND issue_date <= '" + valueTo + "'";
+                whereViolationClause += "v.issue_date >= '" + valueFrom + "' AND v.issue_date <= '" + valueTo + "'";
             }
             else if (IssueDateFrom != "") {
                 var dFrom = new Date(IssueDateFrom);
@@ -659,7 +685,7 @@ function btnSearch() {
                 var dayFrom = dFrom.getDate();
                 dayFrom = dayFrom < 10 ? "0" + dayFrom : dayFrom;
                 var valueFrom = yearFrom + monthFrom + dayFrom;
-                whereViolationClause += "issue_date >= '" + valueFrom + "'";
+                whereViolationClause += "v.issue_date >= '" + valueFrom + "'";
             }
             else if (IssueDateTo != "") {
                 var dTo = new Date(IssueDateTo);
@@ -669,31 +695,33 @@ function btnSearch() {
                 var dayTo = dTo.getDate();
                 dayTo = dayTo < 10 ? "0" + dayTo : dayTo;
                 var valueTo = yearTo + monthTo + dayTo;
-                whereViolationClause += "issue_date <= '" + valueTo + "'";
+                whereViolationClause += "v.issue_date <= '" + valueTo + "'";
             }
         }
     }
     if (document.getElementById("cbViolationType").checked == true) {
         ViolationType = $(txtViolationTypes).val();
         if (ViolationType != "") {
+            IsViolationSearch = true;
             lstTableAttributes.push({ name: 'Violation Type', attribute: "violation_type", dataset: "Violation" });
             if (whereViolationClause == "") {
-                whereViolationClause = "violation_type IN (" + ViolationType + ")";
+                whereViolationClause = "v.violation_type IN (" + ViolationType + ")";
             }
             else {
-                whereViolationClause += " AND violation_type IN (" + ViolationType + ")";
+                whereViolationClause += " AND v.violation_type IN (" + ViolationType + ")";
             }
         }
     }
     if (document.getElementById("cbViolationCategory").checked == true) {
         ViolationCategory = $(txtViolationCategories).val();
         if (ViolationCategory != "") {
+            IsViolationSearch = true;
             lstTableAttributes.push({ name: 'Violation Category', attribute: "violation_category", dataset: "Violation" });
             if (whereViolationClause == "") {
-                whereViolationClause = "violation_category IN (" + ViolationCategory + ")";
+                whereViolationClause = "v.violation_category IN (" + ViolationCategory + ")";
             }
             else {
-                whereViolationClause += " AND violation_category IN (" + ViolationCategory + ")";
+                whereViolationClause += " AND v.violation_category IN (" + ViolationCategory + ")";
             }
         }
     }
@@ -702,6 +730,7 @@ function btnSearch() {
         ExecutedDateFrom = document.getElementById("txtExecutedDateFrom").value;
         ExecutedDateTo = document.getElementById("txtExecutedDateTo").value;
         if (ExecutedDateFrom != "" || ExecutedDateTo != "") {
+            IsEvictionSearch = true;
             lstTableAttributes.push({ name: 'Executed Date', attribute: "executed_date", dataset: "Evictions" });
             if (whereEvictionsClause != "") {
                 whereEvictionsClause += " AND ";
@@ -722,7 +751,7 @@ function btnSearch() {
                 var dayTo = dTo.getDate();
                 dayTo = dayTo < 10 ? "0" + dayTo : dayTo;
                 var valueTo = yearTo + "-" + monthTo + "-" + dayTo;
-                whereEvictionsClause += "executed_date >= '" + valueFrom + "' AND executed_date <= '" + valueTo + "'";
+                whereEvictionsClause += "ev.executed_date >= '" + valueFrom + "' AND ev.executed_date <= '" + valueTo + "'";
             }
             else if (ExecutedDateFrom != "") {
                 var dFrom = new Date(ExecutedDateFrom);
@@ -732,7 +761,7 @@ function btnSearch() {
                 var dayFrom = dFrom.getDate();
                 dayFrom = dayFrom < 10 ? "0" + dayFrom : dayFrom;
                 var valueFrom = yearFrom + "-" + monthFrom + "-" + dayFrom;
-                whereEvictionsClause += "executed_date >= '" + valueFrom + "'";
+                whereEvictionsClause += "ev.executed_date >= '" + valueFrom + "'";
             }
             else if (ExecutedDateTo != "") {
                 var dTo = new Date(ExecutedDateTo);
@@ -742,7 +771,7 @@ function btnSearch() {
                 var dayTo = dTo.getDate();
                 dayTo = dayTo < 10 ? "0" + dayTo : dayTo;
                 var valueTo = yearTo + "-" + monthTo + "-" + dayTo;
-                whereEvictionsClause += "executed_date <= '" + valueTo + "'";
+                whereEvictionsClause += "ev.executed_date <= '" + valueTo + "'";
             }
         }
     }
@@ -923,6 +952,8 @@ function CreateDatabaseTable(data) {
         $('#divSelectItemsMessage').hide();
         $('#divSelectItemsMoreInfo').show();
         $('#divSelectItemsCount').show();
+        $('#btnOpenSaveReport').show();
+        $('#btnOpenAlerts').show();
         if (data.length == 1) {
             $('#divSelectItemsCount').text('There is ' + data.length + ' record returned');
         }
@@ -936,6 +967,8 @@ function CreateDatabaseTable(data) {
         $('#divSelectItemsMoreInfo').hide();
         $('#divSelectItemsMessage').show();
         $('#divSelectItemsCount').hide();
+        $('#btnOpenSaveReport').hide();
+        $('#btnOpenAlerts').hide();
         $('#loading').hide();
     }
 }
@@ -1244,6 +1277,8 @@ function MapPlutoSearch(whereClause, bblEnergyList, bblPermitList, bblViolationL
                 $('#divSelectItemsMoreInfo').hide();
                 $('#divSelectItemsMessage').show();
                 $('#divSelectItemsCount').hide();
+                $('#btnOpenSaveReport').hide();
+                $('#btnOpenAlerts').hide();
                 $('#loading').hide();
             }
         }, function (error) {
@@ -1260,6 +1295,8 @@ function MapPlutoSearch(whereClause, bblEnergyList, bblPermitList, bblViolationL
         $('#divSelectItemsMoreInfo').hide();
         $('#divSelectItemsMessage').show();
         $('#divSelectItemsCount').hide();
+        $('#btnOpenSaveReport').hide();
+        $('#btnOpenAlerts').hide();
         $('#loading').hide();
     }
 }
@@ -1401,6 +1438,8 @@ function CreateResultTable(resultFeatures, dataEnergy, dataPermit, dataViolation
     $('#divSelectItemsMessage').hide();
     $('#divSelectItemsMoreInfo').show();
     $('#divSelectItemsCount').show();
+    $('#btnOpenSaveReport').show();
+    $('#btnOpenAlerts').show();
     $('#divSelectItemsCount').text('There are ' + resultFeatures.length + ' records returned');
     highlightTableRow('tblQueryRecords');
     $('#loading').hide();
@@ -1459,6 +1498,10 @@ function btnOpenSaveReport_Click() {
     $("#myModalSaveReport").modal();
 }
 
+function btnOpenAlerts_Click() {
+    $("#myModalCreateAlert").modal();
+}
+
 function btnSaveMyReport_Click() {
     if (document.getElementById("txtReportName").value == "") {
         swal("Please enter name");
@@ -1487,6 +1530,38 @@ function btnSaveMyReport_Click() {
             swal(data.msg);
         }).fail(function () {
             swal("Failed to save the report");
+        });
+    }
+}
+
+function btnSaveMyAlert_Click() {
+    var alertName = document.getElementById("txtAlertName").value;
+    var ddlAlertFrequency = document.getElementById("ddlAlertFrequency");
+    var selectedAlertFrequency = ddlAlertFrequency.options[ddlAlertFrequency.selectedIndex].value;
+    if (alertName == "" || ddlAlertFrequency.selectedIndex == 0) {
+        swal("Please enter name and frequency");
+    }
+    else {
+        $('#loading').show();
+        $.ajax({
+            url: RootUrl + 'Home/CreateAlert',
+            type: "POST",
+            data: {
+                "AlertName": alertName,
+                "AlertFrequency": selectedAlertFrequency,
+                "AlertQuery": sqlQuery,
+                "IsPlutoSearch": IsPlutoSearch,
+                "IsEnergySearch": IsEnergySearch,
+                "IsPermitSearch": IsPermitSearch,
+                "IsViolationSearch": IsViolationSearch,
+                "IsEvictionSearch": IsEvictionSearch
+            }
+        }).done(function (data) {
+            $('#loading').hide();
+            swal(data.msg);
+        }).fail(function () {
+            $('#loading').hide();
+            swal("Failed to create the alert");
         });
     }
 }

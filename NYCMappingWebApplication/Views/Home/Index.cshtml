@@ -680,12 +680,13 @@
         <a href="javascript:void(0);" class="slider-bottom-arrow showBottomPanel">&ReverseUpEquilibrium;</a>
         <div class="bottomPanel">
             <div class="form-group" style="margin-bottom: 5px;">
-                <div class="col-sm-10">
+                <div class="col-sm-8">
                     <div id="divSelectItemsCount"></div>
                     <div id="divSelectItemsMoreInfo" style="display: none">Select record to zoom on the map</div>
                 </div>
-                <div class="col-sm-2">
-                    <button id="btnOpenSaveReport" type="button" style="float: right" class="btn btn-primary btn-sm" onclick="btnOpenSaveReport_Click()">Save Report</button>
+                <div class="col-sm-4">
+                    <button id="btnOpenSaveReport" type="button" style="float: right;margin: 5px;" class="btn btn-primary btn-sm" onclick="btnOpenSaveReport_Click()">Save Report</button>
+                    <button id="btnOpenAlerts" type="button" style="float: right;margin: 5px;" class="btn btn-primary btn-sm" onclick="btnOpenAlerts_Click()">Create Alert</button>
                 </div>
             </div>
             <div class="form-group">
@@ -710,6 +711,32 @@
                     <div class="form-group">
                         <div class="col-sm-offset-3 col-sm-9">
                             <button id="btnSaveMyReport" type="button" class="btn btn-primary btn-sm" style="margin-top: 10px;" onclick="btnSaveMyReportDatabase_Click()">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Create Alert -->
+    <div class="modal fade" id="myModalCreateAlert" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width: 670px; height: 150px">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" style="margin-top: 5px;">Name</label>
+                        <div class="col-sm-9">
+                            @Html.TextBox("txtAlertName", null, new { @class = "form-control input-width-xlarge", autocomplete = "off" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" style="margin-top: 5px;">Frequency</label>
+                        <div class="col-sm-9">
+                            @Html.DropDownList("ddlAlertFrequency", (IEnumerable<SelectListItem>)ViewBag.Frequencies, "Select Frequency", new { @class = "form-control input-width-xlarge" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <button id="btnSaveMyReport" type="button" class="btn btn-primary btn-sm" style="margin-top: 10px;" onclick="btnSaveMyAlert_Click()">Create Alert</button>
                         </div>
                     </div>
                 </div>

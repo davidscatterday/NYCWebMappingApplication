@@ -5,6 +5,24 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="NYC_Web_Mapping_AppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="MyAlerts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AlertName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AlertQuery" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Last_OBJECTID" Type="int" />
+          <Property Name="Last_DateCheck" Type="datetime" />
+          <Property Name="Next_DateCheck" Type="datetime" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="Frequency" Type="int" Nullable="false" />
+          <Property Name="IsEnergySearch" Type="bit" Nullable="false" />
+          <Property Name="IsPermitSearch" Type="bit" Nullable="false" />
+          <Property Name="IsViolationSearch" Type="bit" Nullable="false" />
+          <Property Name="IsEvictionSearch" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="MyReports">
           <Key>
             <PropertyRef Name="ID" />
@@ -15,6 +33,7 @@
           <Property Name="FileName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityContainer Name="NYC_Web_Mapping_AppModelStoreContainer">
+          <EntitySet Name="MyAlerts" EntityType="Self.MyAlerts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MyReports" EntityType="Self.MyReports" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -32,7 +51,26 @@
         </EntityType>
         <EntityContainer Name="NYC_Web_Mapping_AppEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="MyReports" EntityType="Self.MyReport" />
+          <EntitySet Name="MyAlerts" EntityType="NYC_Web_Mapping_AppModel.MyAlert" />
         </EntityContainer>
+        <EntityType Name="MyAlert">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AlertName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AlertQuery" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Last_OBJECTID" Type="Int32" />
+          <Property Name="Last_DateCheck" Type="DateTime" Precision="3" />
+          <Property Name="Next_DateCheck" Type="DateTime" Precision="3" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Frequency" Type="Int32" Nullable="false" />
+          <Property Name="IsEnergySearch" Type="Boolean" Nullable="false" />
+          <Property Name="IsPermitSearch" Type="Boolean" Nullable="false" />
+          <Property Name="IsViolationSearch" Type="Boolean" Nullable="false" />
+          <Property Name="IsEvictionSearch" Type="Boolean" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -46,6 +84,25 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="FileName" ColumnName="FileName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MyAlerts">
+            <EntityTypeMapping TypeName="NYC_Web_Mapping_AppModel.MyAlert">
+              <MappingFragment StoreEntitySet="MyAlerts">
+                <ScalarProperty Name="IsEvictionSearch" ColumnName="IsEvictionSearch" />
+                <ScalarProperty Name="IsViolationSearch" ColumnName="IsViolationSearch" />
+                <ScalarProperty Name="IsPermitSearch" ColumnName="IsPermitSearch" />
+                <ScalarProperty Name="IsEnergySearch" ColumnName="IsEnergySearch" />
+                <ScalarProperty Name="Frequency" ColumnName="Frequency" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Next_DateCheck" ColumnName="Next_DateCheck" />
+                <ScalarProperty Name="Last_DateCheck" ColumnName="Last_DateCheck" />
+                <ScalarProperty Name="Last_OBJECTID" ColumnName="Last_OBJECTID" />
+                <ScalarProperty Name="AlertQuery" ColumnName="AlertQuery" />
+                <ScalarProperty Name="AlertName" ColumnName="AlertName" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -151,5 +151,23 @@ namespace NYCMappingWebApp.DataAccessLayer
             }
             return returnResult;
         }
+        public List<SelectListItem> GetAllFrequencies()
+        {
+            List<SelectListItem> returnResult = new List<SelectListItem>();
+            returnResult.Add(new SelectListItem() { Text = "As-it-Happens", Value = "0" });
+            returnResult.Add(new SelectListItem() { Text = "Daily", Value = "1" });
+            returnResult.Add(new SelectListItem() { Text = "Weekly", Value = "7" });
+            return returnResult;
+        }
+
+        public DatabaseMaxValues GetMaxValues()
+        {
+            DatabaseMaxValues result = new DatabaseMaxValues();
+            using (var ctx = new NYC_Web_Mapping_AppEntities())
+            {
+                result = ctx.Database.SqlQuery<DatabaseMaxValues>("EXEC dbo.GetMaxValues ").FirstOrDefault();
+            }
+            return result;
+        }
     }
 }

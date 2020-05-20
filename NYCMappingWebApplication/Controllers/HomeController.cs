@@ -24,6 +24,7 @@ namespace NYCMappingWebApp.Controllers
             ViewBag.ZoningDistricts = mainDAL.GetAllZoningDistricts();
             ViewBag.CommercialOverlays = mainDAL.GetAllCommercialOverlays();
             ViewBag.EvictionStatuses = mainDAL.GetAllEvictionStatuses();
+            ViewBag.Frequencies = mainDAL.GetAllFrequencies();
             return View();
         }
 
@@ -116,6 +117,37 @@ namespace NYCMappingWebApp.Controllers
 
         }
 
+        public JsonResult CreateAlert(string AlertName, string AlertFrequency, string AlertQuery, bool IsPlutoSearch, bool IsEnergySearch, bool IsPermitSearch, bool IsViolationSearch, bool IsEvictionSearch)
+        {
+            string msg = "Alert created successfully";
+            try
+            {
+                DatabaseMaxValues result = IsPlutoSearch ? mainDAL.GetMaxValues() : new DatabaseMaxValues();
+                MyAlert myAlert = new MyAlert()
+                {
+                    Username = User.Identity.Name,
+                    AlertName = AlertName,
+                    AlertQuery = AlertQuery,
+                    Frequency = Convert.ToInt32(AlertFrequency),
+                    Last_OBJECTID = IsPlutoSearch ? result.OBJECTID : null,
+                    IsEnergySearch = IsEnergySearch,
+                    IsPermitSearch = IsPermitSearch,
+                    IsViolationSearch = IsViolationSearch,
+                    IsEvictionSearch = IsEvictionSearch,
+                    DateCreated = DateTime.Now,
+                    Last_DateCheck = DateTime.Now,
+                    Next_DateCheck = AlertFrequency == "7" ? DateTime.Now.AddDays(7) : DateTime.Now.AddDays(1)
+                };
+                db.MyAlerts.Add(myAlert);
+                db.SaveChanges();
+                return Json(new { msg }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                msg = ex.Message;
+                return Json(new { msg }, JsonRequestBehavior.AllowGet);
+            }
+        }
         //public JsonResult SaveReport(string ReportName, string TableFeatures)
         //{
         //    string msg = "Report saved successfully";

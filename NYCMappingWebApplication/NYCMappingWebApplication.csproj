@@ -184,6 +184,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\MyAlert.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\MyReport.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
