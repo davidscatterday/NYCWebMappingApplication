@@ -10,6 +10,7 @@ namespace NYCMappingWebApp.DataAccessLayer
 {
     public class MainDAL
     {
+        private NYC_Web_Mapping_AppEntities db = new NYC_Web_Mapping_AppEntities();
         public List<Select2DTO> GetAllBoroughs(string term)
         {
             List<Select2DTO> returnResult = new List<Select2DTO>();
@@ -167,6 +168,22 @@ namespace NYCMappingWebApp.DataAccessLayer
             {
                 result = ctx.Database.SqlQuery<DatabaseMaxValues>("EXEC dbo.GetMaxValues ").FirstOrDefault();
             }
+            return result;
+        }
+
+        public List<MyAlertENT> GetMyAlerts(string username)
+        {
+            List<MyAlertENT> result = new List<MyAlertENT>();
+            result = (from r in db.MyAlerts.AsEnumerable()
+                      where r.Username == username
+                      select new MyAlertENT
+                      {
+                          ID = r.ID,
+                          AlertName = r.AlertName,
+                          DateCreated = r.DateCreated,
+                          DateCreatedString = String.Format("{0:MM/dd/yyyy}", r.DateCreated),
+                          IsUnread = r.IsUnread
+                      }).ToList();
             return result;
         }
     }

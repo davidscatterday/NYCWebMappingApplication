@@ -61,14 +61,20 @@ namespace NYCMappingWebApp.Controllers
         public JsonResult SearchDatabase(string sqlQuery)
         {
             var data = mainDAL.SearchDatabase(sqlQuery);
-
-            //return Json(data, JsonRequestBehavior.AllowGet);
+            
             return new JsonResult()
             {
                 Data = data,
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet,
                 MaxJsonLength = Int32.MaxValue
             };
+        }
+
+        public JsonResult GetMyAlerts()
+        {
+            var data = mainDAL.GetMyAlerts(User.Identity.Name);
+
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult SaveDatabaseReport(string ReportName, string sqlQuery)
@@ -136,7 +142,8 @@ namespace NYCMappingWebApp.Controllers
                     IsEvictionSearch = IsEvictionSearch,
                     DateCreated = DateTime.Now,
                     Last_DateCheck = DateTime.Now,
-                    Next_DateCheck = AlertFrequency == "7" ? DateTime.Now.AddDays(7) : DateTime.Now.AddDays(1)
+                    Next_DateCheck = AlertFrequency == "7" ? DateTime.Now.AddDays(7) : DateTime.Now.AddDays(1),
+                    IsUnread = false
                 };
                 db.MyAlerts.Add(myAlert);
                 db.SaveChanges();

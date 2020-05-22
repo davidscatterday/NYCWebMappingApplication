@@ -1570,6 +1570,10 @@ function btnOpenMyReports_Click() {
     openModalWindow(RootUrl + "MyReports/Preview", 800, 820, "My Reports", true, "iframeMyReports");
 }
 
+function btnOpenMyAlerts_Click() {
+    $("#myModalShowAlert").modal();
+}
+
 function highlightTableRow(tableName) {
     var table = document.getElementById(tableName);
     var cells = table.getElementsByTagName('td');
@@ -1640,6 +1644,48 @@ $(function () {
 });
 
 $(document).ready(function () {
+    $.ajax({
+        url: RootUrl + 'Home/GetMyAlerts',
+        type: "POST",
+        success: function (data) {
+            var unreadAlerts = 0;
+            if (data.length > 0) {
+                var htmlAlertRecords = '<div class="table-responsive"><table id=\"tblAlertRecords\" class="tablesorter"><thead><tr class=\"clickableRow\">';
+                htmlAlertRecords += "<th>Name</th>";
+                htmlAlertRecords += "<th>Date</th>";
+                htmlAlertRecords += "</tr></thead><tbody>";
+                //Loop through each feature returned
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].IsUnread) {
+                        unreadAlerts++;
+                    }
+                    htmlAlertRecords += "<tr class=\"clickableRow\" OnClick=\"ShowInfoForSelectedAlert('" + data[i].ID + "');\">";
+                    htmlAlertRecords += "<td>" + data[i].AlertName + "</td>";
+                    htmlAlertRecords += "<td>" + data[i].DateCreatedString + "</td>";
+                    htmlAlertRecords += "</tr>";
+                }
+                htmlAlertRecords += '</tr></tbody></table></div>';
+                $('#divAlertItemsTable').text('');
+                $('#divAlertItemsTable').append(htmlAlertRecords);
+                $("#tblAlertRecords").tablesorter({ widgets: ['zebra'] });
+                $('#divAlertMessage').hide();
+                highlightTableRow('tblAlertRecords');
+            }
+            else {
+                $('#divSelectItemsTable').text('');
+                $('#divSelectItemsMessage').show();
+            }
+            if (unreadAlerts == 0) {
+                document.getElementById("myAlertBadge").textContent = "";
+            }
+            else {
+                document.getElementById("myAlertBadge").textContent = unreadAlerts;
+            }
+        },
+        error: function (error) {
+            console.log("An error occurred from GetMyAlerts()." + error);
+        }
+    });
     var myTimeout = setTimeout(function () {
         $('input.select2-input').attr('autocomplete', "xxxxxxxxxxx");
     }, 1000);

@@ -125,4 +125,12 @@ namespace NYCMappingWebApp.Entities
         public string issue_date { get; set; }
         public DateTime? EXECUTED_DATE { get; set; }
     }
+    public class MyAlertENT
+    {
+        public int ID { get; set; }
+        public string AlertName { get; set; }
+        public DateTime? DateCreated { get; set; }
+        public string DateCreatedString { get; set; }
+        public bool IsUnread { get; set; }
+    }
 }

@@ -22,6 +22,7 @@
           <Property Name="IsPermitSearch" Type="bit" Nullable="false" />
           <Property Name="IsViolationSearch" Type="bit" Nullable="false" />
           <Property Name="IsEvictionSearch" Type="bit" Nullable="false" />
+          <Property Name="IsUnread" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="MyReports">
           <Key>
@@ -70,6 +71,7 @@
           <Property Name="IsPermitSearch" Type="Boolean" Nullable="false" />
           <Property Name="IsViolationSearch" Type="Boolean" Nullable="false" />
           <Property Name="IsEvictionSearch" Type="Boolean" Nullable="false" />
+          <Property Name="IsUnread" Type="Boolean" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -90,6 +92,7 @@
           <EntitySetMapping Name="MyAlerts">
             <EntityTypeMapping TypeName="NYC_Web_Mapping_AppModel.MyAlert">
               <MappingFragment StoreEntitySet="MyAlerts">
+                <ScalarProperty Name="IsUnread" ColumnName="IsUnread" />
                 <ScalarProperty Name="IsEvictionSearch" ColumnName="IsEvictionSearch" />
                 <ScalarProperty Name="IsViolationSearch" ColumnName="IsViolationSearch" />
                 <ScalarProperty Name="IsPermitSearch" ColumnName="IsPermitSearch" />
