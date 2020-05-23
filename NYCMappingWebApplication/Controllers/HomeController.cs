@@ -77,6 +77,13 @@ namespace NYCMappingWebApp.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult ShowInfoForSelectedAlert(int AlertID)
+        {
+            var data = mainDAL.ShowInfoForSelectedAlert(AlertID);
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult SaveDatabaseReport(string ReportName, string sqlQuery)
         {
             string msg = "Report saved successfully";

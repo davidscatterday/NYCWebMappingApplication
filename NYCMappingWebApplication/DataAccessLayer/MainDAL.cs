@@ -186,5 +186,75 @@ namespace NYCMappingWebApp.DataAccessLayer
                       }).ToList();
             return result;
         }
+
+        public List<DatabaseAttributes> ShowInfoForSelectedAlert(int AlertID)
+        {
+            List<DatabaseAttributes> result = new List<DatabaseAttributes>();
+            MyAlert alert = db.MyAlerts.Where(w => w.ID == AlertID).FirstOrDefault();
+
+            string sqlQuery = alert.AlertQuery;
+            string formatedDate = alert.Last_DateCheck.Value.ToString("yyyy'-'MM'-'dd");
+            string formatedViolationDate = alert.Last_DateCheck.Value.ToString("yyyyMMdd");
+            sqlQuery += " AND (";
+            if (alert.Last_OBJECTID.HasValue)
+            {
+                if (sqlQuery.EndsWith("("))
+                {
+                    sqlQuery += " p.OBJECTID > " + alert.Last_OBJECTID.Value;
+                }
+                else
+                {
+                    sqlQuery += " OR p.OBJECTID > " + alert.Last_OBJECTID.Value;
+                }
+            }
+            if (alert.IsEnergySearch)
+            {
+                if (sqlQuery.EndsWith("("))
+                {
+                    sqlQuery += " en.generation_date > '" + formatedDate + "'";
+                }
+                else
+                {
+                    sqlQuery += " OR en.generation_date > '" + formatedDate + "'";
+                }
+            }
+            if (alert.IsPermitSearch)
+            {
+                if (sqlQuery.EndsWith("("))
+                {
+                    sqlQuery += " pe.dobrundate > '" + formatedDate + "'";
+                }
+                else
+                {
+                    sqlQuery += " OR pe.dobrundate > '" + formatedDate + "'";
+                }
+            }
+            if (alert.IsViolationSearch)
+            {
+                if (sqlQuery.EndsWith("("))
+                {
+                    sqlQuery += " (v.issue_date > '" + formatedViolationDate + "' AND v.issue_date LIKE '20%')";
+                }
+                else
+                {
+                    sqlQuery += " OR (v.issue_date > '" + formatedDate + "' AND v.issue_date LIKE '20%')";
+                }
+            }
+            if (alert.IsEvictionSearch)
+            {
+                if (sqlQuery.EndsWith("("))
+                {
+                    sqlQuery += " (ev.EXECUTED_DATE > '" + formatedDate + "' AND ev.EXECUTED_DATE < '2030-01-01')";
+                }
+                else
+                {
+                    sqlQuery += " OR (ev.EXECUTED_DATE > '" + formatedDate + "' AND ev.EXECUTED_DATE < '2030-01-01')";
+                }
+            }
+            sqlQuery += ")";
+            result = SearchDatabase(sqlQuery);
+
+            return result;
+        }
     }
 }

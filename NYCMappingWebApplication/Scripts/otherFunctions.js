@@ -12,6 +12,36 @@ var lstBuildingClass = ["cbOfficeO1", "cbOfficeO2", "cbOfficeO3", "cbOfficeO4"
     , "cbRentalResidentialD7", "cbRentalResidentialD8", "cbForProfitOwnedHealthcareI1", "cbForProfitOwnedHealthcareI2", "cbForProfitOwnedHealthcareI3", "cbForProfitOwnedHealthcareI4"
     , "cbForProfitOwnedHealthcareI5", "cbForProfitOwnedHealthcareI6", "cbForProfitOwnedHealthcareI7"];
 var lstTableAttributes = [];
+var lstAllTableAttributes = [];
+lstAllTableAttributes.push({ name: 'Borough', attribute: "Borough", dataset: "Pluto" });
+lstAllTableAttributes.push({ name: 'Address', attribute: "Address", dataset: "Pluto" });
+lstAllTableAttributes.push({ name: 'Zip Code', attribute: "ZipCode", dataset: "Pluto" });
+lstAllTableAttributes.push({ name: 'Latitude', attribute: "Latitude", dataset: "Pluto" });
+lstAllTableAttributes.push({ name: 'Longitude', attribute: "Longitude", dataset: "Pluto" });
+lstAllTableAttributes.push({ name: 'Total Building Floor Area', attribute: "BldgArea", dataset: "Pluto" });
+lstAllTableAttributes.push({ name: 'Commercial Floor Area', attribute: "ComArea", dataset: "Pluto" });
+lstAllTableAttributes.push({ name: 'Residential Floor Area', attribute: "ResArea", dataset: "Pluto" });
+lstAllTableAttributes.push({ name: 'Number of Floors', attribute: "NumFloors", dataset: "Pluto" });
+lstAllTableAttributes.push({ name: 'Residential Units', attribute: "UnitsRes", dataset: "Pluto" });
+lstAllTableAttributes.push({ name: 'Zoning District', attribute: "ZoneDist1", dataset: "Pluto" });
+lstAllTableAttributes.push({ name: 'Commercial Overlay 1', attribute: "Overlay1", dataset: "Pluto" });
+lstAllTableAttributes.push({ name: 'Commercial Overlay 2', attribute: "Overlay2", dataset: "Pluto" });
+lstAllTableAttributes.push({ name: 'Assessed Total Value', attribute: "AssessTot", dataset: "Pluto" });
+lstAllTableAttributes.push({ name: 'Year Built', attribute: "YearBuilt", dataset: "Pluto" });
+lstAllTableAttributes.push({ name: 'Owner Name', attribute: "OwnerName", dataset: "Pluto" });
+lstAllTableAttributes.push({ name: 'Building Class', attribute: "BldgClass", dataset: "Pluto" });
+lstAllTableAttributes.push({ name: 'Energy Star Score', attribute: "energy_star_score", dataset: "Energy" });
+lstAllTableAttributes.push({ name: 'Source EUI', attribute: "source_eui_kbtu_ft", dataset: "Energy" });
+lstAllTableAttributes.push({ name: 'Site EUI', attribute: "site_eui_kbtu_ft", dataset: "Energy" });
+lstAllTableAttributes.push({ name: 'Annual Maximum Demand', attribute: "annual_maximum_demand_kw", dataset: "Energy" });
+lstAllTableAttributes.push({ name: 'Total GHG Emissions', attribute: "total_ghg_emissions_metric", dataset: "Energy" });
+lstAllTableAttributes.push({ name: 'Job Start Date', attribute: "job_start_date_string_format", dataset: "Permit" });
+lstAllTableAttributes.push({ name: 'Job Type', attribute: "job_type", dataset: "Permit" });
+lstAllTableAttributes.push({ name: 'Work Type', attribute: "work_type", dataset: "Permit" });
+lstAllTableAttributes.push({ name: 'Issue Date', attribute: "issue_date_string_format", dataset: "Violation" });
+lstAllTableAttributes.push({ name: 'Violation Type', attribute: "violation_type", dataset: "Violation" });
+lstAllTableAttributes.push({ name: 'Violation Category', attribute: "violation_category", dataset: "Violation" });
+lstAllTableAttributes.push({ name: 'Executed Date', attribute: "executed_date_string_format", dataset: "Evictions" });
 var sqlQuery = "";
 var IsPlutoSearch = false, IsEnergySearch = false, IsPermitSearch = false, IsViolationSearch = false, IsEvictionSearch = false;
 $(function () {
@@ -1658,8 +1688,11 @@ $(document).ready(function () {
                 for (var i = 0; i < data.length; i++) {
                     if (data[i].IsUnread) {
                         unreadAlerts++;
+                        htmlAlertRecords += "<tr id='changeFontWeight' style='font-weight: bold' class=\"clickableRow\" OnClick=\"ShowInfoForSelectedAlert('" + data[i].ID + "');\">";
                     }
-                    htmlAlertRecords += "<tr class=\"clickableRow\" OnClick=\"ShowInfoForSelectedAlert('" + data[i].ID + "');\">";
+                    else {
+                        htmlAlertRecords += "<tr id='changeFontWeight' class=\"clickableRow\" OnClick=\"ShowInfoForSelectedAlert('" + data[i].ID + "');\">";
+                    }
                     htmlAlertRecords += "<td>" + data[i].AlertName + "</td>";
                     htmlAlertRecords += "<td>" + data[i].DateCreatedString + "</td>";
                     htmlAlertRecords += "</tr>";
@@ -1668,12 +1701,12 @@ $(document).ready(function () {
                 $('#divAlertItemsTable').text('');
                 $('#divAlertItemsTable').append(htmlAlertRecords);
                 $("#tblAlertRecords").tablesorter({ widgets: ['zebra'] });
-                $('#divAlertMessage').hide();
+                $('#divAlertItemsMessage').hide();
                 highlightTableRow('tblAlertRecords');
             }
             else {
-                $('#divSelectItemsTable').text('');
-                $('#divSelectItemsMessage').show();
+                $('#divAlertItemsTable').text('');
+                $('#divAlertItemsMessage').show();
             }
             if (unreadAlerts == 0) {
                 document.getElementById("myAlertBadge").textContent = "";
@@ -1690,6 +1723,66 @@ $(document).ready(function () {
         $('input.select2-input').attr('autocomplete', "xxxxxxxxxxx");
     }, 1000);
 });
+
+function ShowInfoForSelectedAlert(AlertID) {
+    $.ajax({
+        url: RootUrl + 'Home/ShowInfoForSelectedAlert',
+        type: "POST",
+        data: {
+            "AlertID": AlertID
+        }
+    }).done(function (data) {
+        if ($('.slider-bottom-arrow').hasClass("showBottomPanel")) {
+            $('.slider-bottom-arrow').click();
+        }
+        if (data.length > 0) {
+            var notNullAttributes = [];
+            var htmlAlertData = '<div class="table-responsive"><table id=\"tblAlertData\" class="tablesorter"><thead><tr class=\"clickableRow\">';
+            for (var i = 0; i < lstAllTableAttributes.length; i++) {
+                if (data[0][lstAllTableAttributes[i].attribute] != null) {
+                    htmlAlertData += "<th>" + lstAllTableAttributes[i].name + "</th>";
+                    notNullAttributes.push(lstAllTableAttributes[i].attribute);
+                }
+            }
+            htmlAlertData += "</tr></thead><tbody>";
+            //Loop through each feature returned
+            for (var i = 0; i < data.length; i++) {
+                htmlAlertData += "<tr class=\"clickableRow\" OnClick=\"ShowInfoForSelectedRecord('" + data[i].OBJECTID + "');\">";
+                for (var j = 0; j < notNullAttributes.length; j++) {
+                    htmlAlertData += "<td>" + data[i][notNullAttributes[j]] + "</td>";
+                }
+                htmlAlertData += "</tr>";
+            }
+            htmlAlertData += '</tr></tbody></table></div>';
+            $('#divSelectItemsTable').text('');
+            $('#divSelectItemsTable').append(htmlAlertData);
+            $("#tblAlertData").tablesorter({ widgets: ['zebra'] });
+            $('#divSelectItemsMessage').hide();
+            $('#divSelectItemsMoreInfo').show();
+            $('#divSelectItemsCount').show();
+            $('#btnOpenSaveReport').hide();
+            $('#btnOpenAlerts').hide();
+            if (data.length == 1) {
+                $('#divSelectItemsCount').text('There is ' + data.length + ' record returned');
+            }
+            else {
+                $('#divSelectItemsCount').text('There are ' + data.length + ' records returned');
+            }
+            highlightTableRow('tblAlertData');
+        }
+        else {
+            $('#divSelectItemsTable').text('');
+            $('#divSelectItemsMessage').show();
+            $('#divSelectItemsMoreInfo').hide();
+            $('#divSelectItemsCount').hide();
+            $('#btnOpenSaveReport').hide();
+            $('#btnOpenAlerts').hide();
+        }
+        lstTableAttributes.push({ name: 'Annual Maximum Demand', attribute: "annual_maximum_demand_kw", dataset: "Energy" });
+    }).fail(function () {
+        swal("Failed to show the info for the selected alert");
+    });
+}
 
 function openModalWindow(url, w, h, title, isModal, iframeId) {
     if (document.documentElement.clientHeight < h)
