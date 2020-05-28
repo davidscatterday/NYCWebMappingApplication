@@ -2,6 +2,7 @@
 using NYCMappingWebApp.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -187,10 +188,14 @@ namespace NYCMappingWebApp.DataAccessLayer
             return result;
         }
 
-        public List<DatabaseAttributes> ShowInfoForSelectedAlert(int AlertID)
+        public MyAlertObject ShowInfoForSelectedAlert(int AlertID)
         {
-            List<DatabaseAttributes> result = new List<DatabaseAttributes>();
-            MyAlert alert = db.MyAlerts.Where(w => w.ID == AlertID).FirstOrDefault();
+            MyAlertObject myDataObject = new MyAlertObject();
+            MyAlert alert = db.MyAlerts.Find(AlertID);
+            alert.IsUnread = false;
+            db.Entry(alert).State = EntityState.Modified;
+            db.SaveChanges();
+            myDataObject.unreadAlerts = db.MyAlerts.Where(w => w.IsUnread).Count();
 
             string sqlQuery = alert.AlertQuery;
             string formatedDate = alert.Last_DateCheck.Value.ToString("yyyy'-'MM'-'dd");
@@ -252,9 +257,10 @@ namespace NYCMappingWebApp.DataAccessLayer
                 }
             }
             sqlQuery += ")";
-            result = SearchDatabase(sqlQuery);
+            myDataObject.result = SearchDatabase(sqlQuery);
+            myDataObject.sqlQuery = sqlQuery;
 
-            return result;
+            return myDataObject;
         }
     }
 }

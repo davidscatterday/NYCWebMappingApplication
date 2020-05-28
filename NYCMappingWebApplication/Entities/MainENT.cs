@@ -133,4 +133,10 @@ namespace NYCMappingWebApp.Entities
         public string DateCreatedString { get; set; }
         public bool IsUnread { get; set; }
     }
+    public class MyAlertObject
+    {
+        public List<DatabaseAttributes> result { get; set; }
+        public string sqlQuery { get; set; }
+        public int unreadAlerts { get; set; }
+    }
 }
