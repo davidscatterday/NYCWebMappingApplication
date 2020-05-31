@@ -149,6 +149,7 @@ namespace NYCMappingWebApp.DataAccessLayer
             List<DatabaseAttributes> returnResult = new List<DatabaseAttributes>();
             using (var ctx = new NYC_Web_Mapping_AppEntities())
             {
+                //ctx.Database.CommandTimeout = 600;
                 returnResult = ctx.Database.SqlQuery<DatabaseAttributes>(sqlQuery).ToList();
             }
             return returnResult;
@@ -186,6 +187,21 @@ namespace NYCMappingWebApp.DataAccessLayer
                           IsUnread = r.IsUnread
                       }).ToList();
             return result;
+        }
+
+        public bool DeleteAlert(int AlertID)
+        {
+            try
+            {
+                MyAlert alert = db.MyAlerts.Find(AlertID);
+                db.MyAlerts.Remove(alert);
+                db.SaveChanges();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
         }
 
         public MyAlertObject ShowInfoForSelectedAlert(int AlertID)

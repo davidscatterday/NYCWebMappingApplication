@@ -1687,43 +1687,7 @@ $(document).ready(function () {
         url: RootUrl + 'Home/GetMyAlerts',
         type: "POST",
         success: function (data) {
-            var unreadAlerts = 0;
-            if (data.length > 0) {
-                var htmlAlertRecords = '<div class="table-responsive"><table id=\"tblAlertRecords\" class="tablesorter"><thead><tr class=\"clickableRow\">';
-                htmlAlertRecords += "<th>Name</th>";
-                htmlAlertRecords += "<th>Date</th>";
-                htmlAlertRecords += "</tr></thead><tbody>";
-                //Loop through each feature returned
-                for (var i = 0; i < data.length; i++) {
-                    var rowID = "changeFontWeight" + i;
-                    if (data[i].IsUnread) {
-                        unreadAlerts++;
-                        htmlAlertRecords += "<tr id='" + rowID + "' style='font-weight: bold' class=\"clickableRow\" OnClick=\"ShowInfoForSelectedAlert('" + data[i].ID + "','" + rowID + "');\">";
-                    }
-                    else {
-                        htmlAlertRecords += "<tr id='" + rowID + "' class=\"clickableRow\" OnClick=\"ShowInfoForSelectedAlert('" + data[i].ID + "','" + rowID + "');\">";
-                    }
-                    htmlAlertRecords += "<td>" + data[i].AlertName + "</td>";
-                    htmlAlertRecords += "<td>" + data[i].DateCreatedString + "</td>";
-                    htmlAlertRecords += "</tr>";
-                }
-                htmlAlertRecords += '</tr></tbody></table></div>';
-                $('#divAlertItemsTable').text('');
-                $('#divAlertItemsTable').append(htmlAlertRecords);
-                $("#tblAlertRecords").tablesorter({ widgets: ['zebra'] });
-                $('#divAlertItemsMessage').hide();
-                highlightTableRow('tblAlertRecords');
-            }
-            else {
-                $('#divAlertItemsTable').text('');
-                $('#divAlertItemsMessage').show();
-            }
-            if (unreadAlerts == 0) {
-                document.getElementById("myAlertBadge").textContent = "";
-            }
-            else {
-                document.getElementById("myAlertBadge").textContent = unreadAlerts;
-            }
+            CreateHtmlMyAlerts(data);
         },
         error: function (error) {
             console.log("An error occurred from GetMyAlerts()." + error);
@@ -1799,6 +1763,77 @@ function ShowInfoForSelectedAlert(AlertID, rowID) {
         }
     }).fail(function () {
         swal("Failed to show the info for the selected alert");
+    });
+}
+
+function CreateHtmlMyAlerts(data) {
+    var unreadAlerts = 0;
+    if (data.length > 0) {
+        var htmlAlertRecords = '<div class="table-responsive"><table id=\"tblAlertRecords\" class="tablesorter"><thead><tr class=\"clickableRow\">';
+        htmlAlertRecords += "<th>Name</th>";
+        htmlAlertRecords += "<th>Date</th>";
+        htmlAlertRecords += "<th></th>";
+        htmlAlertRecords += "</tr></thead><tbody>";
+        //Loop through each feature returned
+        for (var i = 0; i < data.length; i++) {
+            var rowID = "changeFontWeight" + i;
+            if (data[i].IsUnread) {
+                unreadAlerts++;
+                htmlAlertRecords += "<tr id='" + rowID + "' style='font-weight: bold' class=\"clickableRow\" OnClick=\"ShowInfoForSelectedAlert('" + data[i].ID + "','" + rowID + "');\">";
+            }
+            else {
+                htmlAlertRecords += "<tr id='" + rowID + "' class=\"clickableRow\" OnClick=\"ShowInfoForSelectedAlert('" + data[i].ID + "','" + rowID + "');\">";
+            }
+            htmlAlertRecords += "<td>" + data[i].AlertName + "</td>";
+            htmlAlertRecords += "<td>" + data[i].DateCreatedString + "</td>";
+            htmlAlertRecords += "<td><button type=\"button\" style=\"padding: 0; border: none;\" onclick=\"btnDeleteMyAlert_Click(" + data[i].ID + ")\"><img src=\"" + RootUrl + "Images/x-delete.png\" width=\"25\" height=\"20\" /></button></td>";
+            htmlAlertRecords += "</tr>";
+        }
+        htmlAlertRecords += '</tr></tbody></table></div>';
+        $('#divAlertItemsTable').text('');
+        $('#divAlertItemsTable').append(htmlAlertRecords);
+        $("#tblAlertRecords").tablesorter({ widgets: ['zebra'] });
+        $('#divAlertItemsMessage').hide();
+        highlightTableRow('tblAlertRecords');
+    }
+    else {
+        $('#divAlertItemsTable').text('');
+        $('#divAlertItemsMessage').show();
+    }
+    if (unreadAlerts == 0) {
+        document.getElementById("myAlertBadge").textContent = "";
+    }
+    else {
+        document.getElementById("myAlertBadge").textContent = unreadAlerts;
+    }
+}
+
+function btnDeleteMyAlert_Click(AlertID) {
+    swal("Are you sure you want to delete this alert?", {
+        buttons: {
+            Yes: true,
+            No: "No",
+        },
+    }).then(function (value) {
+        switch (value) {
+            case "Yes":
+                $.ajax({
+                    url: RootUrl + 'Home/DeleteAlert',
+                    data: {
+                        AlertID: AlertID
+                    },
+                    type: "POST",
+                    success: function (data) {
+                        CreateHtmlMyAlerts(data);
+                    },
+                    error: function (error) {
+                        console.log("An error occurred from DeleteAlert()." + error);
+                    }
+                });
+                break;
+            case "No":
+                break;
+        }
     });
 }
 

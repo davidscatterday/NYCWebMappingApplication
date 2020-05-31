@@ -139,3 +139,7 @@ input[type=text] {
         background: red;
         color: white;
     }
+
+.modal-footer{
+    border-top: none !important;
+}

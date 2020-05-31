@@ -77,6 +77,14 @@ namespace NYCMappingWebApp.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult DeleteAlert(int AlertID)
+        {
+            var res = mainDAL.DeleteAlert(AlertID);
+            var data = mainDAL.GetMyAlerts(User.Identity.Name);
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult ShowInfoForSelectedAlert(int AlertID)
         {
             var data = mainDAL.ShowInfoForSelectedAlert(AlertID);
