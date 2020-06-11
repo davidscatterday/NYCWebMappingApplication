@@ -22,6 +22,18 @@ namespace NYCMappingWebApp.DataAccessLayer
             returnResult.Add(new Select2DTO() { id = "'SI'", text = "Staten Island" });
             return returnResult.Where(w => w.text.Contains(term)).ToList();
         }
+        public List<Select2DTO> GetAllDistricts(string term)
+        {
+            List<Select2DTO> returnResult = new List<Select2DTO>();
+            returnResult = (from d in db.Districts
+                            where d.DISTRICT1.Contains(term)
+                            select new Select2DTO()
+                            {
+                                id = d.DISTRICTCODE.ToString(),
+                                text = d.DISTRICT1
+                            }).ToList();
+            return returnResult;
+        }
         public List<SelectListItem> GetAllZoningDistricts()
         {
             List<SelectListItem> returnResult = new List<SelectListItem>();
@@ -149,7 +161,6 @@ namespace NYCMappingWebApp.DataAccessLayer
             List<DatabaseAttributes> returnResult = new List<DatabaseAttributes>();
             using (var ctx = new NYC_Web_Mapping_AppEntities())
             {
-                //ctx.Database.CommandTimeout = 600;
                 returnResult = ctx.Database.SqlQuery<DatabaseAttributes>(sqlQuery).ToList();
             }
             return returnResult;
@@ -184,7 +195,7 @@ namespace NYCMappingWebApp.DataAccessLayer
                           AlertName = r.AlertName,
                           DateCreated = r.DateCreated,
                           DateCreatedString = String.Format("{0:MM/dd/yyyy}", r.DateCreated),
-                          IsUnread = r.IsUnread
+                          IsUnread = r.IsUnread.Value
                       }).ToList();
             return result;
         }
@@ -198,7 +209,7 @@ namespace NYCMappingWebApp.DataAccessLayer
                 db.SaveChanges();
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return false;
             }
@@ -211,7 +222,7 @@ namespace NYCMappingWebApp.DataAccessLayer
             alert.IsUnread = false;
             db.Entry(alert).State = EntityState.Modified;
             db.SaveChanges();
-            myDataObject.unreadAlerts = db.MyAlerts.Where(w => w.IsUnread).Count();
+            myDataObject.unreadAlerts = db.MyAlerts.Where(w => w.IsUnread.Value).Count();
 
             string sqlQuery = alert.AlertQuery;
             string formatedDate = alert.Last_DateCheck.Value.ToString("yyyy'-'MM'-'dd");
@@ -277,6 +288,97 @@ namespace NYCMappingWebApp.DataAccessLayer
             myDataObject.sqlQuery = sqlQuery;
 
             return myDataObject;
+        }
+
+        public List<Select2DTO> GetTopBBLs(string term)
+        {
+            List<Select2DTO> returnResult = new List<Select2DTO>();
+            returnResult = (from d in db.Plutoes
+                            where d.BBL.Contains(term)
+                            select new Select2DTO()
+                            {
+                                id = d.BBL.ToString(),
+                                text = d.BBL
+                            }).Take(10).ToList();
+            return returnResult;
+        }
+
+        public List<Select2DTO> GetTopAddresses(string term)
+        {
+            List<Select2DTO> returnResult = new List<Select2DTO>();
+            returnResult = (from d in db.Plutoes
+                            where d.Address.Contains(term)
+                            select new Select2DTO()
+                            {
+                                id = d.Address.ToString(),
+                                text = d.Address
+                            }).Take(10).ToList();
+            return returnResult;
+        }
+        public List<DatabaseAttributes> SearchLookaLikeByBBL(string bbl)
+        {
+            string sqlQuery = "select p.Borough,p.Address from dbo.Pluto p where ";
+            string whereClause = "";
+            var plutoEntity = db.Plutoes.Where(w => w.BBL == bbl).FirstOrDefault();
+            if (plutoEntity != null)
+            {
+                if (plutoEntity.AssessTot.HasValue)
+                {
+                    double tollerance = plutoEntity.AssessTot.Value / 50;
+                    if (whereClause == "")
+                    {
+                        whereClause += "AssessTot >= " + (plutoEntity.AssessTot.Value - tollerance) + " AND AssessTot <= " + (plutoEntity.AssessTot.Value + tollerance);
+                    }
+                    else
+                    {
+                        whereClause += " AND AssessTot >= " + (plutoEntity.AssessTot.Value - tollerance) + " AND AssessTot <= " + (plutoEntity.AssessTot.Value + tollerance);
+                    }
+                }
+                if (plutoEntity.YearBuilt.HasValue)
+                {
+                    double tollerance = 2;
+                    if (whereClause == "")
+                    {
+                        whereClause += "YearBuilt >= " + (plutoEntity.YearBuilt.Value - tollerance) + " AND YearBuilt <= " + (plutoEntity.YearBuilt.Value + tollerance);
+                    }
+                    else
+                    {
+                        whereClause += " AND YearBuilt >= " + (plutoEntity.YearBuilt.Value - tollerance) + " AND YearBuilt <= " + (plutoEntity.YearBuilt.Value + tollerance);
+                    }
+                }
+                if (plutoEntity.BldgArea.HasValue)
+                {
+                    double tollerance = plutoEntity.BldgArea.Value / 50;
+                    if (whereClause == "")
+                    {
+                        whereClause += "BldgArea >= " + (plutoEntity.BldgArea.Value - tollerance) + " AND BldgArea <= " + (plutoEntity.BldgArea.Value + tollerance);
+                    }
+                    else
+                    {
+                        whereClause += " AND BldgArea >= " + (plutoEntity.BldgArea.Value - tollerance) + " AND BldgArea <= " + (plutoEntity.BldgArea.Value + tollerance);
+                    }
+                }
+                if (plutoEntity.NumFloors.HasValue)
+                {
+                    double tollerance = 1;
+                    if (whereClause == "")
+                    {
+                        whereClause += "NumFloors >= " + (plutoEntity.NumFloors.Value - tollerance) + " AND NumFloors <= " + (plutoEntity.NumFloors.Value + tollerance);
+                    }
+                    else
+                    {
+                        whereClause += " AND NumFloors >= " + (plutoEntity.NumFloors.Value - tollerance) + " AND NumFloors <= " + (plutoEntity.NumFloors.Value + tollerance);
+
+                    }
+                }
+                sqlQuery += whereClause;
+            }
+            List<DatabaseAttributes> returnResult = new List<DatabaseAttributes>();
+            using (var ctx = new NYC_Web_Mapping_AppEntities())
+            {
+                returnResult = ctx.Database.SqlQuery<DatabaseAttributes>(sqlQuery).ToList();
+            }
+            return returnResult;
         }
     }
 }

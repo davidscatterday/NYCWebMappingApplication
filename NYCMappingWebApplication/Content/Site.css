@@ -57,8 +57,8 @@ table.clickableRow tr.selected {
 }
 
 input[type=text] {
-  border: none;
-  border-bottom: 1px solid #c5c5c5;
+    border: none;
+    border-bottom: 1px solid #c5c5c5;
 }
 
 .navbar-inverse .navbar-toggle {
@@ -108,6 +108,7 @@ input[type=text] {
     float: left;
     margin-right: 5px;
 }
+
 .signOutIcon {
     background: url(/Images/i_logout.png) no-repeat top left;
     width: 16px;
@@ -117,7 +118,7 @@ input[type=text] {
     margin-right: 5px;
 }
 
-#ui-datepicker-div{
+#ui-datepicker-div {
     z-index: 100 !important;
 }
 
@@ -140,6 +141,40 @@ input[type=text] {
         color: white;
     }
 
-.modal-footer{
+.modal-footer {
     border-top: none !important;
 }
+
+/*.ui-tabs-vertical {
+    width: 55em;
+}
+
+    .ui-tabs-vertical .ui-tabs-nav {
+        padding: .2em .1em .2em .2em;
+        float: left;
+        width: 12em;
+    }
+
+        .ui-tabs-vertical .ui-tabs-nav li {
+            clear: left;
+            width: 100%;
+            border-bottom-width: 1px !important;
+            border-right-width: 0 !important;
+            margin: 0 -1px .2em 0;
+        }
+
+            .ui-tabs-vertical .ui-tabs-nav li a {
+                display: block;
+            }
+
+            .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active {
+                padding-bottom: 0;
+                padding-right: .1em;
+                border-right-width: 1px;
+            }
+
+    .ui-tabs-vertical .ui-tabs-panel {
+        padding: 1em;
+        float: right;
+        width: 40em;
+    }*/

@@ -27,6 +27,12 @@ require(["esri/map", "dojo/parser", "esri/layers/FeatureLayer", "esri/config", "
         outFields: ["*"],
         infoTemplate: new InfoTemplate("Tax Lot Info", "${*}")
     });
+    //Takes a URL to a non cached map service.
+    districtFeatures = new FeatureLayer(DistrictsUrl, {
+        visible: true,
+        mode: FeatureLayer.MODE_ONDEMAND,
+        outFields: ["*"]
+    });
     esriBasemaps.NYCbasemap = {
         baseMapLayers: [{ url: "http://www.nycdot.info:6080/arcgis/rest/services/GISAPP_GAZETTEER/NYCDOTBaseMapPale_17A/MapServer" }
         ],
@@ -38,5 +44,5 @@ require(["esri/map", "dojo/parser", "esri/layers/FeatureLayer", "esri/config", "
         extent: initExtent
     });
 
-    map.addLayers([serviceFeatures, selectionLayer]);
+    map.addLayers([serviceFeatures, districtFeatures, selectionLayer]);
 });

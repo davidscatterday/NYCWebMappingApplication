@@ -27,5 +27,7 @@ namespace NYCMappingWebApp.Models
     
         public virtual DbSet<MyReport> MyReports { get; set; }
         public virtual DbSet<MyAlert> MyAlerts { get; set; }
+        public virtual DbSet<District> Districts { get; set; }
+        public virtual DbSet<Pluto> Plutoes { get; set; }
     }
 }

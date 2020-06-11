@@ -34,6 +34,12 @@ namespace NYCMappingWebApp.Controllers
             return Json(new { BoroughsList }, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetDistricts(string term)
+        {
+            var DistrictsList = mainDAL.GetAllDistricts(term);
+            return Json(new { DistrictsList }, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult GetAllJobTypes(string term)
         {
             var JobTypesList = mainDAL.GetAllJobTypes(term);
@@ -56,6 +62,24 @@ namespace NYCMappingWebApp.Controllers
         {
             var ViolationCategoriesList = mainDAL.GetAllViolationCategories(term);
             return Json(new { ViolationCategoriesList }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetTopBBLs(string term)
+        {
+            var BBLList = mainDAL.GetTopBBLs(term);
+            return Json(new { BBLList }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetTopAddresses(string term)
+        {
+            var AddressList = mainDAL.GetTopAddresses(term);
+            return Json(new { AddressList }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult SearchLookaLikeByBBL(string bbl)
+        {
+            var data = mainDAL.SearchLookaLikeByBBL(bbl);
+            return Json(new { data }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult SearchDatabase(string sqlQuery)
@@ -273,6 +297,8 @@ namespace NYCMappingWebApp.Controllers
                 csvLine += isHeader ? ",Violation Category" : "," + elem.violation_category;
             if (elem.executed_date != null)
                 csvLine += isHeader ? ",Executed Date" : "," + elem.executed_date_string_format;
+            if (elem.DISTRICT != null)
+                csvLine += isHeader ? ",District" : "," + elem.DISTRICT;
 
             return csvLine;
         }

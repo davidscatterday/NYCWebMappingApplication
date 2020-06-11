@@ -5,6 +5,18 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="NYC_Web_Mapping_AppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'NYC_Web_Mapping_App.dbo.Districts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Districts">
+          <Key>
+            <PropertyRef Name="OBJECTID" />
+            <PropertyRef Name="DISTRICTCODE" />
+            <PropertyRef Name="DISTRICT" />
+          </Key>
+          <Property Name="OBJECTID" Type="int" Nullable="false" />
+          <Property Name="DISTRICTCODE" Type="int" Nullable="false" />
+          <Property Name="DISTRICT" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="MyAlerts">
           <Key>
             <PropertyRef Name="ID" />
@@ -22,7 +34,7 @@
           <Property Name="IsPermitSearch" Type="bit" Nullable="false" />
           <Property Name="IsViolationSearch" Type="bit" Nullable="false" />
           <Property Name="IsEvictionSearch" Type="bit" Nullable="false" />
-          <Property Name="IsUnread" Type="bit" Nullable="false" />
+          <Property Name="IsUnread" Type="bit" />
         </EntityType>
         <EntityType Name="MyReports">
           <Key>
@@ -33,9 +45,43 @@
           <Property Name="ReportName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="FileName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="Pluto">
+          <Key>
+            <PropertyRef Name="OBJECTID" />
+          </Key>
+          <Property Name="OBJECTID" Type="int" Nullable="false" />
+          <Property Name="BBL" Type="nvarchar" MaxLength="50" />
+          <Property Name="Borough" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="150" />
+          <Property Name="ZipCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Latitude" Type="nvarchar" MaxLength="50" />
+          <Property Name="Longitude" Type="nvarchar" MaxLength="50" />
+          <Property Name="BldgArea" Type="int" />
+          <Property Name="ComArea" Type="int" />
+          <Property Name="ResArea" Type="int" />
+          <Property Name="NumFloors" Type="float" />
+          <Property Name="UnitsRes" Type="int" />
+          <Property Name="ZoneDist1" Type="nvarchar" MaxLength="50" />
+          <Property Name="Overlay1" Type="nvarchar" MaxLength="50" />
+          <Property Name="Overlay2" Type="nvarchar" MaxLength="50" />
+          <Property Name="AssessTot" Type="float" />
+          <Property Name="YearBuilt" Type="int" />
+          <Property Name="OwnerName" Type="nvarchar" MaxLength="150" />
+          <Property Name="BldgClass" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsRentStabilizedProperty" Type="bit" />
+          <Property Name="CD" Type="int" />
+        </EntityType>
         <EntityContainer Name="NYC_Web_Mapping_AppModelStoreContainer">
           <EntitySet Name="MyAlerts" EntityType="Self.MyAlerts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MyReports" EntityType="Self.MyReports" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pluto" EntityType="Self.Pluto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Districts" EntityType="Self.Districts" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Districts].[OBJECTID] AS [OBJECTID], 
+    [Districts].[DISTRICTCODE] AS [DISTRICTCODE], 
+    [Districts].[DISTRICT] AS [DISTRICT]
+    FROM [dbo].[Districts] AS [Districts]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -53,6 +99,8 @@
         <EntityContainer Name="NYC_Web_Mapping_AppEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="MyReports" EntityType="Self.MyReport" />
           <EntitySet Name="MyAlerts" EntityType="NYC_Web_Mapping_AppModel.MyAlert" />
+          <EntitySet Name="Districts" EntityType="NYC_Web_Mapping_AppModel.District" />
+          <EntitySet Name="Plutoes" EntityType="NYC_Web_Mapping_AppModel.Pluto" />
         </EntityContainer>
         <EntityType Name="MyAlert">
           <Key>
@@ -71,7 +119,43 @@
           <Property Name="IsPermitSearch" Type="Boolean" Nullable="false" />
           <Property Name="IsViolationSearch" Type="Boolean" Nullable="false" />
           <Property Name="IsEvictionSearch" Type="Boolean" Nullable="false" />
-          <Property Name="IsUnread" Type="Boolean" Nullable="false" />
+          <Property Name="IsUnread" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="District">
+          <Key>
+            <PropertyRef Name="OBJECTID" />
+            <PropertyRef Name="DISTRICTCODE" />
+            <PropertyRef Name="DISTRICT1" />
+          </Key>
+          <Property Name="OBJECTID" Type="Int32" Nullable="false" />
+          <Property Name="DISTRICTCODE" Type="Int32" Nullable="false" />
+          <Property Name="DISTRICT1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Pluto">
+          <Key>
+            <PropertyRef Name="OBJECTID" />
+          </Key>
+          <Property Name="OBJECTID" Type="Int32" Nullable="false" />
+          <Property Name="BBL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Borough" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ZipCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BldgArea" Type="Int32" />
+          <Property Name="ComArea" Type="Int32" />
+          <Property Name="ResArea" Type="Int32" />
+          <Property Name="NumFloors" Type="Double" />
+          <Property Name="UnitsRes" Type="Int32" />
+          <Property Name="ZoneDist1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Overlay1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Overlay2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AssessTot" Type="Double" />
+          <Property Name="YearBuilt" Type="Int32" />
+          <Property Name="OwnerName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="BldgClass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsRentStabilizedProperty" Type="Boolean" />
+          <Property Name="CD" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -106,6 +190,42 @@
                 <ScalarProperty Name="AlertName" ColumnName="AlertName" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Districts">
+            <EntityTypeMapping TypeName="NYC_Web_Mapping_AppModel.District">
+              <MappingFragment StoreEntitySet="Districts">
+                <ScalarProperty Name="DISTRICT1" ColumnName="DISTRICT" />
+                <ScalarProperty Name="DISTRICTCODE" ColumnName="DISTRICTCODE" />
+                <ScalarProperty Name="OBJECTID" ColumnName="OBJECTID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Plutoes">
+            <EntityTypeMapping TypeName="NYC_Web_Mapping_AppModel.Pluto">
+              <MappingFragment StoreEntitySet="Pluto">
+                <ScalarProperty Name="CD" ColumnName="CD" />
+                <ScalarProperty Name="IsRentStabilizedProperty" ColumnName="IsRentStabilizedProperty" />
+                <ScalarProperty Name="BldgClass" ColumnName="BldgClass" />
+                <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
+                <ScalarProperty Name="YearBuilt" ColumnName="YearBuilt" />
+                <ScalarProperty Name="AssessTot" ColumnName="AssessTot" />
+                <ScalarProperty Name="Overlay2" ColumnName="Overlay2" />
+                <ScalarProperty Name="Overlay1" ColumnName="Overlay1" />
+                <ScalarProperty Name="ZoneDist1" ColumnName="ZoneDist1" />
+                <ScalarProperty Name="UnitsRes" ColumnName="UnitsRes" />
+                <ScalarProperty Name="NumFloors" ColumnName="NumFloors" />
+                <ScalarProperty Name="ResArea" ColumnName="ResArea" />
+                <ScalarProperty Name="ComArea" ColumnName="ComArea" />
+                <ScalarProperty Name="BldgArea" ColumnName="BldgArea" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Borough" ColumnName="Borough" />
+                <ScalarProperty Name="BBL" ColumnName="BBL" />
+                <ScalarProperty Name="OBJECTID" ColumnName="OBJECTID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

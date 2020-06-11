@@ -5,10 +5,6 @@ using System.Web;
 
 namespace NYCMappingWebApp.Entities
 {
-    public class IndexData
-    {
-        public string Boroughs { get; set; }
-    }
     public class Select2DTO // as select2 is formed like id and text so we used DTO
     {
         public string id { get; set; }
@@ -45,6 +41,8 @@ namespace NYCMappingWebApp.Entities
         public string violation_type { get; set; }
         public string violation_category { get; set; }
         public string executed_date { get; set; }
+        public string CD { get; set; }
+        public string DISTRICT { get; set; }
     }
     public class DatabaseAttributes
     {
@@ -115,6 +113,8 @@ namespace NYCMappingWebApp.Entities
             }
         }
         public string executed_date_string_format { get; set; }
+        public int? CD { get; set; }
+        public string DISTRICT { get; set; }
     }
 
     public class DatabaseMaxValues

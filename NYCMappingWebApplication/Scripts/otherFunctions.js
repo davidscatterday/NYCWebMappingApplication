@@ -2,7 +2,7 @@
     , maxNumberOfFloors = 210, maxResidentialUnits = 11000, maxAssessedTotalValue = 7200000000
     , maxEnergyStarScore = 100, maxSourceEUI = 29000000, maxSiteEUI = 25000000, maxAnnualMaximumDemand = 2600000, maxTotalGHGEmissions = 540000000
 
-var lstBuildingClass = ["cbOfficeO1", "cbOfficeO2", "cbOfficeO3", "cbOfficeO4"
+var lstBuildingClass = ["cbOfficeO1", "cbOfficeO2", "cbOfficeO3", "cbOfficeO4", "cbOfficeO5", "cbOfficeO6", "cbOfficeO8", "cbOfficeO9"
     , "cbIndustrialF1", "cbIndustrialF2", "cbIndustrialF4", "cbIndustrialF5", "cbIndustrialF8", "cbIndustrialF9", "cbRetailK1", "cbOfficeO4"
     , "cbRetailK2", "cbRetailK3", "cbRetailK4", "cbRetailK5", "cbRetailK6", "cbRetailK8", "cbHotelH1", "cbHotelH2"
     , "cbHotelH3", "cbHotelH4", "cbHotelH5", "cbHotelH6", "cbHotelH7", "cbCondominiumsCoopR1", "cbCondominiumsCoopR2"
@@ -14,6 +14,7 @@ var lstBuildingClass = ["cbOfficeO1", "cbOfficeO2", "cbOfficeO3", "cbOfficeO4"
 var lstTableAttributes = [];
 var lstAllTableAttributes = [];
 lstAllTableAttributes.push({ name: 'Borough', attribute: "Borough", dataset: "Pluto" });
+lstAllTableAttributes.push({ name: 'District', attribute: "CD", dataset: "Pluto" });
 lstAllTableAttributes.push({ name: 'Address', attribute: "Address", dataset: "Pluto" });
 lstAllTableAttributes.push({ name: 'Zip Code', attribute: "ZipCode", dataset: "Pluto" });
 lstAllTableAttributes.push({ name: 'Latitude', attribute: "Latitude", dataset: "Pluto" });
@@ -42,6 +43,7 @@ lstAllTableAttributes.push({ name: 'Issue Date', attribute: "issue_date_string_f
 lstAllTableAttributes.push({ name: 'Violation Type', attribute: "violation_type", dataset: "Violation" });
 lstAllTableAttributes.push({ name: 'Violation Category', attribute: "violation_category", dataset: "Violation" });
 lstAllTableAttributes.push({ name: 'Executed Date', attribute: "executed_date_string_format", dataset: "Evictions" });
+lstAllTableAttributes.push({ name: 'District', attribute: "DISTRICT", dataset: "Districts" });
 var sqlQuery = "";
 var IsPlutoSearch = false, IsEnergySearch = false, IsPermitSearch = false, IsViolationSearch = false, IsEvictionSearch = false;
 $(function () {
@@ -193,10 +195,12 @@ $(function () {
 
 function btnReset() {
     document.getElementById("cbBorough").checked = false;
+    document.getElementById("cbDistrict").checked = false;
     document.getElementById("cbZipCodeRange").checked = false;
     document.getElementById("cbStreetAddress").checked = false;
     document.getElementById("cbLatLong").checked = false;
     $("#txtBoroughs").select2("val", "");
+    $("#txtDistricts").select2("val", "");
     document.getElementById("txtZipCodeRangeFrom").value = "";
     document.getElementById("txtZipCodeRangeTo").value = "";
     document.getElementById("txtStreetAddress").value = "";
@@ -826,6 +830,19 @@ function btnSearch() {
             }
         }
     }
+    if (document.getElementById("cbDistrict").checked == true) {
+        District = $(txtDistricts).val();
+        if (District != "") {
+            lstTableAttributes.push({ name: 'District', attribute: "DISTRICT", dataset: "Districts" });
+            IsPlutoSearch = true;
+            if (whereClause == "") {
+                whereClause = "p.CD IN (" + District + ")";
+            }
+            else {
+                whereClause += " AND p.CD IN (" + District + ")";
+            }
+        }
+    }
 
     if (whereClause != "" || whereEnergyClause != "" || wherePermitClause != "" || whereViolationClause != "" || whereEvictionsClause) {
         $('#loading').show();
@@ -915,6 +932,12 @@ function DatabaseSearch(whereEnergyClause, wherePermitClause, whereViolationClau
                     fromStatement += " LEFT JOIN dbo.Evictions ev on p.Address = ev.EVICTION_ADDRESS";
                 }
                 selectStatementList.push("ev." + lstTableAttributes[i].attribute);
+                break;
+            case "Districts":
+                if (!fromStatementList.includes(lstTableAttributes[i].dataset)) {
+                    fromStatement += " LEFT JOIN dbo.Districts d on p.CD = d.DISTRICTCODE";
+                }
+                selectStatementList.push("d." + lstTableAttributes[i].attribute);
                 break;
         }
         fromStatementList.push(lstTableAttributes[i].dataset);
@@ -1538,7 +1561,22 @@ function btnOpenSaveReport_Click() {
 }
 
 function btnOpenAlerts_Click() {
-    $("#myModalCreateAlert").modal();
+    swal({
+        text: "For Alerts including Property Permits, Property Violations or Housing Evictions criteria, please ensure the selected end date is set in the future or empty to receieve alerts in perpetuity",
+        title: "Before You Save Your Alert",
+        buttons: {
+            ResetSearch: "Reset Search",
+            ConfirmAlert: "Confirm Alert",
+        },
+    })
+        .then((value) => {
+            switch (value) {
+                case "ResetSearch":
+                    break;
+                case "ConfirmAlert":
+                    $("#myModalCreateAlert").modal();
+            }
+        });
 }
 
 //function btnSaveMyReport_Click() {
@@ -1683,6 +1721,7 @@ $(function () {
 });
 
 $(document).ready(function () {
+    $("#tabs").tabs();
     $.ajax({
         url: RootUrl + 'Home/GetMyAlerts',
         type: "POST",
@@ -1696,7 +1735,42 @@ $(document).ready(function () {
     var myTimeout = setTimeout(function () {
         $('input.select2-input').attr('autocomplete', "xxxxxxxxxxx");
     }, 1000);
+
 });
+
+function rbSearchByBBL_Click() {
+    $('#divLookaLikeBbl').show();
+    $('#divLookaLikeAddress').hide();
+}
+function rbSearchByAddress_Click() {
+    $('#divLookaLikeBbl').hide();
+    $('#divLookaLikeAddress').show();
+};
+function txtLookaLikeBbl_Change(evt) {
+    if (evt.value != null) {
+        lstTableAttributes = [{ name: 'Borough', attribute: "Borough", dataset: "Pluto" }, { name: 'Address', attribute: "Address", dataset: "Pluto" }];
+        $('#loading').show();
+        $.ajax({
+            url: RootUrl + 'Home/SearchLookaLikeByBBL',
+            type: "POST",
+            data: {
+                "bbl": evt.value
+            },
+            success: function (data) {
+                CreateDatabaseTable(data);
+                $('#loading').hide();
+            },
+            error: function (error) {
+                console.log("An error occurred from SearchLookaLiteByBBL()." + error);
+                $('#loading').hide();
+            }
+        });
+    }
+}
+function txtLookaLikeAddress_Change(evt) {
+    if (evt.value != null) {
+    }
+}
 
 function ShowInfoForSelectedAlert(AlertID, rowID) {
     document.getElementById(rowID).style.fontWeight = "normal";
@@ -1769,7 +1843,7 @@ function ShowInfoForSelectedAlert(AlertID, rowID) {
 function CreateHtmlMyAlerts(data) {
     var unreadAlerts = 0;
     if (data.length > 0) {
-        var htmlAlertRecords = '<div class="table-responsive"><table id=\"tblAlertRecords\" class="tablesorter"><thead><tr class=\"clickableRow\">';
+        var htmlAlertRecords = '<div class="table-responsive"><table id=\"tblAlertRecords\" class="table table-bordered"><thead><tr class=\"clickableRow\">';
         htmlAlertRecords += "<th>Name</th>";
         htmlAlertRecords += "<th>Date</th>";
         htmlAlertRecords += "<th></th>";
@@ -1786,13 +1860,13 @@ function CreateHtmlMyAlerts(data) {
             }
             htmlAlertRecords += "<td>" + data[i].AlertName + "</td>";
             htmlAlertRecords += "<td>" + data[i].DateCreatedString + "</td>";
-            htmlAlertRecords += "<td><button type=\"button\" style=\"padding: 0; border: none;\" onclick=\"btnDeleteMyAlert_Click(" + data[i].ID + ")\"><img src=\"" + RootUrl + "Images/x-delete.png\" width=\"25\" height=\"20\" /></button></td>";
+            htmlAlertRecords += "<td style='text-align: center;'><button type=\"button\" style=\"padding: 0; border: none;\" onclick=\"btnDeleteMyAlert_Click(" + data[i].ID + ")\"><img src=\"" + RootUrl + "Images/x-delete.png\" width=\"25\" height=\"20\" /></button></td>";
             htmlAlertRecords += "</tr>";
         }
         htmlAlertRecords += '</tr></tbody></table></div>';
         $('#divAlertItemsTable').text('');
         $('#divAlertItemsTable').append(htmlAlertRecords);
-        $("#tblAlertRecords").tablesorter({ widgets: ['zebra'] });
+        //$("#tblAlertRecords").tablesorter({ widgets: ['zebra'] });
         $('#divAlertItemsMessage').hide();
         highlightTableRow('tblAlertRecords');
     }
