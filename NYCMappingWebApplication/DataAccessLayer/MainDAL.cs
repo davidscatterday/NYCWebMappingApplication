@@ -31,7 +31,7 @@ namespace NYCMappingWebApp.DataAccessLayer
                             {
                                 id = d.DISTRICTCODE.ToString(),
                                 text = d.DISTRICT1
-                            }).ToList();
+                            }).OrderBy(w => w.text).ToList();
             return returnResult;
         }
         public List<SelectListItem> GetAllZoningDistricts()
