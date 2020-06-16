@@ -44,8 +44,16 @@ lstAllTableAttributes.push({ name: 'Violation Type', attribute: "violation_type"
 lstAllTableAttributes.push({ name: 'Violation Category', attribute: "violation_category", dataset: "Violation" });
 lstAllTableAttributes.push({ name: 'Executed Date', attribute: "executed_date_string_format", dataset: "Evictions" });
 lstAllTableAttributes.push({ name: 'District', attribute: "DISTRICT", dataset: "Districts" });
+lstAllTableAttributes.push({ name: 'Organization Name', attribute: "OrganizationName", dataset: "SocialServiceOrganizations" });
+//lstAllTableAttributes.push({ name: 'Address', attribute: "Address1", dataset: "SocialServiceOrganizations" });
+//lstAllTableAttributes.push({ name: 'Category', attribute: "Category", dataset: "SocialServiceOrganizations" });
+lstAllTableAttributes.push({ name: 'Faith Based Organization', attribute: "Faith_Based_Organization", dataset: "SocialServiceOrganizations" });
+lstAllTableAttributes.push({ name: 'Foundation', attribute: "Foundation", dataset: "SocialServiceOrganizations" });
+lstAllTableAttributes.push({ name: 'New York City Agency', attribute: "New_York_City_Agency", dataset: "SocialServiceOrganizations" });
+lstAllTableAttributes.push({ name: 'Non-Profit', attribute: "Nonprofit", dataset: "SocialServiceOrganizations" });
+
 var sqlQuery = "";
-var IsPlutoSearch = false, IsEnergySearch = false, IsPermitSearch = false, IsViolationSearch = false, IsEvictionSearch = false;
+var IsPlutoSearch = false, IsEnergySearch = false, IsPermitSearch = false, IsViolationSearch = false, IsEvictionSearch = false, IsSocialServiceOrganizationsSearch = false;
 $(function () {
     $("#slider-range-TotalBuildingFloorArea").slider({
         range: true,
@@ -316,12 +324,68 @@ function btnReset() {
     document.getElementById("txtExecutedDateTo").value = "";
     $("#ddlEvictionStatus").val($("#ddlEvictionStatus option:first").val());
 
+    document.getElementById("cbAgingStatus").checked = false;
+    $("#ddlAgingStatus").val($("#ddlAgingStatus option:first").val());
+    document.getElementById("cbAnti_Discrimination_Human_RightsStatus").checked = false;
+    $("#ddlAnti_Discrimination_Human_RightsStatus").val($("#ddlAnti_Discrimination_Human_RightsStatus option:first").val());
+    document.getElementById("cbArts_CultureStatus").checked = false;
+    $("#ddlArts_CultureStatus").val($("#ddlArts_CultureStatus option:first").val());
+    document.getElementById("cbBusinessStatus").checked = false;
+    $("#ddlBusinessStatus").val($("#ddlBusinessStatus option:first").val());
+    document.getElementById("cbChild_Care_Parent_InformationStatus").checked = false;
+    $("#ddlChild_Care_Parent_InformationStatus").val($("#ddlChild_Care_Parent_InformationStatus option:first").val());
+    document.getElementById("cbCommunity_Service_VolunteerismStatus").checked = false;
+    $("#ddlCommunity_Service_VolunteerismStatus").val($("#ddlCommunity_Service_VolunteerismStatus option:first").val());
+    document.getElementById("cbCounseling_Support_GroupsStatus").checked = false;
+    $("#ddlCounseling_Support_GroupsStatus").val($("#ddlCounseling_Support_GroupsStatus option:first").val());
+    document.getElementById("cbDisabilitiesStatus").checked = false;
+    $("#ddlDisabilitiesStatus").val($("#ddlDisabilitiesStatus option:first").val());
+    document.getElementById("cbDomestic_ViolenceStatus").checked = false;
+    $("#ddlDomestic_ViolenceStatus").val($("#ddlDomestic_ViolenceStatus option:first").val());
+    document.getElementById("cbEducationStatus").checked = false;
+    $("#ddlEducationStatus").val($("#ddlEducationStatus option:first").val());
+    document.getElementById("cbEmployment_Job_TrainingStatus").checked = false;
+    $("#ddlEmployment_Job_TrainingStatus").val($("#ddlEmployment_Job_TrainingStatus option:first").val());
+    document.getElementById("cbHealthStatus").checked = false;
+    $("#ddlHealthStatus").val($("#ddlHealthStatus option:first").val());
+    document.getElementById("cbHomelessnessStatus").checked = false;
+    $("#ddlHomelessnessStatus").val($("#ddlHomelessnessStatus option:first").val());
+    document.getElementById("cbHousingStatus").checked = false;
+    $("#ddlHousingStatus").val($("#ddlHousingStatus option:first").val());
+    document.getElementById("cbImmigrationStatus").checked = false;
+    $("#ddlImmigrationStatus").val($("#ddlImmigrationStatus option:first").val());
+    document.getElementById("cbLegal_ServicesStatus").checked = false;
+    $("#ddlLegal_ServicesStatus").val($("#ddlLegal_ServicesStatus option:first").val());
+    document.getElementById("cbLesbian_Gay_Bisexual_and_or_TransgenderStatus").checked = false;
+    $("#ddlLesbian_Gay_Bisexual_and_or_TransgenderStatus").val($("#ddlLesbian_Gay_Bisexual_and_or_TransgenderStatus option:first").val());
+    document.getElementById("cbPersonal_Finance_Financial_EducationStatus").checked = false;
+    $("#ddlPersonal_Finance_Financial_EducationStatus").val($("#ddlPersonal_Finance_Financial_EducationStatus option:first").val());
+    document.getElementById("cbProfessional_AssociationStatus").checked = false;
+    $("#ddlProfessional_AssociationStatus").val($("#ddlProfessional_AssociationStatus option:first").val());
+    document.getElementById("cbVeterans_Military_FamiliesStatus").checked = false;
+    $("#ddlVeterans_Military_FamiliesStatus").val($("#ddlVeterans_Military_FamiliesStatus option:first").val());
+    document.getElementById("cbVictim_ServicesStatus").checked = false;
+    $("#ddlVictim_ServicesStatus").val($("#ddlVictim_ServicesStatus option:first").val());
+    document.getElementById("cbWomen_s_GroupsStatus").checked = false;
+    $("#ddlWomen_s_GroupsStatus").val($("#ddlWomen_s_GroupsStatus option:first").val());
+    document.getElementById("cbYouth_ServicesStatus").checked = false;
+    $("#ddlYouth_ServicesStatus").val($("#ddlYouth_ServicesStatus option:first").val());
+
+    document.getElementById("rbSearchByBBL").checked = true;
+    document.getElementById("rbSearchByAddress").checked = false;
+    $("#txtLookaLikeBbl").select2("val", "");
+    $("#txtLookaLikeAddress").select2("val", "");
+    $('#divLookaLikeAddress').hide();
+    $('#divLookaLikeBbl').show();
+
     map.graphics.clear();
     selectionLayer.clear();
+    districtLayer.clear();
     map.setExtent(initExtent);
 }
 
 function btnSearch() {
+    districtLayer.clear();
     lstTableAttributes = [{ name: 'Borough', attribute: "Borough", dataset: "Pluto" }, { name: 'Address', attribute: "Address", dataset: "Pluto" }];
     var Borough = null, ZipCodeRangeFrom = null, ZipCodeRangeTo = null, StreetAddress = null, Lat = null, Long = null
         , TotalBuildingFloorAreaStart = null, TotalBuildingFloorAreaEnd = null, CommercialFloorAreaStart = null, CommercialFloorAreaEnd = null
@@ -336,6 +400,7 @@ function btnSearch() {
     var wherePermitClause = "";
     var whereViolationClause = "";
     var whereEvictionsClause = "";
+    var whereSocialServiceOrganizationsClause = "";
     if (document.getElementById("cbBorough").checked == true) {
         Borough = $(txtBoroughs).val();
         if (Borough != "") {
@@ -841,12 +906,279 @@ function btnSearch() {
             else {
                 whereClause += " AND p.CD IN (" + District + ")";
             }
+            SearchGeometry("DISTRICTCODE IN ('" + District + "')");
         }
     }
+    var selectedAgingStatus = ddlAgingStatus.options[ddlAgingStatus.selectedIndex].value;
+    var selectedAnti_Discrimination_Human_RightsStatus = ddlAnti_Discrimination_Human_RightsStatus.options[ddlAnti_Discrimination_Human_RightsStatus.selectedIndex].value;
+    var selectedArts_CultureStatus = ddlArts_CultureStatus.options[ddlArts_CultureStatus.selectedIndex].value;
+    var selectedBusinessStatus = ddlBusinessStatus.options[ddlBusinessStatus.selectedIndex].value;
+    var selectedChild_Care_Parent_InformationStatus = ddlChild_Care_Parent_InformationStatus.options[ddlChild_Care_Parent_InformationStatus.selectedIndex].value;
+    var selectedCommunity_Service_VolunteerismStatus = ddlCommunity_Service_VolunteerismStatus.options[ddlCommunity_Service_VolunteerismStatus.selectedIndex].value;
+    var selectedCounseling_Support_GroupsStatus = ddlCounseling_Support_GroupsStatus.options[ddlCounseling_Support_GroupsStatus.selectedIndex].value;
+    var selectedDisabilitiesStatus = ddlDisabilitiesStatus.options[ddlDisabilitiesStatus.selectedIndex].value;
+    var selectedDomestic_ViolenceStatus = ddlDomestic_ViolenceStatus.options[ddlDomestic_ViolenceStatus.selectedIndex].value;
+    var selectedEducationStatus = ddlEducationStatus.options[ddlEducationStatus.selectedIndex].value;
+    var selectedEmployment_Job_TrainingStatus = ddlEmployment_Job_TrainingStatus.options[ddlEmployment_Job_TrainingStatus.selectedIndex].value;
+    var selectedHealthStatus = ddlHealthStatus.options[ddlHealthStatus.selectedIndex].value;
+    var selectedHomelessnessStatus = ddlHomelessnessStatus.options[ddlHomelessnessStatus.selectedIndex].value;
+    var selectedHousingStatus = ddlHousingStatus.options[ddlHousingStatus.selectedIndex].value;
+    var selectedImmigrationStatus = ddlImmigrationStatus.options[ddlImmigrationStatus.selectedIndex].value;
+    var selectedLegal_ServicesStatus = ddlLegal_ServicesStatus.options[ddlLegal_ServicesStatus.selectedIndex].value;
+    var selectedLesbian_Gay_Bisexual_and_or_TransgenderStatus = ddlLesbian_Gay_Bisexual_and_or_TransgenderStatus.options[ddlLesbian_Gay_Bisexual_and_or_TransgenderStatus.selectedIndex].value;
+    var selectedPersonal_Finance_Financial_EducationStatus = ddlPersonal_Finance_Financial_EducationStatus.options[ddlPersonal_Finance_Financial_EducationStatus.selectedIndex].value;
+    var selectedProfessional_AssociationStatus = ddlProfessional_AssociationStatus.options[ddlProfessional_AssociationStatus.selectedIndex].value;
+    var selectedVeterans_Military_FamiliesStatus = ddlVeterans_Military_FamiliesStatus.options[ddlVeterans_Military_FamiliesStatus.selectedIndex].value;
+    var selectedVictim_ServicesStatus = ddlVictim_ServicesStatus.options[ddlVictim_ServicesStatus.selectedIndex].value;
+    var selectedWomen_s_GroupsStatus = ddlWomen_s_GroupsStatus.options[ddlWomen_s_GroupsStatus.selectedIndex].value;
+    var selectedYouth_ServicesStatus = ddlYouth_ServicesStatus.options[ddlYouth_ServicesStatus.selectedIndex].value;
+   
 
-    if (whereClause != "" || whereEnergyClause != "" || wherePermitClause != "" || whereViolationClause != "" || whereEvictionsClause) {
+    if (
+        (document.getElementById("cbAgingStatus").checked == true && selectedAgingStatus != "") ||
+        (document.getElementById("cbAnti_Discrimination_Human_RightsStatus").checked == true && selectedAnti_Discrimination_Human_RightsStatus != "") ||
+        (document.getElementById("cbArts_CultureStatus").checked == true && selectedArts_CultureStatus !="")||
+        (document.getElementById("cbBusinessStatus").checked == true && selectedBusinessStatus != "") ||
+        (document.getElementById("cbChild_Care_Parent_InformationStatus").checked == true && selectedChild_Care_Parent_InformationStatus != "") ||
+        (document.getElementById("cbCommunity_Service_VolunteerismStatus").checked == true && selectedCommunity_Service_VolunteerismStatus != "") ||
+        (document.getElementById("cbCounseling_Support_GroupsStatus").checked == true && selectedCounseling_Support_GroupsStatus != "") ||
+        (document.getElementById("cbDisabilitiesStatus").checked == true && selectedDisabilitiesStatus != "") ||
+        (document.getElementById("cbDomestic_ViolenceStatus").checked == true && selectedDomestic_ViolenceStatus != "") ||
+        (document.getElementById("cbEducationStatus").checked == true && selectedEducationStatus != "") ||
+        (document.getElementById("cbEmployment_Job_TrainingStatus").checked == true && selectedEmployment_Job_TrainingStatus != "") ||
+        (document.getElementById("cbHealthStatus").checked == true && selectedHealthStatus != "") ||
+        (document.getElementById("cbHomelessnessStatus").checked == true && selectedHomelessnessStatus != "") ||
+        (document.getElementById("cbHousingStatus").checked == true && selectedHousingStatus != "") ||
+        (document.getElementById("cbImmigrationStatus").checked == true && selectedImmigrationStatus != "") ||
+        (document.getElementById("cbLegal_ServicesStatus").checked == true && selectedLegal_ServicesStatus != "") ||
+        (document.getElementById("cbLesbian_Gay_Bisexual_and_or_TransgenderStatus").checked == true && selectedLesbian_Gay_Bisexual_and_or_TransgenderStatus != "") ||
+        (document.getElementById("cbPersonal_Finance_Financial_EducationStatus").checked == true && selectedPersonal_Finance_Financial_EducationStatus != "") ||
+        (document.getElementById("cbProfessional_AssociationStatus").checked == true && selectedProfessional_AssociationStatus != "") ||
+        (document.getElementById("cbVeterans_Military_FamiliesStatus").checked == true && selectedVeterans_Military_FamiliesStatus != "") ||
+        (document.getElementById("cbVictim_ServicesStatus").checked == true && selectedVictim_ServicesStatus != "") ||
+        (document.getElementById("cbWomen_s_GroupsStatus").checked == true && selectedWomen_s_GroupsStatus != "") ||
+        (document.getElementById("cbYouth_ServicesStatus").checked == true && selectedYouth_ServicesStatus != ""))
+    {
+        lstTableAttributes.push({ name: 'Organization Name', attribute: "OrganizationName", dataset: "SocialServiceOrganizations" });
+      //  lstTableAttributes.push({ name: 'Address', attribute: "Address1", dataset: "SocialServiceOrganizations" });
+        //lstTableAttributes.push({ name: 'Category', attribute: "Category", dataset: "SocialServiceOrganizations" });
+        lstTableAttributes.push({ name: 'Faith Based Organization', attribute: "Faith_Based_Organization", dataset: "SocialServiceOrganizations" });
+        lstTableAttributes.push({ name: 'Foundation', attribute: "Foundation", dataset: "SocialServiceOrganizations" });
+        lstTableAttributes.push({ name: 'New York City Agency', attribute: "New_York_City_Agency", dataset: "SocialServiceOrganizations" });
+        lstTableAttributes.push({ name: 'Non-Profit', attribute: "Nonprofit", dataset: "SocialServiceOrganizations" });
+        if (document.getElementById("cbAgingStatus").checked == true && selectedAgingStatus != "") {
+
+            if (whereSocialServiceOrganizationsClause == "") {
+                whereSocialServiceOrganizationsClause = "sso.Aging = '" + selectedAgingStatus + "'";
+            }
+            else {
+                whereSocialServiceOrganizationsClause += " AND sso.Aging = '" + selectedAgingStatus + "'";
+            }
+        }
+        if (document.getElementById("cbAnti_Discrimination_Human_RightsStatus").checked == true && selectedAnti_Discrimination_Human_RightsStatus != "") {
+
+            if (whereSocialServiceOrganizationsClause == "") {
+                whereSocialServiceOrganizationsClause = "sso.Anti_Discrimination_Human_Rights = '" + selectedAnti_Discrimination_Human_RightsStatus + "'";
+            }
+            else {
+                whereSocialServiceOrganizationsClause += " AND sso.Anti_Discrimination_Human_Rights = '" + selectedAnti_Discrimination_Human_RightsStatus + "'";
+            }
+        }
+        if (document.getElementById("cbArts_CultureStatus").checked == true && selectedArts_CultureStatus != "") {
+
+            if (whereSocialServiceOrganizationsClause == "") {
+                whereSocialServiceOrganizationsClause = "sso.Arts_Culture = '" + selectedArts_CultureStatus + "'";
+            }
+            else {
+                whereSocialServiceOrganizationsClause += " AND sso.Arts_Culture = '" + selectedArts_CultureStatus + "'";
+            }
+        }
+        if (document.getElementById("cbBusinessStatus").checked == true && selectedBusinessStatus != "") {
+
+            if (whereSocialServiceOrganizationsClause == "") {
+                whereSocialServiceOrganizationsClause = "sso.Business = '" + selectedBusinessStatus + "'";
+            }
+            else {
+                whereSocialServiceOrganizationsClause += " AND sso.Business = '" + selectedBusinessStatus + "'";
+            }
+        }
+        if (document.getElementById("cbChild_Care_Parent_InformationStatus").checked == true && selectedChild_Care_Parent_InformationStatus != "") {
+
+            if (whereSocialServiceOrganizationsClause == "") {
+                whereSocialServiceOrganizationsClause = "sso.Child_Care_Parent_Information = '" + selectedChild_Care_Parent_InformationStatus + "'";
+            }
+            else {
+                whereSocialServiceOrganizationsClause += " AND sso.Child_Care_Parent_Information = '" + selectedChild_Care_Parent_InformationStatus + "'";
+            }
+        }
+        if (document.getElementById("cbCommunity_Service_VolunteerismStatus").checked == true && selectedCommunity_Service_VolunteerismStatus != "") {
+
+            if (whereSocialServiceOrganizationsClause == "") {
+                whereSocialServiceOrganizationsClause = "sso.Community_Service_Volunteerism = '" + selectedCommunity_Service_VolunteerismStatus + "'";
+            }
+            else {
+                whereSocialServiceOrganizationsClause += " AND sso.Community_Service_Volunteerism = '" + selectedCommunity_Service_VolunteerismStatus + "'";
+            }
+        }
+        if (document.getElementById("cbCounseling_Support_GroupsStatus").checked == true && selectedCounseling_Support_GroupsStatus != "") {
+
+            if (whereSocialServiceOrganizationsClause == "") {
+                whereSocialServiceOrganizationsClause = "sso.Counseling_Support_Groups = '" + selectedCounseling_Support_GroupsStatus + "'";
+            }
+            else {
+                whereSocialServiceOrganizationsClause += " AND sso.Counseling_Support_Groups = '" + selectedCounseling_Support_GroupsStatus + "'";
+            }
+        }
+        if (document.getElementById("cbDisabilitiesStatus").checked == true && selectedDisabilitiesStatus != "") {
+
+            if (whereSocialServiceOrganizationsClause == "") {
+                whereSocialServiceOrganizationsClause = "sso.Disabilities = '" + selectedDisabilitiesStatus + "'";
+            }
+            else {
+                whereSocialServiceOrganizationsClause += " AND sso.Disabilities = '" + selectedDisabilitiesStatus + "'";
+            }
+        }
+        if (document.getElementById("cbDomestic_ViolenceStatus").checked == true && selectedDomestic_ViolenceStatus != "") {
+
+            if (whereSocialServiceOrganizationsClause == "") {
+                whereSocialServiceOrganizationsClause = "sso.Domestic_Violence = '" + selectedDomestic_ViolenceStatus + "'";
+            }
+            else {
+                whereSocialServiceOrganizationsClause += " AND sso.Domestic_Violence = '" + selectedDomestic_ViolenceStatus + "'";
+            }
+        }
+        if (document.getElementById("cbEducationStatus").checked == true && selectedEducationStatus != "") {
+
+            if (whereSocialServiceOrganizationsClause == "") {
+                whereSocialServiceOrganizationsClause = "sso.Education = '" + selectedEducationStatus + "'";
+            }
+            else {
+                whereSocialServiceOrganizationsClause += " AND sso.Education = '" + selectedEducationStatus + "'";
+            }
+        }
+        if (document.getElementById("cbEmployment_Job_TrainingStatus").checked == true && selectedEmployment_Job_TrainingStatus != "") {
+
+            if (whereSocialServiceOrganizationsClause == "") {
+                whereSocialServiceOrganizationsClause = "sso.Employment_Job_Training = '" + selectedEmployment_Job_TrainingStatus + "'";
+            }
+            else {
+                whereSocialServiceOrganizationsClause += " AND sso.Employment_Job_Training = '" + selectedEmployment_Job_TrainingStatus + "'";
+            }
+        }
+        if (document.getElementById("cbHealthStatus").checked == true && selectedHealthStatus != "") {
+
+            if (whereSocialServiceOrganizationsClause == "") {
+                whereSocialServiceOrganizationsClause = "sso.Health = '" + selectedHealthStatus + "'";
+            }
+            else {
+                whereSocialServiceOrganizationsClause += " AND sso.Health = '" + selectedHealthStatus + "'";
+            }
+        }
+        if (document.getElementById("cbHomelessnessStatus").checked == true && selectedHomelessnessStatus != "") {
+
+            if (whereSocialServiceOrganizationsClause == "") {
+                whereSocialServiceOrganizationsClause = "sso.Homelessness = '" + selectedHomelessnessStatus + "'";
+            }
+            else {
+                whereSocialServiceOrganizationsClause += " AND sso.Homelessness = '" + selectedHomelessnessStatus + "'";
+            }
+        }
+        if (document.getElementById("cbHousingStatus").checked == true && selectedHousingStatus != "") {
+
+            if (whereSocialServiceOrganizationsClause == "") {
+                whereSocialServiceOrganizationsClause = "sso.Housing = '" + selectedHousingStatus + "'";
+            }
+            else {
+                whereSocialServiceOrganizationsClause += " AND sso.Housing = '" + selectedHousingStatus + "'";
+            }
+        }
+        if (document.getElementById("cbImmigrationStatus").checked == true && selectedImmigrationStatus != "") {
+
+            if (whereSocialServiceOrganizationsClause == "") {
+                whereSocialServiceOrganizationsClause = "sso.Immigration = '" + selectedImmigrationStatus + "'";
+            }
+            else {
+                whereSocialServiceOrganizationsClause += " AND sso.Immigration = '" + selectedImmigrationStatus + "'";
+            }
+        }
+        if (document.getElementById("cbLegal_ServicesStatus").checked == true && selectedLegal_ServicesStatus != "") {
+
+            if (whereSocialServiceOrganizationsClause == "") {
+                whereSocialServiceOrganizationsClause = "sso.Legal_Services = '" + selectedLegal_ServicesStatus + "'";
+            }
+            else {
+                whereSocialServiceOrganizationsClause += " AND sso.Legal_Services = '" + selectedLegal_ServicesStatus + "'";
+            }
+        }
+        if (document.getElementById("cbLesbian_Gay_Bisexual_and_or_TransgenderStatus").checked == true && selectedLesbian_Gay_Bisexual_and_or_TransgenderStatus != "") {
+
+            if (whereSocialServiceOrganizationsClause == "") {
+                whereSocialServiceOrganizationsClause = "sso.Lesbian_Gay_Bisexual_and_or_Transgender = '" + selectedLesbian_Gay_Bisexual_and_or_TransgenderStatus + "'";
+            }
+            else {
+                whereSocialServiceOrganizationsClause += " AND sso.Lesbian_Gay_Bisexual_and_or_Transgender = '" + selectedLesbian_Gay_Bisexual_and_or_TransgenderStatus + "'";
+            }
+        }
+        if (document.getElementById("cbPersonal_Finance_Financial_EducationStatus").checked == true && selectedPersonal_Finance_Financial_EducationStatus != "") {
+
+            if (whereSocialServiceOrganizationsClause == "") {
+                whereSocialServiceOrganizationsClause = "sso.Personal_Finance_Financial_Education = '" + selectedPersonal_Finance_Financial_EducationStatus + "'";
+            }
+            else {
+                whereSocialServiceOrganizationsClause += " AND sso.Personal_Finance_Financial_Education = '" + selectedPersonal_Finance_Financial_EducationStatus + "'";
+            }
+        }
+        if (document.getElementById("cbProfessional_AssociationStatus").checked == true && selectedProfessional_AssociationStatus != "") {
+
+            if (whereSocialServiceOrganizationsClause == "") {
+                whereSocialServiceOrganizationsClause = "sso.Professional_Association = '" + selectedProfessional_AssociationStatus + "'";
+            }
+            else {
+                whereSocialServiceOrganizationsClause += " AND sso.Professional_Association = '" + selectedProfessional_AssociationStatus + "'";
+            }
+        }
+        if (document.getElementById("cbVeterans_Military_FamiliesStatus").checked == true && selectedVeterans_Military_FamiliesStatus != "") {
+
+            if (whereSocialServiceOrganizationsClause == "") {
+                whereSocialServiceOrganizationsClause = "sso.Veterans_Military_Families = '" + selectedVeterans_Military_FamiliesStatus + "'";
+            }
+            else {
+                whereSocialServiceOrganizationsClause += " AND sso.Veterans_Military_Families = '" + selectedVeterans_Military_FamiliesStatus + "'";
+            }
+        }
+        if (document.getElementById("cbVictim_ServicesStatus").checked == true && selectedVictim_ServicesStatus != "") {
+
+            if (whereSocialServiceOrganizationsClause == "") {
+                whereSocialServiceOrganizationsClause = "sso.Victim_Services = '" + selectedVictim_ServicesStatus + "'";
+            }
+            else {
+                whereSocialServiceOrganizationsClause += " AND sso.Victim_Services = '" + selectedVictim_ServicesStatus + "'";
+            }
+        }
+        if (document.getElementById("cbWomen_s_GroupsStatus").checked == true && selectedWomen_s_GroupsStatus != "") {
+
+            if (whereSocialServiceOrganizationsClause == "") {
+                whereSocialServiceOrganizationsClause = "sso.Women_s_Groups = '" + selectedWomen_s_GroupsStatus + "'";
+            }
+            else {
+                whereSocialServiceOrganizationsClause += " AND sso.Women_s_Groups = '" + selectedWomen_s_GroupsStatus + "'";
+            }
+        }
+        if (document.getElementById("cbYouth_ServicesStatus").checked == true && selectedYouth_ServicesStatus != "") {
+
+            if (whereSocialServiceOrganizationsClause == "") {
+                whereSocialServiceOrganizationsClause = "sso.Youth_Services = '" + selectedYouth_ServicesStatus + "'";
+            }
+            else {
+                whereSocialServiceOrganizationsClause += " AND sso.Youth_Services = '" + selectedYouth_ServicesStatus + "'";
+            }
+        }
+
+    }
+
+    if (whereClause != "" || whereEnergyClause != "" || wherePermitClause != "" || whereViolationClause != "" || whereEvictionsClause || whereEvictionsClause || whereSocialServiceOrganizationsClause) {
         $('#loading').show();
-        DatabaseSearch(whereEnergyClause, wherePermitClause, whereViolationClause, whereEvictionsClause, whereClause, lstTableAttributes);
+        DatabaseSearch(whereEnergyClause, wherePermitClause, whereViolationClause, whereEvictionsClause, whereSocialServiceOrganizationsClause, whereClause, lstTableAttributes);
     }
     else {
         swal("Please choose some searching criteria first");
@@ -864,7 +1196,7 @@ function btnSearch() {
     //}
 }
 
-function DatabaseSearch(whereEnergyClause, wherePermitClause, whereViolationClause, whereEvictionsClause, whereClause, lstTableAttributes) {
+function DatabaseSearch(whereEnergyClause, wherePermitClause, whereViolationClause, whereEvictionsClause, whereSocialServiceOrganizationsClause, whereClause, lstTableAttributes) {
     var selectStatement = "", fromStatement = "dbo.Pluto p", whereStatement = "", selectStatementList = ["p.OBJECTID"], fromStatementList = [];
     if (whereEnergyClause != "") {
         if (whereStatement == "") {
@@ -902,6 +1234,13 @@ function DatabaseSearch(whereEnergyClause, wherePermitClause, whereViolationClau
         else {
             whereStatement += " AND " + whereClause;
         }
+    } if (whereSocialServiceOrganizationsClause != "") {
+        if (whereStatement == "") {
+            whereStatement += whereSocialServiceOrganizationsClause;
+        }
+        else {
+            whereStatement += " AND " + whereSocialServiceOrganizationsClause;
+        }
     }
 
     for (var i = 0; i < lstTableAttributes.length; i++) {
@@ -938,6 +1277,12 @@ function DatabaseSearch(whereEnergyClause, wherePermitClause, whereViolationClau
                     fromStatement += " LEFT JOIN dbo.Districts d on p.CD = d.DISTRICTCODE";
                 }
                 selectStatementList.push("d." + lstTableAttributes[i].attribute);
+                break;
+            case "SocialServiceOrganizations":
+                if (!fromStatementList.includes(lstTableAttributes[i].dataset)) {
+                    fromStatement += " LEFT JOIN dbo.SocialServiceOrganizations sso on p.Address = sso.Address1";
+                }
+                selectStatementList.push("sso." + lstTableAttributes[i].attribute);
                 break;
         }
         fromStatementList.push(lstTableAttributes[i].dataset);
@@ -1749,6 +2094,11 @@ function rbSearchByAddress_Click() {
 function txtLookaLikeBbl_Change(evt) {
     if (evt.value != null) {
         lstTableAttributes = [{ name: 'Borough', attribute: "Borough", dataset: "Pluto" }, { name: 'Address', attribute: "Address", dataset: "Pluto" }];
+        lstTableAttributes.push({ name: 'Assessed Total Value', attribute: "AssessTot", dataset: "Pluto" });
+        lstTableAttributes.push({ name: 'Year Built', attribute: "YearBuilt", dataset: "Pluto" });
+        lstTableAttributes.push({ name: 'Number of Floors', attribute: "NumFloors", dataset: "Pluto" });
+        lstTableAttributes.push({ name: 'Total Building Floor Area', attribute: "BldgArea", dataset: "Pluto" });
+
         $('#loading').show();
         $.ajax({
             url: RootUrl + 'Home/SearchLookaLikeByBBL',
@@ -1757,7 +2107,8 @@ function txtLookaLikeBbl_Change(evt) {
                 "bbl": evt.value
             },
             success: function (data) {
-                CreateDatabaseTable(data);
+                sqlQuery = data.sqlQuery;
+                CreateDatabaseTable(data.data);
                 $('#loading').hide();
             },
             error: function (error) {
@@ -1769,6 +2120,29 @@ function txtLookaLikeBbl_Change(evt) {
 }
 function txtLookaLikeAddress_Change(evt) {
     if (evt.value != null) {
+        lstTableAttributes = [{ name: 'Borough', attribute: "Borough", dataset: "Pluto" }, { name: 'Address', attribute: "Address", dataset: "Pluto" }];
+        lstTableAttributes.push({ name: 'Assessed Total Value', attribute: "AssessTot", dataset: "Pluto" });
+        lstTableAttributes.push({ name: 'Year Built', attribute: "YearBuilt", dataset: "Pluto" });
+        lstTableAttributes.push({ name: 'Total Building Floor Area', attribute: "BldgArea", dataset: "Pluto" });
+        lstTableAttributes.push({ name: 'Number of Floors', attribute: "NumFloors", dataset: "Pluto" });
+
+        $('#loading').show();
+        $.ajax({
+            url: RootUrl + 'Home/SearchLookaLikeByAddresses',
+            type: "POST",
+            data: {
+                "adr": evt.value
+            },
+            success: function (data) {
+                sqlQuery = data.sqlQuery;
+                CreateDatabaseTable(data.data);
+                $('#loading').hide();
+            },
+            error: function (error) {
+                console.log("An error occurred from SearchLookaLiteByAddresses()." + error);
+                $('#loading').hide();
+            }
+        });
     }
 }
 

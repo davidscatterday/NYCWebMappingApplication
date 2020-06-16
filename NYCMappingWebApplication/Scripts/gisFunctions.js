@@ -1,11 +1,15 @@
-﻿var selectionLayer;
+﻿var selectionLayer, districtLayer;
 require(["esri/map", "dojo/parser", "esri/layers/FeatureLayer", "esri/config", "esri/symbols/SimpleFillSymbol", "dojo/_base/array"
-    , "esri/graphic", "esri/basemaps", "esri/InfoTemplate", "esri/layers/GraphicsLayer"
-], function (Map, parser, FeatureLayer, esriConfig, SimpleFillSymbol, arrayUtils, Graphic, esriBasemaps, InfoTemplate, GraphicsLayer) {
+    , "esri/graphic", "esri/basemaps", "esri/InfoTemplate", "esri/layers/GraphicsLayer", "esri/tasks/QueryTask", "esri/tasks/query"
+], function (Map, parser, FeatureLayer, esriConfig, SimpleFillSymbol, arrayUtils, Graphic, esriBasemaps, InfoTemplate, GraphicsLayer, QueryTask, Query) {
     parser.parse();
     esriConfig.defaults.io.proxyUrl = "/proxy/proxy.ashx";
     selectionLayer = new GraphicsLayer();
+    districtLayer = new GraphicsLayer();
 
+    //create symbol polygon for districts features
+    symbolDistrictFill = new SimpleFillSymbol();
+    symbolDistrictFill.setColor(new dojo.Color([51, 255, 204, 0]));
     //create symbol polygon for selected features
     symbolFill = new SimpleFillSymbol();
     symbolFill.setColor(new dojo.Color([51, 255, 204, 0.5]));
@@ -44,5 +48,30 @@ require(["esri/map", "dojo/parser", "esri/layers/FeatureLayer", "esri/config", "
         extent: initExtent
     });
 
-    map.addLayers([serviceFeatures, districtFeatures, selectionLayer]);
+    map.addLayers([serviceFeatures, districtLayer, selectionLayer]);
 });
+
+function SearchGeometry(whereClause) {
+    require(["esri/tasks/QueryTask", "esri/tasks/query"
+    ], function (QueryTask, Query) {
+        var queryTask = new QueryTask(DistrictsUrl);
+        var query = new Query();
+        query.where = whereClause;
+        query.returnGeometry = true;
+        queryTask.execute(query, function (featureSet) {
+            //Performance enhancer - assign featureSet array to a single variable.
+            var resultFeatures = featureSet.features;
+            if (resultFeatures.length > 0) {
+                //Loop through each feature returned
+                for (var i = 0, il = resultFeatures.length; i < il; i++) {
+                    //Feature is a graphic
+                    var graphic = resultFeatures[i];
+                    graphic.setSymbol(symbolDistrictFill);
+                    districtLayer.add(graphic);
+                }
+            }
+        }, function (error) {
+            swal("Your query is not valid");
+        });
+    });
+}

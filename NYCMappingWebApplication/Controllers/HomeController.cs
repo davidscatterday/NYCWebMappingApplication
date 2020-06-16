@@ -24,6 +24,7 @@ namespace NYCMappingWebApp.Controllers
             ViewBag.ZoningDistricts = mainDAL.GetAllZoningDistricts();
             ViewBag.CommercialOverlays = mainDAL.GetAllCommercialOverlays();
             ViewBag.EvictionStatuses = mainDAL.GetAllEvictionStatuses();
+            ViewBag.YesNoStatuses = mainDAL.GetAllYesNoStatuses();
             ViewBag.Frequencies = mainDAL.GetAllFrequencies();
             return View();
         }
@@ -78,8 +79,24 @@ namespace NYCMappingWebApp.Controllers
 
         public JsonResult SearchLookaLikeByBBL(string bbl)
         {
-            var data = mainDAL.SearchLookaLikeByBBL(bbl);
-            return Json(new { data }, JsonRequestBehavior.AllowGet);
+            ReturnLookaLike data = mainDAL.SearchLookaLikeByBBL(bbl);
+            return new JsonResult()
+            {
+                Data = data,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                MaxJsonLength = Int32.MaxValue
+            };
+        }
+
+        public JsonResult SearchLookaLikeByAddresses(string adr)
+        {
+            ReturnLookaLike data = mainDAL.SearchLookaLikeByAddresses(adr);
+            return new JsonResult()
+            {
+                Data = data,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                MaxJsonLength = Int32.MaxValue
+            };
         }
 
         public JsonResult SearchDatabase(string sqlQuery)
@@ -299,8 +316,22 @@ namespace NYCMappingWebApp.Controllers
                 csvLine += isHeader ? ",Executed Date" : "," + elem.executed_date_string_format;
             if (elem.DISTRICT != null)
                 csvLine += isHeader ? ",District" : "," + elem.DISTRICT;
-
+            if (elem.OrganizationName != null)
+            {
+                string orgName = elem.OrganizationName.Contains(",") ? String.Format("\"{0}\"", elem.OrganizationName) : elem.OrganizationName;
+                csvLine += isHeader ? ",OrganizationName" : "," + orgName;
+            }
+            if (elem.Faith_Based_Organization != null)
+                csvLine += isHeader ? ",Faith_Based_Organization" : "," + elem.Faith_Based_Organization;
+            if (elem.Foundation != null)
+                csvLine += isHeader ? ",Foundation" : "," + elem.Foundation;
+            if (elem.New_York_City_Agency != null)
+                csvLine += isHeader ? ",New_York_City_Agency" : "," + elem.New_York_City_Agency;
+            if (elem.Nonprofit != null)
+                csvLine += isHeader ? ",Nonprofit" : "," + elem.Nonprofit;
             return csvLine;
+          
+          
         }
     }
 }

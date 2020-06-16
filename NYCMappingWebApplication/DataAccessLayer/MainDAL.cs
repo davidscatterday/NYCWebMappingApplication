@@ -156,6 +156,13 @@ namespace NYCMappingWebApp.DataAccessLayer
             returnResult.Add(new SelectListItem() { Text = "Scheduled", Value = "1=2" });
             return returnResult;
         }
+        public List<SelectListItem> GetAllYesNoStatuses()
+        {
+            List<SelectListItem> returnResult = new List<SelectListItem>();
+            returnResult.Add(new SelectListItem() { Text = "Yes", Value = "Y" });
+            returnResult.Add(new SelectListItem() { Text = "No", Value = "N" });
+            return returnResult;
+        }
         public List<DatabaseAttributes> SearchDatabase(string sqlQuery)
         {
             List<DatabaseAttributes> returnResult = new List<DatabaseAttributes>();
@@ -299,7 +306,7 @@ namespace NYCMappingWebApp.DataAccessLayer
                             {
                                 id = d.BBL.ToString(),
                                 text = d.BBL
-                            }).Take(10).ToList();
+                            }).Take(30).ToList();
             return returnResult;
         }
 
@@ -312,12 +319,13 @@ namespace NYCMappingWebApp.DataAccessLayer
                             {
                                 id = d.Address.ToString(),
                                 text = d.Address
-                            }).Take(10).ToList();
+                            }).Take(30).ToList();
             return returnResult;
         }
-        public List<DatabaseAttributes> SearchLookaLikeByBBL(string bbl)
+        public ReturnLookaLike SearchLookaLikeByBBL(string bbl)
         {
-            string sqlQuery = "select p.Borough,p.Address from dbo.Pluto p where ";
+            ReturnLookaLike result = new ReturnLookaLike();
+            string sqlQuery = "select p.Borough,p.Address,p.AssessTot,p.YearBuilt,p.BldgArea,p.NumFloors from dbo.Pluto p where ";
             string whereClause = "";
             var plutoEntity = db.Plutoes.Where(w => w.BBL == bbl).FirstOrDefault();
             if (plutoEntity != null)
@@ -378,7 +386,78 @@ namespace NYCMappingWebApp.DataAccessLayer
             {
                 returnResult = ctx.Database.SqlQuery<DatabaseAttributes>(sqlQuery).ToList();
             }
-            return returnResult;
+            result.data = returnResult;
+            result.sqlQuery = sqlQuery;
+            return result;
+        }
+
+        public ReturnLookaLike SearchLookaLikeByAddresses(string adr)
+        {
+            ReturnLookaLike result = new ReturnLookaLike();
+
+            string sqlQuery = "select p.Borough,p.Address,p.AssessTot,p.YearBuilt,p.BldgArea,p.NumFloors  from dbo.Pluto p where ";
+            string whereClause = "";
+            var plutoEntity = db.Plutoes.Where(w => w.Address == adr).FirstOrDefault();
+            if (plutoEntity != null)
+            {
+                if (plutoEntity.AssessTot.HasValue)
+                {
+                    double tollerance = plutoEntity.AssessTot.Value / 50;
+                    if (whereClause == "")
+                    {
+                        whereClause += "AssessTot >= " + (plutoEntity.AssessTot.Value - tollerance) + " AND AssessTot <= " + (plutoEntity.AssessTot.Value + tollerance);
+                    }
+                    else
+                    {
+                        whereClause += " AND AssessTot >= " + (plutoEntity.AssessTot.Value - tollerance) + " AND AssessTot <= " + (plutoEntity.AssessTot.Value + tollerance);
+                    }
+                }
+                if (plutoEntity.YearBuilt.HasValue)
+                {
+                    double tollerance = 2;
+                    if (whereClause == "")
+                    {
+                        whereClause += "YearBuilt >= " + (plutoEntity.YearBuilt.Value - tollerance) + " AND YearBuilt <= " + (plutoEntity.YearBuilt.Value + tollerance);
+                    }
+                    else
+                    {
+                        whereClause += " AND YearBuilt >= " + (plutoEntity.YearBuilt.Value - tollerance) + " AND YearBuilt <= " + (plutoEntity.YearBuilt.Value + tollerance);
+                    }
+                }
+                if (plutoEntity.BldgArea.HasValue)
+                {
+                    double tollerance = plutoEntity.BldgArea.Value / 50;
+                    if (whereClause == "")
+                    {
+                        whereClause += "BldgArea >= " + (plutoEntity.BldgArea.Value - tollerance) + " AND BldgArea <= " + (plutoEntity.BldgArea.Value + tollerance);
+                    }
+                    else
+                    {
+                        whereClause += " AND BldgArea >= " + (plutoEntity.BldgArea.Value - tollerance) + " AND BldgArea <= " + (plutoEntity.BldgArea.Value + tollerance);
+                    }
+                }
+                if (plutoEntity.NumFloors.HasValue)
+                {
+                    double tollerance = 1;
+                    if (whereClause == "")
+                    {
+                        whereClause += "NumFloors >= " + (plutoEntity.NumFloors.Value - tollerance) + " AND NumFloors <= " + (plutoEntity.NumFloors.Value + tollerance);
+                    }
+                    else
+                    {
+                        whereClause += " AND NumFloors >= " + (plutoEntity.NumFloors.Value - tollerance) + " AND NumFloors <= " + (plutoEntity.NumFloors.Value + tollerance);
+                    }
+                }
+                sqlQuery += whereClause;
+            }
+            List<DatabaseAttributes> returnResult = new List<DatabaseAttributes>();
+            using (var ctx = new NYC_Web_Mapping_AppEntities())
+            {
+                returnResult = ctx.Database.SqlQuery<DatabaseAttributes>(sqlQuery).ToList();
+            }
+            result.data = returnResult;
+            result.sqlQuery = sqlQuery;
+            return result;
         }
     }
 }

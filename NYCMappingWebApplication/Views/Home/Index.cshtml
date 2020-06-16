@@ -697,6 +697,205 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordionMain" href="#collapse18">
+                                                Social Service Organizations
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse18" class="panel-collapse collapse">
+                                        <div class="panel-body">
+
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <label for="cbAgingStatus">
+                                                        <input id="cbAgingStatus" type="checkbox">Aging
+                                                    </label>
+                                                    @Html.DropDownList("ddlAgingStatus", (IEnumerable<SelectListItem>)ViewBag.YesNoStatuses, "Select Aging Status", new { @class = "form-control input-width-xlarge" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <label for="cbAnti_Discrimination_Human_RightsStatus">
+                                                        <input id="cbAnti_Discrimination_Human_RightsStatus" type="checkbox">Anti-Discrimination & Human Rights
+                                                    </label>
+                                                    @Html.DropDownList("ddlAnti_Discrimination_Human_RightsStatus", (IEnumerable<SelectListItem>)ViewBag.YesNoStatuses, "Select Anti-Discrimination & Human Rights Status", new { @class = "form-control input-width-xlarge" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <label for="cbArts_Culture">
+                                                        <input id="cbArts_CultureStatus" type="checkbox">Arts & Culture
+                                                    </label>
+                                                    @Html.DropDownList("ddlArts_CultureStatus", (IEnumerable<SelectListItem>)ViewBag.YesNoStatuses, "Select Arts & Culture Status", new { @class = "form-control input-width-xlarge" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <label for="cbBusiness">
+                                                        <input id="cbBusinessStatus" type="checkbox">Business
+                                                    </label>
+                                                    @Html.DropDownList("ddlBusinessStatus", (IEnumerable<SelectListItem>)ViewBag.YesNoStatuses, "Select Business Status", new { @class = "form-control input-width-xlarge" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <label for="cbChild_Care_Parent_Information">
+                                                        <input id="cbChild_Care_Parent_InformationStatus" type="checkbox">Child Care & Parent Information
+                                                    </label>
+                                                    @Html.DropDownList("ddlChild_Care_Parent_InformationStatus", (IEnumerable<SelectListItem>)ViewBag.YesNoStatuses, "Select Child Care & Parent Information Status", new { @class = "form-control input-width-xlarge" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <label for="cbCommunity_Service_Volunteerism">
+                                                        <input id="cbCommunity_Service_VolunteerismStatus" type="checkbox">Community Service & Volunteerism
+                                                    </label>
+                                                    @Html.DropDownList("ddlCommunity_Service_VolunteerismStatus", (IEnumerable<SelectListItem>)ViewBag.YesNoStatuses, "Select Community Service & Volunteerism Status", new { @class = "form-control input-width-xlarge" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <label for="cbCounseling_Support_Groups">
+                                                        <input id="cbCounseling_Support_GroupsStatus" type="checkbox">Counseling & Support Groups
+                                                    </label>
+                                                    @Html.DropDownList("ddlCounseling_Support_GroupsStatus", (IEnumerable<SelectListItem>)ViewBag.YesNoStatuses, "Select Counseling & Support Groups Status", new { @class = "form-control input-width-xlarge" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <label for="cbDisabilities">
+                                                        <input id="cbDisabilitiesStatus" type="checkbox">Disabilities
+                                                    </label>
+                                                    @Html.DropDownList("ddlDisabilitiesStatus", (IEnumerable<SelectListItem>)ViewBag.YesNoStatuses, "Select Disabilities Status", new { @class = "form-control input-width-xlarge" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <label for="cbDomestic_Violence">
+                                                        <input id="cbDomestic_ViolenceStatus" type="checkbox">Domestic Violence
+                                                    </label>
+                                                    @Html.DropDownList("ddlDomestic_ViolenceStatus", (IEnumerable<SelectListItem>)ViewBag.YesNoStatuses, "Select Domestic Violence Status", new { @class = "form-control input-width-xlarge" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <label for="cbEducation">
+                                                        <input id="cbEducationStatus" type="checkbox">Education
+                                                    </label>
+                                                    @Html.DropDownList("ddlEducationStatus", (IEnumerable<SelectListItem>)ViewBag.YesNoStatuses, "Select Education Status", new { @class = "form-control input-width-xlarge" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <label for="cbEmployment_Job_Training">
+                                                        <input id="cbEmployment_Job_TrainingStatus" type="checkbox">Employment & Job Training
+                                                    </label>
+                                                    @Html.DropDownList("ddlEmployment_Job_TrainingStatus", (IEnumerable<SelectListItem>)ViewBag.YesNoStatuses, "Select Employment & Job Training Status", new { @class = "form-control input-width-xlarge" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <label for="cbHealth">
+                                                        <input id="cbHealthStatus" type="checkbox">Health
+                                                    </label>
+                                                    @Html.DropDownList("ddlHealthStatus", (IEnumerable<SelectListItem>)ViewBag.YesNoStatuses, "Select Health Status", new { @class = "form-control input-width-xlarge" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <label for="cbHomelessness">
+                                                        <input id="cbHomelessnessStatus" type="checkbox">Homelessness
+                                                    </label>
+                                                    @Html.DropDownList("ddlHomelessnessStatus", (IEnumerable<SelectListItem>)ViewBag.YesNoStatuses, "Select Homelessness Status", new { @class = "form-control input-width-xlarge" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <label for="cbHousing">
+                                                        <input id="cbHousingStatus" type="checkbox">Housing
+                                                    </label>
+                                                    @Html.DropDownList("ddlHousingStatus", (IEnumerable<SelectListItem>)ViewBag.YesNoStatuses, "Select Housing Status", new { @class = "form-control input-width-xlarge" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <label for="cbImmigration">
+                                                        <input id="cbImmigrationStatus" type="checkbox">Immigration
+                                                    </label>
+                                                    @Html.DropDownList("ddlImmigrationStatus", (IEnumerable<SelectListItem>)ViewBag.YesNoStatuses, "Select Immigration Status", new { @class = "form-control input-width-xlarge" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <label for="cbLegal_Services">
+                                                        <input id="cbLegal_ServicesStatus" type="checkbox">Legal Services
+                                                    </label>
+                                                    @Html.DropDownList("ddlLegal_ServicesStatus", (IEnumerable<SelectListItem>)ViewBag.YesNoStatuses, "Select Legal Services Status", new { @class = "form-control input-width-xlarge" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <label for="cbLesbian_Gay_Bisexual_and_or_Transgender">
+                                                        <input id="cbLesbian_Gay_Bisexual_and_or_TransgenderStatus" type="checkbox">Lesbian, Gay, Bisexual, and/or Transgender
+                                                    </label>
+                                                    @Html.DropDownList("ddlLesbian_Gay_Bisexual_and_or_TransgenderStatus", (IEnumerable<SelectListItem>)ViewBag.YesNoStatuses, "Select Lesbian, Gay, Bisexual, and/or Transgender Status", new { @class = "form-control input-width-xlarge" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <label for="cbPersonal_Finance_Financial_Education">
+                                                        <input id="cbPersonal_Finance_Financial_EducationStatus" type="checkbox">Personal Finance & Financial Education
+                                                    </label>
+                                                    @Html.DropDownList("ddlPersonal_Finance_Financial_EducationStatus", (IEnumerable<SelectListItem>)ViewBag.YesNoStatuses, "Select Personal Finance & Financial Education Status", new { @class = "form-control input-width-xlarge" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <label for="cbProfessional_Association">
+                                                        <input id="cbProfessional_AssociationStatus" type="checkbox">Professional Association
+                                                    </label>
+                                                    @Html.DropDownList("ddlProfessional_AssociationStatus", (IEnumerable<SelectListItem>)ViewBag.YesNoStatuses, "Select Professional Association Status", new { @class = "form-control input-width-xlarge" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <label for="cbVeterans_Military_Families">
+                                                        <input id="cbVeterans_Military_FamiliesStatus" type="checkbox">Veterans & Military Families
+                                                    </label>
+                                                    @Html.DropDownList("ddlVeterans_Military_FamiliesStatus", (IEnumerable<SelectListItem>)ViewBag.YesNoStatuses, "Select Veterans & Military Families Status", new { @class = "form-control input-width-xlarge" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <label for="cbVictim_Services">
+                                                        <input id="cbVictim_ServicesStatus" type="checkbox">Victim Services
+                                                    </label>
+                                                    @Html.DropDownList("ddlVictim_ServicesStatus", (IEnumerable<SelectListItem>)ViewBag.YesNoStatuses, "Select Victim Services Status", new { @class = "form-control input-width-xlarge" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <label for="cbWomen_s_Groups">
+                                                        <input id="cbWomen_s_GroupsStatus" type="checkbox">Women's Groups
+                                                    </label>
+                                                    @Html.DropDownList("ddlWomen_s_GroupsStatus", (IEnumerable<SelectListItem>)ViewBag.YesNoStatuses, "Select Women's Groups Status", new { @class = "form-control input-width-xlarge" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <label for="cbYouth_Services">
+                                                        <input id="cbYouth_ServicesStatus" type="checkbox">Youth Services
+                                                    </label>
+                                                    @Html.DropDownList("ddlYouth_ServicesStatus", (IEnumerable<SelectListItem>)ViewBag.YesNoStatuses, "Select Youth Services Status", new { @class = "form-control input-width-xlarge" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

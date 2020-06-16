@@ -43,6 +43,11 @@ namespace NYCMappingWebApp.Entities
         public string executed_date { get; set; }
         public string CD { get; set; }
         public string DISTRICT { get; set; }
+        public string OrganizationName { get; set; }
+        public string Faith_Based_Organization { get; set; }
+        public string Foundation { get; set; }
+        public string New_York_City_Agency { get; set; }
+        public string Nonprofit { get; set; }
     }
     public class DatabaseAttributes
     {
@@ -115,6 +120,12 @@ namespace NYCMappingWebApp.Entities
         public string executed_date_string_format { get; set; }
         public int? CD { get; set; }
         public string DISTRICT { get; set; }
+        public string OrganizationName { get; set; }
+        public string Faith_Based_Organization { get; set; }
+        public string Foundation { get; set; }
+        public string New_York_City_Agency { get; set; }
+        public string Nonprofit { get; set; }
+
     }
 
     public class DatabaseMaxValues
@@ -138,5 +149,10 @@ namespace NYCMappingWebApp.Entities
         public List<DatabaseAttributes> result { get; set; }
         public string sqlQuery { get; set; }
         public int unreadAlerts { get; set; }
+    }
+    public class ReturnLookaLike
+    {
+        public List<DatabaseAttributes> data { get; set; }
+        public string sqlQuery { get; set; }
     }
 }
