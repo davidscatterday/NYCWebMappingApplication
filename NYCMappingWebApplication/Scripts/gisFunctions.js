@@ -50,28 +50,3 @@ require(["esri/map", "dojo/parser", "esri/layers/FeatureLayer", "esri/config", "
 
     map.addLayers([serviceFeatures, districtLayer, selectionLayer]);
 });
-
-function SearchGeometry(whereClause) {
-    require(["esri/tasks/QueryTask", "esri/tasks/query"
-    ], function (QueryTask, Query) {
-        var queryTask = new QueryTask(DistrictsUrl);
-        var query = new Query();
-        query.where = whereClause;
-        query.returnGeometry = true;
-        queryTask.execute(query, function (featureSet) {
-            //Performance enhancer - assign featureSet array to a single variable.
-            var resultFeatures = featureSet.features;
-            if (resultFeatures.length > 0) {
-                //Loop through each feature returned
-                for (var i = 0, il = resultFeatures.length; i < il; i++) {
-                    //Feature is a graphic
-                    var graphic = resultFeatures[i];
-                    graphic.setSymbol(symbolDistrictFill);
-                    districtLayer.add(graphic);
-                }
-            }
-        }, function (error) {
-            swal("Your query is not valid");
-        });
-    });
-}
