@@ -187,6 +187,9 @@
     <Compile Include="Models\District.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Elevator.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\MyAlert.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>

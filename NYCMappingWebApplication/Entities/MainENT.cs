@@ -125,6 +125,10 @@ namespace NYCMappingWebApp.Entities
         public string Foundation { get; set; }
         public string New_York_City_Agency { get; set; }
         public string Nonprofit { get; set; }
+        public string elevatordevicetype { get; set; }
+        public string job_number { get; set; }
+        public string filing_type { get; set; }
+        public string filing_status { get; set; }
 
     }
 

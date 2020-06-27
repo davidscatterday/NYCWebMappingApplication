@@ -24,6 +24,9 @@ namespace NYCMappingWebApp.Controllers
             ViewBag.ZoningDistricts = mainDAL.GetAllZoningDistricts();
             ViewBag.CommercialOverlays = mainDAL.GetAllCommercialOverlays();
             ViewBag.EvictionStatuses = mainDAL.GetAllEvictionStatuses();
+            ViewBag.ElevatorDeviceTypes = mainDAL.GetAllElevatorDeviceTypes();
+            ViewBag.FilingTypes = mainDAL.GetAllFilingTypes();
+            ViewBag.FilingStatuses = mainDAL.GetAllFilingStatuses();
             ViewBag.YesNoStatuses = mainDAL.GetAllYesNoStatuses();
             ViewBag.Frequencies = mainDAL.GetAllFrequencies();
             return View();
@@ -179,7 +182,7 @@ namespace NYCMappingWebApp.Controllers
 
         }
 
-        public JsonResult CreateAlert(string AlertName, string AlertFrequency, string AlertQuery, bool IsPlutoSearch, bool IsEnergySearch, bool IsPermitSearch, bool IsViolationSearch, bool IsEvictionSearch)
+        public JsonResult CreateAlert(string AlertName, string AlertFrequency, string AlertQuery, bool IsPlutoSearch, bool IsEnergySearch, bool IsPermitSearch, bool IsViolationSearch, bool IsEvictionSearch, bool IsElevatorSearch)
         {
             string msg = "Alert created successfully";
             try
@@ -196,6 +199,7 @@ namespace NYCMappingWebApp.Controllers
                     IsPermitSearch = IsPermitSearch,
                     IsViolationSearch = IsViolationSearch,
                     IsEvictionSearch = IsEvictionSearch,
+                    IsElevatorSearch = IsElevatorSearch,
                     DateCreated = DateTime.Now,
                     Last_DateCheck = DateTime.Now,
                     Next_DateCheck = AlertFrequency == "7" ? DateTime.Now.AddDays(7) : DateTime.Now.AddDays(1),
@@ -319,16 +323,24 @@ namespace NYCMappingWebApp.Controllers
             if (elem.OrganizationName != null)
             {
                 string orgName = elem.OrganizationName.Contains(",") ? String.Format("\"{0}\"", elem.OrganizationName) : elem.OrganizationName;
-                csvLine += isHeader ? ",OrganizationName" : "," + orgName;
+                csvLine += isHeader ? ",Organization Name" : "," + orgName;
             }
             if (elem.Faith_Based_Organization != null)
-                csvLine += isHeader ? ",Faith_Based_Organization" : "," + elem.Faith_Based_Organization;
+                csvLine += isHeader ? ",Faith Based Organization" : "," + elem.Faith_Based_Organization;
             if (elem.Foundation != null)
                 csvLine += isHeader ? ",Foundation" : "," + elem.Foundation;
             if (elem.New_York_City_Agency != null)
-                csvLine += isHeader ? ",New_York_City_Agency" : "," + elem.New_York_City_Agency;
+                csvLine += isHeader ? ",New York City Agency" : "," + elem.New_York_City_Agency;
             if (elem.Nonprofit != null)
                 csvLine += isHeader ? ",Nonprofit" : "," + elem.Nonprofit;
+            if (elem.elevatordevicetype != null)
+                csvLine += isHeader ? ",Elevator Device Type" : "," + elem.elevatordevicetype;
+            if (elem.job_number != null)
+                csvLine += isHeader ? ",Job Number" : "," + elem.job_number;
+            if (elem.filing_type != null)
+                csvLine += isHeader ? ",Filing Type" : "," + elem.filing_type;
+            if (elem.filing_status != null)
+                csvLine += isHeader ? ",Filing Status" : "," + elem.filing_status;
             return csvLine;
           
           

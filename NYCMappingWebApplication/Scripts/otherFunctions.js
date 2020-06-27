@@ -51,9 +51,15 @@ lstAllTableAttributes.push({ name: 'Faith Based Organization', attribute: "Faith
 lstAllTableAttributes.push({ name: 'Foundation', attribute: "Foundation", dataset: "SocialServiceOrganizations" });
 lstAllTableAttributes.push({ name: 'New York City Agency', attribute: "New_York_City_Agency", dataset: "SocialServiceOrganizations" });
 lstAllTableAttributes.push({ name: 'Non-Profit', attribute: "Nonprofit", dataset: "SocialServiceOrganizations" });
+lstAllTableAttributes.push({ name: 'Elevator Device Type', attribute: "elevatordevicetype", dataset: "Elevators" });
+lstAllTableAttributes.push({ name: 'Job Number', attribute: "job_number", dataset: "Elevators" });
+lstAllTableAttributes.push({ name: 'Filing Type', attribute: "filing_type", dataset: "Elevators" });
+lstAllTableAttributes.push({ name: 'Filing Status', attribute: "filing_status", dataset: "Elevators" });
+
+
 
 var sqlQuery = "";
-var IsPlutoSearch = false, IsEnergySearch = false, IsPermitSearch = false, IsViolationSearch = false, IsEvictionSearch = false, IsSocialServiceOrganizationsSearch = false;
+var IsPlutoSearch = false, IsEnergySearch = false, IsPermitSearch = false, IsViolationSearch = false, IsEvictionSearch = false, IsSocialServiceOrganizationsSearch = false, IsElevatorSearch = false;
 $(function () {
     $("#slider-range-TotalBuildingFloorArea").slider({
         range: true,
@@ -378,6 +384,17 @@ function btnReset() {
     $('#divLookaLikeAddress').hide();
     $('#divLookaLikeBbl').show();
 
+    document.getElementById("cbDateRange").checked = false;
+    document.getElementById("txtDateRangeFrom").value = "";
+    document.getElementById("txtDateRangeTo").value = "";
+    document.getElementById("cbElevatorDeviceType").checked = false;
+    document.getElementById("cbFilingType").checked = false;
+    document.getElementById("cbFilingStatus").checked = false;
+    $("#ddlElevatorDeviceType").val($("#ddlElevatorDeviceType option:first").val());
+    $("#ddlFilingType").val($("#ddlFilingType option:first").val());
+    $("#ddlFilingStatus").val($("#ddlFilingStatus option:first").val());
+   
+
     map.graphics.clear();
     selectionLayer.clear();
     districtLayer.clear();
@@ -401,6 +418,7 @@ function btnSearch() {
     var whereViolationClause = "";
     var whereEvictionsClause = "";
     var whereSocialServiceOrganizationsClause = "";
+    var whereElevatorsClause = "";
     if (document.getElementById("cbBorough").checked == true) {
         Borough = $(txtBoroughs).val();
         if (Borough != "") {
@@ -1175,9 +1193,103 @@ function btnSearch() {
 
     }
 
-    if (whereClause != "" || whereEnergyClause != "" || wherePermitClause != "" || whereViolationClause != "" || whereEvictionsClause || whereEvictionsClause || whereSocialServiceOrganizationsClause) {
+    var selectedDateRange = ddlFilingStatus.options[ddlFilingStatus.selectedIndex].value;
+    var selectedElevatorDeviceType = ddlElevatorDeviceType.options[ddlElevatorDeviceType.selectedIndex].value;
+    var selectedFilingType = ddlFilingType.options[ddlFilingType.selectedIndex].value;
+    var selectedFilingStatus = ddlFilingStatus.options[ddlFilingStatus.selectedIndex].value;
+    var DateRangeFrom = document.getElementById("txtDateRangeFrom").value;
+    var DateRangeTo = document.getElementById("txtDateRangeTo").value;
+
+    if (
+        (document.getElementById("cbDateRange").checked == true && (DateRangeFrom != "" || DateRangeTo != "")) ||
+        (document.getElementById("cbElevatorDeviceType").checked == true && selectedElevatorDeviceType != "") ||
+        (document.getElementById("cbFilingType").checked == true && selectedFilingType != "") ||
+        (document.getElementById("cbFilingStatus").checked == true && selectedFilingStatus != "")
+    ) {
+        IsElevatorSearch = true;
+        lstTableAttributes.push({ name: 'Elevator Device Type', attribute: "elevatordevicetype", dataset: "Elevators" });
+        lstTableAttributes.push({ name: 'Job Number', attribute: "job_number", dataset: "Elevators" });
+        lstTableAttributes.push({ name: 'Filing Type', attribute: "filing_type", dataset: "Elevators" });
+        lstTableAttributes.push({ name: 'Filing Status', attribute: "filing_status", dataset: "Elevators" });
+
+        if (document.getElementById("cbElevatorDeviceType").checked == true && selectedElevatorDeviceType != "") {
+
+            if (whereElevatorsClause == "") {
+                whereElevatorsClause = "el.elevatordevicetype = '" + selectedElevatorDeviceType + "'";
+            }
+            else {
+                whereElevatorsClause += " AND el.elevatordevicetype = '" + selectedElevatorDeviceType + "'";
+            }
+        }
+        if (document.getElementById("cbFilingType").checked == true && selectedFilingType != "") {
+
+            if (whereElevatorsClause == "") {
+                whereElevatorsClause = "el.filing_type = '" + selectedFilingType + "'";
+            }
+            else {
+                whereElevatorsClause += " AND el.filing_type = '" + selectedFilingType + "'";
+            }
+        }
+        if (document.getElementById("cbFilingStatus").checked == true && selectedFilingStatus != "") {
+
+            if (whereElevatorsClause == "") {
+                whereElevatorsClause = "el.filing_status = '" + selectedFilingStatus + "'";
+            }
+            else {
+                whereElevatorsClause += " AND el.filing_status = '" + selectedFilingStatus + "'";
+            }
+        }
+        if (document.getElementById("cbDateRange").checked == true) {
+           
+            if (DateRangeFrom != "" || DateRangeTo != "") {
+                //lstTableAttributes.push({ name: 'Date Range', attribute: "filing_date", dataset: "Elevators" });
+                if (whereElevatorsClause != "") {
+                    whereElevatorsClause += " AND ";
+                }
+                if (DateRangeFrom != "" && DateRangeTo != "") {
+                    var dFrom = new Date(DateRangeFrom);
+                    var yearFrom = dFrom.getFullYear();
+                    var monthFrom = dFrom.getMonth() + 1;
+                    monthFrom = monthFrom < 10 ? "0" + monthFrom : monthFrom;
+                    var dayFrom = dFrom.getDate();
+                    dayFrom = dayFrom < 10 ? "0" + dayFrom : dayFrom;
+                    var valueFrom = yearFrom + "-" + monthFrom + "-" + dayFrom;
+
+                    var dTo = new Date(DateRangeTo);
+                    var yearTo = dTo.getFullYear();
+                    var monthTo = dTo.getMonth() + 1;
+                    monthTo = monthTo < 10 ? "0" + monthTo : monthTo;
+                    var dayTo = dTo.getDate();
+                    dayTo = dayTo < 10 ? "0" + dayTo : dayTo;
+                    var valueTo = yearTo + "-" + monthTo + "-" + dayTo;
+                    whereElevatorsClause += "el.filing_date >= '" + valueFrom + "' AND el.filing_date <= '" + valueTo + "'";
+                }
+                else if (DateRangeFrom != "") {
+                    var dFrom = new Date(DateRangeFrom);
+                    var yearFrom = dFrom.getFullYear();
+                    var monthFrom = dFrom.getMonth() + 1;
+                    monthFrom = monthFrom < 10 ? "0" + monthFrom : monthFrom;
+                    var dayFrom = dFrom.getDate();
+                    dayFrom = dayFrom < 10 ? "0" + dayFrom : dayFrom;
+                    var valueFrom = yearFrom + "-" + monthFrom + "-" + dayFrom;
+                    whereElevatorsClause += "el.filing_date >= '" + valueFrom + "'";
+                }
+                else if (DateRangeTo != "") {
+                    var dTo = new Date(DateRangeTo);
+                    var yearTo = dTo.getFullYear();
+                    var monthTo = dTo.getMonth() + 1;
+                    monthTo = monthTo < 10 ? "0" + monthTo : monthTo;
+                    var dayTo = dTo.getDate();
+                    dayTo = dayTo < 10 ? "0" + dayTo : dayTo;
+                    var valueTo = yearTo + "-" + monthTo + "-" + dayTo;
+                    whereElevatorsClause += "el.filing_date <= '" + valueTo + "'";
+                }
+            }
+        }
+    }
+    if (whereClause != "" || whereEnergyClause != "" || wherePermitClause != "" || whereViolationClause != "" || whereEvictionsClause || whereSocialServiceOrganizationsClause || whereElevatorsClause) {
         $('#loading').show();
-        DatabaseSearch(whereEnergyClause, wherePermitClause, whereViolationClause, whereEvictionsClause, whereSocialServiceOrganizationsClause, whereClause, lstTableAttributes);
+        DatabaseSearch(whereEnergyClause, wherePermitClause, whereViolationClause, whereEvictionsClause, whereSocialServiceOrganizationsClause, whereElevatorsClause, whereClause, lstTableAttributes);
     }
     else {
         swal("Please choose some searching criteria first");
@@ -1195,7 +1307,7 @@ function btnSearch() {
     //}
 }
 
-function DatabaseSearch(whereEnergyClause, wherePermitClause, whereViolationClause, whereEvictionsClause, whereSocialServiceOrganizationsClause, whereClause, lstTableAttributes) {
+function DatabaseSearch(whereEnergyClause, wherePermitClause, whereViolationClause, whereEvictionsClause, whereSocialServiceOrganizationsClause, whereElevatorsClause, whereClause, lstTableAttributes) {
     var selectStatement = "", fromStatement = "dbo.Pluto p", whereStatement = "", selectStatementList = ["p.OBJECTID"], fromStatementList = [];
     if (whereEnergyClause != "") {
         if (whereStatement == "") {
@@ -1240,6 +1352,13 @@ function DatabaseSearch(whereEnergyClause, wherePermitClause, whereViolationClau
         else {
             whereStatement += " AND " + whereSocialServiceOrganizationsClause;
         }
+    } if (whereElevatorsClause != "") {
+        if (whereStatement == "") {
+            whereStatement += whereElevatorsClause;
+        }
+        else {
+            whereStatement += " AND " + whereElevatorsClause;
+        }
     }
 
     for (var i = 0; i < lstTableAttributes.length; i++) {
@@ -1282,6 +1401,12 @@ function DatabaseSearch(whereEnergyClause, wherePermitClause, whereViolationClau
                     fromStatement += " LEFT JOIN dbo.SocialServiceOrganizations sso on p.Address = sso.Address1";
                 }
                 selectStatementList.push("sso." + lstTableAttributes[i].attribute);
+                break;
+            case "Elevators":
+                if (!fromStatementList.includes(lstTableAttributes[i].dataset)) {
+                    fromStatement += " LEFT JOIN dbo.Elevators el on p.BBL = el.bbl";
+                }
+                selectStatementList.push("el." + lstTableAttributes[i].attribute);
                 break;
         }
         fromStatementList.push(lstTableAttributes[i].dataset);
@@ -1517,7 +1642,7 @@ function btnOpenSaveReport_Click() {
 
 function btnOpenAlerts_Click() {
     swal({
-        text: "For Alerts including Property Permits, Property Violations or Housing Evictions criteria, please ensure the selected end date is set in the future or empty to receieve alerts in perpetuity",
+        text: "For Alerts including Property Permits, Property Violations, Housing Evictions or Elevators criteria, please ensure the selected end date is set in the future or empty to receieve alerts in perpetuity",
         title: "Before You Save Your Alert",
         buttons: {
             ResetSearch: "Reset Search",
@@ -1554,7 +1679,8 @@ function btnSaveMyAlert_Click() {
                 "IsEnergySearch": IsEnergySearch,
                 "IsPermitSearch": IsPermitSearch,
                 "IsViolationSearch": IsViolationSearch,
-                "IsEvictionSearch": IsEvictionSearch
+                "IsEvictionSearch": IsEvictionSearch,
+                "IsElevatorSearch": IsElevatorSearch
             }
         }).done(function (data) {
             $('#loading').hide();
