@@ -989,7 +989,7 @@ function btnSearch() {
                 whereSocialServiceOrganizationsClause = "sso.Aging = '" + selectedAgingStatus + "'";
             }
             else {
-                whereSocialServiceOrganizationsClause += " AND sso.Aging = '" + selectedAgingStatus + "'";
+                whereSocialServiceOrganizationsClause += " OR sso.Aging = '" + selectedAgingStatus + "'";
             }
         }
         if (document.getElementById("cbAnti_Discrimination_Human_RightsStatus").checked == true && selectedAnti_Discrimination_Human_RightsStatus != "") {
@@ -998,7 +998,7 @@ function btnSearch() {
                 whereSocialServiceOrganizationsClause = "sso.Anti_Discrimination_Human_Rights = '" + selectedAnti_Discrimination_Human_RightsStatus + "'";
             }
             else {
-                whereSocialServiceOrganizationsClause += " AND sso.Anti_Discrimination_Human_Rights = '" + selectedAnti_Discrimination_Human_RightsStatus + "'";
+                whereSocialServiceOrganizationsClause += " OR sso.Anti_Discrimination_Human_Rights = '" + selectedAnti_Discrimination_Human_RightsStatus + "'";
             }
         }
         if (document.getElementById("cbArts_CultureStatus").checked == true && selectedArts_CultureStatus != "") {
@@ -1007,7 +1007,7 @@ function btnSearch() {
                 whereSocialServiceOrganizationsClause = "sso.Arts_Culture = '" + selectedArts_CultureStatus + "'";
             }
             else {
-                whereSocialServiceOrganizationsClause += " AND sso.Arts_Culture = '" + selectedArts_CultureStatus + "'";
+                whereSocialServiceOrganizationsClause += " OR sso.Arts_Culture = '" + selectedArts_CultureStatus + "'";
             }
         }
         if (document.getElementById("cbBusinessStatus").checked == true && selectedBusinessStatus != "") {
@@ -1016,7 +1016,7 @@ function btnSearch() {
                 whereSocialServiceOrganizationsClause = "sso.Business = '" + selectedBusinessStatus + "'";
             }
             else {
-                whereSocialServiceOrganizationsClause += " AND sso.Business = '" + selectedBusinessStatus + "'";
+                whereSocialServiceOrganizationsClause += " OR sso.Business = '" + selectedBusinessStatus + "'";
             }
         }
         if (document.getElementById("cbChild_Care_Parent_InformationStatus").checked == true && selectedChild_Care_Parent_InformationStatus != "") {
@@ -1025,7 +1025,7 @@ function btnSearch() {
                 whereSocialServiceOrganizationsClause = "sso.Child_Care_Parent_Information = '" + selectedChild_Care_Parent_InformationStatus + "'";
             }
             else {
-                whereSocialServiceOrganizationsClause += " AND sso.Child_Care_Parent_Information = '" + selectedChild_Care_Parent_InformationStatus + "'";
+                whereSocialServiceOrganizationsClause += " OR sso.Child_Care_Parent_Information = '" + selectedChild_Care_Parent_InformationStatus + "'";
             }
         }
         if (document.getElementById("cbCommunity_Service_VolunteerismStatus").checked == true && selectedCommunity_Service_VolunteerismStatus != "") {
@@ -1034,7 +1034,7 @@ function btnSearch() {
                 whereSocialServiceOrganizationsClause = "sso.Community_Service_Volunteerism = '" + selectedCommunity_Service_VolunteerismStatus + "'";
             }
             else {
-                whereSocialServiceOrganizationsClause += " AND sso.Community_Service_Volunteerism = '" + selectedCommunity_Service_VolunteerismStatus + "'";
+                whereSocialServiceOrganizationsClause += " OR sso.Community_Service_Volunteerism = '" + selectedCommunity_Service_VolunteerismStatus + "'";
             }
         }
         if (document.getElementById("cbCounseling_Support_GroupsStatus").checked == true && selectedCounseling_Support_GroupsStatus != "") {
@@ -1043,7 +1043,7 @@ function btnSearch() {
                 whereSocialServiceOrganizationsClause = "sso.Counseling_Support_Groups = '" + selectedCounseling_Support_GroupsStatus + "'";
             }
             else {
-                whereSocialServiceOrganizationsClause += " AND sso.Counseling_Support_Groups = '" + selectedCounseling_Support_GroupsStatus + "'";
+                whereSocialServiceOrganizationsClause += " OR sso.Counseling_Support_Groups = '" + selectedCounseling_Support_GroupsStatus + "'";
             }
         }
         if (document.getElementById("cbDisabilitiesStatus").checked == true && selectedDisabilitiesStatus != "") {
@@ -1052,7 +1052,7 @@ function btnSearch() {
                 whereSocialServiceOrganizationsClause = "sso.Disabilities = '" + selectedDisabilitiesStatus + "'";
             }
             else {
-                whereSocialServiceOrganizationsClause += " AND sso.Disabilities = '" + selectedDisabilitiesStatus + "'";
+                whereSocialServiceOrganizationsClause += " OR sso.Disabilities = '" + selectedDisabilitiesStatus + "'";
             }
         }
         if (document.getElementById("cbDomestic_ViolenceStatus").checked == true && selectedDomestic_ViolenceStatus != "") {
@@ -1061,7 +1061,7 @@ function btnSearch() {
                 whereSocialServiceOrganizationsClause = "sso.Domestic_Violence = '" + selectedDomestic_ViolenceStatus + "'";
             }
             else {
-                whereSocialServiceOrganizationsClause += " AND sso.Domestic_Violence = '" + selectedDomestic_ViolenceStatus + "'";
+                whereSocialServiceOrganizationsClause += " OR sso.Domestic_Violence = '" + selectedDomestic_ViolenceStatus + "'";
             }
         }
         if (document.getElementById("cbEducationStatus").checked == true && selectedEducationStatus != "") {
@@ -1070,7 +1070,7 @@ function btnSearch() {
                 whereSocialServiceOrganizationsClause = "sso.Education = '" + selectedEducationStatus + "'";
             }
             else {
-                whereSocialServiceOrganizationsClause += " AND sso.Education = '" + selectedEducationStatus + "'";
+                whereSocialServiceOrganizationsClause += " OR sso.Education = '" + selectedEducationStatus + "'";
             }
         }
         if (document.getElementById("cbEmployment_Job_TrainingStatus").checked == true && selectedEmployment_Job_TrainingStatus != "") {
@@ -1079,7 +1079,7 @@ function btnSearch() {
                 whereSocialServiceOrganizationsClause = "sso.Employment_Job_Training = '" + selectedEmployment_Job_TrainingStatus + "'";
             }
             else {
-                whereSocialServiceOrganizationsClause += " AND sso.Employment_Job_Training = '" + selectedEmployment_Job_TrainingStatus + "'";
+                whereSocialServiceOrganizationsClause += " OR sso.Employment_Job_Training = '" + selectedEmployment_Job_TrainingStatus + "'";
             }
         }
         if (document.getElementById("cbHealthStatus").checked == true && selectedHealthStatus != "") {
@@ -1088,7 +1088,7 @@ function btnSearch() {
                 whereSocialServiceOrganizationsClause = "sso.Health = '" + selectedHealthStatus + "'";
             }
             else {
-                whereSocialServiceOrganizationsClause += " AND sso.Health = '" + selectedHealthStatus + "'";
+                whereSocialServiceOrganizationsClause += " OR sso.Health = '" + selectedHealthStatus + "'";
             }
         }
         if (document.getElementById("cbHomelessnessStatus").checked == true && selectedHomelessnessStatus != "") {
@@ -1097,7 +1097,7 @@ function btnSearch() {
                 whereSocialServiceOrganizationsClause = "sso.Homelessness = '" + selectedHomelessnessStatus + "'";
             }
             else {
-                whereSocialServiceOrganizationsClause += " AND sso.Homelessness = '" + selectedHomelessnessStatus + "'";
+                whereSocialServiceOrganizationsClause += " OR sso.Homelessness = '" + selectedHomelessnessStatus + "'";
             }
         }
         if (document.getElementById("cbHousingStatus").checked == true && selectedHousingStatus != "") {
@@ -1106,7 +1106,7 @@ function btnSearch() {
                 whereSocialServiceOrganizationsClause = "sso.Housing = '" + selectedHousingStatus + "'";
             }
             else {
-                whereSocialServiceOrganizationsClause += " AND sso.Housing = '" + selectedHousingStatus + "'";
+                whereSocialServiceOrganizationsClause += " OR sso.Housing = '" + selectedHousingStatus + "'";
             }
         }
         if (document.getElementById("cbImmigrationStatus").checked == true && selectedImmigrationStatus != "") {
@@ -1115,7 +1115,7 @@ function btnSearch() {
                 whereSocialServiceOrganizationsClause = "sso.Immigration = '" + selectedImmigrationStatus + "'";
             }
             else {
-                whereSocialServiceOrganizationsClause += " AND sso.Immigration = '" + selectedImmigrationStatus + "'";
+                whereSocialServiceOrganizationsClause += " OR sso.Immigration = '" + selectedImmigrationStatus + "'";
             }
         }
         if (document.getElementById("cbLegal_ServicesStatus").checked == true && selectedLegal_ServicesStatus != "") {
@@ -1124,7 +1124,7 @@ function btnSearch() {
                 whereSocialServiceOrganizationsClause = "sso.Legal_Services = '" + selectedLegal_ServicesStatus + "'";
             }
             else {
-                whereSocialServiceOrganizationsClause += " AND sso.Legal_Services = '" + selectedLegal_ServicesStatus + "'";
+                whereSocialServiceOrganizationsClause += " OR sso.Legal_Services = '" + selectedLegal_ServicesStatus + "'";
             }
         }
         if (document.getElementById("cbLesbian_Gay_Bisexual_and_or_TransgenderStatus").checked == true && selectedLesbian_Gay_Bisexual_and_or_TransgenderStatus != "") {
@@ -1142,7 +1142,7 @@ function btnSearch() {
                 whereSocialServiceOrganizationsClause = "sso.Personal_Finance_Financial_Education = '" + selectedPersonal_Finance_Financial_EducationStatus + "'";
             }
             else {
-                whereSocialServiceOrganizationsClause += " AND sso.Personal_Finance_Financial_Education = '" + selectedPersonal_Finance_Financial_EducationStatus + "'";
+                whereSocialServiceOrganizationsClause += " OR sso.Personal_Finance_Financial_Education = '" + selectedPersonal_Finance_Financial_EducationStatus + "'";
             }
         }
         if (document.getElementById("cbProfessional_AssociationStatus").checked == true && selectedProfessional_AssociationStatus != "") {
@@ -1151,7 +1151,7 @@ function btnSearch() {
                 whereSocialServiceOrganizationsClause = "sso.Professional_Association = '" + selectedProfessional_AssociationStatus + "'";
             }
             else {
-                whereSocialServiceOrganizationsClause += " AND sso.Professional_Association = '" + selectedProfessional_AssociationStatus + "'";
+                whereSocialServiceOrganizationsClause += " OR sso.Professional_Association = '" + selectedProfessional_AssociationStatus + "'";
             }
         }
         if (document.getElementById("cbVeterans_Military_FamiliesStatus").checked == true && selectedVeterans_Military_FamiliesStatus != "") {
@@ -1160,7 +1160,7 @@ function btnSearch() {
                 whereSocialServiceOrganizationsClause = "sso.Veterans_Military_Families = '" + selectedVeterans_Military_FamiliesStatus + "'";
             }
             else {
-                whereSocialServiceOrganizationsClause += " AND sso.Veterans_Military_Families = '" + selectedVeterans_Military_FamiliesStatus + "'";
+                whereSocialServiceOrganizationsClause += " OR sso.Veterans_Military_Families = '" + selectedVeterans_Military_FamiliesStatus + "'";
             }
         }
         if (document.getElementById("cbVictim_ServicesStatus").checked == true && selectedVictim_ServicesStatus != "") {
@@ -1169,7 +1169,7 @@ function btnSearch() {
                 whereSocialServiceOrganizationsClause = "sso.Victim_Services = '" + selectedVictim_ServicesStatus + "'";
             }
             else {
-                whereSocialServiceOrganizationsClause += " AND sso.Victim_Services = '" + selectedVictim_ServicesStatus + "'";
+                whereSocialServiceOrganizationsClause += " OR sso.Victim_Services = '" + selectedVictim_ServicesStatus + "'";
             }
         }
         if (document.getElementById("cbWomen_s_GroupsStatus").checked == true && selectedWomen_s_GroupsStatus != "") {
@@ -1178,7 +1178,7 @@ function btnSearch() {
                 whereSocialServiceOrganizationsClause = "sso.Women_s_Groups = '" + selectedWomen_s_GroupsStatus + "'";
             }
             else {
-                whereSocialServiceOrganizationsClause += " AND sso.Women_s_Groups = '" + selectedWomen_s_GroupsStatus + "'";
+                whereSocialServiceOrganizationsClause += " OR sso.Women_s_Groups = '" + selectedWomen_s_GroupsStatus + "'";
             }
         }
         if (document.getElementById("cbYouth_ServicesStatus").checked == true && selectedYouth_ServicesStatus != "") {
@@ -1187,7 +1187,7 @@ function btnSearch() {
                 whereSocialServiceOrganizationsClause = "sso.Youth_Services = '" + selectedYouth_ServicesStatus + "'";
             }
             else {
-                whereSocialServiceOrganizationsClause += " AND sso.Youth_Services = '" + selectedYouth_ServicesStatus + "'";
+                whereSocialServiceOrganizationsClause += " OR sso.Youth_Services = '" + selectedYouth_ServicesStatus + "'";
             }
         }
 
@@ -1350,7 +1350,7 @@ function DatabaseSearch(whereEnergyClause, wherePermitClause, whereViolationClau
             whereStatement += whereSocialServiceOrganizationsClause;
         }
         else {
-            whereStatement += " AND " + whereSocialServiceOrganizationsClause;
+            whereStatement += " AND (" + whereSocialServiceOrganizationsClause + ")";
         }
     } if (whereElevatorsClause != "") {
         if (whereStatement == "") {
