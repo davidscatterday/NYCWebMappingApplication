@@ -130,6 +130,19 @@ namespace NYCMappingWebApp.Entities
         public string filing_type { get; set; }
         public string filing_status { get; set; }
 
+        private DateTime? _filing_date;
+        public DateTime? filing_date
+        {
+            get { return _filing_date; }
+            set
+            {
+                _filing_date = value;
+
+                filing_date_string_format = _filing_date.HasValue ? String.Format("{0:MM/dd/yyyy}", _filing_date) : "";
+            }
+        }
+        public string filing_date_string_format { get; set; }
+
     }
 
     public class DatabaseMaxValues

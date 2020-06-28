@@ -595,10 +595,10 @@
                                                         <input id="cbJobStartDate" type="checkbox">Date
                                                     </label>
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-4" style="padding-left: 0px;">
                                                     <input type="text" class="date" id="txtJobStartDateFrom" style="width: 100%" />
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-4" style="padding-left: 0px;">
                                                     <input type="text" class="date" id="txtJobStartDateTo" style="width: 100%" />
                                                 </div>
                                             </div>
@@ -624,6 +624,56 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordionMain" href="#collapse19">
+                                                Elevators
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse19" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <div class="form-group">
+                                                <div class="col-sm-4">
+                                                    <label for="cbDateRange">
+                                                        <input id="cbDateRange" type="checkbox">Date
+                                                    </label>
+                                                </div>
+                                                <div class="col-sm-4" style="padding-left: 0px;">
+                                                    <input type="text" class="date" id="txtDateRangeFrom" style="width: 100%" />
+                                                </div>
+                                                <div class="col-sm-4" style="padding-left: 0px;">
+                                                    <input type="text" class="date" id="txtDateRangeTo" style="width: 100%" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <label for="cbElevatorDeviceType">
+                                                        <input id="cbElevatorDeviceType" type="checkbox">Elevator Device Type
+                                                    </label>
+                                                    @Html.DropDownList("ddlElevatorDeviceType", (IEnumerable<SelectListItem>)ViewBag.ElevatorDeviceTypes, "Select Elevator Device Type", new { @class = "form-control input-width-xlarge" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <label for="cbFilingType">
+                                                        <input id="cbFilingType" type="checkbox">Filing Type
+                                                    </label>
+                                                    @Html.DropDownList("ddlFilingType", (IEnumerable<SelectListItem>)ViewBag.FilingTypes, "Select Filing Type", new { @class = "form-control input-width-xlarge" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <label for="cbFilingStatus">
+                                                        <input id="cbFilingStatus" type="checkbox">Filing Status
+                                                    </label>
+                                                    @Html.DropDownList("ddlFilingStatus", (IEnumerable<SelectListItem>)ViewBag.FilingStatuses, "Select Filing Status", new { @class = "form-control input-width-xlarge" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
                                             <a data-toggle="collapse" data-parent="#accordionMain" href="#collapse16">
                                                 Property Violations
                                             </a>
@@ -637,10 +687,10 @@
                                                         <input id="cbIssueDate" type="checkbox">Date
                                                     </label>
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-4" style="padding-left: 0px;">
                                                     <input type="text" class="date" id="txtIssueDateFrom" style="width: 100%" />
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-4" style="padding-left: 0px;">
                                                     <input type="text" class="date" id="txtIssueDateTo" style="width: 100%" />
                                                 </div>
                                             </div>
@@ -679,10 +729,10 @@
                                                         <input id="cbExecutedDate" type="checkbox">Date
                                                     </label>
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-4" style="padding-left: 0px;">
                                                     <input type="text" class="date" id="txtExecutedDateFrom" style="width: 100%" />
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-4" style="padding-left: 0px;">
                                                     <input type="text" class="date" id="txtExecutedDateTo" style="width: 100%" />
                                                 </div>
                                             </div>
@@ -697,7 +747,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
@@ -891,57 +940,6 @@
                                                         <input id="cbYouth_ServicesStatus" type="checkbox">Youth Services
                                                     </label>
                                                     @Html.DropDownList("ddlYouth_ServicesStatus", (IEnumerable<SelectListItem>)ViewBag.YesNoStatuses, "Select Youth Services Status", new { @class = "form-control input-width-xlarge" })
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordionMain" href="#collapse19">
-                                                Elevators
-                                            </a>
-                                        </h4>
-                                    </div>
-                                    <div id="collapse19" class="panel-collapse collapse">
-                                        <div class="panel-body">
-                                            <div class="form-group">
-                                                <div class="col-sm-4">
-                                                    <label for="cbDateRange">
-                                                        <input id="cbDateRange" type="checkbox">Date 
-                                                    </label>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <input type="text" class="date" id="txtDateRangeFrom" style="width: 100%" />
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <input type="text" class="date" id="txtDateRangeTo" style="width: 100%" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-12">
-                                                    <label for="cbElevatorDeviceType">
-                                                        <input id="cbElevatorDeviceType" type="checkbox">Elevator Device Type
-                                                    </label>
-                                                      @Html.DropDownList("ddlElevatorDeviceType", (IEnumerable<SelectListItem>)ViewBag.ElevatorDeviceTypes, "Select Elevator Device Type", new { @class = "form-control input-width-xlarge" })
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-12">
-                                                    <label for="cbFilingType">
-                                                        <input id="cbFilingType" type="checkbox">Filing Type
-                                                    </label>
-                                                      @Html.DropDownList("ddlFilingType", (IEnumerable<SelectListItem>)ViewBag.FilingTypes, "Select Filing Type", new { @class = "form-control input-width-xlarge" })
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-12">
-                                                    <label for="cbFilingStatus">
-                                                        <input id="cbFilingStatus" type="checkbox">Filing Status
-                                                    </label>
-                                                      @Html.DropDownList("ddlFilingStatus", (IEnumerable<SelectListItem>)ViewBag.FilingStatuses, "Select Filing Status", new { @class = "form-control input-width-xlarge" })
                                                 </div>
                                             </div>
                                         </div>

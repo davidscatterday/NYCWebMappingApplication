@@ -215,52 +215,6 @@ namespace NYCMappingWebApp.Controllers
                 return Json(new { msg }, JsonRequestBehavior.AllowGet);
             }
         }
-        //public JsonResult SaveReport(string ReportName, string TableFeatures)
-        //{
-        //    string msg = "Report saved successfully";
-        //    try
-        //    {
-        //        StringBuilder csvContent = new StringBuilder();
-        //        List<TableFeatures> lstTableFeatures = JsonConvert.DeserializeObject<List<TableFeatures>>(TableFeatures);
-
-        //        for (int i = 0; i < lstTableFeatures.Count; i++)
-        //        {
-        //            if (i == 0)
-        //            {
-        //                csvContent.AppendLine(CreateCsvLine(lstTableFeatures[i], true));
-        //                csvContent.AppendLine(CreateCsvLine(lstTableFeatures[i], false));
-        //            }
-        //            else
-        //            {
-        //                csvContent.AppendLine(CreateCsvLine(lstTableFeatures[i], false));
-        //            }
-        //        }
-
-        //        string targetFolder = Server.MapPath("~/Reports");
-        //        string fileName = ReportName + "_" + DateTime.Now.Ticks.ToString() + ".csv";
-        //        string targetPath = Path.Combine(targetFolder, fileName);
-
-        //        System.IO.File.AppendAllText(targetPath, csvContent.ToString());
-
-        //        MyReport myReport = new MyReport()
-        //        {
-        //            Username = User.Identity.Name,
-        //            ReportName = ReportName,
-        //            FileName = fileName
-        //        };
-        //        db.MyReports.Add(myReport);
-        //        db.SaveChanges();
-
-        //        return Json(new { msg }, JsonRequestBehavior.AllowGet);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        msg = ex.Message;
-        //        return Json(new { msg }, JsonRequestBehavior.AllowGet);
-        //    }
-
-        //}
-
         public string CreateCsvLine(DatabaseAttributes elem, bool isHeader)
         {
             string csvLine = isHeader ? "Borough,Address" : elem.Borough + "," + elem.Address;
@@ -341,6 +295,8 @@ namespace NYCMappingWebApp.Controllers
                 csvLine += isHeader ? ",Filing Type" : "," + elem.filing_type;
             if (elem.filing_status != null)
                 csvLine += isHeader ? ",Filing Status" : "," + elem.filing_status;
+            if (elem.filing_date != null)
+                csvLine += isHeader ? ",Filing Date" : "," + elem.filing_date_string_format;
             return csvLine;
           
           

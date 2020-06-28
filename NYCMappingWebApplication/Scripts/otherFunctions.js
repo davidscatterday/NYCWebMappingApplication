@@ -45,8 +45,6 @@ lstAllTableAttributes.push({ name: 'Violation Category', attribute: "violation_c
 lstAllTableAttributes.push({ name: 'Executed Date', attribute: "executed_date_string_format", dataset: "Evictions" });
 lstAllTableAttributes.push({ name: 'District', attribute: "DISTRICT", dataset: "Districts" });
 lstAllTableAttributes.push({ name: 'Organization Name', attribute: "OrganizationName", dataset: "SocialServiceOrganizations" });
-//lstAllTableAttributes.push({ name: 'Address', attribute: "Address1", dataset: "SocialServiceOrganizations" });
-//lstAllTableAttributes.push({ name: 'Category', attribute: "Category", dataset: "SocialServiceOrganizations" });
 lstAllTableAttributes.push({ name: 'Faith Based Organization', attribute: "Faith_Based_Organization", dataset: "SocialServiceOrganizations" });
 lstAllTableAttributes.push({ name: 'Foundation', attribute: "Foundation", dataset: "SocialServiceOrganizations" });
 lstAllTableAttributes.push({ name: 'New York City Agency', attribute: "New_York_City_Agency", dataset: "SocialServiceOrganizations" });
@@ -55,6 +53,7 @@ lstAllTableAttributes.push({ name: 'Elevator Device Type', attribute: "elevatord
 lstAllTableAttributes.push({ name: 'Job Number', attribute: "job_number", dataset: "Elevators" });
 lstAllTableAttributes.push({ name: 'Filing Type', attribute: "filing_type", dataset: "Elevators" });
 lstAllTableAttributes.push({ name: 'Filing Status', attribute: "filing_status", dataset: "Elevators" });
+lstAllTableAttributes.push({ name: 'Filing Date', attribute: "filing_date_string_format", dataset: "Elevators" });
 
 
 
@@ -1211,6 +1210,7 @@ function btnSearch() {
         lstTableAttributes.push({ name: 'Job Number', attribute: "job_number", dataset: "Elevators" });
         lstTableAttributes.push({ name: 'Filing Type', attribute: "filing_type", dataset: "Elevators" });
         lstTableAttributes.push({ name: 'Filing Status', attribute: "filing_status", dataset: "Elevators" });
+        lstTableAttributes.push({ name: 'Filing Date', attribute: "filing_date", dataset: "Elevators" });
 
         if (document.getElementById("cbElevatorDeviceType").checked == true && selectedElevatorDeviceType != "") {
 
@@ -1242,7 +1242,6 @@ function btnSearch() {
         if (document.getElementById("cbDateRange").checked == true) {
            
             if (DateRangeFrom != "" || DateRangeTo != "") {
-                //lstTableAttributes.push({ name: 'Date Range', attribute: "filing_date", dataset: "Elevators" });
                 if (whereElevatorsClause != "") {
                     whereElevatorsClause += " AND ";
                 }
@@ -1294,17 +1293,6 @@ function btnSearch() {
     else {
         swal("Please choose some searching criteria first");
     }
-
-    //if (whereEnergyClause != "" || wherePermitClause != "" || whereViolationClause != "" || whereEvictionsClause) {
-    //    $('#loading').show();
-    //    EnergySearch(whereEnergyClause, wherePermitClause, whereViolationClause, whereEvictionsClause, whereClause);
-    //}
-    //else if (whereClause != "") {
-    //    MapPlutoSearch(whereClause, "", "", "", "", null, null, null);
-    //}
-    //else {
-    //    swal("Please choose some searching criteria first");
-    //}
 }
 
 function DatabaseSearch(whereEnergyClause, wherePermitClause, whereViolationClause, whereEvictionsClause, whereSocialServiceOrganizationsClause, whereElevatorsClause, whereClause, lstTableAttributes) {
@@ -1460,6 +1448,9 @@ function CreateDatabaseTable(data) {
                         break;
                     case "executed_date":
                         value = data[i]["executed_date_string_format"];
+                        break;
+                    case "filing_date":
+                        value = data[i]["filing_date_string_format"];
                         break;
                     default:
                         value = data[i][lstTableAttributes[j].attribute];
