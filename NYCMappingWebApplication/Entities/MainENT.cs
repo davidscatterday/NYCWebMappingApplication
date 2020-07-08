@@ -142,7 +142,8 @@ namespace NYCMappingWebApp.Entities
             }
         }
         public string filing_date_string_format { get; set; }
-
+        
+        public double? AssessTotPerSqFt { get; set; }
     }
 
     public class DatabaseMaxValues

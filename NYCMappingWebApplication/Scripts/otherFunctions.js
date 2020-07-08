@@ -1,6 +1,7 @@
 ﻿var maxTotalBuildingFloorArea = 67000000, maxCommercialFloorArea = 24000000, maxResidentialFloorArea = 14000000
     , maxNumberOfFloors = 210, maxResidentialUnits = 11000, maxAssessedTotalValue = 7200000000
     , maxEnergyStarScore = 100, maxSourceEUI = 29000000, maxSiteEUI = 25000000, maxAnnualMaximumDemand = 2600000, maxTotalGHGEmissions = 540000000
+    , maxAssessedValuePerSquareFoot = 27;
 
 var lstBuildingClass = ["cbOfficeO1", "cbOfficeO2", "cbOfficeO3", "cbOfficeO4", "cbOfficeO5", "cbOfficeO6", "cbOfficeO8", "cbOfficeO9"
     , "cbIndustrialF1", "cbIndustrialF2", "cbIndustrialF4", "cbIndustrialF5", "cbIndustrialF8", "cbIndustrialF9", "cbRetailK1", "cbOfficeO4"
@@ -204,6 +205,19 @@ $(function () {
     $("#txtTotalGHGEmissions").val($("#slider-range-TotalGHGEmissions").slider("values", 0).toLocaleString('en') +
         " - " + $("#slider-range-TotalGHGEmissions").slider("values", 1).toLocaleString('en'));
 
+    $("#slider-range-AssessedValuePerSquareFoot").slider({
+        range: true,
+        min: 0,
+        max: maxAssessedValuePerSquareFoot,
+        step: 0.1,
+        values: [0, maxAssessedValuePerSquareFoot],
+        slide: function (event, ui) {
+            $("#txtAssessedValuePerSquareFoot").val(ui.values[0].toLocaleString('en') + " - " + ui.values[1].toLocaleString('en'));
+        }
+    });
+    $("#txtAssessedValuePerSquareFoot").val($("#slider-range-AssessedValuePerSquareFoot").slider("values", 0).toLocaleString('en') +
+        " - " + $("#slider-range-AssessedValuePerSquareFoot").slider("values", 1).toLocaleString('en'));
+
 });
 
 function btnReset() {
@@ -244,6 +258,11 @@ function btnReset() {
     $("#slider-range-ResidentialUnits").slider("values", 0, 0);
     $("#slider-range-ResidentialUnits").slider("values", 1, maxResidentialUnits);
     $("#txtResidentialUnits").val($("#slider-range-ResidentialUnits").slider("values", 0) + " - " + $("#slider-range-ResidentialUnits").slider("values", 1).toLocaleString('en'));
+
+    document.getElementById("cbAssessedValuePerSquareFoot").checked = false;
+    $("#slider-range-AssessedValuePerSquareFoot").slider("values", 0, 0);
+    $("#slider-range-AssessedValuePerSquareFoot").slider("values", 1, maxAssessedValuePerSquareFoot);
+    $("#txtAssessedValuePerSquareFoot").val($("#slider-range-AssessedValuePerSquareFoot").slider("values", 0) + " - " + $("#slider-range-AssessedValuePerSquareFoot").slider("values", 1).toLocaleString('en'));
 
     document.getElementById("cbZoningDistrict").checked = false;
     document.getElementById("cbCommercialOverlay").checked = false;
@@ -392,7 +411,7 @@ function btnReset() {
     $("#ddlElevatorDeviceType").val($("#ddlElevatorDeviceType option:first").val());
     $("#ddlFilingType").val($("#ddlFilingType option:first").val());
     $("#ddlFilingStatus").val($("#ddlFilingStatus option:first").val());
-   
+
 
     map.graphics.clear();
     selectionLayer.clear();
@@ -410,7 +429,7 @@ function btnSearch() {
         , ZoningDistrict, CommercialOverlay, AssessedTotalValueStart, AssessedTotalValueEnd, YearBuildStart, YearBuildEnd
         , EnergyStarScoreStart = null, EnergyStarScoreEnd = null, SourceEUIStart = null, SourceEUIEnd = null
         , SiteEUIStart = null, SiteEUIEnd = null, AnnualMaximumDemandStart = null, AnnualMaximumDemandEnd = null
-        , TotalGHGEmissionsStart = null, TotalGHGEmissionsEnd = null;
+        , TotalGHGEmissionsStart = null, TotalGHGEmissionsEnd = null, AssessedValuePerSquareFootStart = null, AssessedValuePerSquareFootEnd = null;
     var whereClause = "";
     var whereEnergyClause = "";
     var wherePermitClause = "";
@@ -587,6 +606,18 @@ function btnSearch() {
         }
         else {
             whereClause += " AND p.AssessTot >= " + AssessedTotalValueStart + " AND p.AssessTot <= " + AssessedTotalValueEnd;
+        }
+    }
+    if (document.getElementById("cbAssessedValuePerSquareFoot").checked == true) {
+        IsPlutoSearch = true;
+        lstTableAttributes.push({ name: 'Assessed Value per Square Foot', attribute: "AssessTotPerSqFt", dataset: "Pluto" });
+        AssessedValuePerSquareFootStart = $("#slider-range-AssessedValuePerSquareFoot").slider("values", 0);
+        AssessedValuePerSquareFootEnd = $("#slider-range-AssessedValuePerSquareFoot").slider("values", 1);
+        if (whereClause == "") {
+            whereClause = "p.AssessTot <> 0 AND (p.BldgArea / p.AssessTot) >= " + AssessedValuePerSquareFootStart + " AND (p.BldgArea / p.AssessTot) <= " + AssessedValuePerSquareFootEnd;
+        }
+        else {
+            whereClause += " AND p.AssessTot <> 0 AND (p.BldgArea / p.AssessTot) >= " + AssessedValuePerSquareFootStart + " AND (p.BldgArea / p.AssessTot) <= " + AssessedValuePerSquareFootEnd;
         }
     }
     if (document.getElementById("cbYearBuild").checked == true) {
@@ -976,8 +1007,6 @@ function btnSearch() {
         (document.getElementById("cbWomen_s_GroupsStatus").checked == true && selectedWomen_s_GroupsStatus != "") ||
         (document.getElementById("cbYouth_ServicesStatus").checked == true && selectedYouth_ServicesStatus != "")) {
         lstTableAttributes.push({ name: 'Organization Name', attribute: "OrganizationName", dataset: "SocialServiceOrganizations" });
-        //  lstTableAttributes.push({ name: 'Address', attribute: "Address1", dataset: "SocialServiceOrganizations" });
-        //lstTableAttributes.push({ name: 'Category', attribute: "Category", dataset: "SocialServiceOrganizations" });
         lstTableAttributes.push({ name: 'Faith Based Organization', attribute: "Faith_Based_Organization", dataset: "SocialServiceOrganizations" });
         lstTableAttributes.push({ name: 'Foundation', attribute: "Foundation", dataset: "SocialServiceOrganizations" });
         lstTableAttributes.push({ name: 'New York City Agency', attribute: "New_York_City_Agency", dataset: "SocialServiceOrganizations" });
@@ -1240,7 +1269,7 @@ function btnSearch() {
             }
         }
         if (document.getElementById("cbDateRange").checked == true) {
-           
+
             if (DateRangeFrom != "" || DateRangeTo != "") {
                 if (whereElevatorsClause != "") {
                     whereElevatorsClause += " AND ";
@@ -1352,7 +1381,12 @@ function DatabaseSearch(whereEnergyClause, wherePermitClause, whereViolationClau
     for (var i = 0; i < lstTableAttributes.length; i++) {
         switch (lstTableAttributes[i].dataset) {
             case "Pluto":
-                selectStatementList.push("p." + lstTableAttributes[i].attribute);
+                if (lstTableAttributes[i].attribute == "AssessTotPerSqFt") {
+                    selectStatementList.push("(p.BldgArea / p.AssessTot) AS " + lstTableAttributes[i].attribute);
+                }
+                else {
+                    selectStatementList.push("p." + lstTableAttributes[i].attribute);
+                }
                 break;
             case "Energy":
                 if (!fromStatementList.includes(lstTableAttributes[i].dataset)) {
@@ -2027,6 +2061,7 @@ function txtSlider_KeyUp(x, name) {
         case "AnnualMaximumDemand": maxValueTotal = maxAnnualMaximumDemand; break
         case "TotalGHGEmissions": maxValueTotal = maxTotalGHGEmissions; break
         case "AssessedTotalValue": maxValueTotal = maxAssessedTotalValue; break
+        case "AssessedValuePerSquareFoot": maxValueTotal = maxAssessedValuePerSquareFoot; break
         default: return
     }
     try {

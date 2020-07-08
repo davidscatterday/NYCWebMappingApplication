@@ -297,6 +297,8 @@ namespace NYCMappingWebApp.Controllers
                 csvLine += isHeader ? ",Filing Status" : "," + elem.filing_status;
             if (elem.filing_date != null)
                 csvLine += isHeader ? ",Filing Date" : "," + elem.filing_date_string_format;
+            if (elem.AssessTotPerSqFt != null)
+                csvLine += isHeader ? ",Assessed Value per Square Foot" : "," + elem.AssessTotPerSqFt;
             return csvLine;
           
           
