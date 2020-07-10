@@ -1,7 +1,7 @@
 ﻿var maxTotalBuildingFloorArea = 67000000, maxCommercialFloorArea = 24000000, maxResidentialFloorArea = 14000000
     , maxNumberOfFloors = 210, maxResidentialUnits = 11000, maxAssessedTotalValue = 7200000000
     , maxEnergyStarScore = 100, maxSourceEUI = 29000000, maxSiteEUI = 25000000, maxAnnualMaximumDemand = 2600000, maxTotalGHGEmissions = 540000000
-    , maxAssessedValuePerSquareFoot = 27;
+    , maxAssessedValuePerSquareFoot = 12193200;
 
 var lstBuildingClass = ["cbOfficeO1", "cbOfficeO2", "cbOfficeO3", "cbOfficeO4", "cbOfficeO5", "cbOfficeO6", "cbOfficeO8", "cbOfficeO9"
     , "cbIndustrialF1", "cbIndustrialF2", "cbIndustrialF4", "cbIndustrialF5", "cbIndustrialF8", "cbIndustrialF9", "cbRetailK1", "cbOfficeO4"
@@ -133,6 +133,18 @@ $(function () {
     $("#txtAssessedTotalValue").val("$" + $("#slider-range-AssessedTotalValue").slider("values", 0).toLocaleString('en') +
         " - $" + $("#slider-range-AssessedTotalValue").slider("values", 1).toLocaleString('en'));
 
+    $("#slider-range-AssessedValuePerSquareFoot").slider({
+        range: true,
+        min: 0,
+        max: maxAssessedValuePerSquareFoot,
+        values: [0, maxAssessedValuePerSquareFoot],
+        slide: function (event, ui) {
+            $("#txtAssessedValuePerSquareFoot").val("$" + ui.values[0].toLocaleString('en') + " - $" + ui.values[1].toLocaleString('en'));
+        }
+    });
+    $("#txtAssessedValuePerSquareFoot").val("$" + $("#slider-range-AssessedValuePerSquareFoot").slider("values", 0).toLocaleString('en') +
+        " - $" + $("#slider-range-AssessedValuePerSquareFoot").slider("values", 1).toLocaleString('en'));
+
     $("#slider-range-YearBuild").slider({
         range: true,
         min: 1650,
@@ -204,20 +216,7 @@ $(function () {
     });
     $("#txtTotalGHGEmissions").val($("#slider-range-TotalGHGEmissions").slider("values", 0).toLocaleString('en') +
         " - " + $("#slider-range-TotalGHGEmissions").slider("values", 1).toLocaleString('en'));
-
-    $("#slider-range-AssessedValuePerSquareFoot").slider({
-        range: true,
-        min: 0,
-        max: maxAssessedValuePerSquareFoot,
-        step: 0.1,
-        values: [0, maxAssessedValuePerSquareFoot],
-        slide: function (event, ui) {
-            $("#txtAssessedValuePerSquareFoot").val(ui.values[0].toLocaleString('en') + " - " + ui.values[1].toLocaleString('en'));
-        }
-    });
-    $("#txtAssessedValuePerSquareFoot").val($("#slider-range-AssessedValuePerSquareFoot").slider("values", 0).toLocaleString('en') +
-        " - " + $("#slider-range-AssessedValuePerSquareFoot").slider("values", 1).toLocaleString('en'));
-
+    
 });
 
 function btnReset() {
@@ -258,12 +257,7 @@ function btnReset() {
     $("#slider-range-ResidentialUnits").slider("values", 0, 0);
     $("#slider-range-ResidentialUnits").slider("values", 1, maxResidentialUnits);
     $("#txtResidentialUnits").val($("#slider-range-ResidentialUnits").slider("values", 0) + " - " + $("#slider-range-ResidentialUnits").slider("values", 1).toLocaleString('en'));
-
-    document.getElementById("cbAssessedValuePerSquareFoot").checked = false;
-    $("#slider-range-AssessedValuePerSquareFoot").slider("values", 0, 0);
-    $("#slider-range-AssessedValuePerSquareFoot").slider("values", 1, maxAssessedValuePerSquareFoot);
-    $("#txtAssessedValuePerSquareFoot").val($("#slider-range-AssessedValuePerSquareFoot").slider("values", 0) + " - " + $("#slider-range-AssessedValuePerSquareFoot").slider("values", 1).toLocaleString('en'));
-
+    
     document.getElementById("cbZoningDistrict").checked = false;
     document.getElementById("cbCommercialOverlay").checked = false;
     document.getElementById("cbAssessedTotalValue").checked = false;
@@ -278,6 +272,11 @@ function btnReset() {
     $("#slider-range-AssessedTotalValue").slider("values", 0, 0);
     $("#slider-range-AssessedTotalValue").slider("values", 1, maxAssessedTotalValue);
     $("#txtAssessedTotalValue").val("$" + $("#slider-range-AssessedTotalValue").slider("values", 0) + " - $" + $("#slider-range-AssessedTotalValue").slider("values", 1).toLocaleString('en'));
+
+    document.getElementById("cbAssessedValuePerSquareFoot").checked = false;
+    $("#slider-range-AssessedValuePerSquareFoot").slider("values", 0, 0);
+    $("#slider-range-AssessedValuePerSquareFoot").slider("values", 1, maxAssessedValuePerSquareFoot);
+    $("#txtAssessedValuePerSquareFoot").val("$" + $("#slider-range-AssessedValuePerSquareFoot").slider("values", 0) + " - $" + $("#slider-range-AssessedValuePerSquareFoot").slider("values", 1).toLocaleString('en'));
 
     document.getElementById("cbYearBuild").checked = false;
     $("#slider-range-YearBuild").slider("values", 0, 1650);
@@ -614,10 +613,10 @@ function btnSearch() {
         AssessedValuePerSquareFootStart = $("#slider-range-AssessedValuePerSquareFoot").slider("values", 0);
         AssessedValuePerSquareFootEnd = $("#slider-range-AssessedValuePerSquareFoot").slider("values", 1);
         if (whereClause == "") {
-            whereClause = "p.AssessTot <> 0 AND (p.BldgArea / p.AssessTot) >= " + AssessedValuePerSquareFootStart + " AND (p.BldgArea / p.AssessTot) <= " + AssessedValuePerSquareFootEnd;
+            whereClause = "p.BldgArea <> 0 AND (p.AssessTot / p.BldgArea) >= " + AssessedValuePerSquareFootStart + " AND (p.AssessTot / p.BldgArea) <= " + AssessedValuePerSquareFootEnd;
         }
         else {
-            whereClause += " AND p.AssessTot <> 0 AND (p.BldgArea / p.AssessTot) >= " + AssessedValuePerSquareFootStart + " AND (p.BldgArea / p.AssessTot) <= " + AssessedValuePerSquareFootEnd;
+            whereClause += " AND p.BldgArea <> 0 AND (p.AssessTot / p.BldgArea) >= " + AssessedValuePerSquareFootStart + " AND (p.AssessTot / p.BldgArea) <= " + AssessedValuePerSquareFootEnd;
         }
     }
     if (document.getElementById("cbYearBuild").checked == true) {
@@ -1382,7 +1381,7 @@ function DatabaseSearch(whereEnergyClause, wherePermitClause, whereViolationClau
         switch (lstTableAttributes[i].dataset) {
             case "Pluto":
                 if (lstTableAttributes[i].attribute == "AssessTotPerSqFt") {
-                    selectStatementList.push("(p.BldgArea / p.AssessTot) AS " + lstTableAttributes[i].attribute);
+                    selectStatementList.push("ROUND((p.AssessTot / p.BldgArea),2) AS " + lstTableAttributes[i].attribute);
                 }
                 else {
                     selectStatementList.push("p." + lstTableAttributes[i].attribute);
@@ -2080,7 +2079,7 @@ function txtSlider_KeyUp(x, name) {
         else {
             $("#slider-range-" + name).slider("values", 0, 0);
             $("#slider-range-" + name).slider("values", 1, maxValueTotal);
-            if (name == "AssessedTotalValue") {
+            if (name == "AssessedTotalValue" || name == "AssessedValuePerSquareFoot") {
                 $("#txt" + name).val("$0 - $" + maxValueTotal.toLocaleString('en'));
             }
             else {
@@ -2091,7 +2090,7 @@ function txtSlider_KeyUp(x, name) {
     catch (e) {
         $("#slider-range-" + name).slider("values", 0, 0);
         $("#slider-range-" + name).slider("values", 1, maxValueTotal);
-        if (name == "AssessedTotalValue") {
+        if (name == "AssessedTotalValue" || name == "AssessedValuePerSquareFoot") {
             $("#txt" + name).val("$0 - $" + maxValueTotal.toLocaleString('en'));
         }
         else {
