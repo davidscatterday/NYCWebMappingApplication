@@ -21,7 +21,6 @@ warning 6002: The table/view 'NYC_Web_Mapping_App.dbo.Districts' does not have a
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="job_filing_number" Type="varchar" MaxLength="50" />
           <Property Name="job_number" Type="varchar" MaxLength="50" />
           <Property Name="filing_number" Type="varchar" MaxLength="50" />
@@ -42,6 +41,7 @@ warning 6002: The table/view 'NYC_Web_Mapping_App.dbo.Districts' does not have a
           <Property Name="building_type" Type="varchar" MaxLength="150" />
           <Property Name="buildingstories" Type="varchar" MaxLength="150" />
           <Property Name="bbl" Type="varchar" MaxLength="50" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="MyAlerts">
           <Key>
@@ -60,7 +60,8 @@ warning 6002: The table/view 'NYC_Web_Mapping_App.dbo.Districts' does not have a
           <Property Name="IsPermitSearch" Type="bit" Nullable="false" />
           <Property Name="IsViolationSearch" Type="bit" Nullable="false" />
           <Property Name="IsEvictionSearch" Type="bit" Nullable="false" />
-          <Property Name="IsElevatorSearch" Type="bit" />
+          <Property Name="IsElevatorSearch" Type="bit" Nullable="false" />
+          <Property Name="IsPropertySalesSearch" Type="bit" Nullable="false" />
           <Property Name="IsUnread" Type="bit" />
         </EntityType>
         <EntityType Name="MyReports">
@@ -210,7 +211,8 @@ warning 6002: The table/view 'NYC_Web_Mapping_App.dbo.Districts' does not have a
           <Property Name="IsPermitSearch" Type="Boolean" Nullable="false" />
           <Property Name="IsViolationSearch" Type="Boolean" Nullable="false" />
           <Property Name="IsEvictionSearch" Type="Boolean" Nullable="false" />
-          <Property Name="IsElevatorSearch" Type="Boolean" />
+          <Property Name="IsElevatorSearch" Type="Boolean" Nullable="false" />
+          <Property Name="IsPropertySalesSearch" Type="Boolean" Nullable="false" />
           <Property Name="IsUnread" Type="Boolean" />
         </EntityType>
       </Schema>
@@ -296,6 +298,7 @@ warning 6002: The table/view 'NYC_Web_Mapping_App.dbo.Districts' does not have a
             <EntityTypeMapping TypeName="NYC_Web_Mapping_AppModel.MyAlert">
               <MappingFragment StoreEntitySet="MyAlerts">
                 <ScalarProperty Name="IsUnread" ColumnName="IsUnread" />
+                <ScalarProperty Name="IsPropertySalesSearch" ColumnName="IsPropertySalesSearch" />
                 <ScalarProperty Name="IsElevatorSearch" ColumnName="IsElevatorSearch" />
                 <ScalarProperty Name="IsEvictionSearch" ColumnName="IsEvictionSearch" />
                 <ScalarProperty Name="IsViolationSearch" ColumnName="IsViolationSearch" />

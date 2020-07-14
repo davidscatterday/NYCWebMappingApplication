@@ -55,11 +55,11 @@ lstAllTableAttributes.push({ name: 'Job Number', attribute: "job_number", datase
 lstAllTableAttributes.push({ name: 'Filing Type', attribute: "filing_type", dataset: "Elevators" });
 lstAllTableAttributes.push({ name: 'Filing Status', attribute: "filing_status", dataset: "Elevators" });
 lstAllTableAttributes.push({ name: 'Filing Date', attribute: "filing_date_string_format", dataset: "Elevators" });
-
-
+lstAllTableAttributes.push({ name: 'Sale Date', attribute: "sale_date", dataset: "PropertySales" });
+lstAllTableAttributes.push({ name: 'Sale Price', attribute: "sale_price", dataset: "PropertySales" });
 
 var sqlQuery = "";
-var IsPlutoSearch = false, IsEnergySearch = false, IsPermitSearch = false, IsViolationSearch = false, IsEvictionSearch = false, IsSocialServiceOrganizationsSearch = false, IsElevatorSearch = false;
+var IsPlutoSearch = false, IsEnergySearch = false, IsPermitSearch = false, IsViolationSearch = false, IsEvictionSearch = false, IsSocialServiceOrganizationsSearch = false, IsElevatorSearch = false, IsPropertySalesSearch = false;
 $(function () {
     $("#slider-range-TotalBuildingFloorArea").slider({
         range: true,
@@ -411,6 +411,10 @@ function btnReset() {
     $("#ddlFilingType").val($("#ddlFilingType option:first").val());
     $("#ddlFilingStatus").val($("#ddlFilingStatus option:first").val());
 
+    document.getElementById("cbSaleDate").checked = false;
+    document.getElementById("txtSaleDateFrom").value = "";
+    document.getElementById("txtSaleDateTo").value = "";
+
 
     map.graphics.clear();
     selectionLayer.clear();
@@ -436,6 +440,7 @@ function btnSearch() {
     var whereEvictionsClause = "";
     var whereSocialServiceOrganizationsClause = "";
     var whereElevatorsClause = "";
+    var wherePropertySaleClause = "";
     if (document.getElementById("cbBorough").checked == true) {
         Borough = $(txtBoroughs).val();
         if (Borough != "") {
@@ -931,7 +936,6 @@ function btnSearch() {
         }
     }
     if (document.getElementById("cbEvictionStatus").checked == true) {
-        var cbEvictionStatus = document.getElementById("cbEvictionStatus");
         var selectedEvictionStatus = ddlEvictionStatus.options[ddlEvictionStatus.selectedIndex].value;
         if (selectedEvictionStatus != "") {
             if (whereEvictionsClause == "") {
@@ -1219,8 +1223,7 @@ function btnSearch() {
         }
 
     }
-
-    var selectedDateRange = ddlFilingStatus.options[ddlFilingStatus.selectedIndex].value;
+    
     var selectedElevatorDeviceType = ddlElevatorDeviceType.options[ddlElevatorDeviceType.selectedIndex].value;
     var selectedFilingType = ddlFilingType.options[ddlFilingType.selectedIndex].value;
     var selectedFilingStatus = ddlFilingStatus.options[ddlFilingStatus.selectedIndex].value;
@@ -1314,16 +1317,68 @@ function btnSearch() {
             }
         }
     }
-    if (whereClause != "" || whereEnergyClause != "" || wherePermitClause != "" || whereViolationClause != "" || whereEvictionsClause || whereSocialServiceOrganizationsClause || whereElevatorsClause) {
+
+    if (document.getElementById("cbSaleDate").checked == true) {
+        SaleDateFrom = document.getElementById("txtSaleDateFrom").value;
+        SaleDateTo = document.getElementById("txtSaleDateTo").value;
+        if (SaleDateFrom != "" || SaleDateTo != "") {
+            IsPropertySalesSearch = true;
+            lstTableAttributes.push({ name: 'Sale Date', attribute: "sale_date", dataset: "PropertySales" });
+            lstTableAttributes.push({ name: 'Sale Price', attribute: "sale_price", dataset: "PropertySales" });
+            if (wherePropertySaleClause != "") {
+                wherePropertySaleClause += " AND ";
+            }
+            if (SaleDateFrom != "" && SaleDateTo != "") {
+                var dFrom = new Date(SaleDateFrom);
+                var yearFrom = dFrom.getFullYear();
+                var monthFrom = dFrom.getMonth() + 1;
+                monthFrom = monthFrom < 10 ? "0" + monthFrom : monthFrom;
+                var dayFrom = dFrom.getDate();
+                dayFrom = dayFrom < 10 ? "0" + dayFrom : dayFrom;
+                var valueFrom = yearFrom + "-" + monthFrom + "-" + dayFrom;
+
+                var dTo = new Date(SaleDateTo);
+                var yearTo = dTo.getFullYear();
+                var monthTo = dTo.getMonth() + 1;
+                monthTo = monthTo < 10 ? "0" + monthTo : monthTo;
+                var dayTo = dTo.getDate();
+                dayTo = dayTo < 10 ? "0" + dayTo : dayTo;
+                var valueTo = yearTo + "-" + monthTo + "-" + dayTo;
+                wherePropertySaleClause += "ps.sale_date >= '" + valueFrom + "' AND ps.sale_date <= '" + valueTo + "'";
+            }
+            else if (SaleDateFrom != "") {
+                var dFrom = new Date(SaleDateFrom);
+                var yearFrom = dFrom.getFullYear();
+                var monthFrom = dFrom.getMonth() + 1;
+                monthFrom = monthFrom < 10 ? "0" + monthFrom : monthFrom;
+                var dayFrom = dFrom.getDate();
+                dayFrom = dayFrom < 10 ? "0" + dayFrom : dayFrom;
+                var valueFrom = yearFrom + "-" + monthFrom + "-" + dayFrom;
+                wherePropertySaleClause += "ps.sale_date >= '" + valueFrom + "'";
+            }
+            else if (SaleDateTo != "") {
+                var dTo = new Date(SaleDateTo);
+                var yearTo = dTo.getFullYear();
+                var monthTo = dTo.getMonth() + 1;
+                monthTo = monthTo < 10 ? "0" + monthTo : monthTo;
+                var dayTo = dTo.getDate();
+                dayTo = dayTo < 10 ? "0" + dayTo : dayTo;
+                var valueTo = yearTo + "-" + monthTo + "-" + dayTo;
+                wherePropertySaleClause += "ps.sale_date <= '" + valueTo + "'";
+            }
+        }
+    }
+
+    if (whereClause != "" || whereEnergyClause != "" || wherePermitClause != "" || whereViolationClause != "" || whereEvictionsClause || whereSocialServiceOrganizationsClause || whereElevatorsClause || wherePropertySaleClause) {
         $('#loading').show();
-        DatabaseSearch(whereEnergyClause, wherePermitClause, whereViolationClause, whereEvictionsClause, whereSocialServiceOrganizationsClause, whereElevatorsClause, whereClause, lstTableAttributes);
+        DatabaseSearch(whereEnergyClause, wherePermitClause, whereViolationClause, whereEvictionsClause, whereSocialServiceOrganizationsClause, whereElevatorsClause, wherePropertySaleClause, whereClause, lstTableAttributes);
     }
     else {
         swal("Please choose some searching criteria first");
     }
 }
 
-function DatabaseSearch(whereEnergyClause, wherePermitClause, whereViolationClause, whereEvictionsClause, whereSocialServiceOrganizationsClause, whereElevatorsClause, whereClause, lstTableAttributes) {
+function DatabaseSearch(whereEnergyClause, wherePermitClause, whereViolationClause, whereEvictionsClause, whereSocialServiceOrganizationsClause, whereElevatorsClause, wherePropertySaleClause, whereClause, lstTableAttributes) {
     var selectStatement = "", fromStatement = "dbo.Pluto p", whereStatement = "", selectStatementList = ["p.OBJECTID"], fromStatementList = [];
     if (whereEnergyClause != "") {
         if (whereStatement == "") {
@@ -1374,6 +1429,13 @@ function DatabaseSearch(whereEnergyClause, wherePermitClause, whereViolationClau
         }
         else {
             whereStatement += " AND " + whereElevatorsClause;
+        }
+    } if (wherePropertySaleClause != "") {
+        if (whereStatement == "") {
+            whereStatement += wherePropertySaleClause;
+        }
+        else {
+            whereStatement += " AND " + wherePropertySaleClause;
         }
     }
 
@@ -1428,6 +1490,12 @@ function DatabaseSearch(whereEnergyClause, wherePermitClause, whereViolationClau
                     fromStatement += " LEFT JOIN dbo.Elevators el on p.BBL = el.bbl";
                 }
                 selectStatementList.push("el." + lstTableAttributes[i].attribute);
+                break;
+            case "PropertySales":
+                if (!fromStatementList.includes(lstTableAttributes[i].dataset)) {
+                    fromStatement += " LEFT JOIN dbo.PropertySales ps on p.BBL = ps.bbl";
+                }
+                selectStatementList.push("ps." + lstTableAttributes[i].attribute);
                 break;
         }
         fromStatementList.push(lstTableAttributes[i].dataset);
@@ -1484,6 +1552,9 @@ function CreateDatabaseTable(data) {
                         break;
                     case "filing_date":
                         value = data[i]["filing_date_string_format"];
+                        break;
+                    case "sale_date":
+                        value = data[i]["sale_date_string_format"];
                         break;
                     default:
                         value = data[i][lstTableAttributes[j].attribute];
@@ -1704,7 +1775,8 @@ function btnSaveMyAlert_Click() {
                 "IsPermitSearch": IsPermitSearch,
                 "IsViolationSearch": IsViolationSearch,
                 "IsEvictionSearch": IsEvictionSearch,
-                "IsElevatorSearch": IsElevatorSearch
+                "IsElevatorSearch": IsElevatorSearch,
+                "IsPropertySalesSearch": IsPropertySalesSearch
             }
         }).done(function (data) {
             $('#loading').hide();

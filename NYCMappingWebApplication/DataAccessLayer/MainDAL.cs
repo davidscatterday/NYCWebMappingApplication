@@ -325,7 +325,7 @@ namespace NYCMappingWebApp.DataAccessLayer
                     sqlQuery += " OR (ev.EXECUTED_DATE > '" + formatedDate + "' AND ev.EXECUTED_DATE < '2030-01-01')";
                 }
             }
-            if (alert.IsElevatorSearch.HasValue && alert.IsElevatorSearch.Value)
+            if (alert.IsElevatorSearch)
             {
                 if (sqlQuery.EndsWith("("))
                 {
@@ -334,6 +334,17 @@ namespace NYCMappingWebApp.DataAccessLayer
                 else
                 {
                     sqlQuery += " OR (el.filing_date > '" + formatedDate + "' AND el.filing_date < '2030-01-01')";
+                }
+            }
+            if (alert.IsPropertySalesSearch)
+            {
+                if (sqlQuery.EndsWith("("))
+                {
+                    sqlQuery += " (el.sale_date > '" + formatedDate + "' AND el.sale_date < '2030-01-01')";
+                }
+                else
+                {
+                    sqlQuery += " OR (el.sale_date > '" + formatedDate + "' AND el.sale_date < '2030-01-01')";
                 }
             }
             sqlQuery += ")";

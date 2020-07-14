@@ -144,6 +144,21 @@ namespace NYCMappingWebApp.Entities
         public string filing_date_string_format { get; set; }
         
         public double? AssessTotPerSqFt { get; set; }
+
+        private DateTime? _sale_date;
+        public DateTime? sale_date
+        {
+            get { return _sale_date; }
+            set
+            {
+                _sale_date = value;
+
+                sale_date_string_format = _sale_date.HasValue ? String.Format("{0:MM/dd/yyyy}", _sale_date) : "";
+            }
+        }
+        public string sale_date_string_format { get; set; }
+
+        public string sale_price { get; set; }
     }
 
     public class DatabaseMaxValues
