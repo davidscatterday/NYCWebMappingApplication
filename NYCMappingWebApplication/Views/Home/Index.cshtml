@@ -967,7 +967,7 @@
                                     <div id="collapse20" class="panel-collapse collapse">
                                         <div class="panel-body">
                                             <div class="form-group">
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
                                                     <label for="cbSaleDate">
                                                         <input id="cbSaleDate" type="checkbox">Date
                                                     </label>
@@ -977,6 +977,17 @@
                                                 </div>
                                                 <div class="col-sm-4" style="padding-left: 0px;">
                                                     <input type="text" class="date" id="txtSaleDateTo" style="width: 100%" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <p id="sliderSalePrice" style="margin-bottom: 0px; margin-left: -5px;">
+                                                        <label for="cbSalePrice">
+                                                            <input id="cbSalePrice" type="checkbox">Sale Price:
+                                                            <input type="text" id="txtSalePrice" style="border:0; color:rgb(213,168,72); font-weight:bold; width: 211px" onkeyup="txtSlider_KeyUp(this,'SalePrice')">
+                                                        </label>
+                                                    </p>
+                                                    <div id="slider-range-SalePrice"></div>
                                                 </div>
                                             </div>
                                         </div>

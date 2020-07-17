@@ -1,7 +1,7 @@
 ﻿var maxTotalBuildingFloorArea = 67000000, maxCommercialFloorArea = 24000000, maxResidentialFloorArea = 14000000
     , maxNumberOfFloors = 210, maxResidentialUnits = 11000, maxAssessedTotalValue = 7200000000
     , maxEnergyStarScore = 100, maxSourceEUI = 29000000, maxSiteEUI = 25000000, maxAnnualMaximumDemand = 2600000, maxTotalGHGEmissions = 540000000
-    , maxAssessedValuePerSquareFoot = 12193200;
+    , maxAssessedValuePerSquareFoot = 12193200, maxSalePrice = 1000000000;
 
 var lstBuildingClass = ["cbOfficeO1", "cbOfficeO2", "cbOfficeO3", "cbOfficeO4", "cbOfficeO5", "cbOfficeO6", "cbOfficeO8", "cbOfficeO9"
     , "cbIndustrialF1", "cbIndustrialF2", "cbIndustrialF4", "cbIndustrialF5", "cbIndustrialF8", "cbIndustrialF9", "cbRetailK1", "cbOfficeO4"
@@ -216,7 +216,19 @@ $(function () {
     });
     $("#txtTotalGHGEmissions").val($("#slider-range-TotalGHGEmissions").slider("values", 0).toLocaleString('en') +
         " - " + $("#slider-range-TotalGHGEmissions").slider("values", 1).toLocaleString('en'));
-    
+
+    $("#slider-range-SalePrice").slider({
+        range: true,
+        min: 0,
+        max: maxSalePrice,
+        values: [0, maxSalePrice],
+        slide: function (event, ui) {
+            $("#txtSalePrice").val("$" + ui.values[0].toLocaleString('en') + " - $" + ui.values[1].toLocaleString('en'));
+        }
+    });
+    $("#txtSalePrice").val("$" + $("#slider-range-SalePrice").slider("values", 0).toLocaleString('en') +
+        " - $" + $("#slider-range-SalePrice").slider("values", 1).toLocaleString('en'));
+
 });
 
 function btnReset() {
@@ -410,10 +422,15 @@ function btnReset() {
     $("#ddlElevatorDeviceType").val($("#ddlElevatorDeviceType option:first").val());
     $("#ddlFilingType").val($("#ddlFilingType option:first").val());
     $("#ddlFilingStatus").val($("#ddlFilingStatus option:first").val());
-
+    
     document.getElementById("cbSaleDate").checked = false;
     document.getElementById("txtSaleDateFrom").value = "";
     document.getElementById("txtSaleDateTo").value = "";
+
+    document.getElementById("cbSalePrice").checked = false;
+    $("#slider-range-SalePrice").slider("values", 0, 0);
+    $("#slider-range-SalePrice").slider("values", 1, maxSalePrice);
+    $("#txtSalePrice").val("$" + $("#slider-range-SalePrice").slider("values", 0) + " - $" + $("#slider-range-SalePrice").slider("values", 1).toLocaleString('en'));
 
 
     map.graphics.clear();
@@ -432,7 +449,8 @@ function btnSearch() {
         , ZoningDistrict, CommercialOverlay, AssessedTotalValueStart, AssessedTotalValueEnd, YearBuildStart, YearBuildEnd
         , EnergyStarScoreStart = null, EnergyStarScoreEnd = null, SourceEUIStart = null, SourceEUIEnd = null
         , SiteEUIStart = null, SiteEUIEnd = null, AnnualMaximumDemandStart = null, AnnualMaximumDemandEnd = null
-        , TotalGHGEmissionsStart = null, TotalGHGEmissionsEnd = null, AssessedValuePerSquareFootStart = null, AssessedValuePerSquareFootEnd = null;
+        , TotalGHGEmissionsStart = null, TotalGHGEmissionsEnd = null, AssessedValuePerSquareFootStart = null, AssessedValuePerSquareFootEnd = null
+        , SalePriceStart, SalePriceEnd;
     var whereClause = "";
     var whereEnergyClause = "";
     var wherePermitClause = "";
@@ -1324,7 +1342,6 @@ function btnSearch() {
         if (SaleDateFrom != "" || SaleDateTo != "") {
             IsPropertySalesSearch = true;
             lstTableAttributes.push({ name: 'Sale Date', attribute: "sale_date", dataset: "PropertySales" });
-            lstTableAttributes.push({ name: 'Sale Price', attribute: "sale_price", dataset: "PropertySales" });
             if (wherePropertySaleClause != "") {
                 wherePropertySaleClause += " AND ";
             }
@@ -1366,6 +1383,18 @@ function btnSearch() {
                 var valueTo = yearTo + "-" + monthTo + "-" + dayTo;
                 wherePropertySaleClause += "ps.sale_date <= '" + valueTo + "'";
             }
+        }
+    }
+    if (document.getElementById("cbSalePrice").checked == true) {
+        IsPlutoSearch = true;
+        lstTableAttributes.push({ name: 'Sale Price', attribute: "sale_price", dataset: "PropertySales" });
+        SalePriceStart = $("#slider-range-SalePrice").slider("values", 0);
+        SalePriceEnd = $("#slider-range-SalePrice").slider("values", 1);
+        if (whereClause == "") {
+            whereClause = "cast(ps.sale_price as bigint) >= " + SalePriceStart + " AND cast(ps.sale_price as bigint) <= " + SalePriceEnd;
+        }
+        else {
+            whereClause += " AND cast(ps.sale_price as bigint) >= " + SalePriceStart + " AND cast(ps.sale_price as bigint) <= " + SalePriceEnd;
         }
     }
 
@@ -2133,6 +2162,7 @@ function txtSlider_KeyUp(x, name) {
         case "TotalGHGEmissions": maxValueTotal = maxTotalGHGEmissions; break
         case "AssessedTotalValue": maxValueTotal = maxAssessedTotalValue; break
         case "AssessedValuePerSquareFoot": maxValueTotal = maxAssessedValuePerSquareFoot; break
+        case "SalePrice": maxValueTotal = maxSalePrice; break
         default: return
     }
     try {
@@ -2151,7 +2181,7 @@ function txtSlider_KeyUp(x, name) {
         else {
             $("#slider-range-" + name).slider("values", 0, 0);
             $("#slider-range-" + name).slider("values", 1, maxValueTotal);
-            if (name == "AssessedTotalValue" || name == "AssessedValuePerSquareFoot") {
+            if (name == "AssessedTotalValue" || name == "AssessedValuePerSquareFoot" || name == "SalePrice") {
                 $("#txt" + name).val("$0 - $" + maxValueTotal.toLocaleString('en'));
             }
             else {
@@ -2162,7 +2192,7 @@ function txtSlider_KeyUp(x, name) {
     catch (e) {
         $("#slider-range-" + name).slider("values", 0, 0);
         $("#slider-range-" + name).slider("values", 1, maxValueTotal);
-        if (name == "AssessedTotalValue" || name == "AssessedValuePerSquareFoot") {
+        if (name == "AssessedTotalValue" || name == "AssessedValuePerSquareFoot" || name == "SalePrice") {
             $("#txt" + name).val("$0 - $" + maxValueTotal.toLocaleString('en'));
         }
         else {
