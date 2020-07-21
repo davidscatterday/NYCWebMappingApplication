@@ -325,7 +325,7 @@ namespace NYCMappingWebApp.DataAccessLayer
                     sqlQuery += " OR (ev.EXECUTED_DATE > '" + formatedDate + "' AND ev.EXECUTED_DATE < '2030-01-01')";
                 }
             }
-            if (alert.IsElevatorSearch.HasValue && alert.IsElevatorSearch.Value)
+            if (alert.IsElevatorSearch)
             {
                 if (sqlQuery.EndsWith("("))
                 {
