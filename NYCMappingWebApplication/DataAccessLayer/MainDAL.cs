@@ -166,14 +166,6 @@ namespace NYCMappingWebApp.DataAccessLayer
                                 Text = el.elevatordevicetype
                             }).OrderBy(w => w.Text).Distinct().ToList();
             return returnResult;
-            //List<SelectListItem> returnResult = new List<SelectListItem>();
-            //returnResult.Add(new SelectListItem() { Text = "Elevator", Value = "Elevator" });
-            //returnResult.Add(new SelectListItem() { Text = "Accessibility Lift", Value = "Accessibility Lift" });
-            //returnResult.Add(new SelectListItem() { Text = "Manlift", Value = "Manlift" });
-            //returnResult.Add(new SelectListItem() { Text = "Dumbwaiter", Value = "Dumbwaiter" });
-            //returnResult.Add(new SelectListItem() { Text = "Escalator", Value = "Escalator" });
-            //returnResult.Add(new SelectListItem() { Text = "Personnel Hoist", Value = "Personnel Hoist" });
-            //returnResult.Add(new SelectListItem() { Text = "Conveyor", Value = "Conveyor" });
             //return returnResult;
         }
         public List<SelectListItem> GetAllFilingTypes()
@@ -186,9 +178,6 @@ namespace NYCMappingWebApp.DataAccessLayer
                                 Text = el.filing_type
                             }).OrderBy(w => w.Text).Distinct().ToList();
             return returnResult;
-            //    returnResult.Add(new SelectListItem() { Text = "New Filing", Value = "New Filing" });
-            // returnResult.Add(new SelectListItem() { Text = "PAA", Value = "PAA" });
-           // return returnResult;
         }
         public List<SelectListItem> GetAllFilingStatuses()
         {
@@ -200,19 +189,6 @@ namespace NYCMappingWebApp.DataAccessLayer
                                 Text = el.filing_status
                             }).OrderBy(w => w.Text).Distinct().ToList();
             return returnResult;
-            //returnResult.Add(new SelectListItem() { Text = "Sign Off Review in Progress", Value = "Sign Off Review in Progress" });
-            //returnResult.Add(new SelectListItem() { Text = "Objections to Sign Off", Value = "Objections to Sign Off" });
-            //returnResult.Add(new SelectListItem() { Text = "Permit Entire", Value = "Permit Entire" });
-            //returnResult.Add(new SelectListItem() { Text = "Withdrawn", Value = "Withdrawn" });
-            //returnResult.Add(new SelectListItem() { Text = "Signed Off", Value = "Signed Off" });
-            //returnResult.Add(new SelectListItem() { Text = "Objections", Value = "Objections" });
-            //returnResult.Add(new SelectListItem() { Text = "On Hold - No Good Check", Value = "On Hold - No Good Check" });
-            //returnResult.Add(new SelectListItem() { Text = "Approved", Value = "Approved" });
-            //returnResult.Add(new SelectListItem() { Text = "Sign Off Request Initiated", Value = "Sign Off Request Initiated" });
-            //returnResult.Add(new SelectListItem() { Text = "Pending Plan Examiner Assignment", Value = "Pending Plan Examiner Assignment" });
-            //returnResult.Add(new SelectListItem() { Text = "Plan Examiner Review", Value = "Plan Examiner Review" });
-
-            //return returnResult;
         }
         
         public List<SelectListItem> GetAllYesNoStatuses()
@@ -358,6 +334,17 @@ namespace NYCMappingWebApp.DataAccessLayer
                 else
                 {
                     sqlQuery += " OR (el.filing_date > '" + formatedDate + "' AND el.filing_date < '2030-01-01')";
+                }
+            }
+            if (alert.IsPropertySalesSearch)
+            {
+                if (sqlQuery.EndsWith("("))
+                {
+                    sqlQuery += " (el.sale_date > '" + formatedDate + "' AND el.sale_date < '2030-01-01')";
+                }
+                else
+                {
+                    sqlQuery += " OR (el.sale_date > '" + formatedDate + "' AND el.sale_date < '2030-01-01')";
                 }
             }
             sqlQuery += ")";
