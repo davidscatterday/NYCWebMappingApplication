@@ -1,0 +1,712 @@
+﻿@model NYCMappingWebApp.Entities.DataConsumerProfiles
+
+@{
+    Layout = "~/Views/Shared/_LayoutPages.cshtml";
+    string infoMessage = TempData["InfoMessage"] as string;
+    string errorMessage = TempData["ErrorMessage"] as string;
+    string headerMessage = TempData["HeaderMessage"] as string;
+}
+@if (infoMessage != null)
+{
+    <div class="form-group">
+        <div class="alert alert-success fade in">
+            @infoMessage
+        </div>
+    </div>
+}
+@if (errorMessage != null)
+{
+    <div class="form-group">
+        <div class="alert alert-danger fade in">
+            @errorMessage
+        </div>
+    </div>
+}
+@if (headerMessage != null)
+{
+    <div class="form-group">
+        <div class="alert alert-info fade in">
+            @Html.Raw(headerMessage)
+        </div>
+    </div>
+}
+
+    <div id="tabsConsumerProfiles">
+        <ul>
+            <li><a href="#tabsConsumerProfiles-1">Demographics</a></li>
+            <li><a href="#tabsConsumerProfiles-2">Social</a></li>
+            <li><a href="#tabsConsumerProfiles-3">Economic</a></li>
+            <li><a href="#tabsConsumerProfiles-4">Housing</a></li>
+        </ul>
+        <div id="tabsConsumerProfiles-1" style="padding-top: 0px">
+            <h2>Age and Sex</h2>
+
+            <table width="100%" border="1" class="table table-striped">
+                <thead>
+                    <tr>
+                        <td rowspan="2"></td>
+                        <td colspan="2" style="font-weight:bold" align="center">Selected Area</td>
+                        <td colspan="2" style="font-weight:bold" align="center">New York City</td>
+                        <td colspan="2" style="font-weight:bold" align="center">Difference</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:bold" align="right">Number</td>
+                        <td style="font-weight:bold" align="right">Percent</td>
+                        <td style="font-weight:bold" align="right">Number</td>
+                        <td style="font-weight:bold" align="right">Percent</td>
+                        <td style="font-weight:bold" align="right">Number</td>
+                        <td style="font-weight:bold" align="right">Pctg. Pt.</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Total population</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP05_0001E)</td>
+                        <td align="right">100%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP05_0001E)</td>
+                        <td align="right">100%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP05_0001E - Model.NewYorkCity.DP05_0001E))</td>
+                        <td align="right">0.0</td>
+                    </tr>
+                    <tr>
+                        <td>Male</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP05_0002E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP05_0002E.Value) / Model.SelectedArea.DP05_0001E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP05_0002E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP05_0002E.Value) / Model.NewYorkCity.DP05_0001E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP05_0002E - Model.NewYorkCity.DP05_0002E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP05_0002E.Value) / Model.SelectedArea.DP05_0001E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP05_0002E.Value) / Model.NewYorkCity.DP05_0001E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td>Female</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP05_0003E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP05_0003E.Value) / Model.SelectedArea.DP05_0001E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP05_0003E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP05_0003E.Value) / Model.NewYorkCity.DP05_0001E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP05_0003E - Model.NewYorkCity.DP05_0003E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP05_0003E.Value) / Model.SelectedArea.DP05_0001E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP05_0003E.Value) / Model.NewYorkCity.DP05_0001E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td>Sex ratio (males per 100 females)</td>
+                        <td align="right">@Model.SelectedArea.DP05_0004E</td>
+                        <td align="right"></td>
+                        <td align="right">@Model.NewYorkCity.DP05_0004E</td>
+                        <td align="right"></td>
+                        <td align="right">@(Model.SelectedArea.DP05_0004E - Model.NewYorkCity.DP05_0004E)</td>
+                        <td align="right"></td>
+                    </tr>
+                    <tr>
+                        <td>20 to 24 years</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP05_0009E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP05_0009E.Value) / Model.SelectedArea.DP05_0001E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP05_0009E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP05_0009E.Value) / Model.NewYorkCity.DP05_0001E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP05_0009E - Model.NewYorkCity.DP05_0009E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP05_0009E.Value) / Model.SelectedArea.DP05_0001E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP05_0009E.Value) / Model.NewYorkCity.DP05_0001E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td>25 to 34 years</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP05_0010E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP05_0010E.Value) / Model.SelectedArea.DP05_0001E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP05_0010E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP05_0010E.Value) / Model.NewYorkCity.DP05_0001E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP05_0010E - Model.NewYorkCity.DP05_0010E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP05_0010E.Value) / Model.SelectedArea.DP05_0001E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP05_0010E.Value) / Model.NewYorkCity.DP05_0001E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td>35 to 44 years</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP05_0011E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP05_0011E.Value) / Model.SelectedArea.DP05_0001E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP05_0011E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP05_0011E.Value) / Model.NewYorkCity.DP05_0001E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP05_0011E - Model.NewYorkCity.DP05_0011E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP05_0011E.Value) / Model.SelectedArea.DP05_0001E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP05_0011E.Value) / Model.NewYorkCity.DP05_0001E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td>45 to 54 years</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP05_0012E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP05_0012E.Value) / Model.SelectedArea.DP05_0001E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP05_0012E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP05_0012E.Value) / Model.NewYorkCity.DP05_0001E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP05_0012E - Model.NewYorkCity.DP05_0012E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP05_0012E.Value) / Model.SelectedArea.DP05_0001E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP05_0012E.Value) / Model.NewYorkCity.DP05_0001E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td>55 to 59 years</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP05_0013E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP05_0013E.Value) / Model.SelectedArea.DP05_0001E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP05_0013E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP05_0013E.Value) / Model.NewYorkCity.DP05_0001E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP05_0013E - Model.NewYorkCity.DP05_0013E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP05_0013E.Value) / Model.SelectedArea.DP05_0001E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP05_0013E.Value) / Model.NewYorkCity.DP05_0001E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td>60 to 64 years</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP05_0014E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP05_0014E.Value) / Model.SelectedArea.DP05_0001E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP05_0014E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP05_0014E.Value) / Model.NewYorkCity.DP05_0001E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP05_0014E - Model.NewYorkCity.DP05_0014E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP05_0014E.Value) / Model.SelectedArea.DP05_0001E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP05_0014E.Value) / Model.NewYorkCity.DP05_0001E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td>65 to 74 years</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP05_0015E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP05_0015E.Value) / Model.SelectedArea.DP05_0001E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP05_0015E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP05_0015E.Value) / Model.NewYorkCity.DP05_0001E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP05_0015E - Model.NewYorkCity.DP05_0015E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP05_0015E.Value) / Model.SelectedArea.DP05_0001E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP05_0015E.Value) / Model.NewYorkCity.DP05_0001E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td>75 to 84 years</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP05_0016E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP05_0016E.Value) / Model.SelectedArea.DP05_0001E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP05_0016E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP05_0016E.Value) / Model.NewYorkCity.DP05_0001E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP05_0016E - Model.NewYorkCity.DP05_0016E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP05_0016E.Value) / Model.SelectedArea.DP05_0001E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP05_0016E.Value) / Model.NewYorkCity.DP05_0001E.Value, 1), 1)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <div id="tabsConsumerProfiles-2" style="padding-top: 0px">
+            <h2>Household Type</h2>
+            <table width="100%" border="1" class="table table-striped">
+                <thead>
+                    <tr>
+                        <td rowspan="2"></td>
+                        <td colspan="2" style="font-weight:bold" align="center">Selected Area</td>
+                        <td colspan="2" style="font-weight:bold" align="center">New York City</td>
+                        <td colspan="2" style="font-weight:bold" align="center">Difference</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:bold" align="right">Number</td>
+                        <td style="font-weight:bold" align="right">Percent</td>
+                        <td style="font-weight:bold" align="right">Number</td>
+                        <td style="font-weight:bold" align="right">Percent</td>
+                        <td style="font-weight:bold" align="right">Number</td>
+                        <td style="font-weight:bold" align="right">Pctg. Pt.</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Total households</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0001E)</td>
+                        <td align="right">100%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0001E)</td>
+                        <td align="right">100%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0001E - Model.NewYorkCity.DP02_0001E))</td>
+                        <td align="right">0.0</td>
+                    </tr>
+                    <tr>
+                        <td>Family households (families)</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0002E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0002E.Value) / Model.SelectedArea.DP02_0001E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0002E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0002E.Value) / Model.NewYorkCity.DP02_0001E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0002E - Model.NewYorkCity.DP02_0002E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0002E.Value) / Model.SelectedArea.DP02_0001E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0002E.Value) / Model.NewYorkCity.DP02_0001E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:20px;">With own children of the householder under 18 years</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0003E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0003E.Value) / Model.SelectedArea.DP02_0001E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0003E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0003E.Value) / Model.NewYorkCity.DP02_0001E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0003E - Model.NewYorkCity.DP02_0003E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0003E.Value) / Model.SelectedArea.DP02_0001E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0003E.Value) / Model.NewYorkCity.DP02_0001E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:20px;">Male householder, no wife present, family</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0006E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0006E.Value) / Model.SelectedArea.DP02_0001E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0006E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0006E.Value) / Model.NewYorkCity.DP02_0001E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0006E - Model.NewYorkCity.DP02_0006E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0006E.Value) / Model.SelectedArea.DP02_0001E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0006E.Value) / Model.NewYorkCity.DP02_0001E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:20px;">Female householder, no husband present, family</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0008E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0008E.Value) / Model.SelectedArea.DP02_0001E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0008E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0008E.Value) / Model.NewYorkCity.DP02_0001E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0008E - Model.NewYorkCity.DP02_0008E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0008E.Value) / Model.SelectedArea.DP02_0001E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0008E.Value) / Model.NewYorkCity.DP02_0001E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td>Nonfamily households</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0010E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0010E.Value) / Model.SelectedArea.DP02_0001E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0010E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0010E.Value) / Model.NewYorkCity.DP02_0001E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0010E - Model.NewYorkCity.DP02_0010E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0010E.Value) / Model.SelectedArea.DP02_0001E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0010E.Value) / Model.NewYorkCity.DP02_0001E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:20px;">Householder living alone</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0011E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0011E.Value) / Model.SelectedArea.DP02_0001E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0011E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0011E.Value) / Model.NewYorkCity.DP02_0001E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0011E - Model.NewYorkCity.DP02_0011E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0011E.Value) / Model.SelectedArea.DP02_0001E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0011E.Value) / Model.NewYorkCity.DP02_0001E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:40px;">65 years and over</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0012E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0012E.Value) / Model.SelectedArea.DP02_0001E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0012E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0012E.Value) / Model.NewYorkCity.DP02_0001E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0012E - Model.NewYorkCity.DP02_0012E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0012E.Value) / Model.SelectedArea.DP02_0001E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0012E.Value) / Model.NewYorkCity.DP02_0001E.Value, 1), 1)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h2>Marital Status</h2>
+            <table width="100%" border="1" class="table table-striped">
+                <thead>
+                    <tr>
+                        <td rowspan="2"></td>
+                        <td colspan="2" style="font-weight:bold" align="center">Selected Area</td>
+                        <td colspan="2" style="font-weight:bold" align="center">New York City</td>
+                        <td colspan="2" style="font-weight:bold" align="center">Difference</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:bold" align="right">Number</td>
+                        <td style="font-weight:bold" align="right">Percent</td>
+                        <td style="font-weight:bold" align="right">Number</td>
+                        <td style="font-weight:bold" align="right">Percent</td>
+                        <td style="font-weight:bold" align="right">Number</td>
+                        <td style="font-weight:bold" align="right">Pctg. Pt.</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Males 15 years and over</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0024E)</td>
+                        <td align="right">100%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0024E)</td>
+                        <td align="right">100%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0024E - Model.NewYorkCity.DP02_0024E))</td>
+                        <td align="right">0.0</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:20px;">Never married</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0025E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0025E.Value) / Model.SelectedArea.DP02_0024E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0025E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0025E.Value) / Model.NewYorkCity.DP02_0024E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0025E - Model.NewYorkCity.DP02_0025E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0025E.Value) / Model.SelectedArea.DP02_0024E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0025E.Value) / Model.NewYorkCity.DP02_0024E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:20px;">Now married, except separated</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0026E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0026E.Value) / Model.SelectedArea.DP02_0024E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0026E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0026E.Value) / Model.NewYorkCity.DP02_0024E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0026E - Model.NewYorkCity.DP02_0026E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0026E.Value) / Model.SelectedArea.DP02_0024E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0026E.Value) / Model.NewYorkCity.DP02_0024E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:20px;">Separated</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0027E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0027E.Value) / Model.SelectedArea.DP02_0024E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0027E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0027E.Value) / Model.NewYorkCity.DP02_0024E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0027E - Model.NewYorkCity.DP02_0027E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0027E.Value) / Model.SelectedArea.DP02_0024E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0027E.Value) / Model.NewYorkCity.DP02_0024E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:20px;">Widowed</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0028E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0028E.Value) / Model.SelectedArea.DP02_0024E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0028E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0028E.Value) / Model.NewYorkCity.DP02_0024E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0028E - Model.NewYorkCity.DP02_0028E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0028E.Value) / Model.SelectedArea.DP02_0024E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0028E.Value) / Model.NewYorkCity.DP02_0024E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:20px;">Divorced</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0029E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0029E.Value) / Model.SelectedArea.DP02_0024E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0029E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0029E.Value) / Model.NewYorkCity.DP02_0024E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0029E - Model.NewYorkCity.DP02_0029E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0029E.Value) / Model.SelectedArea.DP02_0024E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0029E.Value) / Model.NewYorkCity.DP02_0024E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td>Females 15 years and over</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0030E)</td>
+                        <td align="right">100%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0030E)</td>
+                        <td align="right">100%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0030E - Model.NewYorkCity.DP02_0030E))</td>
+                        <td align="right">0.0</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:20px;">Never married</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0031E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0031E.Value) / Model.SelectedArea.DP02_0030E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0031E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0031E.Value) / Model.NewYorkCity.DP02_0030E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0031E - Model.NewYorkCity.DP02_0031E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0031E.Value) / Model.SelectedArea.DP02_0030E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0031E.Value) / Model.NewYorkCity.DP02_0030E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:20px;">Now married, except separated</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0032E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0032E.Value) / Model.SelectedArea.DP02_0030E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0032E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0032E.Value) / Model.NewYorkCity.DP02_0030E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0032E - Model.NewYorkCity.DP02_0032E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0032E.Value) / Model.SelectedArea.DP02_0030E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0032E.Value) / Model.NewYorkCity.DP02_0030E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:20px;">Separated</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0033E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0033E.Value) / Model.SelectedArea.DP02_0030E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0033E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0033E.Value) / Model.NewYorkCity.DP02_0030E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0033E - Model.NewYorkCity.DP02_0033E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0033E.Value) / Model.SelectedArea.DP02_0030E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0033E.Value) / Model.NewYorkCity.DP02_0030E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:20px;">Widowed</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0034E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0034E.Value) / Model.SelectedArea.DP02_0030E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0034E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0034E.Value) / Model.NewYorkCity.DP02_0030E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0034E - Model.NewYorkCity.DP02_0034E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0034E.Value) / Model.SelectedArea.DP02_0030E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0034E.Value) / Model.NewYorkCity.DP02_0030E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:20px;">Divorced</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0035E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0035E.Value) / Model.SelectedArea.DP02_0030E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0035E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0035E.Value) / Model.NewYorkCity.DP02_0030E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0035E - Model.NewYorkCity.DP02_0035E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0035E.Value) / Model.SelectedArea.DP02_0030E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0035E.Value) / Model.NewYorkCity.DP02_0030E.Value, 1), 1)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h2>School Enrollment</h2>
+            <table width="100%" border="1" class="table table-striped">
+                <thead>
+                    <tr>
+                        <td rowspan="2"></td>
+                        <td colspan="2" style="font-weight:bold" align="center">Selected Area</td>
+                        <td colspan="2" style="font-weight:bold" align="center">New York City</td>
+                        <td colspan="2" style="font-weight:bold" align="center">Difference</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:bold" align="right">Number</td>
+                        <td style="font-weight:bold" align="right">Percent</td>
+                        <td style="font-weight:bold" align="right">Number</td>
+                        <td style="font-weight:bold" align="right">Percent</td>
+                        <td style="font-weight:bold" align="right">Number</td>
+                        <td style="font-weight:bold" align="right">Pctg. Pt.</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Population 3 years and over enrolled in school</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0052E)</td>
+                        <td align="right">100%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0052E)</td>
+                        <td align="right">100%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0052E - Model.NewYorkCity.DP02_0052E))</td>
+                        <td align="right">0.0</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:20px;">Nursery school, preschool</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0053E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0053E.Value) / Model.SelectedArea.DP02_0052E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0053E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0053E.Value) / Model.NewYorkCity.DP02_0052E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0053E - Model.NewYorkCity.DP02_0053E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0053E.Value) / Model.SelectedArea.DP02_0052E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0053E.Value) / Model.NewYorkCity.DP02_0052E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:20px;">Kindergarten</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0054E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0054E.Value) / Model.SelectedArea.DP02_0052E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0054E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0054E.Value) / Model.NewYorkCity.DP02_0052E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0054E - Model.NewYorkCity.DP02_0054E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0054E.Value) / Model.SelectedArea.DP02_0052E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0054E.Value) / Model.NewYorkCity.DP02_0052E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:20px;">Elementary school (grades 1-8)</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0055E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0055E.Value) / Model.SelectedArea.DP02_0052E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0055E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0055E.Value) / Model.NewYorkCity.DP02_0052E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0055E - Model.NewYorkCity.DP02_0055E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0055E.Value) / Model.SelectedArea.DP02_0052E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0055E.Value) / Model.NewYorkCity.DP02_0052E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:20px;">High school (grades 9-12)</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0056E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0056E.Value) / Model.SelectedArea.DP02_0052E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0056E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0056E.Value) / Model.NewYorkCity.DP02_0052E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0056E - Model.NewYorkCity.DP02_0056E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0056E.Value) / Model.SelectedArea.DP02_0052E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0056E.Value) / Model.NewYorkCity.DP02_0052E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:20px;">College or graduate school</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0057E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0057E.Value) / Model.SelectedArea.DP02_0052E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0057E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0057E.Value) / Model.NewYorkCity.DP02_0052E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0057E - Model.NewYorkCity.DP02_0057E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0057E.Value) / Model.SelectedArea.DP02_0052E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0057E.Value) / Model.NewYorkCity.DP02_0052E.Value, 1), 1)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h2>Educational Attainment</h2>
+            <table width="100%" border="1" class="table table-striped">
+                <thead>
+                    <tr>
+                        <td rowspan="2"></td>
+                        <td colspan="2" style="font-weight:bold" align="center">Selected Area</td>
+                        <td colspan="2" style="font-weight:bold" align="center">New York City</td>
+                        <td colspan="2" style="font-weight:bold" align="center">Difference</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:bold" align="right">Number</td>
+                        <td style="font-weight:bold" align="right">Percent</td>
+                        <td style="font-weight:bold" align="right">Number</td>
+                        <td style="font-weight:bold" align="right">Percent</td>
+                        <td style="font-weight:bold" align="right">Number</td>
+                        <td style="font-weight:bold" align="right">Pctg. Pt.</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Population 25 years and over</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0058E)</td>
+                        <td align="right">100%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0058E)</td>
+                        <td align="right">100%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0058E - Model.NewYorkCity.DP02_0058E))</td>
+                        <td align="right">0.0</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:20px;">Less than 9th grade</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0059E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0059E.Value) / Model.SelectedArea.DP02_0058E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0059E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0059E.Value) / Model.NewYorkCity.DP02_0058E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0059E - Model.NewYorkCity.DP02_0059E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0059E.Value) / Model.SelectedArea.DP02_0058E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0059E.Value) / Model.NewYorkCity.DP02_0058E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:20px;">9th to 12th grade, no diploma</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0060E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0060E.Value) / Model.SelectedArea.DP02_0058E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0060E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0060E.Value) / Model.NewYorkCity.DP02_0058E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0060E - Model.NewYorkCity.DP02_0060E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0060E.Value) / Model.SelectedArea.DP02_0058E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0060E.Value) / Model.NewYorkCity.DP02_0058E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:20px;">High school graduate (includes equivalency)</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0061E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0061E.Value) / Model.SelectedArea.DP02_0058E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0061E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0061E.Value) / Model.NewYorkCity.DP02_0058E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0061E - Model.NewYorkCity.DP02_0061E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0061E.Value) / Model.SelectedArea.DP02_0058E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0061E.Value) / Model.NewYorkCity.DP02_0058E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:20px;">Some college, no degree</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0062E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0062E.Value) / Model.SelectedArea.DP02_0058E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0062E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0062E.Value) / Model.NewYorkCity.DP02_0058E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0062E - Model.NewYorkCity.DP02_0062E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0062E.Value) / Model.SelectedArea.DP02_0058E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0062E.Value) / Model.NewYorkCity.DP02_0058E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:20px;">Associate's degree</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0063E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0063E.Value) / Model.SelectedArea.DP02_0058E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0063E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0063E.Value) / Model.NewYorkCity.DP02_0058E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0063E - Model.NewYorkCity.DP02_0063E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0063E.Value) / Model.SelectedArea.DP02_0058E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0063E.Value) / Model.NewYorkCity.DP02_0058E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:20px;">Bachelor's degree</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0064E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0064E.Value) / Model.SelectedArea.DP02_0058E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0064E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0064E.Value) / Model.NewYorkCity.DP02_0058E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0064E - Model.NewYorkCity.DP02_0064E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0064E.Value) / Model.SelectedArea.DP02_0058E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0064E.Value) / Model.NewYorkCity.DP02_0058E.Value, 1), 1)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h2>Disability Status Of The Civilian Noninstitutionalized Population</h2>
+            <table width="100%" border="1" class="table table-striped">
+                <thead>
+                    <tr>
+                        <td rowspan="2"></td>
+                        <td colspan="2" style="font-weight:bold" align="center">Selected Area</td>
+                        <td colspan="2" style="font-weight:bold" align="center">New York City</td>
+                        <td colspan="2" style="font-weight:bold" align="center">Difference</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:bold" align="right">Number</td>
+                        <td style="font-weight:bold" align="right">Percent</td>
+                        <td style="font-weight:bold" align="right">Number</td>
+                        <td style="font-weight:bold" align="right">Percent</td>
+                        <td style="font-weight:bold" align="right">Number</td>
+                        <td style="font-weight:bold" align="right">Pctg. Pt.</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Total Civilian Noninstitutionalized Population</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0070E)</td>
+                        <td align="right">100%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0070E)</td>
+                        <td align="right">100%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0070E - Model.NewYorkCity.DP02_0070E))</td>
+                        <td align="right">0.0</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:20px;">With a disability</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0071E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0071E.Value) / Model.SelectedArea.DP02_0070E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0071E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0071E.Value) / Model.NewYorkCity.DP02_0070E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0071E - Model.NewYorkCity.DP02_0071E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0071E.Value) / Model.SelectedArea.DP02_0070E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0071E.Value) / Model.NewYorkCity.DP02_0070E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td>18 to 64 years</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0074E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0074E.Value) / Model.SelectedArea.DP02_0070E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0074E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0074E.Value) / Model.NewYorkCity.DP02_0070E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0074E - Model.NewYorkCity.DP02_0074E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0074E.Value) / Model.SelectedArea.DP02_0070E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0074E.Value) / Model.NewYorkCity.DP02_0070E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:20px;">With a disability</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0075E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0075E.Value) / Model.SelectedArea.DP02_0070E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0075E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0075E.Value) / Model.NewYorkCity.DP02_0070E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0075E - Model.NewYorkCity.DP02_0075E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0075E.Value) / Model.SelectedArea.DP02_0070E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0075E.Value) / Model.NewYorkCity.DP02_0070E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td>65 years and over</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0076E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0076E.Value) / Model.SelectedArea.DP02_0070E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0076E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0076E.Value) / Model.NewYorkCity.DP02_0070E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0076E - Model.NewYorkCity.DP02_0076E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0076E.Value) / Model.SelectedArea.DP02_0070E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0076E.Value) / Model.NewYorkCity.DP02_0070E.Value, 1), 1)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h2>Residence 1 Year Ago</h2>
+            <table width="100%" border="1" class="table table-striped">
+                <thead>
+                    <tr>
+                        <td rowspan="2"></td>
+                        <td colspan="2" style="font-weight:bold" align="center">Selected Area</td>
+                        <td colspan="2" style="font-weight:bold" align="center">New York City</td>
+                        <td colspan="2" style="font-weight:bold" align="center">Difference</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:bold" align="right">Number</td>
+                        <td style="font-weight:bold" align="right">Percent</td>
+                        <td style="font-weight:bold" align="right">Number</td>
+                        <td style="font-weight:bold" align="right">Percent</td>
+                        <td style="font-weight:bold" align="right">Number</td>
+                        <td style="font-weight:bold" align="right">Pctg. Pt.</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Population 1 year and over</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0078E)</td>
+                        <td align="right">100%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0078E)</td>
+                        <td align="right">100%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0078E - Model.NewYorkCity.DP02_0078E))</td>
+                        <td align="right">0.0</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:20px;">Same house</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0079E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0079E.Value) / Model.SelectedArea.DP02_0078E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0079E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0079E.Value) / Model.NewYorkCity.DP02_0078E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0079E - Model.NewYorkCity.DP02_0079E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0079E.Value) / Model.SelectedArea.DP02_0078E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0079E.Value) / Model.NewYorkCity.DP02_0078E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:20px;">Different house in the U.S.</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0080E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0080E.Value) / Model.SelectedArea.DP02_0078E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0080E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0080E.Value) / Model.NewYorkCity.DP02_0078E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0080E - Model.NewYorkCity.DP02_0080E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0080E.Value) / Model.SelectedArea.DP02_0078E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0080E.Value) / Model.NewYorkCity.DP02_0078E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:40px;">Same county</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0081E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0081E.Value) / Model.SelectedArea.DP02_0078E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0081E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0081E.Value) / Model.NewYorkCity.DP02_0078E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0081E - Model.NewYorkCity.DP02_0081E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0081E.Value) / Model.SelectedArea.DP02_0078E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0081E.Value) / Model.NewYorkCity.DP02_0078E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:40px;">Different county</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0082E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0082E.Value) / Model.SelectedArea.DP02_0078E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0082E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0082E.Value) / Model.NewYorkCity.DP02_0078E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0082E - Model.NewYorkCity.DP02_0082E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0082E.Value) / Model.SelectedArea.DP02_0078E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0082E.Value) / Model.NewYorkCity.DP02_0078E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:60px;">Same state</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0083E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0083E.Value) / Model.SelectedArea.DP02_0078E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0083E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0083E.Value) / Model.NewYorkCity.DP02_0078E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0083E - Model.NewYorkCity.DP02_0083E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0083E.Value) / Model.SelectedArea.DP02_0078E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0083E.Value) / Model.NewYorkCity.DP02_0078E.Value, 1), 1)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:60px;">Different state</td>
+                        <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP02_0084E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP02_0084E.Value) / Model.SelectedArea.DP02_0078E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP02_0084E)</td>
+                        <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP02_0084E.Value) / Model.NewYorkCity.DP02_0078E.Value, 1)%</td>
+                        <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP02_0084E - Model.NewYorkCity.DP02_0084E))</td>
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP02_0084E.Value) / Model.SelectedArea.DP02_0078E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP02_0084E.Value) / Model.NewYorkCity.DP02_0078E.Value, 1), 1)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <div id="tabsConsumerProfiles-3" style="padding-top: 0px">
+        </div>
+        <div id="tabsConsumerProfiles-4" style="padding-top: 0px">
+        </div>
+    </div>

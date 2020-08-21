@@ -145,6 +145,31 @@ input[type=text] {
     border-top: none !important;
 }
 
+.classSelectButtons {
+    border: 1px solid #759dc0;
+    padding: 2px 4px 4px 4px;
+    color: #000000;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+    background-repeat: repeat-x;
+    background-image: linear-gradient(#ffffff 0px, rgba(255, 255, 255, 0) 3px, rgba(255, 255, 255, 0.75) 100%);
+    width: 82px;
+    margin-bottom: 7px;
+}
+
+.classSelectButtonsActive {
+    border: 1px dotted #759dc0;
+    padding: 2px 4px 4px 4px;
+    color: #000000;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+    background-repeat: repeat-x;
+    background-image: linear-gradient(#ffffff 0px, rgba(255, 255, 255, 0) 3px, rgba(255, 255, 255, 0.75) 100%);
+    width: 82px;
+    margin-bottom: 7px;
+    margin-left: -1px;
+}
+
 /*.ui-tabs-vertical {
     width: 55em;
 }

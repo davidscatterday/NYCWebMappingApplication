@@ -2,8 +2,10 @@
     ViewBag.Title = "Home Page";
 }
 <script>
+    NYCbasemapUrl = "@(System.Configuration.ConfigurationManager.AppSettings["NYCbasemapUrl"])";
     MapPlutoUrl = "@(System.Configuration.ConfigurationManager.AppSettings["MapPlutoUrl"])";
     DistrictsUrl = "@(System.Configuration.ConfigurationManager.AppSettings["DistrictsUrl"])";
+    CensusTractsUrl = "@(System.Configuration.ConfigurationManager.AppSettings["CensusTractsUrl"])";
     $(function () {
         $(".leftcolumn").resizable(
             {
@@ -30,8 +32,9 @@
     <div class="col-md-3 leftcolumn" style="height: 100%; margin-top: 12px; overflow: auto; overflow-x: hidden">
         <div id="tabs">
             <ul>
-                <li><a href="#tabs-1">Custom Profile</a></li>
-                <li><a href="#tabs-2">Look-a-Like Properties</a></li>
+                <li><a href="#tabs-1" style="font-size: 10px;">Custom Profile</a></li>
+                <li><a href="#tabs-2" style="font-size: 10px;">Look-a-Like Properties</a></li>
+                <li><a href="#tabs-3" style="font-size: 10px;">Consumer Profile</a></li>
             </ul>
             <div id="tabs-1" style="padding-top: 0px">
                 <form class="form-horizontal" style="margin-top: 10px">
@@ -1022,11 +1025,43 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-12" id="divLookaLikeBbl">
-                            <input type="text" id="txtLookaLikeBbl" placeholder="Select BBL" onchange="txtLookaLikeBbl_Change(this)"/>
+                            <input type="text" id="txtLookaLikeBbl" placeholder="Select BBL" onchange="txtLookaLikeBbl_Change(this)" />
                         </div>
                         <div class="col-sm-12" id="divLookaLikeAddress" style="display: none">
-                            <input type="text" id="txtLookaLikeAddress" placeholder="Select Address" onchange="txtLookaLikeAddress_Change(this)"/>
+                            <input type="text" id="txtLookaLikeAddress" placeholder="Select Address" onchange="txtLookaLikeAddress_Change(this)" />
                         </div>
+                    </div>
+                </form>
+            </div>
+            <div id="tabs-3">
+                <form class="form-horizontal" style="margin-top: 10px">
+                    <div class="col-sm-12">
+                        <label for="cbCensusTracts">
+                            <input id="cbCensusTracts" type="checkbox" onchange="cbCensusTracts_Change(this)">Census Tracts
+                        </label>
+                    </div>
+                    <div class="form-group" id="divSearchByGeometry" style="margin-left: 0px">
+                        <a id="btnSelectByPoint" class="btn btn-small classSelectButtons" onclick="activateSelectionTool('Point',this)">
+                            <img src="~/Images/DrawTools/DrawPoint.png" title="Point" class="drawTolbarButtons" /></br>Point
+                        </a>
+                        <a id="btnSelectByMultiPoint" class="btn btn-small classSelectButtons" onclick="activateSelectionTool('Multi_Point',this)">
+                            <img src="~/Images/DrawTools/DrawPoint.png" title="Point" class="drawTolbarButtons" /></br>MultiPoint
+                        </a>
+                        <a id="btnSelectByPolyline" class="btn btn-small classSelectButtons" onclick="activateSelectionTool('Polyline',this)">
+                            <img src="~/Images/DrawTools/DrawPolyline.png" title="Polyline" class="drawTolbarButtons" /></br>Polyline
+                        </a>
+                        <a id="btnSelectByPolygon" class="btn btn-small classSelectButtons" onclick="activateSelectionTool('Polygon',this)">
+                            <img src="~/Images/DrawTools/DrawPolygon.png" title="Polygon" class="drawTolbarButtons" /></br>Polygon
+                        </a>
+                        <a id="btnSelectByFreehandPolyline" class="btn btn-small classSelectButtons" onclick="activateSelectionTool('Freehand_Polyline',this)">
+                            <img src="~/Images/DrawTools/DrawFreehandPolyline.png" title="Freehand Polyline" class="drawTolbarButtons" /></br>Freehand
+                        </a>
+                        <a id="btnSelectByRectangle" class="btn btn-small classSelectButtons" onclick="activateSelectionTool('Rectangle',this)">
+                            <img src="~/Images/DrawTools/DrawRectangle.png" title="Ellipse" class="drawTolbarButtons" /></br>Rectangle
+                        </a>
+                    </div>
+                    <div id="divResultButton">
+                        @*<button type="button" class="btn btn-primary btn-lg btn-block">Block level button</button>*@
                     </div>
                 </form>
             </div>

@@ -975,7 +975,7 @@ function btnSearch() {
             else {
                 whereClause += " AND p.CD IN (" + District + ")";
             }
-            SearchGeometry("DISTRICTCODE IN ('" + District + "')");
+            SearchGeometry("DISTRICTCODE IN (" + District + ")");
         }
     }
     var selectedAgingStatus = ddlAgingStatus.options[ddlAgingStatus.selectedIndex].value;
@@ -1896,6 +1896,7 @@ $(function () {
 
 $(document).ready(function () {
     $("#tabs").tabs();
+    $("#tabsConsumerProfiles").tabs();
     $.ajax({
         url: RootUrl + 'Home/GetMyAlerts',
         type: "POST",
@@ -2206,4 +2207,56 @@ function uncheckBuildingClass() {
         var name = lstBuildingClass[i];
         document.getElementById(name).checked = false;
     }
+}
+
+function cbCensusTracts_Change(evt) {
+    if (evt.checked) {
+        censusTractsFeatures.setVisibility(true);
+    }
+    else {
+        censusTractsFeatures.setVisibility(false);
+    }
+}
+
+function activateSelectionTool(tool, bth) {
+    resetAllSelectionTools();
+    $(bth).removeClass('classSelectButtons');
+    $(bth).addClass('classSelectButtonsActive');
+    selectionToolbar.activate(esri.toolbars.Draw[tool.toUpperCase()]);
+    map.setInfoWindowOnClick(false);
+}
+
+function resetAllSelectionTools() {
+    document.getElementById("btnSelectByPoint").className = " btn btn-small classSelectButtons";
+    document.getElementById("btnSelectByMultiPoint").className = " btn btn-small classSelectButtons";
+    document.getElementById("btnSelectByPolyline").className = " btn btn-small classSelectButtons";
+    document.getElementById("btnSelectByPolygon").className = " btn btn-small classSelectButtons";
+    document.getElementById("btnSelectByFreehandPolyline").className = " btn btn-small classSelectButtons";
+    document.getElementById("btnSelectByRectangle").className = " btn btn-small classSelectButtons";
+}
+
+function btnTractResult() {
+    var commaSeparatedTracts = "", boroughCode = "";;
+    for (var i = 0, il = selectionLayer.graphics.length; i < il; i++) {
+        var graphic = selectionLayer.graphics[i];
+        switch (graphic.attributes.BoroName) {
+            case "Bronx": boroughCode = "005"; break
+            case "Brooklyn": boroughCode = "047"; break
+            case "Manhattan": boroughCode = "061"; break
+            case "Queens": boroughCode = "081"; break
+            case "Staten Island": boroughCode = "085"; break
+            default: return
+        }
+        if (commaSeparatedTracts == "") {
+            commaSeparatedTracts += graphic.attributes.CT2010 + ":" + boroughCode;
+        }
+        else {
+            commaSeparatedTracts += "," + graphic.attributes.CT2010 + ":" + boroughCode;
+        }
+    }
+    window.open(
+        RootUrl + "ConsumerProfiles/Preview?tracts=" + commaSeparatedTracts,
+        '_blank' // <- This is what makes it open in a new window.
+    );
+    var pom = selectionLayer;
 }

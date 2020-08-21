@@ -162,6 +162,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ConsumerProfilesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MyReportsController.cs" />
     <Compile Include="DataAccessLayer\MainDAL.cs" />
@@ -169,6 +170,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\GlobalVariables.cs" />
     <Compile Include="Models\DataModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -287,6 +289,11 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DataModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Content Include="Images\DrawTools\DrawFreehandPolyline.png" />
+    <Content Include="Images\DrawTools\DrawPoint.png" />
+    <Content Include="Images\DrawTools\DrawPolygon.png" />
+    <Content Include="Images\DrawTools\DrawPolyline.png" />
+    <Content Include="Images\DrawTools\DrawRectangle.png" />
     <Content Include="Images\favicon.png" />
     <Content Include="Images\i_logout.png" />
     <Content Include="Images\i_saved_reports.png" />
@@ -362,6 +369,8 @@
     <Content Include="Views\Shared\_GridPager.cshtml" />
     <Content Include="Views\Shared\_Grid.cshtml" />
     <Content Include="Views\Shared\_EmptyLayout.cshtml" />
+    <Content Include="Views\ConsumerProfiles\Preview.cshtml" />
+    <Content Include="Views\Shared\_LayoutPages.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
