@@ -24,7 +24,7 @@ namespace NYCMappingWebApp.Controllers
             string selectStatement = "";
             foreach (string variable in GlobalVariables.ConsumerProfilesVariables.Split(','))
             {
-                if (variable.EndsWith("PE") || variable == "DP05_0004E")
+                if (variable.EndsWith("PE") || variable == "DP05_0004E" || variable == "DP03_0063E" || variable == "DP03_0069E" || variable == "DP03_0071E" || variable == "DP03_0073E" || variable == "DP04_0037E" || variable == "DP04_0101E")
                 {
                     selectStatement += "ROUND(avg(" + variable + "),1) as " + variable + ",";
                 }
@@ -43,34 +43,34 @@ namespace NYCMappingWebApp.Controllers
                 sqlQuery += "(Tract = '" + splitByItem[0] + "' AND County = '" + splitByItem[1] + "') OR ";
                 switch (splitByItem[1])
                 {
-                    case ("005"):lstBronxTracts.Add(splitByItem[0]);break;
-                    case ("047"): lstBrooklinTracts.Add(splitByItem[0]); break;
-                    case ("061"): lstManhattanTracts.Add(splitByItem[0]); break;
-                    case ("081"): lstQueensTracts.Add(splitByItem[0]); break;
-                    case ("085"): lstStatenIslandTracts.Add(splitByItem[0]); break;
+                    case ("005"): lstBronxTracts.Add(splitByItem[0].Substring(1, splitByItem[0].Length - 3)); break;
+                    case ("047"): lstBrooklinTracts.Add(splitByItem[0].Substring(1, splitByItem[0].Length - 3)); break;
+                    case ("061"): lstManhattanTracts.Add(splitByItem[0].Substring(1, splitByItem[0].Length - 3)); break;
+                    case ("081"): lstQueensTracts.Add(splitByItem[0].Substring(1, splitByItem[0].Length - 3)); break;
+                    case ("085"): lstStatenIslandTracts.Add(splitByItem[0].Substring(1, splitByItem[0].Length - 3)); break;
                     default: break;
                 }
             }
-            string headerMessage = "<b>"+splitByTract.Count() + " Census Tracts<b>";
+            string headerMessage = "<b>" + splitByTract.Count() + " Census Tracts<b>";
             if (lstBronxTracts.Count > 0)
             {
-                headerMessage += "<br/><b>Bronx:</b> " + string.Join(",", lstBronxTracts);
+                headerMessage += "<br/><b>Bronx:</b> " + string.Join(", ", lstBronxTracts.OrderBy(x => int.Parse(x)));
             }
             if (lstBrooklinTracts.Count > 0)
             {
-                headerMessage += "<br/><b>Brooklin:</b> " + string.Join(",", lstBrooklinTracts);
+                headerMessage += "<br/><b>Brooklin:</b> " + string.Join(", ", lstBrooklinTracts.OrderBy(x => int.Parse(x)));
             }
             if (lstManhattanTracts.Count > 0)
             {
-                headerMessage += "<br/><b>Manhattan:</b> " + string.Join(",", lstManhattanTracts);
+                headerMessage += "<br/><b>Manhattan:</b> " + string.Join(", ", lstManhattanTracts.OrderBy(x => int.Parse(x)));
             }
             if (lstQueensTracts.Count > 0)
             {
-                headerMessage += "<br/><b>Queens:</b> " + string.Join(",", lstQueensTracts);
+                headerMessage += "<br/><b>Queens:</b> " + string.Join(", ", lstQueensTracts.OrderBy(x => int.Parse(x)));
             }
             if (lstStatenIslandTracts.Count > 0)
             {
-                headerMessage += "<br/><b>Staten Island:</b> " + string.Join(",", lstStatenIslandTracts);
+                headerMessage += "<br/><b>Staten Island:</b> " + string.Join(", ", lstStatenIslandTracts.OrderBy(x => int.Parse(x)));
             }
             TempData["HeaderMessage"] = headerMessage;
             sqlQuery = sqlQuery.Substring(0, sqlQuery.Length - 3);
