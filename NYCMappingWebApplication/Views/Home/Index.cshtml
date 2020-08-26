@@ -1060,8 +1060,10 @@
                             <img src="~/Images/DrawTools/DrawRectangle.png" title="Ellipse" class="drawTolbarButtons" /></br>Rectangle
                         </a>
                     </div>
+                    <div class="form-group" style="margin-left: 0px; margin-right: 0px;" id="divCensusTracts11Digit">
+                        <input type="text" id="txtCensusTracts11Digit" placeholder="Select Tract" onchange="txtCensusTracts11Digit_Change(this)" />
+                    </div>
                     <div id="divResultButton">
-                        @*<button type="button" class="btn btn-primary btn-lg btn-block">Block level button</button>*@
                     </div>
                 </form>
             </div>
@@ -1323,7 +1325,7 @@
                 };
             }
         }
-    });
+    }); 
     $("#txtLookaLikeAddress").select2({
         minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
         width: '100%',   // to adjust proper width of select2 wrapped elements
@@ -1341,6 +1343,27 @@
             results: function (data, page) {
                 return {
                     results: data.AddressList,
+                };
+            }
+        }
+    });
+    $("#txtCensusTracts11Digit").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: false,
+        ajax: {
+            url: RootUrl + 'Home/GetCensusTracts11Digit',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.DataList,
                 };
             }
         }

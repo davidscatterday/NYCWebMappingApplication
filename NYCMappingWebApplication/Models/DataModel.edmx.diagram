@@ -10,6 +10,7 @@
         <EntityTypeShape EntityType="NYC_Web_Mapping_AppModel.Pluto" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="NYC_Web_Mapping_AppModel.Elevator" Width="1.5" PointX="0.75" PointY="6.75" />
         <EntityTypeShape EntityType="NYC_Web_Mapping_AppModel.MyAlert" Width="1.5" PointX="3.375" PointY="6.75" />
+        <EntityTypeShape EntityType="NYC_Web_Mapping_AppModel.ConsumerProfile" Width="1.5" PointX="5.375" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

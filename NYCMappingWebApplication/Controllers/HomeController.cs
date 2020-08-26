@@ -80,6 +80,12 @@ namespace NYCMappingWebApp.Controllers
             return Json(new { AddressList }, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetCensusTracts11Digit(string term)
+        {
+            var DataList = mainDAL.GetCensusTracts11Digit(term);
+            return Json(new { DataList }, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult SearchLookaLikeByBBL(string bbl)
         {
             ReturnLookaLike data = mainDAL.SearchLookaLikeByBBL(bbl);

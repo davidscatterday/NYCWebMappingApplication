@@ -269,7 +269,7 @@ function btnReset() {
     $("#slider-range-ResidentialUnits").slider("values", 0, 0);
     $("#slider-range-ResidentialUnits").slider("values", 1, maxResidentialUnits);
     $("#txtResidentialUnits").val($("#slider-range-ResidentialUnits").slider("values", 0) + " - " + $("#slider-range-ResidentialUnits").slider("values", 1).toLocaleString('en'));
-    
+
     document.getElementById("cbZoningDistrict").checked = false;
     document.getElementById("cbCommercialOverlay").checked = false;
     document.getElementById("cbAssessedTotalValue").checked = false;
@@ -422,7 +422,7 @@ function btnReset() {
     $("#ddlElevatorDeviceType").val($("#ddlElevatorDeviceType option:first").val());
     $("#ddlFilingType").val($("#ddlFilingType option:first").val());
     $("#ddlFilingStatus").val($("#ddlFilingStatus option:first").val());
-    
+
     document.getElementById("cbSaleDate").checked = false;
     document.getElementById("txtSaleDateFrom").value = "";
     document.getElementById("txtSaleDateTo").value = "";
@@ -1241,7 +1241,7 @@ function btnSearch() {
         }
 
     }
-    
+
     var selectedElevatorDeviceType = ddlElevatorDeviceType.options[ddlElevatorDeviceType.selectedIndex].value;
     var selectedFilingType = ddlFilingType.options[ddlFilingType.selectedIndex].value;
     var selectedFilingStatus = ddlFilingStatus.options[ddlFilingStatus.selectedIndex].value;
@@ -2259,4 +2259,64 @@ function btnTractResult() {
         '_blank' // <- This is what makes it open in a new window.
     );
     var pom = selectionLayer;
+}
+
+function txtCensusTracts11Digit_Change(evt) {
+    selectionLayer.clear();
+    var state = evt.value.substring(0, 3);
+    var tract = evt.value.substring(3, 9);
+    var BoroCT2010;
+    switch (state) {
+        case "005": BoroCT2010 = 2 + tract; break
+        case "047": BoroCT2010 = 3 + tract; break
+        case "061": BoroCT2010 = 1 + tract; break
+        case "081": BoroCT2010 = 4 + tract; break
+        case "085": BoroCT2010 = 5 + tract; break
+        default: return
+    }
+    var queryTask = new esri.tasks.QueryTask(CensusTractsUrl);
+    var query = new esri.tasks.Query();
+    query.where = "BoroCT2010='" + BoroCT2010 + "'";
+    query.returnGeometry = true;
+    query.outFields = ["*"];
+    queryTask.execute(query, function (featureSet) {
+        //Performance enhancer - assign featureSet array to a single variable.
+        var resultFeatures = featureSet.features;
+        if (resultFeatures.length > 0) {
+            //Loop through each feature returned
+            for (var i = 0, il = resultFeatures.length; i < il; i++) {
+                //Feature is a graphic
+                var graphic = resultFeatures[i];
+                switch (graphic.geometry.type) {
+                    case "point":
+                    case "multipoint":
+                        graphic.setSymbol(selectionSymbolPoint);
+                        break;
+                    case "polyline":
+                        graphic.setSymbol(selectionSymbolLine);
+                        break;
+                    default:
+                        graphic.setSymbol(selectionSymbolFill);
+                        break;
+                }
+                selectionLayer.add(graphic);
+            }
+            var spatialRef = new esri.SpatialReference({ wkid: 102718 });
+            var zoomExtent = new esri.geometry.Extent();
+            zoomExtent.spatialReference = spatialRef;
+            zoomExtent.xmin = esri.graphicsExtent(selectionLayer.graphics).xmin - 1000;
+            zoomExtent.ymin = esri.graphicsExtent(selectionLayer.graphics).ymin - 1000;
+            zoomExtent.xmax = esri.graphicsExtent(selectionLayer.graphics).xmax + 1000;
+            zoomExtent.ymax = esri.graphicsExtent(selectionLayer.graphics).ymax + 1000;
+            map.setExtent(zoomExtent);
+            $('#divResultButton').text('');
+            var htmlDataResultButton = "<button type='button' class='btn btn-primary btn-lg btn-block' onclick='btnTractResult()'>View Profile " + resultFeatures.length + " Tracts</button>";
+            $('#divResultButton').append(htmlDataResultButton);
+        }
+        else {
+            $('#divResultButton').text('');
+        }
+    }, function (error) {
+        console.log(error);
+    });
 }

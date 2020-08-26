@@ -30,5 +30,6 @@ namespace NYCMappingWebApp.Models
         public virtual DbSet<Pluto> Plutoes { get; set; }
         public virtual DbSet<Elevator> Elevators { get; set; }
         public virtual DbSet<MyAlert> MyAlerts { get; set; }
+        public virtual DbSet<ConsumerProfile> ConsumerProfiles { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿var selectionLayer, districtLayer;
+﻿var selectionLayer, districtLayer, selectionSymbolPoint, selectionSymbolLine, selectionSymbolFill;
 require(["esri/map", "dojo/parser", "esri/layers/FeatureLayer", "esri/config", "esri/symbols/SimpleMarkerSymbol", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol", "dojo/_base/array"
     , "esri/graphic", "esri/basemaps", "esri/InfoTemplate", "esri/layers/GraphicsLayer", "esri/tasks/QueryTask", "esri/tasks/query", "esri/toolbars/draw"
 ], function (Map, parser, FeatureLayer, esriConfig, SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, arrayUtils
@@ -19,9 +19,9 @@ require(["esri/map", "dojo/parser", "esri/layers/FeatureLayer", "esri/config", "
     symbolZoomedFill.setColor(new dojo.Color([158, 188, 218, 0.5]));
 
     //create symbols for selected features
-    var selectionSymbolPoint = new SimpleMarkerSymbol().setColor(new dojo.Color([51, 255, 204, 0.5])).setSize(8);
-    var selectionSymbolLine = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new dojo.Color([51, 255, 204, 0.5]), 3);
-    var selectionSymbolFill = new SimpleFillSymbol().setColor(new dojo.Color([51, 255, 204, 0.5]));
+    selectionSymbolPoint = new SimpleMarkerSymbol().setColor(new dojo.Color([51, 255, 204, 0.5])).setSize(8);
+    selectionSymbolLine = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new dojo.Color([51, 255, 204, 0.5]), 3);
+    selectionSymbolFill = new SimpleFillSymbol().setColor(new dojo.Color([51, 255, 204, 0.5]));
 
     //xmin   //ymin    //xmax    //ymax
     //initExtent = new esri.geometry.Extent(-8276983.607858135, 4935156.731231112, -8169207.3979761815, 5005402.3602250945,
@@ -77,8 +77,6 @@ require(["esri/map", "dojo/parser", "esri/layers/FeatureLayer", "esri/config", "
         query.returnGeometry = true;
         query.outFields = ["*"];
         queryTask.execute(query, function (featureSet) {
-            $('#divSelectionsTable').text('');
-            $('#divSelectionsMessage').hide();
             //Performance enhancer - assign featureSet array to a single variable.
             var resultFeatures = featureSet.features;
             if (resultFeatures.length > 0) {

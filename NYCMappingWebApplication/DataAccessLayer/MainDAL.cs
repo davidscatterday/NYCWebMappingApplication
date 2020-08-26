@@ -190,7 +190,7 @@ namespace NYCMappingWebApp.DataAccessLayer
                             }).OrderBy(w => w.Text).Distinct().ToList();
             return returnResult;
         }
-        
+
         public List<SelectListItem> GetAllYesNoStatuses()
         {
             List<SelectListItem> returnResult = new List<SelectListItem>();
@@ -379,6 +379,20 @@ namespace NYCMappingWebApp.DataAccessLayer
                             }).Take(30).ToList();
             return returnResult;
         }
+
+        public List<Select2DTO> GetCensusTracts11Digit(string term)
+        {
+            List<Select2DTO> returnResult = new List<Select2DTO>();
+            returnResult = (from d in db.ConsumerProfiles
+                            where (d.State + d.County + d.Tract).Contains(term)
+                            select new Select2DTO()
+                            {
+                                id = d.County + d.Tract,
+                                text = d.State + d.County + d.Tract
+                            }).Take(30).ToList();
+            return returnResult;
+        }
+
         public ReturnLookaLike SearchLookaLikeByBBL(string bbl)
         {
             ReturnLookaLike result = new ReturnLookaLike();
