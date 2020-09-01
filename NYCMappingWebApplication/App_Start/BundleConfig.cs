@@ -26,6 +26,7 @@ namespace NYCMappingWebApp
 
             bundles.Add(new ScriptBundle("~/bundles/customJs").Include(
                         "~/Scripts/otherFunctions.js",
+                        "~/Scripts/consumerProfiles.js",
                         "~/Scripts/gridmvc.js",
                         "~/Scripts/select2-3.5.2.js",
                         "~/Scripts/gisFunctions.js"));

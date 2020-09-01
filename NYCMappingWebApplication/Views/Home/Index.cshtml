@@ -29,7 +29,7 @@
     });
 </script>
 <div class="row" style="margin:0px; height: 100%">
-    <div class="col-md-3 leftcolumn" style="height: 100%; margin-top: 12px; overflow: auto; overflow-x: hidden">
+    <div class="col-md-4 leftcolumn" style="height: 100%; margin-top: 12px; overflow: auto; overflow-x: hidden;">
         <div id="tabs">
             <ul>
                 <li><a href="#tabs-1" style="font-size: 10px;">Custom Profile</a></li>
@@ -1035,41 +1035,12 @@
             </div>
             <div id="tabs-3">
                 <form class="form-horizontal" style="margin-top: 10px">
-                    <div class="col-sm-12">
-                        <label for="cbCensusTracts">
-                            <input id="cbCensusTracts" type="checkbox" onchange="cbCensusTracts_Change(this)">Census Tracts
-                        </label>
-                    </div>
-                    <div class="form-group" id="divSearchByGeometry" style="margin-left: 0px">
-                        <a id="btnSelectByPoint" class="btn btn-small classSelectButtons" onclick="activateSelectionTool('Point',this)">
-                            <img src="~/Images/DrawTools/DrawPoint.png" title="Point" class="drawTolbarButtons" /></br>Point
-                        </a>
-                        <a id="btnSelectByMultiPoint" class="btn btn-small classSelectButtons" onclick="activateSelectionTool('Multi_Point',this)">
-                            <img src="~/Images/DrawTools/DrawPoint.png" title="Point" class="drawTolbarButtons" /></br>MultiPoint
-                        </a>
-                        <a id="btnSelectByPolyline" class="btn btn-small classSelectButtons" onclick="activateSelectionTool('Polyline',this)">
-                            <img src="~/Images/DrawTools/DrawPolyline.png" title="Polyline" class="drawTolbarButtons" /></br>Polyline
-                        </a>
-                        <a id="btnSelectByPolygon" class="btn btn-small classSelectButtons" onclick="activateSelectionTool('Polygon',this)">
-                            <img src="~/Images/DrawTools/DrawPolygon.png" title="Polygon" class="drawTolbarButtons" /></br>Polygon
-                        </a>
-                        <a id="btnSelectByFreehandPolyline" class="btn btn-small classSelectButtons" onclick="activateSelectionTool('Freehand_Polyline',this)">
-                            <img src="~/Images/DrawTools/DrawFreehandPolyline.png" title="Freehand Polyline" class="drawTolbarButtons" /></br>Freehand
-                        </a>
-                        <a id="btnSelectByRectangle" class="btn btn-small classSelectButtons" onclick="activateSelectionTool('Rectangle',this)">
-                            <img src="~/Images/DrawTools/DrawRectangle.png" title="Ellipse" class="drawTolbarButtons" /></br>Rectangle
-                        </a>
-                    </div>
-                    <div class="form-group" style="margin-left: 0px; margin-right: 0px;" id="divCensusTracts11Digit">
-                        <input type="text" id="txtCensusTracts11Digit" placeholder="Select Tract" onchange="txtCensusTracts11Digit_Change(this)" />
-                    </div>
-                    <div id="divResultButton">
-                    </div>
+                    @Html.Partial("_ConsumerProfile")
                 </form>
             </div>
         </div>
     </div>
-    <div class="col-md-9" style="height: 100%; padding-right: 0px;padding-left: 0px;">
+    <div class="col-md-8" style="height: 100%; padding-right: 0px;padding-left: 0px;">
         <div id="mapDiv" style="height: 100%">
         </div>
         <a href="javascript:void(0);" class="slider-bottom-arrow showBottomPanel">&ReverseUpEquilibrium;</a>
@@ -1325,7 +1296,7 @@
                 };
             }
         }
-    }); 
+    });
     $("#txtLookaLikeAddress").select2({
         minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
         width: '100%',   // to adjust proper width of select2 wrapped elements
@@ -1364,6 +1335,48 @@
             results: function (data, page) {
                 return {
                     results: data.DataList,
+                };
+            }
+        }
+    });
+    $("#txtBoroughsCP").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetBoroughs',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.BoroughsList,
+                };
+            }
+        }
+    });
+    $("#txtDistrictsCP").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetDistricts',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.DistrictsList,
                 };
             }
         }

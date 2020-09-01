@@ -541,5 +541,15 @@ namespace NYCMappingWebApp.DataAccessLayer
             return returnResult;
         }
 
+        public List<ConsumerProfiles> SearchConsumerProfilesDatabaseList(string sqlQuery)
+        {
+            List<ConsumerProfiles> returnResult = new List<ConsumerProfiles>();
+            using (var ctx = new NYC_Web_Mapping_AppEntities())
+            {
+                returnResult = ctx.Database.SqlQuery<ConsumerProfiles>(sqlQuery).ToList();
+            }
+            return returnResult;
+        }
+
     }
 }

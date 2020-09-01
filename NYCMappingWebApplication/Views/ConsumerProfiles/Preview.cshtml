@@ -1002,11 +1002,25 @@
                 <tr>
                     <td>Mean retirement income (dollars)</td>
                     <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP03_0069E)</td>
-                    <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP03_0069E.Value) / Model.SelectedArea.DP03_0051E.Value, 1)%</td>
+                    @if (Model.SelectedArea.DP03_0069E.HasValue)
+                    {
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP03_0069E.Value) / Model.SelectedArea.DP03_0051E.Value, 1)%</td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
                     <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP03_0069E)</td>
                     <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP03_0069E.Value) / Model.NewYorkCity.DP03_0051E.Value, 1)%</td>
                     <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP03_0069E - Model.NewYorkCity.DP03_0069E))</td>
-                    <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP03_0069E.Value) / Model.SelectedArea.DP03_0051E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP03_0069E.Value) / Model.NewYorkCity.DP03_0051E.Value, 1), 1)</td>
+                    @if (Model.SelectedArea.DP03_0069E.HasValue)
+                    {
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP03_0069E.Value) / Model.SelectedArea.DP03_0051E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP03_0069E.Value) / Model.NewYorkCity.DP03_0051E.Value, 1), 1)</td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
                 </tr>
                 <tr>
                     <td>With Supplemental Security Income</td>
@@ -1020,11 +1034,25 @@
                 <tr>
                     <td>Mean Supplemental Security Income (dollars)</td>
                     <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP03_0071E)</td>
-                    <td align="right">@Model.SelectedArea.DP03_0071E.HasValue ? Math.Round((double)(100 * Model.SelectedArea.DP03_0071E.Value) / Model.SelectedArea.DP03_0051E.Value, 1)% : ""</td>
+                    @if (Model.SelectedArea.DP03_0071E.HasValue)
+                    {
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP03_0071E.Value) / Model.SelectedArea.DP03_0051E.Value, 1)%</td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
                     <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP03_0071E)</td>
                     <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP03_0071E.Value) / Model.NewYorkCity.DP03_0051E.Value, 1)%</td>
                     <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP03_0071E - Model.NewYorkCity.DP03_0071E))</td>
-                    <td align="right">@Model.SelectedArea.DP03_0071E.HasValue ? Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP03_0071E.Value) / Model.SelectedArea.DP03_0051E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP03_0071E.Value) / Model.NewYorkCity.DP03_0051E.Value, 1), 1) : ""</td>
+                    @if (Model.SelectedArea.DP03_0071E.HasValue)
+                    {
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP03_0071E.Value) / Model.SelectedArea.DP03_0051E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP03_0071E.Value) / Model.NewYorkCity.DP03_0051E.Value, 1), 1)</td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
                 </tr>
                 <tr>
                     <td>With cash public assistance income</td>
@@ -1038,11 +1066,25 @@
                 <tr>
                     <td>Mean cash public assistance income (dollars)</td>
                     <td align="right">@String.Format("{0:n0}", Model.SelectedArea.DP03_0073E)</td>
-                    <td align="right">@Model.SelectedArea.DP03_0071E.HasValue ? Math.Round((double)(100 * Model.SelectedArea.DP03_0073E.Value) / Model.SelectedArea.DP03_0051E.Value, 1)% : ""</td>
+                    @if (Model.SelectedArea.DP03_0073E.HasValue)
+                    {
+                        <td align="right">@Math.Round((double)(100 * Model.SelectedArea.DP03_0073E.Value) / Model.SelectedArea.DP03_0051E.Value, 1)%</td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
                     <td align="right">@String.Format("{0:n0}", Model.NewYorkCity.DP03_0073E)</td>
                     <td align="right">@Math.Round((double)(100 * Model.NewYorkCity.DP03_0073E.Value) / Model.NewYorkCity.DP03_0051E.Value, 1)%</td>
                     <td align="right">@String.Format("{0:n0}", (Model.SelectedArea.DP03_0073E - Model.NewYorkCity.DP03_0073E))</td>
-                    <td align="right">@Model.SelectedArea.DP03_0071E.HasValue ? Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP03_0073E.Value) / Model.SelectedArea.DP03_0051E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP03_0073E.Value) / Model.NewYorkCity.DP03_0051E.Value, 1), 1) : ""</td>
+                    @if (Model.SelectedArea.DP03_0073E.HasValue)
+                    {
+                        <td align="right">@Math.Round(Math.Round((double)(100 * Model.SelectedArea.DP03_0073E.Value) / Model.SelectedArea.DP03_0051E.Value, 1) - Math.Round((double)(100 * Model.NewYorkCity.DP03_0073E.Value) / Model.NewYorkCity.DP03_0051E.Value, 1), 1)</td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
                 </tr>
             </tbody>
         </table>

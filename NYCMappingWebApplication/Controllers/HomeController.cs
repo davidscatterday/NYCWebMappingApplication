@@ -120,6 +120,18 @@ namespace NYCMappingWebApp.Controllers
             };
         }
 
+        public JsonResult SearchConsumerProfilesDatabaseList(string sqlQuery)
+        {
+            var data = mainDAL.SearchConsumerProfilesDatabaseList(sqlQuery);
+
+            return new JsonResult()
+            {
+                Data = data,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                MaxJsonLength = Int32.MaxValue
+            };
+        }
+
         public JsonResult GetMyAlerts()
         {
             var data = mainDAL.GetMyAlerts(User.Identity.Name);

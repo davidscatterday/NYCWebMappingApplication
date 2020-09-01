@@ -322,6 +322,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\consumerProfiles.js" />
     <Content Include="Scripts\gisFunctions.js" />
     <Content Include="Scripts\gridmvc.js" />
     <Content Include="Scripts\gridmvc.lang.fr.js" />
@@ -374,6 +375,7 @@
     <Content Include="Views\Shared\_EmptyLayout.cshtml" />
     <Content Include="Views\ConsumerProfiles\Preview.cshtml" />
     <Content Include="Views\Shared\_LayoutPages.cshtml" />
+    <Content Include="Views\Shared\_ConsumerProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
