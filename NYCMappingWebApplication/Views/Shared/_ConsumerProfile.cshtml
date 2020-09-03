@@ -1,4 +1,9 @@
 ﻿
+<div class="form-group" style="margin-bottom: 0px">
+    <label for="cbCensusTracts">
+        <input id="cbCensusTracts" type="checkbox" onchange="cbCensusTracts_Change(this)">Census Tracts
+    </label>
+</div>
 <div class="form-group">
     <div class="panel-group" id="accordionConsumerTracts">
         <div class="panel panel-default">
@@ -40,12 +45,13 @@
             </div>
             <div id="collapse52" class="panel-collapse collapse">
                 <div class="panel-body">
+                    <h2>Age and Sex</h2>
                     <div class="form-group">
                         <div class="col-sm-12">
                             <p id="sliderDP05_0001E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
                                 <label for="cbDP05_0001E">
                                     <input id="cbDP05_0001E" type="checkbox">Total population:
-                                    <input type="text" id="txtDP05_0001E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%">
+                                    <input type="text" id="txtDP05_0001E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
                                 </label>
                             </p>
                             <div id="slider-range-DP05_0001E"></div>
@@ -56,7 +62,7 @@
                             <p id="sliderDP05_0002E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
                                 <label for="cbDP05_0002E">
                                     <input id="cbDP05_0002E" type="checkbox">Male:
-                                    <input type="text" id="txtDP05_0002E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%">
+                                    <input type="text" id="txtDP05_0002E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
                                 </label>
                             </p>
                             <div id="slider-range-DP05_0002E"></div>
@@ -67,7 +73,7 @@
                             <p id="sliderDP05_0003E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
                                 <label for="cbDP05_0003E">
                                     <input id="cbDP05_0003E" type="checkbox">Female:
-                                    <input type="text" id="txtDP05_0003E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%">
+                                    <input type="text" id="txtDP05_0003E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
                                 </label>
                             </p>
                             <div id="slider-range-DP05_0003E"></div>
@@ -78,7 +84,7 @@
                             <p id="sliderDP05_0004E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
                                 <label for="cbDP05_0004E">
                                     <input id="cbDP05_0004E" type="checkbox">Sex ratio (males per 100 females):
-                                    <input type="text" id="txtDP05_0004E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%">
+                                    <input type="text" id="txtDP05_0004E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
                                 </label>
                             </p>
                             <div id="slider-range-DP05_0004E"></div>
@@ -89,7 +95,7 @@
                             <p id="sliderDP05_0009E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
                                 <label for="cbDP05_0009E">
                                     <input id="cbDP05_0009E" type="checkbox">20 to 24 years:
-                                    <input type="text" id="txtDP05_0009E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%">
+                                    <input type="text" id="txtDP05_0009E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
                                 </label>
                             </p>
                             <div id="slider-range-DP05_0009E"></div>
@@ -100,7 +106,7 @@
                             <p id="sliderDP05_0010E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
                                 <label for="cbDP05_0010E">
                                     <input id="cbDP05_0010E" type="checkbox">25 to 34 years:
-                                    <input type="text" id="txtDP05_0010E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%">
+                                    <input type="text" id="txtDP05_0010E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
                                 </label>
                             </p>
                             <div id="slider-range-DP05_0010E"></div>
@@ -111,7 +117,7 @@
                             <p id="sliderDP05_0011E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
                                 <label for="cbDP05_0011E">
                                     <input id="cbDP05_0011E" type="checkbox">35 to 44 years:
-                                    <input type="text" id="txtDP05_0011E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%">
+                                    <input type="text" id="txtDP05_0011E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
                                 </label>
                             </p>
                             <div id="slider-range-DP05_0011E"></div>
@@ -122,7 +128,7 @@
                             <p id="sliderDP05_0012E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
                                 <label for="cbDP05_0012E">
                                     <input id="cbDP05_0012E" type="checkbox">45 to 54 years:
-                                    <input type="text" id="txtDP05_0012E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%">
+                                    <input type="text" id="txtDP05_0012E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
                                 </label>
                             </p>
                             <div id="slider-range-DP05_0012E"></div>
@@ -133,7 +139,7 @@
                             <p id="sliderDP05_0013E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
                                 <label for="cbDP05_0013E">
                                     <input id="cbDP05_0013E" type="checkbox">55 to 59 years:
-                                    <input type="text" id="txtDP05_0013E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%">
+                                    <input type="text" id="txtDP05_0013E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
                                 </label>
                             </p>
                             <div id="slider-range-DP05_0013E"></div>
@@ -144,7 +150,7 @@
                             <p id="sliderDP05_0014E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
                                 <label for="cbDP05_0014E">
                                     <input id="cbDP05_0014E" type="checkbox">60 to 64 years:
-                                    <input type="text" id="txtDP05_0014E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%">
+                                    <input type="text" id="txtDP05_0014E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
                                 </label>
                             </p>
                             <div id="slider-range-DP05_0014E"></div>
@@ -155,7 +161,7 @@
                             <p id="sliderDP05_0015E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
                                 <label for="cbDP05_0015E">
                                     <input id="cbDP05_0015E" type="checkbox">65 to 74 years:
-                                    <input type="text" id="txtDP05_0015E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%">
+                                    <input type="text" id="txtDP05_0015E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
                                 </label>
                             </p>
                             <div id="slider-range-DP05_0015E"></div>
@@ -166,7 +172,7 @@
                             <p id="sliderDP05_0016E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
                                 <label for="cbDP05_0016E">
                                     <input id="cbDP05_0016E" type="checkbox">75 to 84 years:
-                                    <input type="text" id="txtDP05_0016E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%">
+                                    <input type="text" id="txtDP05_0016E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
                                 </label>
                             </p>
                             <div id="slider-range-DP05_0016E"></div>
@@ -191,7 +197,7 @@
                             <p id="sliderDP02_0001E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
                                 <label for="cbDP02_0001E">
                                     <input id="cbDP02_0001E" type="checkbox">Total households:
-                                    <input type="text" id="txtDP02_0001E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%">
+                                    <input type="text" id="txtDP02_0001E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
                                 </label>
                             </p>
                             <div id="slider-range-DP02_0001E"></div>
@@ -202,7 +208,7 @@
                             <p id="sliderDP02_0002E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
                                 <label for="cbDP02_0002E">
                                     <input id="cbDP02_0002E" type="checkbox">Family households (families):
-                                    <input type="text" id="txtDP02_0002E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%">
+                                    <input type="text" id="txtDP02_0002E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
                                 </label>
                             </p>
                             <div id="slider-range-DP02_0002E"></div>
@@ -213,7 +219,7 @@
                             <p id="sliderDP02_0003E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
                                 <label for="cbDP02_0003E">
                                     <input id="cbDP02_0003E" type="checkbox">With own children of the householder under 18 years:
-                                    <input type="text" id="txtDP02_0003E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%">
+                                    <input type="text" id="txtDP02_0003E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
                                 </label>
                             </p>
                             <div id="slider-range-DP02_0003E"></div>
@@ -224,7 +230,7 @@
                             <p id="sliderDP02_0006E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
                                 <label for="cbDP02_0006E">
                                     <input id="cbDP02_0006E" type="checkbox">Male householder, no wife present, family:
-                                    <input type="text" id="txtDP02_0006E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%">
+                                    <input type="text" id="txtDP02_0006E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
                                 </label>
                             </p>
                             <div id="slider-range-DP02_0006E"></div>
@@ -235,7 +241,7 @@
                             <p id="sliderDP02_0008E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
                                 <label for="cbDP02_0008E">
                                     <input id="cbDP02_0008E" type="checkbox">Female householder, no husband present, family:
-                                    <input type="text" id="txtDP02_0008E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%">
+                                    <input type="text" id="txtDP02_0008E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
                                 </label>
                             </p>
                             <div id="slider-range-DP02_0008E"></div>
@@ -246,7 +252,7 @@
                             <p id="sliderDP02_0010E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
                                 <label for="cbDP02_0010E">
                                     <input id="cbDP02_0010E" type="checkbox">Nonfamily households:
-                                    <input type="text" id="txtDP02_0010E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%">
+                                    <input type="text" id="txtDP02_0010E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
                                 </label>
                             </p>
                             <div id="slider-range-DP02_0010E"></div>
@@ -257,7 +263,7 @@
                             <p id="sliderDP02_0011E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
                                 <label for="cbDP02_0011E">
                                     <input id="cbDP02_0011E" type="checkbox">Householder living alone:
-                                    <input type="text" id="txtDP02_0011E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%">
+                                    <input type="text" id="txtDP02_0011E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
                                 </label>
                             </p>
                             <div id="slider-range-DP02_0011E"></div>
@@ -268,7 +274,7 @@
                             <p id="sliderDP02_0012E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
                                 <label for="cbDP02_0012E">
                                     <input id="cbDP02_0012E" type="checkbox">65 years and over:
-                                    <input type="text" id="txtDP02_0012E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%">
+                                    <input type="text" id="txtDP02_0012E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
                                 </label>
                             </p>
                             <div id="slider-range-DP02_0012E"></div>
@@ -280,7 +286,7 @@
                             <p id="sliderDP02_0024E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
                                 <label for="cbDP02_0024E">
                                     <input id="cbDP02_0024E" type="checkbox">Males 15 years and over:
-                                    <input type="text" id="txtDP02_0024E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%">
+                                    <input type="text" id="txtDP02_0024E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
                                 </label>
                             </p>
                             <div id="slider-range-DP02_0024E"></div>
@@ -291,7 +297,7 @@
                             <p id="sliderDP02_0025E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
                                 <label for="cbDP02_0025E">
                                     <input id="cbDP02_0025E" type="checkbox">Never married:
-                                    <input type="text" id="txtDP02_0025E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%">
+                                    <input type="text" id="txtDP02_0025E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
                                 </label>
                             </p>
                             <div id="slider-range-DP02_0025E"></div>
@@ -302,7 +308,7 @@
                             <p id="sliderDP02_0026E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
                                 <label for="cbDP02_0026E">
                                     <input id="cbDP02_0026E" type="checkbox">Now married, except separated:
-                                    <input type="text" id="txtDP02_0026E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%">
+                                    <input type="text" id="txtDP02_0026E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
                                 </label>
                             </p>
                             <div id="slider-range-DP02_0026E"></div>
@@ -313,7 +319,7 @@
                             <p id="sliderDP02_0027E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
                                 <label for="cbDP02_0027E">
                                     <input id="cbDP02_0027E" type="checkbox">Separated:
-                                    <input type="text" id="txtDP02_0027E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%">
+                                    <input type="text" id="txtDP02_0027E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
                                 </label>
                             </p>
                             <div id="slider-range-DP02_0027E"></div>
@@ -324,7 +330,7 @@
                             <p id="sliderDP02_0028E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
                                 <label for="cbDP02_0028E">
                                     <input id="cbDP02_0028E" type="checkbox">Widowed:
-                                    <input type="text" id="txtDP02_0028E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%">
+                                    <input type="text" id="txtDP02_0028E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
                                 </label>
                             </p>
                             <div id="slider-range-DP02_0028E"></div>
@@ -335,7 +341,7 @@
                             <p id="sliderDP02_0029E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
                                 <label for="cbDP02_0029E">
                                     <input id="cbDP02_0029E" type="checkbox">Divorced:
-                                    <input type="text" id="txtDP02_0029E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%">
+                                    <input type="text" id="txtDP02_0029E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
                                 </label>
                             </p>
                             <div id="slider-range-DP02_0029E"></div>
@@ -346,7 +352,7 @@
                             <p id="sliderDP02_0030E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
                                 <label for="cbDP02_0030E">
                                     <input id="cbDP02_0030E" type="checkbox">Females 15 years and over:
-                                    <input type="text" id="txtDP02_0030E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%">
+                                    <input type="text" id="txtDP02_0030E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
                                 </label>
                             </p>
                             <div id="slider-range-DP02_0030E"></div>
@@ -357,7 +363,7 @@
                             <p id="sliderDP02_0031E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
                                 <label for="cbDP02_0031E">
                                     <input id="cbDP02_0031E" type="checkbox">Never married:
-                                    <input type="text" id="txtDP02_0031E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%">
+                                    <input type="text" id="txtDP02_0031E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
                                 </label>
                             </p>
                             <div id="slider-range-DP02_0031E"></div>
@@ -368,7 +374,7 @@
                             <p id="sliderDP02_0032E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
                                 <label for="cbDP02_0032E">
                                     <input id="cbDP02_0032E" type="checkbox">Now married, except separated:
-                                    <input type="text" id="txtDP02_0032E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%">
+                                    <input type="text" id="txtDP02_0032E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
                                 </label>
                             </p>
                             <div id="slider-range-DP02_0032E"></div>
@@ -379,7 +385,7 @@
                             <p id="sliderDP02_0033E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
                                 <label for="cbDP02_0033E">
                                     <input id="cbDP02_0033E" type="checkbox">Separated:
-                                    <input type="text" id="txtDP02_0033E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%">
+                                    <input type="text" id="txtDP02_0033E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
                                 </label>
                             </p>
                             <div id="slider-range-DP02_0033E"></div>
@@ -390,7 +396,7 @@
                             <p id="sliderDP02_0034E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
                                 <label for="cbDP02_0034E">
                                     <input id="cbDP02_0034E" type="checkbox">Widowed:
-                                    <input type="text" id="txtDP02_0034E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%">
+                                    <input type="text" id="txtDP02_0034E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
                                 </label>
                             </p>
                             <div id="slider-range-DP02_0034E"></div>
@@ -401,10 +407,323 @@
                             <p id="sliderDP02_0035E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
                                 <label for="cbDP02_0035E">
                                     <input id="cbDP02_0035E" type="checkbox">Divorced:
-                                    <input type="text" id="txtDP02_0035E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%">
+                                    <input type="text" id="txtDP02_0035E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
                                 </label>
                             </p>
                             <div id="slider-range-DP02_0035E"></div>
+                        </div>
+                    </div>
+                    <h2>School Enrollment</h2>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP02_0052E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP02_0052E">
+                                    <input id="cbDP02_0052E" type="checkbox">Population 3 years and over enrolled in school:
+                                    <input type="text" id="txtDP02_0052E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 89px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP02_0052E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP02_0053E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP02_0053E">
+                                    <input id="cbDP02_0053E" type="checkbox">Nursery school, preschool:
+                                    <input type="text" id="txtDP02_0053E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP02_0053E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP02_0054E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP02_0054E">
+                                    <input id="cbDP02_0054E" type="checkbox">Kindergarten:
+                                    <input type="text" id="txtDP02_0054E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP02_0054E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP02_0055E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP02_0055E">
+                                    <input id="cbDP02_0055E" type="checkbox">Elementary school (grades 1-8):
+                                    <input type="text" id="txtDP02_0055E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP02_0055E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP02_0056E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP02_0056E">
+                                    <input id="cbDP02_0056E" type="checkbox">High school (grades 9-12):
+                                    <input type="text" id="txtDP02_0056E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP02_0056E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP02_0057E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP02_0057E">
+                                    <input id="cbDP02_0057E" type="checkbox">College or graduate school:
+                                    <input type="text" id="txtDP02_0057E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP02_0057E"></div>
+                        </div>
+                    </div>
+                    <h2>Educational Attainment</h2>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP02_0058E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP02_0058E">
+                                    <input id="cbDP02_0058E" type="checkbox">Population 25 years and over:
+                                    <input type="text" id="txtDP02_0058E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP02_0058E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP02_0059E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP02_0059E">
+                                    <input id="cbDP02_0059E" type="checkbox">Less than 9th grade:
+                                    <input type="text" id="txtDP02_0059E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP02_0059E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP02_0060E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP02_0060E">
+                                    <input id="cbDP02_0060E" type="checkbox">9th to 12th grade, no diploma:
+                                    <input type="text" id="txtDP02_0060E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP02_0060E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP02_0061E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP02_0061E">
+                                    <input id="cbDP02_0061E" type="checkbox">High school graduate (includes equivalency):
+                                    <input type="text" id="txtDP02_0061E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP02_0061E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP02_0062E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP02_0062E">
+                                    <input id="cbDP02_0062E" type="checkbox">Some college, no degree:
+                                    <input type="text" id="txtDP02_0062E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP02_0062E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP02_0063E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP02_0063E">
+                                    <input id="cbDP02_0063E" type="checkbox">Associate's degree:
+                                    <input type="text" id="txtDP02_0063E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP02_0063E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP02_0064E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP02_0064E">
+                                    <input id="cbDP02_0064E" type="checkbox">Bachelor's degree:
+                                    <input type="text" id="txtDP02_0064E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP02_0064E"></div>
+                        </div>
+                    </div>
+                    <h2>Disability Status Of The Civilian Noninstitutionalized Population</h2>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP02_0070E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP02_0070E">
+                                    <input id="cbDP02_0070E" type="checkbox">Total Civilian Noninstitutionalized Population:
+                                    <input type="text" id="txtDP02_0070E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP02_0070E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP02_0071E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP02_0071E">
+                                    <input id="cbDP02_0071E" type="checkbox">With a disability:
+                                    <input type="text" id="txtDP02_0071E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP02_0071E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP02_0074E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP02_0074E">
+                                    <input id="cbDP02_0074E" type="checkbox">18 to 64 years:
+                                    <input type="text" id="txtDP02_0074E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP02_0074E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP02_0075E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP02_0075E">
+                                    <input id="cbDP02_0075E" type="checkbox">With a disability:
+                                    <input type="text" id="txtDP02_0075E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP02_0075E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP02_0076E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP02_0076E">
+                                    <input id="cbDP02_0076E" type="checkbox">65 years and over:
+                                    <input type="text" id="txtDP02_0076E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP02_0076E"></div>
+                        </div>
+                    </div>
+                    <h2>Residence 1 Year Ago</h2>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP02_0078E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP02_0078E">
+                                    <input id="cbDP02_0078E" type="checkbox">Population 1 year and over:
+                                    <input type="text" id="txtDP02_0078E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP02_0078E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP02_0079E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP02_0079E">
+                                    <input id="cbDP02_0079E" type="checkbox">Same house:
+                                    <input type="text" id="txtDP02_0079E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP02_0079E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP02_0080E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP02_0080E">
+                                    <input id="cbDP02_0080E" type="checkbox">Different house in the U.S.:
+                                    <input type="text" id="txtDP02_0080E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP02_0080E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP02_0081E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP02_0081E">
+                                    <input id="cbDP02_0081E" type="checkbox">Same county:
+                                    <input type="text" id="txtDP02_0081E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP02_0081E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP02_0082E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP02_0082E">
+                                    <input id="cbDP02_0082E" type="checkbox">Different county:
+                                    <input type="text" id="txtDP02_0082E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP02_0082E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP02_0083E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP02_0083E">
+                                    <input id="cbDP02_0083E" type="checkbox">Same state:
+                                    <input type="text" id="txtDP02_0083E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP02_0083E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP02_0084E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP02_0084E">
+                                    <input id="cbDP02_0084E" type="checkbox">Different state:
+                                    <input type="text" id="txtDP02_0084E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP02_0084E"></div>
+                        </div>
+                    </div>
+                    <h2>Computers and Internet Use</h2>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP02_0150E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP02_0150E">
+                                    <input id="cbDP02_0150E" type="checkbox">Total households:
+                                    <input type="text" id="txtDP02_0150E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP02_0150E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP02_0151E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP02_0151E">
+                                    <input id="cbDP02_0151E" type="checkbox">With a computer:
+                                    <input type="text" id="txtDP02_0151E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP02_0151E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP02_0152E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP02_0152E">
+                                    <input id="cbDP02_0152E" type="checkbox">With a broadband Internet subscription:
+                                    <input type="text" id="txtDP02_0152E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP02_0152E"></div>
                         </div>
                     </div>
                 </div>
@@ -420,6 +739,493 @@
             </div>
             <div id="collapse54" class="panel-collapse collapse">
                 <div class="panel-body">
+                    <h2>Employment Status</h2>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0001E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0001E">
+                                    <input id="cbDP03_0001E" type="checkbox">Population 16 years and over:
+                                    <input type="text" id="txtDP03_0001E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0001E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0003E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0003E">
+                                    <input id="cbDP03_0003E" type="checkbox">In labor force - Civilian labor force:
+                                    <input type="text" id="txtDP03_0003E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0003E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0004E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0004E">
+                                    <input id="cbDP03_0004E" type="checkbox">Employed:
+                                    <input type="text" id="txtDP03_0004E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0004E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0005E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0005E">
+                                    <input id="cbDP03_0005E" type="checkbox">Unemployed:
+                                    <input type="text" id="txtDP03_0005E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0005E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0007E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0007E">
+                                    <input id="cbDP03_0007E" type="checkbox">Not in labor force:
+                                    <input type="text" id="txtDP03_0007E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0007E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0010E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0010E">
+                                    <input id="cbDP03_0010E" type="checkbox">Females 16 years and over:
+                                    <input type="text" id="txtDP03_0010E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0010E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0012E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0012E">
+                                    <input id="cbDP03_0012E" type="checkbox">In labor force - Civilian labor force:
+                                    <input type="text" id="txtDP03_0012E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0012E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0013E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0013E">
+                                    <input id="cbDP03_0013E" type="checkbox">Employed:
+                                    <input type="text" id="txtDP03_0013E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0013E"></div>
+                        </div>
+                    </div>
+                    <h2>Income and Benefits</h2>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0051E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0051E">
+                                    <input id="cbDP03_0051E" type="checkbox">Total households:
+                                    <input type="text" id="txtDP03_0051E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0051E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0052E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0052E">
+                                    <input id="cbDP03_0052E" type="checkbox">Less than $10,000:
+                                    <input type="text" id="txtDP03_0052E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0052E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0053E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0053E">
+                                    <input id="cbDP03_0053E" type="checkbox">$10,000 to $14,999:
+                                    <input type="text" id="txtDP03_0053E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0053E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0054E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0054E">
+                                    <input id="cbDP03_0054E" type="checkbox">$15,000 to $24,999:
+                                    <input type="text" id="txtDP03_0054E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0054E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0055E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0055E">
+                                    <input id="cbDP03_0055E" type="checkbox">$25,000 to $34,999:
+                                    <input type="text" id="txtDP03_0055E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0055E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0056E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0056E">
+                                    <input id="cbDP03_0056E" type="checkbox">$35,000 to $49,999:
+                                    <input type="text" id="txtDP03_0056E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0056E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0057E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0057E">
+                                    <input id="cbDP03_0057E" type="checkbox">$50,000 to $74,999:
+                                    <input type="text" id="txtDP03_0057E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0057E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0058E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0058E">
+                                    <input id="cbDP03_0058E" type="checkbox">$75,000 to $99,999:
+                                    <input type="text" id="txtDP03_0058E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0058E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0059E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0059E">
+                                    <input id="cbDP03_0059E" type="checkbox">$100,000 to $149,999:
+                                    <input type="text" id="txtDP03_0059E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0059E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0060E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0060E">
+                                    <input id="cbDP03_0060E" type="checkbox">$150,000 to $199,999:
+                                    <input type="text" id="txtDP03_0060E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0060E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0061E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0061E">
+                                    <input id="cbDP03_0061E" type="checkbox">$200,000 or more:
+                                    <input type="text" id="txtDP03_0061E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0061E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0063E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0063E">
+                                    <input id="cbDP03_0063E" type="checkbox">Mean household income (dollars):
+                                    <input type="text" id="txtDP03_0063E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 120px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0063E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0066E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0066E">
+                                    <input id="cbDP03_0066E" type="checkbox">With Social Security:
+                                    <input type="text" id="txtDP03_0066E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0066E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0068E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0068E">
+                                    <input id="cbDP03_0068E" type="checkbox">With retirement income:
+                                    <input type="text" id="txtDP03_0068E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0068E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0069E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0069E">
+                                    <input id="cbDP03_0069E" type="checkbox">Mean retirement income (dollars):
+                                    <input type="text" id="txtDP03_0069E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 120px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0069E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0070E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0070E">
+                                    <input id="cbDP03_0070E" type="checkbox">With Supplemental Security Income:
+                                    <input type="text" id="txtDP03_0070E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0070E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0071E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0071E">
+                                    <input id="cbDP03_0071E" type="checkbox">Mean Supplemental Security Income (dollars):
+                                    <input type="text" id="txtDP03_0071E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0071E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0072E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0072E">
+                                    <input id="cbDP03_0072E" type="checkbox">With cash public assistance income:
+                                    <input type="text" id="txtDP03_0072E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0072E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0073E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0073E">
+                                    <input id="cbDP03_0073E" type="checkbox">Mean cash public assistance income (dollars):
+                                    <input type="text" id="txtDP03_0073E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0073E"></div>
+                        </div>
+                    </div>
+                    <h2>Health Insurance Coverage</h2>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0095E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0095E">
+                                    <input id="cbDP03_0095E" type="checkbox">Civilian noninstitutionalized population:
+                                    <input type="text" id="txtDP03_0095E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0095E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0096E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0096E">
+                                    <input id="cbDP03_0096E" type="checkbox">With health insurance coverage:
+                                    <input type="text" id="txtDP03_0096E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0096E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0097E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0097E">
+                                    <input id="cbDP03_0097E" type="checkbox">With private health insurance:
+                                    <input type="text" id="txtDP03_0097E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0097E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0098E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0098E">
+                                    <input id="cbDP03_0098E" type="checkbox">With public coverage:
+                                    <input type="text" id="txtDP03_0098E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0098E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0099E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0099E">
+                                    <input id="cbDP03_0099E" type="checkbox">No health insurance coverage:
+                                    <input type="text" id="txtDP03_0099E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0099E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0102E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0102E">
+                                    <input id="cbDP03_0102E" type="checkbox">Civilian noninstitutionalized population 19 to 64 years:
+                                    <input type="text" id="txtDP03_0102E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0102E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0103E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0103E">
+                                    <input id="cbDP03_0103E" type="checkbox">In labor force:
+                                    <input type="text" id="txtDP03_0103E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0103E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0104E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0104E">
+                                    <input id="cbDP03_0104E" type="checkbox">Employed:
+                                    <input type="text" id="txtDP03_0104E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0104E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0105E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0105E">
+                                    <input id="cbDP03_0105E" type="checkbox">With health insurance coverage:
+                                    <input type="text" id="txtDP03_0105E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0105E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0106E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0106E">
+                                    <input id="cbDP03_0106E" type="checkbox">With private health insurance:
+                                    <input type="text" id="txtDP03_0106E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0106E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0107E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0107E">
+                                    <input id="cbDP03_0107E" type="checkbox">With public coverage:
+                                    <input type="text" id="txtDP03_0107E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0107E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0108E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0108E">
+                                    <input id="cbDP03_0108E" type="checkbox">No health insurance coverage:
+                                    <input type="text" id="txtDP03_0108E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0108E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0109E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0109E">
+                                    <input id="cbDP03_0109E" type="checkbox">Unemployed:
+                                    <input type="text" id="txtDP03_0109E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0109E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0110E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0110E">
+                                    <input id="cbDP03_0110E" type="checkbox">With health insurance coverage:
+                                    <input type="text" id="txtDP03_0110E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0110E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0111E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0111E">
+                                    <input id="cbDP03_0111E" type="checkbox">With private health insurance:
+                                    <input type="text" id="txtDP03_0111E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0111E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0112E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0112E">
+                                    <input id="cbDP03_0112E" type="checkbox">With public coverage:
+                                    <input type="text" id="txtDP03_0112E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0112E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP03_0113E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP03_0113E">
+                                    <input id="cbDP03_0113E" type="checkbox">No health insurance coverage:
+                                    <input type="text" id="txtDP03_0113E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP03_0113E"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -433,44 +1239,877 @@
             </div>
             <div id="collapse55" class="panel-collapse collapse">
                 <div class="panel-body">
+                    <h2>Units in Structure</h2>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0006E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0006E">
+                                    <input id="cbDP04_0006E" type="checkbox">Total housing units:
+                                    <input type="text" id="txtDP04_0006E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0006E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0007E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0007E">
+                                    <input id="cbDP04_0007E" type="checkbox">1-unit, detached:
+                                    <input type="text" id="txtDP04_0007E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0007E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0008E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0008E">
+                                    <input id="cbDP04_0008E" type="checkbox">1-unit, attached:
+                                    <input type="text" id="txtDP04_0008E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0008E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0009E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0009E">
+                                    <input id="cbDP04_0009E" type="checkbox">2 units:
+                                    <input type="text" id="txtDP04_0009E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0009E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0010E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0010E">
+                                    <input id="cbDP04_0010E" type="checkbox">3 or 4 units:
+                                    <input type="text" id="txtDP04_0010E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0010E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0011E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0011E">
+                                    <input id="cbDP04_0011E" type="checkbox">5 to 9 units:
+                                    <input type="text" id="txtDP04_0011E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0011E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0012E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0012E">
+                                    <input id="cbDP04_0012E" type="checkbox">10 to 19 units:
+                                    <input type="text" id="txtDP04_0012E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0012E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0013E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0013E">
+                                    <input id="cbDP04_0013E" type="checkbox">20 or more units:
+                                    <input type="text" id="txtDP04_0013E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0013E"></div>
+                        </div>
+                    </div>
+                    <h2>Rooms</h2>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0027E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0027E">
+                                    <input id="cbDP04_0027E" type="checkbox">Total housing units:
+                                    <input type="text" id="txtDP04_0027E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0027E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0028E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0028E">
+                                    <input id="cbDP04_0028E" type="checkbox">1 room:
+                                    <input type="text" id="txtDP04_0028E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0028E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0029E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0029E">
+                                    <input id="cbDP04_0029E" type="checkbox">2 rooms:
+                                    <input type="text" id="txtDP04_0029E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0029E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0030E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0030E">
+                                    <input id="cbDP04_0030E" type="checkbox">3 rooms:
+                                    <input type="text" id="txtDP04_0030E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0030E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0031E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0031E">
+                                    <input id="cbDP04_0031E" type="checkbox">4 rooms:
+                                    <input type="text" id="txtDP04_0031E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0031E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0032E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0032E">
+                                    <input id="cbDP04_0032E" type="checkbox">5 rooms:
+                                    <input type="text" id="txtDP04_0032E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0032E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0033E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0033E">
+                                    <input id="cbDP04_0033E" type="checkbox">6 rooms:
+                                    <input type="text" id="txtDP04_0033E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0033E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0034E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0034E">
+                                    <input id="cbDP04_0034E" type="checkbox">7 rooms:
+                                    <input type="text" id="txtDP04_0034E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0034E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0035E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0035E">
+                                    <input id="cbDP04_0035E" type="checkbox">8 rooms:
+                                    <input type="text" id="txtDP04_0035E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0035E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0036E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0036E">
+                                    <input id="cbDP04_0036E" type="checkbox">9 rooms or more:
+                                    <input type="text" id="txtDP04_0036E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0036E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0037E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0037E">
+                                    <input id="cbDP04_0037E" type="checkbox">Median rooms:
+                                    <input type="text" id="txtDP04_0037E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0037E"></div>
+                        </div>
+                    </div>
+                    <h2>Bedrooms</h2>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0038E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0038E">
+                                    <input id="cbDP04_0038E" type="checkbox">Total housing units:
+                                    <input type="text" id="txtDP04_0038E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0038E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0039E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0039E">
+                                    <input id="cbDP04_0039E" type="checkbox">No bedroom:
+                                    <input type="text" id="txtDP04_0039E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0039E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0040E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0040E">
+                                    <input id="cbDP04_0040E" type="checkbox">1 bedroom:
+                                    <input type="text" id="txtDP04_0040E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0040E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0041E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0041E">
+                                    <input id="cbDP04_0041E" type="checkbox">2 bedrooms:
+                                    <input type="text" id="txtDP04_0041E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0041E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0042E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0042E">
+                                    <input id="cbDP04_0042E" type="checkbox">3 bedrooms:
+                                    <input type="text" id="txtDP04_0042E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0042E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0043E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0043E">
+                                    <input id="cbDP04_0043E" type="checkbox">4 bedrooms:
+                                    <input type="text" id="txtDP04_0043E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0043E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0044E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0044E">
+                                    <input id="cbDP04_0044E" type="checkbox">5 or more bedrooms:
+                                    <input type="text" id="txtDP04_0044E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0044E"></div>
+                        </div>
+                    </div>
+                    <h2>Housing Tenure</h2>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0045E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0045E">
+                                    <input id="cbDP04_0045E" type="checkbox">Occupied housing units:
+                                    <input type="text" id="txtDP04_0045E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0045E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0046E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0046E">
+                                    <input id="cbDP04_0046E" type="checkbox">Owner-occupied:
+                                    <input type="text" id="txtDP04_0046E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0046E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0047E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0047E">
+                                    <input id="cbDP04_0047E" type="checkbox">Renter-occupied:
+                                    <input type="text" id="txtDP04_0047E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0047E"></div>
+                        </div>
+                    </div>
+                    <h2>Year Householder Moved Into Unit</h2>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0050E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0050E">
+                                    <input id="cbDP04_0050E" type="checkbox">Occupied housing units:
+                                    <input type="text" id="txtDP04_0050E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0050E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0051E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0051E">
+                                    <input id="cbDP04_0051E" type="checkbox">Moved in 2017 or later:
+                                    <input type="text" id="txtDP04_0051E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0051E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0052E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0052E">
+                                    <input id="cbDP04_0052E" type="checkbox">Moved in 2015 to 2016:
+                                    <input type="text" id="txtDP04_0052E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0052E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0053E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0053E">
+                                    <input id="cbDP04_0053E" type="checkbox">Moved in 2010 to 2014:
+                                    <input type="text" id="txtDP04_0053E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0053E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0054E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0054E">
+                                    <input id="cbDP04_0054E" type="checkbox">Moved in 2000 to 2009:
+                                    <input type="text" id="txtDP04_0054E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0054E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0055E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0055E">
+                                    <input id="cbDP04_0055E" type="checkbox">Moved in 1990 to 1999:
+                                    <input type="text" id="txtDP04_0055E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0055E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0056E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0056E">
+                                    <input id="cbDP04_0056E" type="checkbox">Moved in 1989 and earlier:
+                                    <input type="text" id="txtDP04_0056E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0056E"></div>
+                        </div>
+                    </div>
+                    <h2>Occupants per Room</h2>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0076E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0076E">
+                                    <input id="cbDP04_0076E" type="checkbox">Occupied housing units:
+                                    <input type="text" id="txtDP04_0076E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0076E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0077E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0077E">
+                                    <input id="cbDP04_0077E" type="checkbox">1.00 or less:
+                                    <input type="text" id="txtDP04_0077E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0077E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0078E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0078E">
+                                    <input id="cbDP04_0078E" type="checkbox">1.01 to 1.50:
+                                    <input type="text" id="txtDP04_0078E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0078E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0079E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0079E">
+                                    <input id="cbDP04_0079E" type="checkbox">1.51 or more:
+                                    <input type="text" id="txtDP04_0079E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0079E"></div>
+                        </div>
+                    </div>
+                    <h2>Mortgage Status</h2>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0090E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0090E">
+                                    <input id="cbDP04_0090E" type="checkbox">Owner-occupied units:
+                                    <input type="text" id="txtDP04_0090E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0090E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0091E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0091E">
+                                    <input id="cbDP04_0091E" type="checkbox">Housing units with a mortgage:
+                                    <input type="text" id="txtDP04_0091E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0091E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0092E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0092E">
+                                    <input id="cbDP04_0092E" type="checkbox">Housing units without a mortgage:
+                                    <input type="text" id="txtDP04_0092E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0092E"></div>
+                        </div>
+                    </div>
+                    <h2>Selected Monthly Owner Costs (SMOC)</h2>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0093E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0093E">
+                                    <input id="cbDP04_0093E" type="checkbox">Housing units with a mortgage:
+                                    <input type="text" id="txtDP04_0093E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0093E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0094E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0094E">
+                                    <input id="cbDP04_0094E" type="checkbox">Less than $500:
+                                    <input type="text" id="txtDP04_0094E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0094E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0095E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0095E">
+                                    <input id="cbDP04_0095E" type="checkbox">$500 to $999:
+                                    <input type="text" id="txtDP04_0095E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0095E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0096E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0096E">
+                                    <input id="cbDP04_0096E" type="checkbox">$1,000 to $1,499:
+                                    <input type="text" id="txtDP04_0096E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0096E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0097E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0097E">
+                                    <input id="cbDP04_0097E" type="checkbox">$1,500 to $1,999:
+                                    <input type="text" id="txtDP04_0097E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0097E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0098E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0098E">
+                                    <input id="cbDP04_0098E" type="checkbox">$2,000 to $2,499:
+                                    <input type="text" id="txtDP04_0098E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0098E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0099E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0099E">
+                                    <input id="cbDP04_0099E" type="checkbox">$2,500 to $2,999:
+                                    <input type="text" id="txtDP04_0099E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0099E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0100E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0100E">
+                                    <input id="cbDP04_0100E" type="checkbox">$3,000 or more:
+                                    <input type="text" id="txtDP04_0100E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0100E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0101E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0101E">
+                                    <input id="cbDP04_0101E" type="checkbox">Median (dollars):
+                                    <input type="text" id="txtDP04_0101E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0101E"></div>
+                        </div>
+                    </div>
+                    <h2>Selected Monthly Owner Costs as a Percentage of Household Income (SMOCAPI)</h2>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0110E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0110E">
+                                    <input id="cbDP04_0110E" type="checkbox">Housing units with a mortgage (excluding units where SMOCAPI cannot be computed):
+                                    <input type="text" id="txtDP04_0110E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0110E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0111E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0111E">
+                                    <input id="cbDP04_0111E" type="checkbox">Less than 20.0 percent:
+                                    <input type="text" id="txtDP04_0111E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0111E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0112E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0112E">
+                                    <input id="cbDP04_0112E" type="checkbox">20.0 to 24.9 percent:
+                                    <input type="text" id="txtDP04_0112E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0112E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0113E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0113E">
+                                    <input id="cbDP04_0113E" type="checkbox">25.0 to 29.9 percent:
+                                    <input type="text" id="txtDP04_0113E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0113E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0114E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0114E">
+                                    <input id="cbDP04_0114E" type="checkbox">30.0 to 34.9 percent:
+                                    <input type="text" id="txtDP04_0114E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0114E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0115E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0115E">
+                                    <input id="cbDP04_0115E" type="checkbox">35.0 percent or more:
+                                    <input type="text" id="txtDP04_0115E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0115E"></div>
+                        </div>
+                    </div>
+                    <h2>Gross Rent</h2>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0126E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0126E">
+                                    <input id="cbDP04_0126E" type="checkbox">Occupied units paying rent:
+                                    <input type="text" id="txtDP04_0126E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0126E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0127E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0127E">
+                                    <input id="cbDP04_0127E" type="checkbox">Less than $500:
+                                    <input type="text" id="txtDP04_0127E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0127E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0128E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0128E">
+                                    <input id="cbDP04_0128E" type="checkbox">$500 to $999:
+                                    <input type="text" id="txtDP04_0128E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0128E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0129E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0129E">
+                                    <input id="cbDP04_0129E" type="checkbox">$1,000 to $1,499:
+                                    <input type="text" id="txtDP04_0129E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0129E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0130E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0130E">
+                                    <input id="cbDP04_0130E" type="checkbox">$1,500 to $1,999:
+                                    <input type="text" id="txtDP04_0130E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0130E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0131E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0131E">
+                                    <input id="cbDP04_0131E" type="checkbox">$2,000 to $2,499:
+                                    <input type="text" id="txtDP04_0131E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0131E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0132E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0132E">
+                                    <input id="cbDP04_0132E" type="checkbox">$2,500 to $2,999:
+                                    <input type="text" id="txtDP04_0132E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0132E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0133E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0133E">
+                                    <input id="cbDP04_0133E" type="checkbox">$3,000 or more:
+                                    <input type="text" id="txtDP04_0133E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0133E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0134E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0134E">
+                                    <input id="cbDP04_0134E" type="checkbox">Median (dollars):
+                                    <input type="text" id="txtDP04_0134E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0134E"></div>
+                        </div>
+                    </div>
+                    <h2>Gross Rent as a Percentage of Household Income (GRAPI)</h2>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0136E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0136E">
+                                    <input id="cbDP04_0136E" type="checkbox">Occupied units paying rent (excluding units where GRAPI cannot be computed):
+                                    <input type="text" id="txtDP04_0136E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0136E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0137E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0137E">
+                                    <input id="cbDP04_0137E" type="checkbox">Less than 15.0 percent:
+                                    <input type="text" id="txtDP04_0137E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0137E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0138E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0138E">
+                                    <input id="cbDP04_0138E" type="checkbox">15.0 to 19.9 percent:
+                                    <input type="text" id="txtDP04_0138E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0138E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0139E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0139E">
+                                    <input id="cbDP04_0139E" type="checkbox">20.0 to 24.9 percent:
+                                    <input type="text" id="txtDP04_0139E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0139E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0140E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0140E">
+                                    <input id="cbDP04_0140E" type="checkbox">25.0 to 29.9 percent:
+                                    <input type="text" id="txtDP04_0140E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0140E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0141E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0141E">
+                                    <input id="cbDP04_0141E" type="checkbox">30.0 to 34.9 percent:
+                                    <input type="text" id="txtDP04_0141E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0141E"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p id="sliderDP04_0142E" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbDP04_0142E">
+                                    <input id="cbDP04_0142E" type="checkbox">35.0 percent or more:
+                                    <input type="text" id="txtDP04_0142E" readonly style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 105px">
+                                </label>
+                            </p>
+                            <div id="slider-range-DP04_0142E"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordionConsumerTracts" href="#collapse56">
+                        Tract Search
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse56" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="form-group" id="divSearchByGeometry">
+                        <a id="btnSelectByPoint" class="btn btn-small classSelectButtons" onclick="activateSelectionTool('Point',this)">
+                            <img src="~/Images/DrawTools/DrawPoint.png" title="Point" class="drawTolbarButtons" /></br>Point
+                        </a>
+                        <a id="btnSelectByMultiPoint" class="btn btn-small classSelectButtons" onclick="activateSelectionTool('Multi_Point',this)">
+                            <img src="~/Images/DrawTools/DrawPoint.png" title="Point" class="drawTolbarButtons" /></br>MultiPoint
+                        </a>
+                        <a id="btnSelectByPolyline" class="btn btn-small classSelectButtons" onclick="activateSelectionTool('Polyline',this)">
+                            <img src="~/Images/DrawTools/DrawPolyline.png" title="Polyline" class="drawTolbarButtons" /></br>Polyline
+                        </a>
+                        <a id="btnSelectByPolygon" class="btn btn-small classSelectButtons" onclick="activateSelectionTool('Polygon',this)">
+                            <img src="~/Images/DrawTools/DrawPolygon.png" title="Polygon" class="drawTolbarButtons" /></br>Polygon
+                        </a>
+                        <a id="btnSelectByFreehandPolyline" class="btn btn-small classSelectButtons" onclick="activateSelectionTool('Freehand_Polyline',this)">
+                            <img src="~/Images/DrawTools/DrawFreehandPolyline.png" title="Freehand Polyline" class="drawTolbarButtons" /></br>Freehand
+                        </a>
+                        <a id="btnSelectByRectangle" class="btn btn-small classSelectButtons" onclick="activateSelectionTool('Rectangle',this)">
+                            <img src="~/Images/DrawTools/DrawRectangle.png" title="Ellipse" class="drawTolbarButtons" /></br>Rectangle
+                        </a>
+                    </div>
+                    <div class="form-group" id="divCensusTracts11Digit">
+                        <input type="text" id="txtCensusTracts11Digit" placeholder="Select Tract" onchange="txtCensusTracts11Digit_Change(this)" />
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <div class="form-group">
-    <div class="col-sm-offset-1 col-sm-11">
+    <div class="col-sm-offset-7 col-sm-5">
         <button type="button" class="btn btn-primary btn-sm" onclick="btnSearchCP()">Search</button>
         <button type="button" class="btn btn-primary btn-sm" onclick="btnResetCP()">Reset</button>
     </div>
-</div>
-<div class="col-sm-12">
-    <label for="cbCensusTracts">
-        <input id="cbCensusTracts" type="checkbox" onchange="cbCensusTracts_Change(this)">Census Tracts
-    </label>
-</div>
-<div class="form-group" id="divSearchByGeometry" style="margin-left: 0px; width: 270px">
-    <a id="btnSelectByPoint" class="btn btn-small classSelectButtons" onclick="activateSelectionTool('Point',this)">
-        <img src="~/Images/DrawTools/DrawPoint.png" title="Point" class="drawTolbarButtons" /></br>Point
-    </a>
-    <a id="btnSelectByMultiPoint" class="btn btn-small classSelectButtons" onclick="activateSelectionTool('Multi_Point',this)">
-        <img src="~/Images/DrawTools/DrawPoint.png" title="Point" class="drawTolbarButtons" /></br>MultiPoint
-    </a>
-    <a id="btnSelectByPolyline" class="btn btn-small classSelectButtons" onclick="activateSelectionTool('Polyline',this)">
-        <img src="~/Images/DrawTools/DrawPolyline.png" title="Polyline" class="drawTolbarButtons" /></br>Polyline
-    </a>
-    <a id="btnSelectByPolygon" class="btn btn-small classSelectButtons" onclick="activateSelectionTool('Polygon',this)">
-        <img src="~/Images/DrawTools/DrawPolygon.png" title="Polygon" class="drawTolbarButtons" /></br>Polygon
-    </a>
-    <a id="btnSelectByFreehandPolyline" class="btn btn-small classSelectButtons" onclick="activateSelectionTool('Freehand_Polyline',this)">
-        <img src="~/Images/DrawTools/DrawFreehandPolyline.png" title="Freehand Polyline" class="drawTolbarButtons" /></br>Freehand
-    </a>
-    <a id="btnSelectByRectangle" class="btn btn-small classSelectButtons" onclick="activateSelectionTool('Rectangle',this)">
-        <img src="~/Images/DrawTools/DrawRectangle.png" title="Ellipse" class="drawTolbarButtons" /></br>Rectangle
-    </a>
-</div>
-<div class="form-group" style="margin-left: 0px; margin-right: 0px; width: 270px" id="divCensusTracts11Digit">
-    <input type="text" id="txtCensusTracts11Digit" placeholder="Select Tract" onchange="txtCensusTracts11Digit_Change(this)" />
 </div>
 <div id="divResultButton">
 </div>
