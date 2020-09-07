@@ -67,6 +67,10 @@ require(["esri/map", "dojo/parser", "esri/layers/FeatureLayer", "esri/config", "
     map.addLayers([serviceFeatures, districtLayer, censusTractsFeatures, selectionLayer]);
 
     function addSelectionToMap(evt) {
+        localStorage.setItem('ConsumerProfileSearchedDemographics', null);
+        localStorage.setItem('ConsumerProfileSearchedSocial', null);
+        localStorage.setItem('ConsumerProfileSearchedEconomic', null);
+        localStorage.setItem('ConsumerProfileSearchedHousing', null);
         selectionLayer.clear();
         selectionToolbar.deactivate();
         map.setInfoWindowOnClick(true);
