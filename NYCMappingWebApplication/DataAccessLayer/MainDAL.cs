@@ -22,6 +22,16 @@ namespace NYCMappingWebApp.DataAccessLayer
             returnResult.Add(new Select2DTO() { id = "'SI'", text = "Staten Island" });
             return returnResult.Where(w => w.text.Contains(term)).ToList();
         }
+        public List<Select2DTO> GetAllBoroughsCP(string term)
+        {
+            List<Select2DTO> returnResult = new List<Select2DTO>();
+            returnResult.Add(new Select2DTO() { id = "'005'", text = "Bronx" });
+            returnResult.Add(new Select2DTO() { id = "'047'", text = "Brooklyn" });
+            returnResult.Add(new Select2DTO() { id = "'061'", text = "Manhattan" });
+            returnResult.Add(new Select2DTO() { id = "'081'", text = "Queens" });
+            returnResult.Add(new Select2DTO() { id = "'085'", text = "Staten Island" });
+            return returnResult.Where(w => w.text.Contains(term)).ToList();
+        }
         public List<Select2DTO> GetAllDistricts(string term)
         {
             List<Select2DTO> returnResult = new List<Select2DTO>();

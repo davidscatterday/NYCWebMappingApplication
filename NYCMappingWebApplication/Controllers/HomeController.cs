@@ -38,6 +38,12 @@ namespace NYCMappingWebApp.Controllers
             return Json(new { BoroughsList }, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetBoroughsCP(string term)
+        {
+            var BoroughsList = mainDAL.GetAllBoroughsCP(term);
+            return Json(new { BoroughsList }, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult GetDistricts(string term)
         {
             var DistrictsList = mainDAL.GetAllDistricts(term);

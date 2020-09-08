@@ -1,12 +1,15 @@
-﻿var selectionLayer, districtLayer, selectionSymbolPoint, selectionSymbolLine, selectionSymbolFill;
+﻿var selectionLayer, districtLayer, geometryService, selectionSymbolPoint, selectionSymbolLine, selectionSymbolFill;
 require(["esri/map", "dojo/parser", "esri/layers/FeatureLayer", "esri/config", "esri/symbols/SimpleMarkerSymbol", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol", "dojo/_base/array"
     , "esri/graphic", "esri/basemaps", "esri/InfoTemplate", "esri/layers/GraphicsLayer", "esri/tasks/QueryTask", "esri/tasks/query", "esri/toolbars/draw"
+    , "esri/tasks/GeometryService"
 ], function (Map, parser, FeatureLayer, esriConfig, SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, arrayUtils
-    , Graphic, esriBasemaps, InfoTemplate, GraphicsLayer, QueryTask, Query, Draw) {
+    , Graphic, esriBasemaps, InfoTemplate, GraphicsLayer, QueryTask, Query, Draw
+    , GeometryService) {
     parser.parse();
     esriConfig.defaults.io.proxyUrl = "/proxy/proxy.ashx";
     selectionLayer = new GraphicsLayer();
     districtLayer = new GraphicsLayer();
+    geometryService = new GeometryService(GeometryServiceUrl);
 
     //create symbol polygon for districts features
     symbolDistrictFill = new SimpleFillSymbol();

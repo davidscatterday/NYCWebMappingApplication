@@ -2,6 +2,7 @@
     ViewBag.Title = "Home Page";
 }
 <script>
+    GeometryServiceUrl = "@(System.Configuration.ConfigurationManager.AppSettings["GeometryServiceUrl"])";
     NYCbasemapUrl = "@(System.Configuration.ConfigurationManager.AppSettings["NYCbasemapUrl"])";
     MapPlutoUrl = "@(System.Configuration.ConfigurationManager.AppSettings["MapPlutoUrl"])";
     DistrictsUrl = "@(System.Configuration.ConfigurationManager.AppSettings["DistrictsUrl"])";
@@ -1345,7 +1346,7 @@
         allowClear: true,
         multiple: true,
         ajax: {
-            url: RootUrl + 'Home/GetBoroughs',
+            url: RootUrl + 'Home/GetBoroughsCP',
             type: "POST",
             dataType: 'json',
             data: function (term) {

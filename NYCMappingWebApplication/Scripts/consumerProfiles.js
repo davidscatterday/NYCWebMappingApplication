@@ -3069,6 +3069,81 @@ function btnResetCP() {
 
 function btnSearchCP() {
     $('#loading').show();
+    districtLayer.clear();
+    if (document.getElementById("cbDistrictCP").checked == true) {
+        DistrictCP = $(txtDistrictsCP).val();
+        if (DistrictCP != "") {
+            var queryTask = new esri.tasks.QueryTask(DistrictsUrl);
+            var query = new esri.tasks.Query();
+            query.where = "DISTRICTCODE IN (" + DistrictCP + ")";
+            query.returnGeometry = true;
+            queryTask.execute(query, function (featureSet) {
+                //Performance enhancer - assign featureSet array to a single variable.
+                var resultFeatures = featureSet.features;
+                if (resultFeatures.length > 0) {
+                    var lstGeometry = [];
+                    //Loop through each feature returned
+                    for (var i = 0, il = resultFeatures.length; i < il; i++) {
+                        //Feature is a graphic
+                        var graphic = resultFeatures[i];
+                        graphic.setSymbol(symbolDistrictFill);
+                        districtLayer.add(graphic);
+                        lstGeometry.push(graphic.geometry);
+                    }
+                    geometryService.union(lstGeometry, function (geometry) {
+                        var queryTask = new esri.tasks.QueryTask(CensusTractsUrl);
+                        var query = new esri.tasks.Query();
+                        query.geometry = geometry;
+                        query.returnGeometry = true;
+                        query.outFields = ["*"];
+                        queryTask.execute(query, function (featureSet) {
+                            //Performance enhancer - assign featureSet array to a single variable.
+                            var resultFeatures = featureSet.features;
+                            if (resultFeatures.length > 0) {
+                                var whereClauesDistrict = "";
+                                //Loop through each feature returned
+                                for (var i = 0, il = resultFeatures.length; i < il; i++) {
+                                    //Feature is a graphic
+                                    var graphic = resultFeatures[i];
+                                    var countyCode = "0";
+                                    switch (graphic.attributes["BoroCode"]) {
+                                        case "1": countyCode = "061"; break
+                                        case "2": countyCode = "005"; break
+                                        case "3": countyCode = "047"; break
+                                        case "4": countyCode = "081"; break
+                                        case "5": countyCode = "085"; break
+                                        default: return
+                                    }
+                                    if (whereClauesDistrict == "") {
+                                        whereClauesDistrict = "((County = '" + countyCode + "' AND Tract = '" + graphic.attributes["CT2010"] + "')";
+                                    }
+                                    else {
+                                        whereClauesDistrict += " OR (County = '" + countyCode + "' AND Tract = '" + graphic.attributes["CT2010"] + "')";
+                                    }
+                                    if (resultFeatures.length - 1 == i) {
+                                        whereClauesDistrict += ")";
+                                        CreateSearch(whereClauesDistrict);
+                                    }
+                                }
+                            }
+                        }, function (error) {
+                            $('#loading').hide();
+                            console.log(error);
+                        });
+                    });
+                }
+            }, function (error) {
+                $('#loading').hide();
+                console.log(error);
+            });
+        }
+    }
+    else {
+        CreateSearch("");
+    }
+}
+
+function CreateSearch(whereClauseCP) {
     var BoroughCP = null, DP05_0001EStart = null, DP05_0001EEnd = null, DP05_0002EStart = null, DP05_0002EEnd = null, DP05_0003EStart = null, DP05_0003EEnd = null, DP05_0004EStart = null, DP05_0004EEnd = null
         , DP05_0009EStart = null, DP05_0009EEnd = null, DP05_0010EStart = null, DP05_0010EEnd = null, DP05_0011EStart = null, DP05_0011EEnd = null, DP05_0012EStart = null, DP05_0012EEnd = null
         , DP05_0013EStart = null, DP05_0013EEnd = null, DP05_0014EStart = null, DP05_0014EEnd = null, DP05_0015EStart = null, DP05_0015EEnd = null, DP05_0016EStart = null, DP05_0016EEnd = null
@@ -3094,16 +3169,15 @@ function btnSearchCP() {
         , DP04_0097EStart = null, DP04_0097EEnd = null, DP04_0098EStart = null, DP04_0098EEnd = null, DP04_0099EStart = null, DP04_0099EEnd = null, DP04_0100EStart = null, DP04_0100EEnd = null, DP04_0101EStart = null, DP04_0101EEnd = null, DP04_0110EStart = null, DP04_0110EEnd = null, DP04_0111EStart = null, DP04_0111EEnd = null, DP04_0112EStart = null, DP04_0112EEnd = null, DP04_0113EStart = null, DP04_0113EEnd = null, DP04_0114EStart = null, DP04_0114EEnd = null, DP04_0115EStart = null, DP04_0115EEnd = null
         , DP04_0126EStart = null, DP04_0126EEnd = null, DP04_0127EStart = null, DP04_0127EEnd = null, DP04_0128EStart = null, DP04_0128EEnd = null, DP04_0129EStart = null, DP04_0129EEnd = null, DP04_0130EStart = null, DP04_0130EEnd = null, DP04_0131EStart = null, DP04_0131EEnd = null, DP04_0132EStart = null, DP04_0132EEnd = null, DP04_0133EStart = null, DP04_0133EEnd = null
         , DP04_0134EStart = null, DP04_0134EEnd = null, DP04_0136EStart = null, DP04_0136EEnd = null, DP04_0137EStart = null, DP04_0137EEnd = null, DP04_0138EStart = null, DP04_0138EEnd = null, DP04_0139EStart = null, DP04_0139EEnd = null, DP04_0140EStart = null, DP04_0140EEnd = null, DP04_0141EStart = null, DP04_0141EEnd = null, DP04_0142EStart = null, DP04_0142EEnd = null;
-    var whereClauseCP = "";
     var searchedDemographics = "", searchedSocial = "", searchedEconomic = "", searchedHousing = "";
     if (document.getElementById("cbBoroughCP").checked == true) {
         BoroughCP = $(txtBoroughsCP).val();
         if (BoroughCP != "") {
             if (whereClauseCP == "") {
-                whereClauseCP = "Borough IN (" + BoroughCP + ")";
+                whereClauseCP = "County IN (" + BoroughCP + ")";
             }
             else {
-                whereClauseCP += " AND Borough IN (" + BoroughCP + ")";
+                whereClauseCP += " AND County IN (" + BoroughCP + ")";
             }
         }
     }
@@ -5066,93 +5140,99 @@ function btnSearchCP() {
         searchedHousing += "<br /> GRAPI - 35.0 percent or more between " + DP04_0142EStart + " and " + DP04_0142EEnd;
     }
 
-    var sqlQueryCP = "SELECT County,Tract FROM dbo.ConsumerProfiles WHERE " + whereClauseCP;
-    localStorage.setItem('ConsumerProfileSearchedDemographics', searchedDemographics);
-    localStorage.setItem('ConsumerProfileSearchedSocial', searchedSocial);
-    localStorage.setItem('ConsumerProfileSearchedEconomic', searchedEconomic);
-    localStorage.setItem('ConsumerProfileSearchedHousing', searchedHousing);
-    $.ajax({
-        url: RootUrl + 'Home/SearchConsumerProfilesDatabaseList',
-        type: "POST",
-        data: {
-            "sqlQuery": sqlQueryCP
-        }
-    }).done(function (data) {
-        selectionLayer.clear();
-        if (data.length > 0) {
-            var commaSeparatedBoroCT2010 = "", boroughCode = "";;
-            for (var i = 0, il = data.length; i < il; i++) {
-                switch (data[i].County) {
-                    case "005": boroughCode = "2"; break
-                    case "047": boroughCode = "3"; break
-                    case "061": boroughCode = "1"; break
-                    case "081": boroughCode = "4"; break
-                    case "085": boroughCode = "5"; break
-                    default: return
-                }
-                if (commaSeparatedBoroCT2010 == "") {
-                    commaSeparatedBoroCT2010 += boroughCode + data[i].Tract;
-                }
-                else {
-                    commaSeparatedBoroCT2010 += "," + boroughCode + data[i].Tract;
-                }
-            } var queryTask = new esri.tasks.QueryTask(CensusTractsUrl);
-            var query = new esri.tasks.Query();
-            query.where = "BoroCT2010 IN (" + commaSeparatedBoroCT2010 + ")";
-            query.returnGeometry = true;
-            query.outFields = ["*"];
-            queryTask.execute(query, function (featureSet) {
-                //Performance enhancer - assign featureSet array to a single variable.
-                var resultFeatures = featureSet.features;
-                if (resultFeatures.length > 0) {
-                    //Loop through each feature returned
-                    for (var i = 0, il = resultFeatures.length; i < il; i++) {
-                        //Feature is a graphic
-                        var graphic = resultFeatures[i];
-                        switch (graphic.geometry.type) {
-                            case "point":
-                            case "multipoint":
-                                graphic.setSymbol(selectionSymbolPoint);
-                                break;
-                            case "polyline":
-                                graphic.setSymbol(selectionSymbolLine);
-                                break;
-                            default:
-                                graphic.setSymbol(selectionSymbolFill);
-                                break;
-                        }
-                        selectionLayer.add(graphic);
+    if (whereClauseCP != "") {
+        var sqlQueryCP = "SELECT County,Tract FROM dbo.ConsumerProfiles WHERE " + whereClauseCP;
+        localStorage.setItem('ConsumerProfileSearchedDemographics', searchedDemographics);
+        localStorage.setItem('ConsumerProfileSearchedSocial', searchedSocial);
+        localStorage.setItem('ConsumerProfileSearchedEconomic', searchedEconomic);
+        localStorage.setItem('ConsumerProfileSearchedHousing', searchedHousing);
+        $.ajax({
+            url: RootUrl + 'Home/SearchConsumerProfilesDatabaseList',
+            type: "POST",
+            data: {
+                "sqlQuery": sqlQueryCP
+            }
+        }).done(function (data) {
+            selectionLayer.clear();
+            if (data.length > 0) {
+                var commaSeparatedBoroCT2010 = "", boroughCode = "";;
+                for (var i = 0, il = data.length; i < il; i++) {
+                    switch (data[i].County) {
+                        case "005": boroughCode = "2"; break
+                        case "047": boroughCode = "3"; break
+                        case "061": boroughCode = "1"; break
+                        case "081": boroughCode = "4"; break
+                        case "085": boroughCode = "5"; break
+                        default: return
                     }
-                    var spatialRef = new esri.SpatialReference({ wkid: 102718 });
-                    var zoomExtent = new esri.geometry.Extent();
-                    zoomExtent.spatialReference = spatialRef;
-                    zoomExtent.xmin = esri.graphicsExtent(selectionLayer.graphics).xmin - 1000;
-                    zoomExtent.ymin = esri.graphicsExtent(selectionLayer.graphics).ymin - 1000;
-                    zoomExtent.xmax = esri.graphicsExtent(selectionLayer.graphics).xmax + 1000;
-                    zoomExtent.ymax = esri.graphicsExtent(selectionLayer.graphics).ymax + 1000;
-                    map.setExtent(zoomExtent);
-                    $('#divResultButton').text('');
-                    var htmlDataResultButton = "<button type='button' class='btn btn-primary btn-lg btn-block' onclick='btnTractResult()'>View Profile " + resultFeatures.length + " Tracts</button>";
-                    $('#divResultButton').append(htmlDataResultButton);
-                }
-                else {
-                    $('#divResultButton').text('');
-                }
+                    if (commaSeparatedBoroCT2010 == "") {
+                        commaSeparatedBoroCT2010 += boroughCode + data[i].Tract;
+                    }
+                    else {
+                        commaSeparatedBoroCT2010 += "," + boroughCode + data[i].Tract;
+                    }
+                } var queryTask = new esri.tasks.QueryTask(CensusTractsUrl);
+                var query = new esri.tasks.Query();
+                query.where = "BoroCT2010 IN (" + commaSeparatedBoroCT2010 + ")";
+                query.returnGeometry = true;
+                query.outFields = ["*"];
+                queryTask.execute(query, function (featureSet) {
+                    //Performance enhancer - assign featureSet array to a single variable.
+                    var resultFeatures = featureSet.features;
+                    if (resultFeatures.length > 0) {
+                        //Loop through each feature returned
+                        for (var i = 0, il = resultFeatures.length; i < il; i++) {
+                            //Feature is a graphic
+                            var graphic = resultFeatures[i];
+                            switch (graphic.geometry.type) {
+                                case "point":
+                                case "multipoint":
+                                    graphic.setSymbol(selectionSymbolPoint);
+                                    break;
+                                case "polyline":
+                                    graphic.setSymbol(selectionSymbolLine);
+                                    break;
+                                default:
+                                    graphic.setSymbol(selectionSymbolFill);
+                                    break;
+                            }
+                            selectionLayer.add(graphic);
+                        }
+                        var spatialRef = new esri.SpatialReference({ wkid: 102718 });
+                        var zoomExtent = new esri.geometry.Extent();
+                        zoomExtent.spatialReference = spatialRef;
+                        zoomExtent.xmin = esri.graphicsExtent(selectionLayer.graphics).xmin - 1000;
+                        zoomExtent.ymin = esri.graphicsExtent(selectionLayer.graphics).ymin - 1000;
+                        zoomExtent.xmax = esri.graphicsExtent(selectionLayer.graphics).xmax + 1000;
+                        zoomExtent.ymax = esri.graphicsExtent(selectionLayer.graphics).ymax + 1000;
+                        map.setExtent(zoomExtent);
+                        $('#divResultButton').text('');
+                        var htmlDataResultButton = "<button type='button' class='btn btn-primary btn-lg btn-block' onclick='btnTractResult()'>View Profile " + resultFeatures.length + " Tracts</button>";
+                        $('#divResultButton').append(htmlDataResultButton);
+                    }
+                    else {
+                        $('#divResultButton').text('');
+                    }
+                    $('#loading').hide();
+                }, function (error) {
+                    $('#loading').hide();
+                    console.log(error);
+                });
+            }
+            else {
+                $('#divResultButton').text('');
                 $('#loading').hide();
-            }, function (error) {
-                $('#loading').hide();
-                console.log(error);
-            });
-        }
-        else {
-            $('#divResultButton').text('');
+                swal("No results found");
+            }
+        }).fail(function (f) {
             $('#loading').hide();
-            swal("No results found");
-        }
-    }).fail(function (f) {
+            swal("Failed to search the query");
+        });
+    }
+    else {
         $('#loading').hide();
-        swal("Failed to search the query");
-    });
+        swal("Please choose some criteria first");
+    }
 }
 
 function btnTractResult() {

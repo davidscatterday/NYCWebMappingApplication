@@ -10,12 +10,14 @@ using System.Web.Mvc;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System.IO;
+using NYCMappingWebApp.Models;
 
 namespace NYCMappingWebApp.Controllers
 {
     public class ConsumerProfilesController : Controller
     {
         MainDAL mainDAL = new MainDAL();
+        private NYC_Web_Mapping_AppEntities db = new NYC_Web_Mapping_AppEntities();
         // GET: ConsumerProfiles/Preview
         public ActionResult Preview(string tracts)
         {
@@ -1473,13 +1475,498 @@ namespace NYCMappingWebApp.Controllers
                     workSheetHousing.Cells["F44"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0047E - data.NewYorkCity.DP04_0047E));
                     workSheetHousing.Cells["G44"].Value = data.SelectedArea.DP04_0047E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP04_0047E.Value) / data.SelectedArea.DP04_0045E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP04_0047E.Value) / data.NewYorkCity.DP04_0045E.Value, 1), 1).ToString() : "";
 
+                    workSheetHousing.Cells["A46:G46"].Merge = true;
+                    workSheetHousing.Cells["A46"].Value = "Year Householder Moved Into Unit";
+                    workSheetHousing.Cells["A47:A48"].Merge = true;
+                    workSheetHousing.Cells["B47:C47"].Merge = true;
+                    workSheetHousing.Cells["B47"].Value = "Selected Area";
+                    workSheetHousing.Cells["D47:E47"].Merge = true;
+                    workSheetHousing.Cells["D47"].Value = "New York City";
+                    workSheetHousing.Cells["F47:G47"].Merge = true;
+                    workSheetHousing.Cells["F47"].Value = "Difference";
+
+                    workSheetHousing.Cells["B48"].Value = "Number";
+                    workSheetHousing.Cells["C48"].Value = "Percent";
+                    workSheetHousing.Cells["D48"].Value = "Number";
+                    workSheetHousing.Cells["E48"].Value = "Percent";
+                    workSheetHousing.Cells["F48"].Value = "Number";
+                    workSheetHousing.Cells["G48"].Value = "Pctg. Pt.";
+
+                    workSheetHousing.Cells["A49"].Value = "Occupied housing units";
+                    workSheetHousing.Cells["B49"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0050E);
+                    workSheetHousing.Cells["C49"].Value = "100%";
+                    workSheetHousing.Cells["D49"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0050E);
+                    workSheetHousing.Cells["E49"].Value = "100%";
+                    workSheetHousing.Cells["F49"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0050E - data.NewYorkCity.DP04_0050E));
+                    workSheetHousing.Cells["G49"].Value = "0.0";
+
+                    workSheetHousing.Cells["A50"].Value = "Moved in 2017 or later";
+                    workSheetHousing.Cells["B50"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0051E);
+                    workSheetHousing.Cells["C50"].Value = data.SelectedArea.DP04_0051E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP04_0051E.Value) / data.SelectedArea.DP04_0050E.Value, 1) + "%" : "";
+                    workSheetHousing.Cells["D50"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0051E);
+                    workSheetHousing.Cells["E50"].Value = Math.Round((double)(100 * data.NewYorkCity.DP04_0051E.Value) / data.NewYorkCity.DP04_0050E.Value, 1) + "%";
+                    workSheetHousing.Cells["F50"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0051E - data.NewYorkCity.DP04_0051E));
+                    workSheetHousing.Cells["G50"].Value = data.SelectedArea.DP04_0051E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP04_0051E.Value) / data.SelectedArea.DP04_0050E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP04_0051E.Value) / data.NewYorkCity.DP04_0050E.Value, 1), 1).ToString() : "";
+
+                    workSheetHousing.Cells["A51"].Value = "Moved in 2015 to 2016";
+                    workSheetHousing.Cells["B51"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0052E);
+                    workSheetHousing.Cells["C51"].Value = data.SelectedArea.DP04_0052E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP04_0052E.Value) / data.SelectedArea.DP04_0050E.Value, 1) + "%" : "";
+                    workSheetHousing.Cells["D51"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0052E);
+                    workSheetHousing.Cells["E51"].Value = Math.Round((double)(100 * data.NewYorkCity.DP04_0052E.Value) / data.NewYorkCity.DP04_0050E.Value, 1) + "%";
+                    workSheetHousing.Cells["F51"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0052E - data.NewYorkCity.DP04_0052E));
+                    workSheetHousing.Cells["G51"].Value = data.SelectedArea.DP04_0052E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP04_0052E.Value) / data.SelectedArea.DP04_0050E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP04_0052E.Value) / data.NewYorkCity.DP04_0050E.Value, 1), 1).ToString() : "";
+
+                    workSheetHousing.Cells["A52"].Value = "Moved in 2010 to 2014";
+                    workSheetHousing.Cells["B52"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0053E);
+                    workSheetHousing.Cells["C52"].Value = data.SelectedArea.DP04_0053E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP04_0053E.Value) / data.SelectedArea.DP04_0050E.Value, 1) + "%" : "";
+                    workSheetHousing.Cells["D52"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0053E);
+                    workSheetHousing.Cells["E52"].Value = Math.Round((double)(100 * data.NewYorkCity.DP04_0053E.Value) / data.NewYorkCity.DP04_0050E.Value, 1) + "%";
+                    workSheetHousing.Cells["F52"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0053E - data.NewYorkCity.DP04_0053E));
+                    workSheetHousing.Cells["G52"].Value = data.SelectedArea.DP04_0053E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP04_0053E.Value) / data.SelectedArea.DP04_0050E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP04_0053E.Value) / data.NewYorkCity.DP04_0050E.Value, 1), 1).ToString() : "";
+
+                    workSheetHousing.Cells["A53"].Value = "Moved in 2000 to 2009";
+                    workSheetHousing.Cells["B53"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0054E);
+                    workSheetHousing.Cells["C53"].Value = data.SelectedArea.DP04_0054E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP04_0054E.Value) / data.SelectedArea.DP04_0050E.Value, 1) + "%" : "";
+                    workSheetHousing.Cells["D53"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0054E);
+                    workSheetHousing.Cells["E53"].Value = Math.Round((double)(100 * data.NewYorkCity.DP04_0054E.Value) / data.NewYorkCity.DP04_0050E.Value, 1) + "%";
+                    workSheetHousing.Cells["F53"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0054E - data.NewYorkCity.DP04_0054E));
+                    workSheetHousing.Cells["G53"].Value = data.SelectedArea.DP04_0054E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP04_0054E.Value) / data.SelectedArea.DP04_0050E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP04_0054E.Value) / data.NewYorkCity.DP04_0050E.Value, 1), 1).ToString() : "";
+
+                    workSheetHousing.Cells["A54"].Value = "Moved in 1990 to 1999";
+                    workSheetHousing.Cells["B54"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0055E);
+                    workSheetHousing.Cells["C54"].Value = data.SelectedArea.DP04_0055E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP04_0055E.Value) / data.SelectedArea.DP04_0050E.Value, 1) + "%" : "";
+                    workSheetHousing.Cells["D54"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0055E);
+                    workSheetHousing.Cells["E54"].Value = Math.Round((double)(100 * data.NewYorkCity.DP04_0055E.Value) / data.NewYorkCity.DP04_0050E.Value, 1) + "%";
+                    workSheetHousing.Cells["F54"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0055E - data.NewYorkCity.DP04_0055E));
+                    workSheetHousing.Cells["G54"].Value = data.SelectedArea.DP04_0055E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP04_0055E.Value) / data.SelectedArea.DP04_0050E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP04_0055E.Value) / data.NewYorkCity.DP04_0050E.Value, 1), 1).ToString() : "";
+
+                    workSheetHousing.Cells["A55"].Value = "Moved in 1989 and earlier";
+                    workSheetHousing.Cells["B55"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0056E);
+                    workSheetHousing.Cells["C55"].Value = data.SelectedArea.DP04_0056E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP04_0056E.Value) / data.SelectedArea.DP04_0050E.Value, 1) + "%" : "";
+                    workSheetHousing.Cells["D55"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0056E);
+                    workSheetHousing.Cells["E55"].Value = Math.Round((double)(100 * data.NewYorkCity.DP04_0056E.Value) / data.NewYorkCity.DP04_0050E.Value, 1) + "%";
+                    workSheetHousing.Cells["F55"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0056E - data.NewYorkCity.DP04_0056E));
+                    workSheetHousing.Cells["G55"].Value = data.SelectedArea.DP04_0056E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP04_0056E.Value) / data.SelectedArea.DP04_0050E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP04_0056E.Value) / data.NewYorkCity.DP04_0050E.Value, 1), 1).ToString() : "";
+
+                    workSheetHousing.Cells["A57:G57"].Merge = true;
+                    workSheetHousing.Cells["A57"].Value = "Occupants per Room";
+                    workSheetHousing.Cells["A58:A59"].Merge = true;
+                    workSheetHousing.Cells["B58:C58"].Merge = true;
+                    workSheetHousing.Cells["B58"].Value = "Selected Area";
+                    workSheetHousing.Cells["D58:E58"].Merge = true;
+                    workSheetHousing.Cells["D58"].Value = "New York City";
+                    workSheetHousing.Cells["F58:G58"].Merge = true;
+                    workSheetHousing.Cells["F58"].Value = "Difference";
+
+                    workSheetHousing.Cells["B59"].Value = "Number";
+                    workSheetHousing.Cells["C59"].Value = "Percent";
+                    workSheetHousing.Cells["D59"].Value = "Number";
+                    workSheetHousing.Cells["E59"].Value = "Percent";
+                    workSheetHousing.Cells["F59"].Value = "Number";
+                    workSheetHousing.Cells["G59"].Value = "Pctg. Pt.";
+
+                    workSheetHousing.Cells["A60"].Value = "Occupied housing units";
+                    workSheetHousing.Cells["B60"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0076E);
+                    workSheetHousing.Cells["C60"].Value = "100%";
+                    workSheetHousing.Cells["D60"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0076E);
+                    workSheetHousing.Cells["E60"].Value = "100%";
+                    workSheetHousing.Cells["F60"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0076E - data.NewYorkCity.DP04_0076E));
+                    workSheetHousing.Cells["G60"].Value = "0.0";
+
+                    workSheetHousing.Cells["A61"].Value = "1.00 or less";
+                    workSheetHousing.Cells["B61"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0077E);
+                    workSheetHousing.Cells["C61"].Value = data.SelectedArea.DP04_0077E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP04_0077E.Value) / data.SelectedArea.DP04_0076E.Value, 1) + "%" : "";
+                    workSheetHousing.Cells["D61"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0077E);
+                    workSheetHousing.Cells["E61"].Value = Math.Round((double)(100 * data.NewYorkCity.DP04_0077E.Value) / data.NewYorkCity.DP04_0076E.Value, 1) + "%";
+                    workSheetHousing.Cells["F61"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0077E - data.NewYorkCity.DP04_0077E));
+                    workSheetHousing.Cells["G61"].Value = data.SelectedArea.DP04_0077E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP04_0077E.Value) / data.SelectedArea.DP04_0076E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP04_0077E.Value) / data.NewYorkCity.DP04_0076E.Value, 1), 1).ToString() : "";
+
+                    workSheetHousing.Cells["A62"].Value = "1.01 to 1.50";
+                    workSheetHousing.Cells["B62"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0078E);
+                    workSheetHousing.Cells["C62"].Value = data.SelectedArea.DP04_0078E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP04_0078E.Value) / data.SelectedArea.DP04_0076E.Value, 1) + "%" : "";
+                    workSheetHousing.Cells["D62"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0078E);
+                    workSheetHousing.Cells["E62"].Value = Math.Round((double)(100 * data.NewYorkCity.DP04_0078E.Value) / data.NewYorkCity.DP04_0076E.Value, 1) + "%";
+                    workSheetHousing.Cells["F62"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0078E - data.NewYorkCity.DP04_0078E));
+                    workSheetHousing.Cells["G62"].Value = data.SelectedArea.DP04_0078E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP04_0078E.Value) / data.SelectedArea.DP04_0076E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP04_0078E.Value) / data.NewYorkCity.DP04_0076E.Value, 1), 1).ToString() : "";
+
+                    workSheetHousing.Cells["A63"].Value = "1.51 or more";
+                    workSheetHousing.Cells["B63"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0079E);
+                    workSheetHousing.Cells["C63"].Value = data.SelectedArea.DP04_0079E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP04_0079E.Value) / data.SelectedArea.DP04_0076E.Value, 1) + "%" : "";
+                    workSheetHousing.Cells["D63"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0079E);
+                    workSheetHousing.Cells["E63"].Value = Math.Round((double)(100 * data.NewYorkCity.DP04_0079E.Value) / data.NewYorkCity.DP04_0076E.Value, 1) + "%";
+                    workSheetHousing.Cells["F63"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0079E - data.NewYorkCity.DP04_0079E));
+                    workSheetHousing.Cells["G63"].Value = data.SelectedArea.DP04_0079E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP04_0079E.Value) / data.SelectedArea.DP04_0076E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP04_0079E.Value) / data.NewYorkCity.DP04_0076E.Value, 1), 1).ToString() : "";
+
+                    workSheetHousing.Cells["A65:G65"].Merge = true;
+                    workSheetHousing.Cells["A65"].Value = "Mortgage Status";
+                    workSheetHousing.Cells["A66:A67"].Merge = true;
+                    workSheetHousing.Cells["B66:C66"].Merge = true;
+                    workSheetHousing.Cells["B66"].Value = "Selected Area";
+                    workSheetHousing.Cells["D66:E66"].Merge = true;
+                    workSheetHousing.Cells["D66"].Value = "New York City";
+                    workSheetHousing.Cells["F66:G66"].Merge = true;
+                    workSheetHousing.Cells["F66"].Value = "Difference";
+
+                    workSheetHousing.Cells["B67"].Value = "Number";
+                    workSheetHousing.Cells["C67"].Value = "Percent";
+                    workSheetHousing.Cells["D67"].Value = "Number";
+                    workSheetHousing.Cells["E67"].Value = "Percent";
+                    workSheetHousing.Cells["F67"].Value = "Number";
+                    workSheetHousing.Cells["G67"].Value = "Pctg. Pt.";
+
+                    workSheetHousing.Cells["A68"].Value = "Owner-occupied units";
+                    workSheetHousing.Cells["B68"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0090E);
+                    workSheetHousing.Cells["C68"].Value = "100%";
+                    workSheetHousing.Cells["D68"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0090E);
+                    workSheetHousing.Cells["E68"].Value = "100%";
+                    workSheetHousing.Cells["F68"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0090E - data.NewYorkCity.DP04_0090E));
+                    workSheetHousing.Cells["G68"].Value = "0.0";
+
+                    workSheetHousing.Cells["A69"].Value = "Housing units with a mortgage";
+                    workSheetHousing.Cells["B69"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0091E);
+                    workSheetHousing.Cells["C69"].Value = data.SelectedArea.DP04_0091E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP04_0091E.Value) / data.SelectedArea.DP04_0090E.Value, 1) + "%" : "";
+                    workSheetHousing.Cells["D69"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0091E);
+                    workSheetHousing.Cells["E69"].Value = Math.Round((double)(100 * data.NewYorkCity.DP04_0091E.Value) / data.NewYorkCity.DP04_0090E.Value, 1) + "%";
+                    workSheetHousing.Cells["F69"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0091E - data.NewYorkCity.DP04_0091E));
+                    workSheetHousing.Cells["G69"].Value = data.SelectedArea.DP04_0091E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP04_0091E.Value) / data.SelectedArea.DP04_0090E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP04_0091E.Value) / data.NewYorkCity.DP04_0090E.Value, 1), 1).ToString() : "";
+
+                    workSheetHousing.Cells["A70"].Value = "Housing units without a mortgage";
+                    workSheetHousing.Cells["B70"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0092E);
+                    workSheetHousing.Cells["C70"].Value = data.SelectedArea.DP04_0092E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP04_0092E.Value) / data.SelectedArea.DP04_0090E.Value, 1) + "%" : "";
+                    workSheetHousing.Cells["D70"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0092E);
+                    workSheetHousing.Cells["E70"].Value = Math.Round((double)(100 * data.NewYorkCity.DP04_0092E.Value) / data.NewYorkCity.DP04_0090E.Value, 1) + "%";
+                    workSheetHousing.Cells["F70"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0092E - data.NewYorkCity.DP04_0092E));
+                    workSheetHousing.Cells["G70"].Value = data.SelectedArea.DP04_0092E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP04_0092E.Value) / data.SelectedArea.DP04_0090E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP04_0092E.Value) / data.NewYorkCity.DP04_0090E.Value, 1), 1).ToString() : "";
+
+                    workSheetHousing.Cells["A72:G72"].Merge = true;
+                    workSheetHousing.Cells["A72"].Value = "Selected Monthly Owner Costs (SMOC)";
+                    workSheetHousing.Cells["A73:A74"].Merge = true;
+                    workSheetHousing.Cells["B73:C73"].Merge = true;
+                    workSheetHousing.Cells["B73"].Value = "Selected Area";
+                    workSheetHousing.Cells["D73:E73"].Merge = true;
+                    workSheetHousing.Cells["D73"].Value = "New York City";
+                    workSheetHousing.Cells["F73:G73"].Merge = true;
+                    workSheetHousing.Cells["F73"].Value = "Difference";
+
+                    workSheetHousing.Cells["B74"].Value = "Number";
+                    workSheetHousing.Cells["C74"].Value = "Percent";
+                    workSheetHousing.Cells["D74"].Value = "Number";
+                    workSheetHousing.Cells["E74"].Value = "Percent";
+                    workSheetHousing.Cells["F74"].Value = "Number";
+                    workSheetHousing.Cells["G74"].Value = "Pctg. Pt.";
+
+                    workSheetHousing.Cells["A75"].Value = "Housing units with a mortgage";
+                    workSheetHousing.Cells["B75"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0093E);
+                    workSheetHousing.Cells["C75"].Value = "100%";
+                    workSheetHousing.Cells["D75"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0093E);
+                    workSheetHousing.Cells["E75"].Value = "100%";
+                    workSheetHousing.Cells["F75"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0093E - data.NewYorkCity.DP04_0093E));
+                    workSheetHousing.Cells["G75"].Value = "0.0";
+
+                    workSheetHousing.Cells["A76"].Value = "Less than $500";
+                    workSheetHousing.Cells["B76"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0094E);
+                    workSheetHousing.Cells["C76"].Value = data.SelectedArea.DP04_0094E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP04_0094E.Value) / data.SelectedArea.DP04_0093E.Value, 1) + "%" : "";
+                    workSheetHousing.Cells["D76"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0094E);
+                    workSheetHousing.Cells["E76"].Value = Math.Round((double)(100 * data.NewYorkCity.DP04_0094E.Value) / data.NewYorkCity.DP04_0093E.Value, 1) + "%";
+                    workSheetHousing.Cells["F76"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0094E - data.NewYorkCity.DP04_0094E));
+                    workSheetHousing.Cells["G76"].Value = data.SelectedArea.DP04_0094E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP04_0094E.Value) / data.SelectedArea.DP04_0093E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP04_0094E.Value) / data.NewYorkCity.DP04_0093E.Value, 1), 1).ToString() : "";
+
+                    workSheetHousing.Cells["A77"].Value = "$500 to $999";
+                    workSheetHousing.Cells["B77"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0095E);
+                    workSheetHousing.Cells["C77"].Value = data.SelectedArea.DP04_0095E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP04_0095E.Value) / data.SelectedArea.DP04_0093E.Value, 1) + "%" : "";
+                    workSheetHousing.Cells["D77"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0095E);
+                    workSheetHousing.Cells["E77"].Value = Math.Round((double)(100 * data.NewYorkCity.DP04_0095E.Value) / data.NewYorkCity.DP04_0093E.Value, 1) + "%";
+                    workSheetHousing.Cells["F77"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0095E - data.NewYorkCity.DP04_0095E));
+                    workSheetHousing.Cells["G77"].Value = data.SelectedArea.DP04_0095E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP04_0095E.Value) / data.SelectedArea.DP04_0093E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP04_0095E.Value) / data.NewYorkCity.DP04_0093E.Value, 1), 1).ToString() : "";
+
+                    workSheetHousing.Cells["A78"].Value = "$1,000 to $1,499";
+                    workSheetHousing.Cells["B78"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0096E);
+                    workSheetHousing.Cells["C78"].Value = data.SelectedArea.DP04_0096E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP04_0096E.Value) / data.SelectedArea.DP04_0093E.Value, 1) + "%" : "";
+                    workSheetHousing.Cells["D78"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0096E);
+                    workSheetHousing.Cells["E78"].Value = Math.Round((double)(100 * data.NewYorkCity.DP04_0096E.Value) / data.NewYorkCity.DP04_0093E.Value, 1) + "%";
+                    workSheetHousing.Cells["F78"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0096E - data.NewYorkCity.DP04_0096E));
+                    workSheetHousing.Cells["G78"].Value = data.SelectedArea.DP04_0096E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP04_0096E.Value) / data.SelectedArea.DP04_0093E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP04_0096E.Value) / data.NewYorkCity.DP04_0093E.Value, 1), 1).ToString() : "";
+
+                    workSheetHousing.Cells["A79"].Value = "$1,500 to $1,999";
+                    workSheetHousing.Cells["B79"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0097E);
+                    workSheetHousing.Cells["C79"].Value = data.SelectedArea.DP04_0097E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP04_0097E.Value) / data.SelectedArea.DP04_0093E.Value, 1) + "%" : "";
+                    workSheetHousing.Cells["D79"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0097E);
+                    workSheetHousing.Cells["E79"].Value = Math.Round((double)(100 * data.NewYorkCity.DP04_0097E.Value) / data.NewYorkCity.DP04_0093E.Value, 1) + "%";
+                    workSheetHousing.Cells["F79"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0097E - data.NewYorkCity.DP04_0097E));
+                    workSheetHousing.Cells["G79"].Value = data.SelectedArea.DP04_0097E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP04_0097E.Value) / data.SelectedArea.DP04_0093E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP04_0097E.Value) / data.NewYorkCity.DP04_0093E.Value, 1), 1).ToString() : "";
+
+                    workSheetHousing.Cells["A80"].Value = "$2,000 to $2,499";
+                    workSheetHousing.Cells["B80"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0098E);
+                    workSheetHousing.Cells["C80"].Value = data.SelectedArea.DP04_0098E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP04_0098E.Value) / data.SelectedArea.DP04_0093E.Value, 1) + "%" : "";
+                    workSheetHousing.Cells["D80"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0098E);
+                    workSheetHousing.Cells["E80"].Value = Math.Round((double)(100 * data.NewYorkCity.DP04_0098E.Value) / data.NewYorkCity.DP04_0093E.Value, 1) + "%";
+                    workSheetHousing.Cells["F80"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0098E - data.NewYorkCity.DP04_0098E));
+                    workSheetHousing.Cells["G80"].Value = data.SelectedArea.DP04_0098E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP04_0098E.Value) / data.SelectedArea.DP04_0093E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP04_0098E.Value) / data.NewYorkCity.DP04_0093E.Value, 1), 1).ToString() : "";
+
+                    workSheetHousing.Cells["A81"].Value = "$2,500 to $2,999";
+                    workSheetHousing.Cells["B81"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0099E);
+                    workSheetHousing.Cells["C81"].Value = data.SelectedArea.DP04_0099E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP04_0099E.Value) / data.SelectedArea.DP04_0093E.Value, 1) + "%" : "";
+                    workSheetHousing.Cells["D81"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0099E);
+                    workSheetHousing.Cells["E81"].Value = Math.Round((double)(100 * data.NewYorkCity.DP04_0099E.Value) / data.NewYorkCity.DP04_0093E.Value, 1) + "%";
+                    workSheetHousing.Cells["F81"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0099E - data.NewYorkCity.DP04_0099E));
+                    workSheetHousing.Cells["G81"].Value = data.SelectedArea.DP04_0099E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP04_0099E.Value) / data.SelectedArea.DP04_0093E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP04_0099E.Value) / data.NewYorkCity.DP04_0093E.Value, 1), 1).ToString() : "";
+
+                    workSheetHousing.Cells["A82"].Value = "$3,000 or more";
+                    workSheetHousing.Cells["B82"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0100E);
+                    workSheetHousing.Cells["C82"].Value = data.SelectedArea.DP04_0100E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP04_0100E.Value) / data.SelectedArea.DP04_0093E.Value, 1) + "%" : "";
+                    workSheetHousing.Cells["D82"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0100E);
+                    workSheetHousing.Cells["E82"].Value = Math.Round((double)(100 * data.NewYorkCity.DP04_0100E.Value) / data.NewYorkCity.DP04_0093E.Value, 1) + "%";
+                    workSheetHousing.Cells["F82"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0100E - data.NewYorkCity.DP04_0100E));
+                    workSheetHousing.Cells["G82"].Value = data.SelectedArea.DP04_0100E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP04_0100E.Value) / data.SelectedArea.DP04_0093E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP04_0100E.Value) / data.NewYorkCity.DP04_0093E.Value, 1), 1).ToString() : "";
+
+                    workSheetHousing.Cells["A83"].Value = "Median (dollars)";
+                    workSheetHousing.Cells["B83"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0101E);
+                    workSheetHousing.Cells["C83"].Value = "";
+                    workSheetHousing.Cells["D83"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0101E);
+                    workSheetHousing.Cells["E83"].Value = "";
+                    workSheetHousing.Cells["F83"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0101E - data.NewYorkCity.DP04_0101E));
+                    workSheetHousing.Cells["G83"].Value = "";
+
+                    workSheetHousing.Cells["A85:G85"].Merge = true;
+                    workSheetHousing.Cells["A85"].Value = "Selected Monthly Owner Costs as a Percentage of Household Income (SMOCAPI)";
+                    workSheetHousing.Cells["A86:A87"].Merge = true;
+                    workSheetHousing.Cells["B86:C86"].Merge = true;
+                    workSheetHousing.Cells["B86"].Value = "Selected Area";
+                    workSheetHousing.Cells["D86:E86"].Merge = true;
+                    workSheetHousing.Cells["D86"].Value = "New York City";
+                    workSheetHousing.Cells["F86:G86"].Merge = true;
+                    workSheetHousing.Cells["F86"].Value = "Difference";
+
+                    workSheetHousing.Cells["B87"].Value = "Number";
+                    workSheetHousing.Cells["C87"].Value = "Percent";
+                    workSheetHousing.Cells["D87"].Value = "Number";
+                    workSheetHousing.Cells["E87"].Value = "Percent";
+                    workSheetHousing.Cells["F87"].Value = "Number";
+                    workSheetHousing.Cells["G87"].Value = "Pctg. Pt.";
+
+                    workSheetHousing.Cells["A88"].Value = "Housing units with a mortgage (excluding units where SMOCAPI cannot be computed)";
+                    workSheetHousing.Cells["B88"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0110E);
+                    workSheetHousing.Cells["C88"].Value = "100%";
+                    workSheetHousing.Cells["D88"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0110E);
+                    workSheetHousing.Cells["E88"].Value = "100%";
+                    workSheetHousing.Cells["F88"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0110E - data.NewYorkCity.DP04_0110E));
+                    workSheetHousing.Cells["G88"].Value = "0.0";
+
+                    workSheetHousing.Cells["A89"].Value = "Less than 20.0 percent";
+                    workSheetHousing.Cells["B89"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0111E);
+                    workSheetHousing.Cells["C89"].Value = data.SelectedArea.DP04_0111E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP04_0111E.Value) / data.SelectedArea.DP04_0110E.Value, 1) + "%" : "";
+                    workSheetHousing.Cells["D89"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0111E);
+                    workSheetHousing.Cells["E89"].Value = Math.Round((double)(100 * data.NewYorkCity.DP04_0111E.Value) / data.NewYorkCity.DP04_0110E.Value, 1) + "%";
+                    workSheetHousing.Cells["F89"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0111E - data.NewYorkCity.DP04_0111E));
+                    workSheetHousing.Cells["G89"].Value = data.SelectedArea.DP04_0111E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP04_0111E.Value) / data.SelectedArea.DP04_0110E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP04_0111E.Value) / data.NewYorkCity.DP04_0110E.Value, 1), 1).ToString() : "";
+
+                    workSheetHousing.Cells["A90"].Value = "20.0 to 24.9 percent";
+                    workSheetHousing.Cells["B90"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0112E);
+                    workSheetHousing.Cells["C90"].Value = data.SelectedArea.DP04_0112E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP04_0112E.Value) / data.SelectedArea.DP04_0110E.Value, 1) + "%" : "";
+                    workSheetHousing.Cells["D90"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0112E);
+                    workSheetHousing.Cells["E90"].Value = Math.Round((double)(100 * data.NewYorkCity.DP04_0112E.Value) / data.NewYorkCity.DP04_0110E.Value, 1) + "%";
+                    workSheetHousing.Cells["F90"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0112E - data.NewYorkCity.DP04_0112E));
+                    workSheetHousing.Cells["G90"].Value = data.SelectedArea.DP04_0112E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP04_0112E.Value) / data.SelectedArea.DP04_0110E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP04_0112E.Value) / data.NewYorkCity.DP04_0110E.Value, 1), 1).ToString() : "";
+
+                    workSheetHousing.Cells["A91"].Value = "25.0 to 29.9 percent";
+                    workSheetHousing.Cells["B91"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0113E);
+                    workSheetHousing.Cells["C91"].Value = data.SelectedArea.DP04_0113E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP04_0113E.Value) / data.SelectedArea.DP04_0110E.Value, 1) + "%" : "";
+                    workSheetHousing.Cells["D91"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0113E);
+                    workSheetHousing.Cells["E91"].Value = Math.Round((double)(100 * data.NewYorkCity.DP04_0113E.Value) / data.NewYorkCity.DP04_0110E.Value, 1) + "%";
+                    workSheetHousing.Cells["F91"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0113E - data.NewYorkCity.DP04_0113E));
+                    workSheetHousing.Cells["G91"].Value = data.SelectedArea.DP04_0113E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP04_0113E.Value) / data.SelectedArea.DP04_0110E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP04_0113E.Value) / data.NewYorkCity.DP04_0110E.Value, 1), 1).ToString() : "";
+
+                    workSheetHousing.Cells["A92"].Value = "30.0 to 34.9 percent";
+                    workSheetHousing.Cells["B92"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0114E);
+                    workSheetHousing.Cells["C92"].Value = data.SelectedArea.DP04_0114E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP04_0114E.Value) / data.SelectedArea.DP04_0110E.Value, 1) + "%" : "";
+                    workSheetHousing.Cells["D92"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0114E);
+                    workSheetHousing.Cells["E92"].Value = Math.Round((double)(100 * data.NewYorkCity.DP04_0114E.Value) / data.NewYorkCity.DP04_0110E.Value, 1) + "%";
+                    workSheetHousing.Cells["F92"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0114E - data.NewYorkCity.DP04_0114E));
+                    workSheetHousing.Cells["G92"].Value = data.SelectedArea.DP04_0114E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP04_0114E.Value) / data.SelectedArea.DP04_0110E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP04_0114E.Value) / data.NewYorkCity.DP04_0110E.Value, 1), 1).ToString() : "";
+
+                    workSheetHousing.Cells["A93"].Value = "35.0 percent or more";
+                    workSheetHousing.Cells["B93"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0115E);
+                    workSheetHousing.Cells["C93"].Value = data.SelectedArea.DP04_0115E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP04_0115E.Value) / data.SelectedArea.DP04_0110E.Value, 1) + "%" : "";
+                    workSheetHousing.Cells["D93"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0115E);
+                    workSheetHousing.Cells["E93"].Value = Math.Round((double)(100 * data.NewYorkCity.DP04_0115E.Value) / data.NewYorkCity.DP04_0110E.Value, 1) + "%";
+                    workSheetHousing.Cells["F93"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0115E - data.NewYorkCity.DP04_0115E));
+                    workSheetHousing.Cells["G93"].Value = data.SelectedArea.DP04_0115E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP04_0115E.Value) / data.SelectedArea.DP04_0110E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP04_0115E.Value) / data.NewYorkCity.DP04_0110E.Value, 1), 1).ToString() : "";
+
+                    workSheetHousing.Cells["A95:G95"].Merge = true;
+                    workSheetHousing.Cells["A95"].Value = "Gross Rent";
+                    workSheetHousing.Cells["A96:A97"].Merge = true;
+                    workSheetHousing.Cells["B96:C96"].Merge = true;
+                    workSheetHousing.Cells["B96"].Value = "Selected Area";
+                    workSheetHousing.Cells["D96:E96"].Merge = true;
+                    workSheetHousing.Cells["D96"].Value = "New York City";
+                    workSheetHousing.Cells["F96:G96"].Merge = true;
+                    workSheetHousing.Cells["F96"].Value = "Difference";
+
+                    workSheetHousing.Cells["B97"].Value = "Number";
+                    workSheetHousing.Cells["C97"].Value = "Percent";
+                    workSheetHousing.Cells["D97"].Value = "Number";
+                    workSheetHousing.Cells["E97"].Value = "Percent";
+                    workSheetHousing.Cells["F97"].Value = "Number";
+                    workSheetHousing.Cells["G97"].Value = "Pctg. Pt.";
+
+                    workSheetHousing.Cells["A98"].Value = "Occupied units paying rent";
+                    workSheetHousing.Cells["B98"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0126E);
+                    workSheetHousing.Cells["C98"].Value = "100%";
+                    workSheetHousing.Cells["D98"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0126E);
+                    workSheetHousing.Cells["E98"].Value = "100%";
+                    workSheetHousing.Cells["F98"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0126E - data.NewYorkCity.DP04_0126E));
+                    workSheetHousing.Cells["G98"].Value = "0.0";
+
+                    workSheetHousing.Cells["A99"].Value = "Less than $500";
+                    workSheetHousing.Cells["B99"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0127E);
+                    workSheetHousing.Cells["C99"].Value = data.SelectedArea.DP04_0127E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP04_0127E.Value) / data.SelectedArea.DP04_0126E.Value, 1) + "%" : "";
+                    workSheetHousing.Cells["D99"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0127E);
+                    workSheetHousing.Cells["E99"].Value = Math.Round((double)(100 * data.NewYorkCity.DP04_0127E.Value) / data.NewYorkCity.DP04_0126E.Value, 1) + "%";
+                    workSheetHousing.Cells["F99"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0127E - data.NewYorkCity.DP04_0127E));
+                    workSheetHousing.Cells["G99"].Value = data.SelectedArea.DP04_0127E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP04_0127E.Value) / data.SelectedArea.DP04_0126E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP04_0127E.Value) / data.NewYorkCity.DP04_0126E.Value, 1), 1).ToString() : "";
+
+                    workSheetHousing.Cells["A100"].Value = "$500 to $999";
+                    workSheetHousing.Cells["B100"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0128E);
+                    workSheetHousing.Cells["C100"].Value = data.SelectedArea.DP04_0128E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP04_0128E.Value) / data.SelectedArea.DP04_0126E.Value, 1) + "%" : "";
+                    workSheetHousing.Cells["D100"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0128E);
+                    workSheetHousing.Cells["E100"].Value = Math.Round((double)(100 * data.NewYorkCity.DP04_0128E.Value) / data.NewYorkCity.DP04_0126E.Value, 1) + "%";
+                    workSheetHousing.Cells["F100"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0128E - data.NewYorkCity.DP04_0128E));
+                    workSheetHousing.Cells["G100"].Value = data.SelectedArea.DP04_0128E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP04_0128E.Value) / data.SelectedArea.DP04_0126E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP04_0128E.Value) / data.NewYorkCity.DP04_0126E.Value, 1), 1).ToString() : "";
+
+                    workSheetHousing.Cells["A101"].Value = "$1,000 to $1,499";
+                    workSheetHousing.Cells["B101"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0129E);
+                    workSheetHousing.Cells["C101"].Value = data.SelectedArea.DP04_0129E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP04_0129E.Value) / data.SelectedArea.DP04_0126E.Value, 1) + "%" : "";
+                    workSheetHousing.Cells["D101"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0129E);
+                    workSheetHousing.Cells["E101"].Value = Math.Round((double)(100 * data.NewYorkCity.DP04_0129E.Value) / data.NewYorkCity.DP04_0126E.Value, 1) + "%";
+                    workSheetHousing.Cells["F101"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0129E - data.NewYorkCity.DP04_0129E));
+                    workSheetHousing.Cells["G101"].Value = data.SelectedArea.DP04_0129E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP04_0129E.Value) / data.SelectedArea.DP04_0126E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP04_0129E.Value) / data.NewYorkCity.DP04_0126E.Value, 1), 1).ToString() : "";
+
+                    workSheetHousing.Cells["A102"].Value = "$1,500 to $1,999";
+                    workSheetHousing.Cells["B102"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0130E);
+                    workSheetHousing.Cells["C102"].Value = data.SelectedArea.DP04_0130E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP04_0130E.Value) / data.SelectedArea.DP04_0126E.Value, 1) + "%" : "";
+                    workSheetHousing.Cells["D102"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0130E);
+                    workSheetHousing.Cells["E102"].Value = Math.Round((double)(100 * data.NewYorkCity.DP04_0130E.Value) / data.NewYorkCity.DP04_0126E.Value, 1) + "%";
+                    workSheetHousing.Cells["F102"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0130E - data.NewYorkCity.DP04_0130E));
+                    workSheetHousing.Cells["G102"].Value = data.SelectedArea.DP04_0130E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP04_0130E.Value) / data.SelectedArea.DP04_0126E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP04_0130E.Value) / data.NewYorkCity.DP04_0126E.Value, 1), 1).ToString() : "";
+
+                    workSheetHousing.Cells["A103"].Value = "$2,000 to $2,499";
+                    workSheetHousing.Cells["B103"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0131E);
+                    workSheetHousing.Cells["C103"].Value = data.SelectedArea.DP04_0131E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP04_0131E.Value) / data.SelectedArea.DP04_0126E.Value, 1) + "%" : "";
+                    workSheetHousing.Cells["D103"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0131E);
+                    workSheetHousing.Cells["E103"].Value = Math.Round((double)(100 * data.NewYorkCity.DP04_0131E.Value) / data.NewYorkCity.DP04_0126E.Value, 1) + "%";
+                    workSheetHousing.Cells["F103"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0131E - data.NewYorkCity.DP04_0131E));
+                    workSheetHousing.Cells["G103"].Value = data.SelectedArea.DP04_0131E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP04_0131E.Value) / data.SelectedArea.DP04_0126E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP04_0131E.Value) / data.NewYorkCity.DP04_0126E.Value, 1), 1).ToString() : "";
+
+                    workSheetHousing.Cells["A104"].Value = "$2,500 to $2,999";
+                    workSheetHousing.Cells["B104"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0132E);
+                    workSheetHousing.Cells["C104"].Value = data.SelectedArea.DP04_0132E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP04_0132E.Value) / data.SelectedArea.DP04_0126E.Value, 1) + "%" : "";
+                    workSheetHousing.Cells["D104"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0132E);
+                    workSheetHousing.Cells["E104"].Value = Math.Round((double)(100 * data.NewYorkCity.DP04_0132E.Value) / data.NewYorkCity.DP04_0126E.Value, 1) + "%";
+                    workSheetHousing.Cells["F104"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0132E - data.NewYorkCity.DP04_0132E));
+                    workSheetHousing.Cells["G104"].Value = data.SelectedArea.DP04_0132E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP04_0132E.Value) / data.SelectedArea.DP04_0126E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP04_0132E.Value) / data.NewYorkCity.DP04_0126E.Value, 1), 1).ToString() : "";
+
+                    workSheetHousing.Cells["A105"].Value = "$3,000 or more";
+                    workSheetHousing.Cells["B105"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0133E);
+                    workSheetHousing.Cells["C105"].Value = data.SelectedArea.DP04_0133E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP04_0133E.Value) / data.SelectedArea.DP04_0126E.Value, 1) + "%" : "";
+                    workSheetHousing.Cells["D105"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0133E);
+                    workSheetHousing.Cells["E105"].Value = Math.Round((double)(100 * data.NewYorkCity.DP04_0133E.Value) / data.NewYorkCity.DP04_0126E.Value, 1) + "%";
+                    workSheetHousing.Cells["F105"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0133E - data.NewYorkCity.DP04_0133E));
+                    workSheetHousing.Cells["G105"].Value = data.SelectedArea.DP04_0133E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP04_0133E.Value) / data.SelectedArea.DP04_0126E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP04_0133E.Value) / data.NewYorkCity.DP04_0126E.Value, 1), 1).ToString() : "";
+
+                    workSheetHousing.Cells["A106"].Value = "Median (dollars)";
+                    workSheetHousing.Cells["B106"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0134E);
+                    workSheetHousing.Cells["C106"].Value = "";
+                    workSheetHousing.Cells["D106"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0134E);
+                    workSheetHousing.Cells["E106"].Value = "";
+                    workSheetHousing.Cells["F106"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0134E - data.NewYorkCity.DP04_0134E));
+                    workSheetHousing.Cells["G106"].Value = "";
+
+                    workSheetHousing.Cells["A108:G108"].Merge = true;
+                    workSheetHousing.Cells["A108"].Value = "Gross Rent as a Percentage of Household Income (GRAPI)";
+                    workSheetHousing.Cells["A109:A110"].Merge = true;
+                    workSheetHousing.Cells["B109:C109"].Merge = true;
+                    workSheetHousing.Cells["B109"].Value = "Selected Area";
+                    workSheetHousing.Cells["D109:E109"].Merge = true;
+                    workSheetHousing.Cells["D109"].Value = "New York City";
+                    workSheetHousing.Cells["F109:G109"].Merge = true;
+                    workSheetHousing.Cells["F109"].Value = "Difference";
+
+                    workSheetHousing.Cells["B110"].Value = "Number";
+                    workSheetHousing.Cells["C110"].Value = "Percent";
+                    workSheetHousing.Cells["D110"].Value = "Number";
+                    workSheetHousing.Cells["E110"].Value = "Percent";
+                    workSheetHousing.Cells["F110"].Value = "Number";
+                    workSheetHousing.Cells["G110"].Value = "Pctg. Pt.";
+
+                    workSheetHousing.Cells["A111"].Value = "Occupied units paying rent (excluding units where GRAPI cannot be computed)";
+                    workSheetHousing.Cells["B111"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0136E);
+                    workSheetHousing.Cells["C111"].Value = "100%";
+                    workSheetHousing.Cells["D111"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0136E);
+                    workSheetHousing.Cells["E111"].Value = "100%";
+                    workSheetHousing.Cells["F111"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0136E - data.NewYorkCity.DP04_0136E));
+                    workSheetHousing.Cells["G111"].Value = "0.0";
+
+                    workSheetHousing.Cells["A112"].Value = "Less than 15.0 percent";
+                    workSheetHousing.Cells["B112"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0137E);
+                    workSheetHousing.Cells["C112"].Value = data.SelectedArea.DP04_0137E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP04_0137E.Value) / data.SelectedArea.DP04_0136E.Value, 1) + "%" : "";
+                    workSheetHousing.Cells["D112"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0137E);
+                    workSheetHousing.Cells["E112"].Value = Math.Round((double)(100 * data.NewYorkCity.DP04_0137E.Value) / data.NewYorkCity.DP04_0136E.Value, 1) + "%";
+                    workSheetHousing.Cells["F112"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0137E - data.NewYorkCity.DP04_0137E));
+                    workSheetHousing.Cells["G112"].Value = data.SelectedArea.DP04_0137E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP04_0137E.Value) / data.SelectedArea.DP04_0136E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP04_0137E.Value) / data.NewYorkCity.DP04_0136E.Value, 1), 1).ToString() : "";
+
+                    workSheetHousing.Cells["A113"].Value = "15.0 to 19.9 percent";
+                    workSheetHousing.Cells["B113"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0138E);
+                    workSheetHousing.Cells["C113"].Value = data.SelectedArea.DP04_0138E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP04_0138E.Value) / data.SelectedArea.DP04_0136E.Value, 1) + "%" : "";
+                    workSheetHousing.Cells["D113"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0138E);
+                    workSheetHousing.Cells["E113"].Value = Math.Round((double)(100 * data.NewYorkCity.DP04_0138E.Value) / data.NewYorkCity.DP04_0136E.Value, 1) + "%";
+                    workSheetHousing.Cells["F113"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0138E - data.NewYorkCity.DP04_0138E));
+                    workSheetHousing.Cells["G113"].Value = data.SelectedArea.DP04_0138E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP04_0138E.Value) / data.SelectedArea.DP04_0136E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP04_0138E.Value) / data.NewYorkCity.DP04_0136E.Value, 1), 1).ToString() : "";
+
+                    workSheetHousing.Cells["A114"].Value = "20.0 to 24.9 percent";
+                    workSheetHousing.Cells["B114"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0139E);
+                    workSheetHousing.Cells["C114"].Value = data.SelectedArea.DP04_0139E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP04_0139E.Value) / data.SelectedArea.DP04_0136E.Value, 1) + "%" : "";
+                    workSheetHousing.Cells["D114"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0139E);
+                    workSheetHousing.Cells["E114"].Value = Math.Round((double)(100 * data.NewYorkCity.DP04_0139E.Value) / data.NewYorkCity.DP04_0136E.Value, 1) + "%";
+                    workSheetHousing.Cells["F114"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0139E - data.NewYorkCity.DP04_0139E));
+                    workSheetHousing.Cells["G114"].Value = data.SelectedArea.DP04_0139E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP04_0139E.Value) / data.SelectedArea.DP04_0136E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP04_0139E.Value) / data.NewYorkCity.DP04_0136E.Value, 1), 1).ToString() : "";
+
+                    workSheetHousing.Cells["A115"].Value = "25.0 to 29.9 percent";
+                    workSheetHousing.Cells["B115"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0140E);
+                    workSheetHousing.Cells["C115"].Value = data.SelectedArea.DP04_0140E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP04_0140E.Value) / data.SelectedArea.DP04_0136E.Value, 1) + "%" : "";
+                    workSheetHousing.Cells["D115"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0140E);
+                    workSheetHousing.Cells["E115"].Value = Math.Round((double)(100 * data.NewYorkCity.DP04_0140E.Value) / data.NewYorkCity.DP04_0136E.Value, 1) + "%";
+                    workSheetHousing.Cells["F115"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0140E - data.NewYorkCity.DP04_0140E));
+                    workSheetHousing.Cells["G115"].Value = data.SelectedArea.DP04_0140E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP04_0140E.Value) / data.SelectedArea.DP04_0136E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP04_0140E.Value) / data.NewYorkCity.DP04_0136E.Value, 1), 1).ToString() : "";
+
+                    workSheetHousing.Cells["A116"].Value = "30.0 to 34.9 percent";
+                    workSheetHousing.Cells["B116"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0141E);
+                    workSheetHousing.Cells["C116"].Value = data.SelectedArea.DP04_0141E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP04_0141E.Value) / data.SelectedArea.DP04_0136E.Value, 1) + "%" : "";
+                    workSheetHousing.Cells["D116"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0141E);
+                    workSheetHousing.Cells["E116"].Value = Math.Round((double)(100 * data.NewYorkCity.DP04_0141E.Value) / data.NewYorkCity.DP04_0136E.Value, 1) + "%";
+                    workSheetHousing.Cells["F116"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0141E - data.NewYorkCity.DP04_0141E));
+                    workSheetHousing.Cells["G116"].Value = data.SelectedArea.DP04_0141E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP04_0141E.Value) / data.SelectedArea.DP04_0136E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP04_0141E.Value) / data.NewYorkCity.DP04_0136E.Value, 1), 1).ToString() : "";
+
+                    workSheetHousing.Cells["A117"].Value = "35.0 percent or more";
+                    workSheetHousing.Cells["B117"].Value = String.Format("{0:n0}", data.SelectedArea.DP04_0142E);
+                    workSheetHousing.Cells["C117"].Value = data.SelectedArea.DP04_0142E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP04_0142E.Value) / data.SelectedArea.DP04_0136E.Value, 1) + "%" : "";
+                    workSheetHousing.Cells["D117"].Value = String.Format("{0:n0}", data.NewYorkCity.DP04_0142E);
+                    workSheetHousing.Cells["E117"].Value = Math.Round((double)(100 * data.NewYorkCity.DP04_0142E.Value) / data.NewYorkCity.DP04_0136E.Value, 1) + "%";
+                    workSheetHousing.Cells["F117"].Value = String.Format("{0:n0}", (data.SelectedArea.DP04_0142E - data.NewYorkCity.DP04_0142E));
+                    workSheetHousing.Cells["G117"].Value = data.SelectedArea.DP04_0142E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP04_0142E.Value) / data.SelectedArea.DP04_0136E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP04_0142E.Value) / data.NewYorkCity.DP04_0136E.Value, 1), 1).ToString() : "";
+
                     workSheetHousing.Cells[workSheetDemographics.Dimension.Address].AutoFitColumns();
                     SetHeaderStyle(workSheetHousing, "A1");
                     SetHeaderStyle(workSheetHousing, "A13");
                     SetHeaderStyle(workSheetHousing, "A28");
                     SetHeaderStyle(workSheetHousing, "A39");
+                    SetHeaderStyle(workSheetHousing, "A46");
+                    SetHeaderStyle(workSheetHousing, "A57");
+                    SetHeaderStyle(workSheetHousing, "A65");
+                    SetHeaderStyle(workSheetHousing, "A72");
+                    SetHeaderStyle(workSheetHousing, "A85");
+                    SetHeaderStyle(workSheetHousing, "A95");
+                    SetHeaderStyle(workSheetHousing, "A108");
                     #endregion Housing
-                    //Header
                     excelBytes = xlPackage.GetAsByteArray();
                 }
 
@@ -1487,14 +1974,14 @@ namespace NYCMappingWebApp.Controllers
                 string fileName = ReportName + "_" + DateTime.Now.Ticks.ToString() + ".xlsx";
                 string targetPath = Path.Combine(targetFolder, fileName);
 
-                //MyReport myReport = new MyReport()
-                //{
-                //    Username = User.Identity.Name,
-                //    ReportName = ReportName,
-                //    FileName = fileName
-                //};
-                //db.MyReports.Add(myReport);
-                //db.SaveChanges();
+                MyReport myReport = new MyReport()
+                {
+                    Username = User.Identity.Name,
+                    ReportName = ReportName,
+                    FileName = fileName
+                };
+                db.MyReports.Add(myReport);
+                db.SaveChanges();
 
                 System.IO.File.WriteAllBytes(targetPath, excelBytes);
                 return Json(new { msg }, JsonRequestBehavior.AllowGet);
