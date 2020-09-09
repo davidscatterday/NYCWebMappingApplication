@@ -48,7 +48,7 @@ require(["esri/map", "dojo/parser", "esri/layers/FeatureLayer", "esri/config", "
     });
     //Takes a URL to a non cached map service.
     censusTractsFeatures = new FeatureLayer(CensusTractsUrl, {
-        visible: false,
+        visible: true,
         mode: FeatureLayer.MODE_ONDEMAND,
         outFields: ["*"]
     });
@@ -114,7 +114,7 @@ require(["esri/map", "dojo/parser", "esri/layers/FeatureLayer", "esri/config", "
                 zoomExtent.ymax = esri.graphicsExtent(selectionLayer.graphics).ymax + 1000;
                 map.setExtent(zoomExtent);
                 $('#divResultButton').text('');
-                var htmlDataResultButton = "<button type='button' class='btn btn-primary btn-lg btn-block' onclick='btnTractResult()'>View Profile " + resultFeatures.length + " Tracts</button>";
+                var htmlDataResultButton = "<button type='button' class='btn btn-primary btn-lg btn-block' onclick='btnTractResult()'>View Profile: " + resultFeatures.length + " Tracts</button>";
                 $('#divResultButton').append(htmlDataResultButton);
             }
             else {

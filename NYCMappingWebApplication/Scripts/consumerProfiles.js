@@ -3055,9 +3055,9 @@ function btnResetCP() {
 
     $('.panel-collapse.in').collapse('toggle');
 
-    if (document.getElementById("cbCensusTracts").checked == true) {
-        document.getElementById("cbCensusTracts").checked = false;
-        censusTractsFeatures.setVisibility(false);
+    if (document.getElementById("cbCensusTracts").checked == false) {
+        document.getElementById("cbCensusTracts").checked = true;
+        censusTractsFeatures.setVisibility(true);
     }
     $("#txtCensusTracts11Digit").select2("val", "");
     $('#divResultButton').text('');
@@ -5207,7 +5207,7 @@ function CreateSearch(whereClauseCP) {
                         zoomExtent.ymax = esri.graphicsExtent(selectionLayer.graphics).ymax + 1000;
                         map.setExtent(zoomExtent);
                         $('#divResultButton').text('');
-                        var htmlDataResultButton = "<button type='button' class='btn btn-primary btn-lg btn-block' onclick='btnTractResult()'>View Profile " + resultFeatures.length + " Tracts</button>";
+                        var htmlDataResultButton = "<button type='button' class='btn btn-primary btn-lg btn-block' onclick='btnTractResult()'>View Profile: " + resultFeatures.length + " Tracts</button>";
                         $('#divResultButton').append(htmlDataResultButton);
                     }
                     else {
@@ -5313,7 +5313,7 @@ function txtCensusTracts11Digit_Change(evt) {
             localStorage.setItem('ConsumerProfileSearchedSocial', null);
             localStorage.setItem('ConsumerProfileSearchedEconomic', null);
             localStorage.setItem('ConsumerProfileSearchedHousing', null);
-            var htmlDataResultButton = "<button type='button' class='btn btn-primary btn-lg btn-block' onclick='btnTractResult()'>View Profile " + resultFeatures.length + " Tracts</button>";
+            var htmlDataResultButton = "<button type='button' class='btn btn-primary btn-lg btn-block' onclick='btnTractResult()'>View Profile: " + resultFeatures.length + " Tracts</button>";
             $('#divResultButton').append(htmlDataResultButton);
         }
         else {

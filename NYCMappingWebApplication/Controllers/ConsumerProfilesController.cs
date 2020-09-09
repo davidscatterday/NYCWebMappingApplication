@@ -49,34 +49,34 @@ namespace NYCMappingWebApp.Controllers
                 sqlQuery += "(Tract = '" + splitByItem[0] + "' AND County = '" + splitByItem[1] + "') OR ";
                 switch (splitByItem[1])
                 {
-                    case ("005"): lstBronxTracts.Add(splitByItem[0].Substring(1, splitByItem[0].Length - 3)); break;
-                    case ("047"): lstBrooklinTracts.Add(splitByItem[0].Substring(1, splitByItem[0].Length - 3)); break;
-                    case ("061"): lstManhattanTracts.Add(splitByItem[0].Substring(1, splitByItem[0].Length - 3)); break;
-                    case ("081"): lstQueensTracts.Add(splitByItem[0].Substring(1, splitByItem[0].Length - 3)); break;
-                    case ("085"): lstStatenIslandTracts.Add(splitByItem[0].Substring(1, splitByItem[0].Length - 3)); break;
+                    case ("005"): lstBronxTracts.Add("36" + splitByItem[1] + splitByItem[0]); break;
+                    case ("047"): lstBrooklinTracts.Add("36" + splitByItem[1] + splitByItem[0]); break;
+                    case ("061"): lstManhattanTracts.Add("36" + splitByItem[1] + splitByItem[0]); break;
+                    case ("081"): lstQueensTracts.Add("36" + splitByItem[1] + splitByItem[0]); break;
+                    case ("085"): lstStatenIslandTracts.Add("36" + splitByItem[1] + splitByItem[0]); break;
                     default: break;
                 }
             }
             string headerMessage = "<b>" + splitByTract.Count() + " Census Tracts<b>";
             if (lstBronxTracts.Count > 0)
             {
-                headerMessage += "<br/><b>Bronx:</b> " + string.Join(", ", lstBronxTracts.OrderBy(x => int.Parse(x)));
+                headerMessage += "<br/><b>Bronx:</b> " + string.Join(", ", lstBronxTracts.OrderBy(x => Int64.Parse(x)));
             }
             if (lstBrooklinTracts.Count > 0)
             {
-                headerMessage += "<br/><b>Brooklin:</b> " + string.Join(", ", lstBrooklinTracts.OrderBy(x => int.Parse(x)));
+                headerMessage += "<br/><b>Brooklin:</b> " + string.Join(", ", lstBrooklinTracts.OrderBy(x => Int64.Parse(x)));
             }
             if (lstManhattanTracts.Count > 0)
             {
-                headerMessage += "<br/><b>Manhattan:</b> " + string.Join(", ", lstManhattanTracts.OrderBy(x => int.Parse(x)));
+                headerMessage += "<br/><b>Manhattan:</b> " + string.Join(", ", lstManhattanTracts.OrderBy(x => Int64.Parse(x)));
             }
             if (lstQueensTracts.Count > 0)
             {
-                headerMessage += "<br/><b>Queens:</b> " + string.Join(", ", lstQueensTracts.OrderBy(x => int.Parse(x)));
+                headerMessage += "<br/><b>Queens:</b> " + string.Join(", ", lstQueensTracts.OrderBy(x => Int64.Parse(x)));
             }
             if (lstStatenIslandTracts.Count > 0)
             {
-                headerMessage += "<br/><b>Staten Island:</b> " + string.Join(", ", lstStatenIslandTracts.OrderBy(x => int.Parse(x)));
+                headerMessage += "<br/><b>Staten Island:</b> " + string.Join(", ", lstStatenIslandTracts.OrderBy(x => Int64.Parse(x)));
             }
             TempData["HeaderMessage"] = headerMessage;
             sqlQuery = sqlQuery.Substring(0, sqlQuery.Length - 3);
