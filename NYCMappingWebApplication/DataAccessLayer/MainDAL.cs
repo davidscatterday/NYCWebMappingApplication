@@ -350,11 +350,11 @@ namespace NYCMappingWebApp.DataAccessLayer
             {
                 if (sqlQuery.EndsWith("("))
                 {
-                    sqlQuery += " (el.sale_date > '" + formatedDate + "' AND el.sale_date < '2030-01-01')";
+                    sqlQuery += " (ps.sale_date > '" + formatedDate + "' AND ps.sale_date < '2030-01-01')";
                 }
                 else
                 {
-                    sqlQuery += " OR (el.sale_date > '" + formatedDate + "' AND el.sale_date < '2030-01-01')";
+                    sqlQuery += " OR (ps.sale_date > '" + formatedDate + "' AND ps.sale_date < '2030-01-01')";
                 }
             }
             sqlQuery += ")";

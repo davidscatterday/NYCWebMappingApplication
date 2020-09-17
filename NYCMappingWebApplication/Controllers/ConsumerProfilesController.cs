@@ -60,23 +60,23 @@ namespace NYCMappingWebApp.Controllers
             string headerMessage = "<b>" + splitByTract.Count() + " Census Tracts<b>";
             if (lstBronxTracts.Count > 0)
             {
-                headerMessage += "<br/><b>Bronx:</b> " + string.Join(", ", lstBronxTracts.OrderBy(x => Int64.Parse(x)));
+                headerMessage += "<br/><b style='font-size: 17px;color: black;'> Bronx:</b> <span style='font-weight: normal'>" + string.Join(", ", lstBronxTracts.OrderBy(x => Int64.Parse(x))) + "</span>";
             }
             if (lstBrooklinTracts.Count > 0)
             {
-                headerMessage += "<br/><b>Brooklin:</b> " + string.Join(", ", lstBrooklinTracts.OrderBy(x => Int64.Parse(x)));
+                headerMessage += "<br/><b style='font-size: 17px;color: black;'>Brooklin:</b> <span style='font-weight: normal'>" + string.Join(", ", lstBrooklinTracts.OrderBy(x => Int64.Parse(x))) + "</span>";
             }
             if (lstManhattanTracts.Count > 0)
             {
-                headerMessage += "<br/><b>Manhattan:</b> " + string.Join(", ", lstManhattanTracts.OrderBy(x => Int64.Parse(x)));
+                headerMessage += "<br/><b style='font-size: 17px;color: black;'>Manhattan:</b> <span style='font-weight: normal'>" + string.Join(", ", lstManhattanTracts.OrderBy(x => Int64.Parse(x))) + "</span>";
             }
             if (lstQueensTracts.Count > 0)
             {
-                headerMessage += "<br/><b>Queens:</b> " + string.Join(", ", lstQueensTracts.OrderBy(x => Int64.Parse(x)));
+                headerMessage += "<br/><b style='font-size: 17px;color: black;'>Queens:</b> <span style='font-weight: normal'>" + string.Join(", ", lstQueensTracts.OrderBy(x => Int64.Parse(x))) + "</span>";
             }
             if (lstStatenIslandTracts.Count > 0)
             {
-                headerMessage += "<br/><b>Staten Island:</b> " + string.Join(", ", lstStatenIslandTracts.OrderBy(x => Int64.Parse(x)));
+                headerMessage += "<br/><b style='font-size: 17px;color: black;'>Staten Island:</b> <span style='font-weight: normal'>" + string.Join(", ", lstStatenIslandTracts.OrderBy(x => Int64.Parse(x))) + "</span>";
             }
             TempData["HeaderMessage"] = headerMessage;
             sqlQuery = sqlQuery.Substring(0, sqlQuery.Length - 3);

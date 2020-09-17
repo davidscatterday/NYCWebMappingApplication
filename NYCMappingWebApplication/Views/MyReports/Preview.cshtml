@@ -27,13 +27,13 @@
 
 @if (Model.Count > 0)
 {
-    <h2>Reports for @User.Identity.Name</h2>
+    <h3 style="margin-top: -25px">Reports for @User.Identity.Name</h3>
 
     <div class="form-group">
         @Html.Grid(Model).Columns(columns =>
        {
            columns.Add(model => model.ReportName, "ReportName")
-               .Titled("ReportName")
+               .Titled("Report Name")
                .SetWidth(30);
            columns.Add()
                .Encoded(false)
@@ -45,7 +45,7 @@
 }
 else
 {
-    <h2>@User.Identity.Name you still don't have any reports saved</h2>
+    <h3 style="margin-top: -25px">You don't have any reports saved yet</h3>
 }
 @helper openReport(NYCMappingWebApp.Models.MyReport model)
 {

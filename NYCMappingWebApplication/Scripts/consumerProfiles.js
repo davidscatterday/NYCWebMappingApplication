@@ -3055,10 +3055,10 @@ function btnResetCP() {
 
     $('.panel-collapse.in').collapse('toggle');
 
-    if (document.getElementById("cbCensusTracts").checked == false) {
-        document.getElementById("cbCensusTracts").checked = true;
-        censusTractsFeatures.setVisibility(true);
-    }
+    //if (document.getElementById("cbCensusTracts").checked == false) {
+    //    document.getElementById("cbCensusTracts").checked = true;
+    //    censusTractsFeatures.setVisibility(true);
+    //}
     $("#txtCensusTracts11Digit").select2("val", "");
     $('#divResultButton').text('');
     map.graphics.clear();
