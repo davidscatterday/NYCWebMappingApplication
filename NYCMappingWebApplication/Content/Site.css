@@ -8,7 +8,7 @@ html, body, body-content, map {
 }
 
 body {
-    padding-top: 94px;
+    padding-bottom: 50px;
     overflow: hidden;
 }
 
@@ -129,6 +129,7 @@ input[type=text] {
     position: relative;
     display: inline-block;
     border-radius: 2px;
+    font-size: 16px;
 }
 
     .notification .badge {

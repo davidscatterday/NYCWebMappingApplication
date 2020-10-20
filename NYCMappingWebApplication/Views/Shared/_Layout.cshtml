@@ -9,7 +9,7 @@
     @Scripts.Render("~/bundles/modernizr")
     @*<link rel="stylesheet" href="https://js.arcgis.com/3.32/dijit/themes/claro/claro.css">*@
     <link rel="stylesheet" href="https://js.arcgis.com/3.32/dijit/themes/tundra/tundra.css">
-    <link href="http://mottie.github.io/tablesorter/css/theme.default.css" rel="stylesheet">
+    <link href="https://mottie.github.io/tablesorter/css/theme.default.css" rel="stylesheet">
 
     <link rel="stylesheet" href="https://js.arcgis.com/3.32/esri/css/esri.css">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -22,44 +22,106 @@
     </script>
 </head>
 <body class="tundra">
-    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color: white;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); border-color: white;">
-        <div class="container" style="width: 100%">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <img src="~/Images/NY-REI-Text-Only.png" style="height: 60px; width: auto" />
-            </div>
-            <div class="navbar-collapse collapse" style="margin-right: 120px">
-                <span style="float: right; margin-top: 10px; font-size: 17px; font-family: auto;">@User.Identity.Name</span>
-            </div>
-        </div>
-        <div class="navbar navbar-light" style="min-height: 34px; margin-bottom: 0px;">
-            <div class="container" style="width: 100%;">
-                <ul class="header-menu list-inline mb-2" id="menuLinks" style="float: right;margin-right: 120px;">
-                    <li class="list-inline-item text-md">
+    @*<div class="anima-container-center-horizontal">
+            <div class="dashboard-interface-3-1 anima-screen">
+                <div class="navbar-C61RwL">
+                    <img class="navbarbg-8MJZIW" src="Images/DrawTools/navbar-bg@1x.png" />
+                    <div class="divider-8MJZIW"></div>
+                    <div class="saved-reports-8MJZIW font-class-1">
+                        <a href="#" class="menu-item" id="support-menu-link" onclick="btnOpenMyReports_Click()">
+                            Saved Reports
+                        </a>
+                    </div>
+                    <div class="alerts-8MJZIW font-class-1">
                         <a href="#" class="notification" onclick="btnOpenMyAlerts_Click()">
-                            <span>Alert</span>
+                            <span>Alerts</span>
                             <span id="myAlertBadge" class="badge"></span>
                         </a>
-                    </li>
-                    <li class="list-inline-item text-md">
-                        <a href="#" class="menu-item" id="support-menu-link" onclick="btnOpenMyReports_Click()">
-                            <span class="myReportsIcon"></span> Saved Reports
-                        </a>
-                    </li>
-                    <li class="list-inline-item text-md">
+                    </div>
+                    <div class="sign-out-8MJZIW font-class-1">
                         <a href="/Account/Logout" class="menu-item" id="signout">
-                            <span class="signOutIcon"></span> Sign out
+                            Sign out
                         </a>
-                    </li>
-                </ul>
+                    </div>
+                    <div class="group-1-8MJZIW">
+                        <div class="username-it8hRF">@User.Identity.Name</div>
+                        <div class="user-menu-it8hRF">
+                            <div class="username-HZeOJ5 font-class-1">Welcome,</div>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>*@
+    @*<div class="navbar navbar-inverse navbar-fixed-top" style="background-color: white;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); border-color: white;">
+            <div class="container" style="width: 100%">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <img src="~/Images/NY-REI-Text-Only.png" style="height: 60px; width: auto" />
+                </div>
+                <div class="navbar-collapse collapse" style="margin-right: 120px">
+                    <span style="float: right; margin-top: 10px; font-size: 17px; font-family: auto;">@User.Identity.Name</span>
+                </div>
+            </div>
+            <div class="navbar navbar-light" style="min-height: 34px; margin-bottom: 0px;">
+                <div class="container" style="width: 100%;">
+                    <ul class="header-menu list-inline mb-2" id="menuLinks" style="float: right;margin-right: 120px;">
+                        <li class="list-inline-item text-md">
+                            <a href="#" class="notification" onclick="btnOpenMyAlerts_Click()">
+                                <span>Alert</span>
+                                <span id="myAlertBadge" class="badge"></span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item text-md">
+                            <a href="#" class="menu-item" id="support-menu-link" onclick="btnOpenMyReports_Click()">
+                                <span class="myReportsIcon"></span> Saved Reports
+                            </a>
+                        </li>
+                        <li class="list-inline-item text-md">
+                            <a href="/Account/Logout" class="menu-item" id="signout">
+                                <span class="signOutIcon"></span> Sign out
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>*@
+    <nav class="navbar navbar-inverse" style="margin-bottom: 2px; background-color: white; border: none">
+        <div class="container-fluid">
+            @*<div class="navbar-header">
+                <a class="navbar-brand" href="#">WebSiteName</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Page 1</a></li>
+                <li><a href="#">Page 2</a></li>
+            </ul>*@
+            <ul class="nav navbar-nav navbar-right">
+                <li class="list-inline-item text-md">
+                    <a href="#" class="notification" id="support-menu-link" onclick="btnOpenMyReports_Click()">
+                        @*<span class="myReportsIcon"></span>*@ Saved Reports
+                    </a>
+                </li>
+                <li class="list-inline-item text-md">
+                    <a href="#" class="notification" onclick="btnOpenMyAlerts_Click()">
+                        <span>Alert</span>
+                        <span id="myAlertBadge" class="badge"></span>
+                    </a>
+                </li>
+                <li class="list-inline-item text-md" style="border-right-style: groove; margin-right: 5px">
+                    <a href="/Account/Logout" class="notification" id="signout">
+                        @*<span class="signOutIcon"></span>*@ Sign out<span class="divider"></span>
+                    </a>
+                </li>
+                <li class="list-inline-item text-md">
+                    <span style="float: right; margin-top: 14px; font-size: 15px; font-family: auto; margin-right: 7px; margin-left: 7px;">Wellcome, @User.Identity.Name</span>
+                </li>
+            </ul>
         </div>
-    </div>
-
+    </nav>
     <div style="height: 100%">
         @RenderBody()
     </div>

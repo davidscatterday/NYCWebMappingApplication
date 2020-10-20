@@ -1391,10 +1391,10 @@ function btnSearch() {
         SalePriceStart = $("#slider-range-SalePrice").slider("values", 0);
         SalePriceEnd = $("#slider-range-SalePrice").slider("values", 1);
         if (whereClause == "") {
-            whereClause = "cast(ps.sale_price as bigint) >= " + SalePriceStart + " AND cast(ps.sale_price as bigint) <= " + SalePriceEnd;
+            whereClause = "cast(cast(ps.sale_price AS money) as bigint) >= " + SalePriceStart + " AND cast(cast(ps.sale_price AS money) as bigint) <= " + SalePriceEnd;
         }
         else {
-            whereClause += " AND cast(ps.sale_price as bigint) >= " + SalePriceStart + " AND cast(ps.sale_price as bigint) <= " + SalePriceEnd;
+            whereClause += " AND cast(cast(ps.sale_price AS money) as bigint) >= " + SalePriceStart + " AND cast(cast(ps.sale_price AS money) as bigint) <= " + SalePriceEnd;
         }
     }
 
