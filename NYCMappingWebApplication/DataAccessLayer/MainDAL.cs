@@ -3,6 +3,7 @@ using NYCMappingWebApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -258,6 +259,31 @@ namespace NYCMappingWebApp.DataAccessLayer
             {
                 MyAlert alert = db.MyAlerts.Find(AlertID);
                 db.MyAlerts.Remove(alert);
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public bool DeleteReport(int ReportID)
+        {
+            try
+            {
+                MyReport report = db.MyReports.Find(ReportID);
+
+                string targetFolder = HttpContext.Current.Server.MapPath("~/Reports");
+                string fileName = report.FileName;
+                string targetPath = Path.Combine(targetFolder, fileName);
+
+                if (File.Exists(targetPath))
+                {
+                    File.Delete(targetPath);
+                }
+
+                db.MyReports.Remove(report);
                 db.SaveChanges();
                 return true;
             }

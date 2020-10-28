@@ -206,6 +206,13 @@ namespace NYCMappingWebApp.Controllers
 
         }
 
+        public JsonResult DeleteReport(int ReportID)
+        {
+            var res = mainDAL.DeleteReport(ReportID);
+
+            return Json(res, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult CreateAlert(string AlertName, string AlertFrequency, string AlertQuery, bool IsPlutoSearch, bool IsEnergySearch, bool IsPermitSearch, bool IsViolationSearch, bool IsEvictionSearch, bool IsElevatorSearch, bool IsPropertySalesSearch)
         {
             string msg = "Alert created successfully";

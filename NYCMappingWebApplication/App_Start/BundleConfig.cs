@@ -30,7 +30,10 @@ namespace NYCMappingWebApp
                         "~/Scripts/gridmvc.js",
                         "~/Scripts/select2-3.5.2.js",
                         "~/Scripts/gisFunctions.js"));
-            
+
+            bundles.Add(new ScriptBundle("~/bundles/emptyLayoutJavascript").Include(
+                        "~/Scripts/emptyLayoutJS.js"));
+
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",

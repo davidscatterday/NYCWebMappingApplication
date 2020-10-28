@@ -338,6 +338,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\consumerProfiles.js" />
+    <Content Include="Scripts\emptyLayoutJS.js" />
     <Content Include="Scripts\gisFunctions.js" />
     <Content Include="Scripts\gridmvc.js" />
     <Content Include="Scripts\gridmvc.lang.fr.js" />

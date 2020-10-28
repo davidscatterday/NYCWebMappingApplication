@@ -1767,10 +1767,10 @@ function btnOpenSaveReport_Click() {
 function btnOpenAlerts_Click() {
     swal({
         text: "For Alerts including Property Permits, Property Violations, Housing Evictions or Elevators criteria, please ensure the selected end date is set in the future or empty to receieve alerts in perpetuity",
-        title: "Before You Save Your Alert",
+        title: "Alert",
         buttons: {
             ResetSearch: "Reset Search",
-            ConfirmAlert: "Confirm Alert",
+            ConfirmAlert: "Set Alert",
         },
     })
         .then((value) => {
@@ -2047,11 +2047,11 @@ function ShowInfoForSelectedAlert(AlertID, rowID) {
 function CreateHtmlMyAlerts(data) {
     var unreadAlerts = 0;
     if (data.length > 0) {
-        var htmlAlertRecords = '<div class="table-responsive"><table id=\"tblAlertRecords\" class="table table-bordered"><thead><tr class=\"clickableRow\">';
-        htmlAlertRecords += "<th>Name</th>";
-        htmlAlertRecords += "<th>Date</th>";
-        htmlAlertRecords += "<th></th>";
-        htmlAlertRecords += "</tr></thead><tbody>";
+        var htmlAlertRecords = '<div class="table-responsive"><table id=\"tblAlertRecords\" style="width: 100%"><tbody>';
+        //htmlAlertRecords += "<th>Name</th>";
+        //htmlAlertRecords += "<th>Date</th>";
+        //htmlAlertRecords += "<th></th>";
+        //htmlAlertRecords += "</tr></thead><tbody>";
         //Loop through each feature returned
         for (var i = 0; i < data.length; i++) {
             var rowID = "changeFontWeight" + i;
@@ -2062,9 +2062,9 @@ function CreateHtmlMyAlerts(data) {
             else {
                 htmlAlertRecords += "<tr id='" + rowID + "' class=\"clickableRow\" OnClick=\"ShowInfoForSelectedAlert('" + data[i].ID + "','" + rowID + "');\">";
             }
-            htmlAlertRecords += "<td>" + data[i].AlertName + "</td>";
+            htmlAlertRecords += "<td style='width: 70%'>" + data[i].AlertName + "</td>";
             htmlAlertRecords += "<td>" + data[i].DateCreatedString + "</td>";
-            htmlAlertRecords += "<td style='text-align: center;'><button type=\"button\" style=\"padding: 0; border: none;\" onclick=\"btnDeleteMyAlert_Click(" + data[i].ID + ")\"><img src=\"" + RootUrl + "Images/x-delete.png\" width=\"25\" height=\"20\" /></button></td>";
+            htmlAlertRecords += "<td style='text-align: center;'><button type=\"button\" style=\"padding: 0; border: none; background-color: transparent;\" onclick=\"btnDeleteMyAlert_Click(" + data[i].ID + ")\">Delete</button></td>";
             htmlAlertRecords += "</tr>";
         }
         htmlAlertRecords += '</tr></tbody></table></div>';

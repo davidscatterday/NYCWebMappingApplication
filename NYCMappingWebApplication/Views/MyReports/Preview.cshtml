@@ -27,27 +27,35 @@
 
 @if (Model.Count > 0)
 {
-    <h3>Reports for @User.Identity.Name</h3>
-
     <div class="form-group">
         @Html.Grid(Model).Columns(columns =>
        {
            columns.Add(model => model.ReportName, "ReportName")
-               .Titled("Report Name")
-               .SetWidth(30);
+               .Titled("")
+               .SetWidth(400);
            columns.Add()
                .Encoded(false)
                .Sanitized(false)
                .SetWidth(30)
                .RenderValueAs(model => openReport(model));
+           columns.Add()
+               .Encoded(false)
+               .Sanitized(false)
+               .SetWidth(30)
+               .RenderValueAs(model => deleteReport(model));
        }).WithPaging(10, 6, "grid1-page").Sortable().Filterable().WithMultipleFilters()
     </div>
 }
 else
 {
-    <h3 style="margin-top: -25px">You don't have any reports saved yet</h3>
+    <h3>You don't have any reports saved yet</h3>
 }
 @helper openReport(NYCMappingWebApp.Models.MyReport model)
 {
     <a href="@Path.Combine(Url.Content("~/Reports"), model.FileName)">Open</a>
+}
+@helper deleteReport(NYCMappingWebApp.Models.MyReport model)
+{
+    var id = model.ID;
+    <a onclick="btnDeleteMyReport_Click(@id)" style="cursor: pointer">Delete</a>
 }
