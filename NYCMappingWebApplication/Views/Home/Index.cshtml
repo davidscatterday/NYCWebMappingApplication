@@ -1459,4 +1459,46 @@
             }
         }
     });
+    $("#txtBoroughsTA").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetBoroughs',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.BoroughsList,
+                };
+            }
+        }
+    });
+    $("#txtDistrictsTA").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetDistricts',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.DistrictsList,
+                };
+            }
+        }
+    });
 </script>

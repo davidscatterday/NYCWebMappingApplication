@@ -21,7 +21,7 @@ function btnSearchHeatMapPropertySales() {
     var DateHmPsAnalysisPeriod = document.getElementById("txtHmPsAnalysisPeriod").value;
     if (document.getElementById("cbHmPsBasePeriod").checked == true && DateHmPsBasePeriod != "") {
         if (whereClauseHeatmapPropertySales == "") {
-            whereClauseHeatmapPropertySales = " Where ps.sale_date >= '" + DateHmPsBasePeriod + "'";
+            whereClauseHeatmapPropertySales = "ps.sale_date >= '" + DateHmPsBasePeriod + "'";
         }
         else {
             whereClauseHeatmapPropertySales += " AND ps.sale_date >= '" + DateHmPsBasePeriod + "'";
@@ -29,11 +29,37 @@ function btnSearchHeatMapPropertySales() {
     }
     if (document.getElementById("cbHmPsAnalysisPeriod").checked == true && DateHmPsAnalysisPeriod != "") {
         if (whereClauseHeatmapPropertySales == "") {
-            whereClauseHeatmapPropertySales = " Where ps.sale_date <= '" + DateHmPsAnalysisPeriod + "'";
+            whereClauseHeatmapPropertySales = "ps.sale_date <= '" + DateHmPsAnalysisPeriod + "'";
         }
         else {
             whereClauseHeatmapPropertySales += " AND ps.sale_date <= '" + DateHmPsAnalysisPeriod + "'";
         }
+    }
+    if (document.getElementById("cbBoroughTA").checked == true) {
+        Borough = $(txtBoroughsTA).val();
+        if (Borough != "") {
+            if (whereClauseHeatmapPropertySales == "") {
+                whereClauseHeatmapPropertySales = "p.Borough IN (" + Borough + ")";
+            }
+            else {
+                whereClauseHeatmapPropertySales += " AND p.Borough IN (" + Borough + ")";
+            }
+        }
+    }
+    if (document.getElementById("cbDistrictTA").checked == true) {
+        District = $(txtDistrictsTA).val();
+        if (District != "") {
+            if (whereClauseHeatmapPropertySales == "") {
+                whereClauseHeatmapPropertySales = "p.CD IN (" + District + ")";
+            }
+            else {
+                whereClauseHeatmapPropertySales += " AND p.CD IN (" + District + ")";
+            }
+            SearchGeometry("DISTRICTCODE IN (" + District + ")");
+        }
+    }
+    if (whereClauseHeatmapPropertySales != "") {
+        whereClauseHeatmapPropertySales = " Where " + whereClauseHeatmapPropertySales;
     }
     sqlQuery += whereClauseHeatmapPropertySales + groupOrder;
     $.ajax({
@@ -263,6 +289,12 @@ function MapPlutoHeatmapSearch(objectIDs, heatmapColor, percentage) {
 function btnResetHeatMapPropertySales() {
     $('#infoColorRamp').hide();
     heatmapLayer.clear();
+
+    document.getElementById("cbBoroughTA").checked = false;
+    document.getElementById("cbDistrictTA").checked = false;
+    $("#txtBoroughsTA").select2("val", "");
+    $("#txtDistrictsTA").select2("val", "");
+
     document.getElementById("rbHeatMapByNumberOfPropertySales").checked = true;
     document.getElementById("rbHeatMapByAveragePropertySalesPrice").checked = false;
     document.getElementById("cbHmPsBasePeriod").checked = false;
