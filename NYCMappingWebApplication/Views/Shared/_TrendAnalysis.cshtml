@@ -1,0 +1,55 @@
+﻿
+<div class="form-group">
+    <div class="col-sm-12" style="padding-left: 0px">
+        <div class="panel-group" id="accordionTrendAnalysis">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordionTrendAnalysis" href="#collapse30">
+                            Property Sales
+                        </a>
+                        <a class="fa fa-angle-down rotate-icon pull-right" data-toggle="collapse" data-parent="#accordionTrendAnalysis" href="#collapse30"></a>
+                    </h4>
+                </div>
+                <div id="collapse30" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="form-group" style="padding-left: 10px">
+                            <label class="radio-inline">
+                                <input type="radio" name="rbHeatMapPropertySales" id="rbHeatMapByNumberOfPropertySales" value="NumberOfPropertySales" checked /> Number of Property Sales
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="rbHeatMapPropertySales" id="rbHeatMapByAveragePropertySalesPrice" value="AveragePropertySalesPrice" /> Average Property Sales Price
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbHmPsBasePeriod">
+                                    <input id="cbHmPsBasePeriod" type="checkbox" style="margin-right: 5px">Base Period
+                                </label>
+                            </div>
+                            <div class="col-sm-4" style="padding-left: 0px;">
+                                <input type="text" class="date" id="txtHmPsBasePeriod" style="width: 100%" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbHmPsAnalysisPeriod">
+                                    <input id="cbHmPsAnalysisPeriod" type="checkbox" style="margin-right: 5px">Analysis Period
+                                </label>
+                            </div>
+                            <div class="col-sm-4" style="padding-left: 0px;">
+                                <input type="text" class="date" id="txtHmPsAnalysisPeriod" style="width: 100%" />
+                            </div>
+                        </div>
+                        <div class="form-group text-right">
+                            <div class="col-sm-offset-7 col-sm-5">
+                                <button type="button" class="btn btn-primary btn-sm" onclick="btnSearchHeatMapPropertySales()">Search</button>
+                                <button type="button" class="btn btn-primary btn-sm" onclick="btnResetHeatMapPropertySales()">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

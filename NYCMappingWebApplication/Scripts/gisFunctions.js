@@ -1,4 +1,4 @@
-﻿var selectionLayer, districtLayer, geometryService, selectionSymbolPoint, selectionSymbolLine, selectionSymbolFill;
+﻿var selectionLayer, districtLayer, geometryService, selectionSymbolPoint, selectionSymbolLine, selectionSymbolFill, heatmapLayer;
 require(["esri/map", "dojo/parser", "esri/layers/FeatureLayer", "esri/config", "esri/symbols/SimpleMarkerSymbol", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol", "dojo/_base/array"
     , "esri/graphic", "esri/basemaps", "esri/InfoTemplate", "esri/layers/GraphicsLayer", "esri/tasks/QueryTask", "esri/tasks/query", "esri/toolbars/draw"
     , "esri/tasks/GeometryService"
@@ -9,6 +9,7 @@ require(["esri/map", "dojo/parser", "esri/layers/FeatureLayer", "esri/config", "
     esriConfig.defaults.io.proxyUrl = "/proxy/proxy.ashx";
     selectionLayer = new GraphicsLayer();
     districtLayer = new GraphicsLayer();
+    heatmapLayer = new GraphicsLayer();
     geometryService = new GeometryService(GeometryServiceUrl);
 
     //create symbol polygon for districts features
@@ -67,7 +68,7 @@ require(["esri/map", "dojo/parser", "esri/layers/FeatureLayer", "esri/config", "
         selectionToolbar.on("draw-end", addSelectionToMap);
     });
 
-    map.addLayers([serviceFeatures, districtLayer, censusTractsFeatures, selectionLayer]);
+    map.addLayers([serviceFeatures, districtLayer, censusTractsFeatures, selectionLayer, heatmapLayer]);
 
     function addSelectionToMap(evt) {
         localStorage.setItem('ConsumerProfileSearchedDemographics', null);

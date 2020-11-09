@@ -138,6 +138,18 @@ namespace NYCMappingWebApp.Controllers
             };
         }
 
+        public JsonResult SearchDatabaseHeatMap(string sqlQuery)
+        {
+            var data = mainDAL.SearchDatabaseHeatMap(sqlQuery);
+
+            return new JsonResult()
+            {
+                Data = data,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                MaxJsonLength = Int32.MaxValue
+            };
+        }
+
         public JsonResult GetMyAlerts()
         {
             var data = mainDAL.GetMyAlerts(User.Identity.Name);
@@ -149,6 +161,13 @@ namespace NYCMappingWebApp.Controllers
         {
             var res = mainDAL.DeleteAlert(AlertID);
             var data = mainDAL.GetMyAlerts(User.Identity.Name);
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetMyReports()
+        {
+            var data = mainDAL.GetMyReports(User.Identity.Name);
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }

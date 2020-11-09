@@ -268,12 +268,27 @@ namespace NYCMappingWebApp.DataAccessLayer
             }
         }
 
-        public bool DeleteReport(int ReportID)
+        public List<MyReport> GetMyReports(string username)
+        {
+            List<MyReport> result = new List<MyReport>();
+            result = (from r in db.MyReports.AsEnumerable()
+                      where r.Username == username
+                      select new MyReport
+                      {
+                          ID = r.ID,
+                          Username = r.Username,
+                          FileName = r.FileName,
+                          ReportName = r.ReportName
+                      }).ToList();
+            return result;
+        }
+
+        public List<MyReport> DeleteReport(int ReportID)
         {
             try
             {
                 MyReport report = db.MyReports.Find(ReportID);
-
+                string myUsername = report.Username;
                 string targetFolder = HttpContext.Current.Server.MapPath("~/Reports");
                 string fileName = report.FileName;
                 string targetPath = Path.Combine(targetFolder, fileName);
@@ -285,11 +300,22 @@ namespace NYCMappingWebApp.DataAccessLayer
 
                 db.MyReports.Remove(report);
                 db.SaveChanges();
-                return true;
+
+                List<MyReport> result = new List<MyReport>();
+                result = (from r in db.MyReports.AsEnumerable()
+                          where r.Username == myUsername
+                          select new MyReport
+                          {
+                              ID = r.ID,
+                              Username = r.Username,
+                              FileName = r.FileName,
+                              ReportName = r.ReportName
+                          }).ToList();
+                return result;
             }
             catch (Exception ex)
             {
-                return false;
+                return new List<MyReport>();
             }
         }
 
@@ -586,6 +612,14 @@ namespace NYCMappingWebApp.DataAccessLayer
             }
             return returnResult;
         }
-
+        public List<HeatmapAttributes> SearchDatabaseHeatMap(string sqlQuery)
+        {
+            List<HeatmapAttributes> returnResult = new List<HeatmapAttributes>();
+            using (var ctx = new NYC_Web_Mapping_AppEntities())
+            {
+                returnResult = ctx.Database.SqlQuery<HeatmapAttributes>(sqlQuery).ToList();
+            }
+            return returnResult;
+        }
     }
 }

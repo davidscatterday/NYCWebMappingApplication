@@ -26,6 +26,7 @@ namespace NYCMappingWebApp
 
             bundles.Add(new ScriptBundle("~/bundles/customJs").Include(
                         "~/Scripts/otherFunctions.js",
+                        "~/Scripts/trendAnalysis.js",
                         "~/Scripts/consumerProfiles.js",
                         "~/Scripts/gridmvc.js",
                         "~/Scripts/select2-3.5.2.js",
@@ -37,6 +38,7 @@ namespace NYCMappingWebApp
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/font-awesome.css",
                       "~/Content/site.css",
                       "~/Content/headerStyle.css",
                       "~/Content/select2-3.5.2.css",

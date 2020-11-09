@@ -142,7 +142,7 @@ namespace NYCMappingWebApp.Entities
             }
         }
         public string filing_date_string_format { get; set; }
-        
+
         public double? AssessTotPerSqFt { get; set; }
 
         private DateTime? _sale_date;
@@ -553,5 +553,10 @@ namespace NYCMappingWebApp.Entities
         public double? DP04_0141PE { get; set; }
         public int? DP04_0142E { get; set; }
         public double? DP04_0142PE { get; set; }
+    }
+    public class HeatmapAttributes
+    {
+        public int CD { get; set; }
+        public Int64 recordValue { get; set; }
     }
 }

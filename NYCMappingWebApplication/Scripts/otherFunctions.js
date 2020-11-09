@@ -1765,13 +1765,18 @@ function btnOpenSaveReport_Click() {
 }
 
 function btnOpenAlerts_Click() {
+    //var testarray = (document).getElementsByClassName("swal-button");
+    //$(".swal-button").each(function () {
+    //    $(this).removeClass("swal-button");
+    //    $(this).addClass("btn btn-primary btn-sm");
+    //});
     swal({
         text: "For Alerts including Property Permits, Property Violations, Housing Evictions or Elevators criteria, please ensure the selected end date is set in the future or empty to receieve alerts in perpetuity",
         title: "Alert",
         buttons: {
-            ResetSearch: "Reset Search",
-            ConfirmAlert: "Set Alert",
-        },
+            ResetSearch: { text: 'Reset Search', className: 'btn btn-primary btn-sm' },
+            ConfirmAlert: { text: 'Set Alert', className: 'btn btn-primary btn-sm' },
+        }
     })
         .then((value) => {
             switch (value) {
@@ -1818,10 +1823,31 @@ function btnSaveMyAlert_Click() {
 }
 
 function btnOpenMyReports_Click() {
-    openModalWindow(RootUrl + "MyReports/Preview", 800, 820, "My Reports", true, "iframeMyReports");
+    $.ajax({
+        url: RootUrl + 'Home/GetMyReports',
+        type: "POST",
+        success: function (data) {
+            CreateHtmlMyReports(data);
+        },
+        error: function (error) {
+            console.log("An error occurred from GetMyReports()." + error);
+        }
+    });
+    $("#myModalShowReport").modal();
+    //openModalWindow(RootUrl + "MyReports/Preview", 800, 820, "My Reports", true, "iframeMyReports");
 }
 
 function btnOpenMyAlerts_Click() {
+    $.ajax({
+        url: RootUrl + 'Home/GetMyAlerts',
+        type: "POST",
+        success: function (data) {
+            CreateHtmlMyAlerts(data);
+        },
+        error: function (error) {
+            console.log("An error occurred from GetMyAlerts()." + error);
+        }
+    });
     $("#myModalShowAlert").modal();
 }
 
@@ -1897,16 +1923,6 @@ $(function () {
 $(document).ready(function () {
     $("#tabs").tabs();
     $("#tabsConsumerProfiles").tabs();
-    $.ajax({
-        url: RootUrl + 'Home/GetMyAlerts',
-        type: "POST",
-        success: function (data) {
-            CreateHtmlMyAlerts(data);
-        },
-        error: function (error) {
-            console.log("An error occurred from GetMyAlerts()." + error);
-        }
-    });
     var myTimeout = setTimeout(function () {
         $('input.select2-input').attr('autocomplete', "off");
     }, 1000);
@@ -2057,14 +2073,14 @@ function CreateHtmlMyAlerts(data) {
             var rowID = "changeFontWeight" + i;
             if (data[i].IsUnread) {
                 unreadAlerts++;
-                htmlAlertRecords += "<tr id='" + rowID + "' style='font-weight: bold' class=\"clickableRow\" OnClick=\"ShowInfoForSelectedAlert('" + data[i].ID + "','" + rowID + "');\">";
+                htmlAlertRecords += "<tr id='" + rowID + "' style='font-weight: bold; height: 30px;' class=\"clickableRow\" OnClick=\"ShowInfoForSelectedAlert('" + data[i].ID + "','" + rowID + "');\">";
             }
             else {
-                htmlAlertRecords += "<tr id='" + rowID + "' class=\"clickableRow\" OnClick=\"ShowInfoForSelectedAlert('" + data[i].ID + "','" + rowID + "');\">";
+                htmlAlertRecords += "<tr id='" + rowID + "' style='height: 30px;' class=\"clickableRow\" OnClick=\"ShowInfoForSelectedAlert('" + data[i].ID + "','" + rowID + "');\">";
             }
             htmlAlertRecords += "<td style='width: 70%'>" + data[i].AlertName + "</td>";
             htmlAlertRecords += "<td>" + data[i].DateCreatedString + "</td>";
-            htmlAlertRecords += "<td style='text-align: center;'><button type=\"button\" style=\"padding: 0; border: none; background-color: transparent;\" onclick=\"btnDeleteMyAlert_Click(" + data[i].ID + ")\">Delete</button></td>";
+            htmlAlertRecords += "<td style='text-align: center;'><button type=\"button\" class='buttonDelete' style=\"padding: 0; border: none; background-color: transparent;\" onclick=\"btnDeleteMyAlert_Click(" + data[i].ID + ")\">Delete</button></td>";
             htmlAlertRecords += "</tr>";
         }
         htmlAlertRecords += '</tr></tbody></table></div>';
@@ -2084,6 +2100,65 @@ function CreateHtmlMyAlerts(data) {
     else {
         document.getElementById("myAlertBadge").textContent = unreadAlerts;
     }
+}
+
+function CreateHtmlMyReports(data) {
+    var unreadReports = 0;
+    if (data.length > 0) {
+        var htmlReportRecords = '<div class="table-responsive"><table id=\"tblReportRecords\" style="width: 100%"><tbody>';
+        //Loop through each feature returned
+        for (var i = 0; i < data.length; i++) {
+            var rowID = "changeFontWeight" + i;
+            if (data[i].IsUnread) {
+                unreadReports++;
+                htmlReportRecords += "<tr id='" + rowID + "' style='font-weight: bold;height: 30px;'>";
+            }
+            else {
+                htmlReportRecords += "<tr id='" + rowID + "' style='height: 30px;'>";
+            }
+            htmlReportRecords += "<td style='width: 70%'>" + data[i].ReportName + "</td>";
+            htmlReportRecords += "<td style='text-align: center;'><a href=" + RootUrl + "Reports\\" + data[i].FileName.replace(" ","%20") + ">Open</a></td>";
+            htmlReportRecords += "<td style='text-align: center;'><button type=\"button\" class='buttonDelete' style=\"padding: 0; border: none; background-color: transparent;\" onclick=\"btnDeleteMyReport_Click(" + data[i].ID + ")\">Delete</button></td>";
+            htmlReportRecords += "</tr>";
+        }
+        htmlReportRecords += '</tr></tbody></table></div>';
+        $('#divReportItemsTable').text('');
+        $('#divReportItemsTable').append(htmlReportRecords);
+        $('#divReportItemsMessage').hide();
+    }
+    else {
+        $('#divReportItemsTable').text('');
+        $('#divReportItemsMessage').show();
+    }
+}
+
+function btnDeleteMyReport_Click(ReportID) {
+    swal("Are you sure you want to delete this report?", {
+        buttons: {
+            Yes: true,
+            No: "No",
+        },
+    }).then(function (value) {
+        switch (value) {
+            case "Yes":
+                $.ajax({
+                    url: RootUrl + 'Home/DeleteReport',
+                    data: {
+                        ReportID: ReportID
+                    },
+                    type: "POST",
+                    success: function (data) {
+                        CreateHtmlMyReports(data);
+                    },
+                    error: function (error) {
+                        console.log("An error occurred from DeleteReport()." + error);
+                    }
+                });
+                break;
+            case "No":
+                break;
+        }
+    });
 }
 
 function btnDeleteMyAlert_Click(AlertID) {
