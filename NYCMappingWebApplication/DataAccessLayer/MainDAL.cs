@@ -1,8 +1,10 @@
 ﻿using NYCMappingWebApp.Entities;
+using NYCMappingWebApp.Helpers;
 using NYCMappingWebApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -31,6 +33,16 @@ namespace NYCMappingWebApp.DataAccessLayer
             returnResult.Add(new Select2DTO() { id = "'061'", text = "Manhattan" });
             returnResult.Add(new Select2DTO() { id = "'081'", text = "Queens" });
             returnResult.Add(new Select2DTO() { id = "'085'", text = "Staten Island" });
+            return returnResult.Where(w => w.text.Contains(term)).ToList();
+        }
+        public List<Select2DTO> GetAllBoroughsTA(string term)
+        {
+            List<Select2DTO> returnResult = new List<Select2DTO>();
+            returnResult.Add(new Select2DTO() { id = "BX", text = "Bronx" });
+            returnResult.Add(new Select2DTO() { id = "BK", text = "Brooklyn" });
+            returnResult.Add(new Select2DTO() { id = "MN", text = "Manhattan" });
+            returnResult.Add(new Select2DTO() { id = "QN", text = "Queens" });
+            returnResult.Add(new Select2DTO() { id = "SI", text = "Staten Island" });
             return returnResult.Where(w => w.text.Contains(term)).ToList();
         }
         public List<Select2DTO> GetAllDistricts(string term)
@@ -612,12 +624,31 @@ namespace NYCMappingWebApp.DataAccessLayer
             }
             return returnResult;
         }
-        public List<HeatmapAttributes> SearchDatabaseHeatMap(string sqlQuery)
+        public List<HeatmapAttributes> SearchDatabaseHeatMap(string StoredProcedure, string DateHmPsBasePeriod, string DateHmPsAnalysisPeriod, string DiffDaysHmPsBasePeriod
+            , string DiffDaysHmPsAnalysisPeriod, string BoroughsTA, string DistrictsTA, string ZipCodeRangeTAFrom, string ZipCodeRangeTATo)
         {
             List<HeatmapAttributes> returnResult = new List<HeatmapAttributes>();
             using (var ctx = new NYC_Web_Mapping_AppEntities())
             {
-                returnResult = ctx.Database.SqlQuery<HeatmapAttributes>(sqlQuery).ToList();
+                string StoredProcedureName = "TrendAnalysis_NumberOfPropertySales";
+                if (StoredProcedure == "2")
+                {
+                    StoredProcedureName = "TrendAnalysis_AveragePropertySalesPrice";
+                }
+                DateTime BasePeriodFrom = GlobalVariables.ToNullableDateTime(DateHmPsBasePeriod).Value.AddDays(-Convert.ToInt32(DiffDaysHmPsBasePeriod));
+                DateTime BasePeriodTo = GlobalVariables.ToNullableDateTime(DateHmPsBasePeriod).Value.AddDays(Convert.ToInt32(DiffDaysHmPsBasePeriod));
+                DateTime AnalysisPeriodFrom = GlobalVariables.ToNullableDateTime(DateHmPsAnalysisPeriod).Value.AddDays(-Convert.ToInt32(DiffDaysHmPsAnalysisPeriod));
+                DateTime AnalysisPeriodTo = GlobalVariables.ToNullableDateTime(DateHmPsAnalysisPeriod).Value.AddDays(Convert.ToInt32(DiffDaysHmPsAnalysisPeriod));
+                var BasePeriodFromParametar = new SqlParameter("BasePeriodFrom", BasePeriodFrom);
+                var BasePeriodToParametar = new SqlParameter("BasePeriodTo", BasePeriodTo);
+                var AnalysisPeriodFromParametar = new SqlParameter("AnalysisPeriodFrom", AnalysisPeriodFrom);
+                var AnalysisPeriodToParametar = new SqlParameter("AnalysisPeriodTo", AnalysisPeriodTo);
+                var BoroughParametar = !String.IsNullOrEmpty(BoroughsTA) ? new SqlParameter("Borough", BoroughsTA) : new SqlParameter("Borough", DBNull.Value);
+                var CDParametar = !String.IsNullOrEmpty(DistrictsTA) ? new SqlParameter("CD", DistrictsTA) : new SqlParameter("CD", DBNull.Value);
+                var ZipCodeFromParametar = !String.IsNullOrEmpty(ZipCodeRangeTAFrom) ? new SqlParameter("ZipCodeFrom", ZipCodeRangeTAFrom) : new SqlParameter("ZipCodeFrom", DBNull.Value);
+                var ZipCodeToParametar = !String.IsNullOrEmpty(ZipCodeRangeTATo) ? new SqlParameter("ZipCodeTo", ZipCodeRangeTATo) : new SqlParameter("ZipCodeTo", DBNull.Value);
+                returnResult = ctx.Database.SqlQuery<HeatmapAttributes>("EXEC dbo." + StoredProcedureName + " @BasePeriodFrom, @BasePeriodTo, @AnalysisPeriodFrom, @AnalysisPeriodTo, @Borough, @CD, @ZipCodeFrom, @ZipCodeTo ",
+                                        BasePeriodFromParametar, BasePeriodToParametar, AnalysisPeriodFromParametar, AnalysisPeriodToParametar, BoroughParametar, CDParametar, ZipCodeFromParametar, ZipCodeToParametar).ToList();
             }
             return returnResult;
         }

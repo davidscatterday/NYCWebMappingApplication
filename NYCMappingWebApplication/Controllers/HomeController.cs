@@ -44,6 +44,12 @@ namespace NYCMappingWebApp.Controllers
             return Json(new { BoroughsList }, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetBoroughsTA(string term)
+        {
+            var BoroughsList = mainDAL.GetAllBoroughsTA(term);
+            return Json(new { BoroughsList }, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult GetDistricts(string term)
         {
             var DistrictsList = mainDAL.GetAllDistricts(term);
@@ -138,9 +144,11 @@ namespace NYCMappingWebApp.Controllers
             };
         }
 
-        public JsonResult SearchDatabaseHeatMap(string sqlQuery)
+        public JsonResult SearchDatabaseHeatMap(string StoredProcedure, string DateHmPsBasePeriod, string DateHmPsAnalysisPeriod, string DiffDaysHmPsBasePeriod
+            , string DiffDaysHmPsAnalysisPeriod, string BoroughsTA, string DistrictsTA, string ZipCodeRangeTAFrom, string ZipCodeRangeTATo)
         {
-            var data = mainDAL.SearchDatabaseHeatMap(sqlQuery);
+            var data = mainDAL.SearchDatabaseHeatMap(StoredProcedure, DateHmPsBasePeriod, DateHmPsAnalysisPeriod, DiffDaysHmPsBasePeriod
+            , DiffDaysHmPsAnalysisPeriod, BoroughsTA, DistrictsTA, ZipCodeRangeTAFrom, ZipCodeRangeTATo);
 
             return new JsonResult()
             {

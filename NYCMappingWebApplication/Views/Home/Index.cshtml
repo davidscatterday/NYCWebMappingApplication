@@ -1189,7 +1189,7 @@
                     <tbody>
                         <tr>
                             <td align="left">
-                                <span class="esriLegendServiceLabel">Color ramp</span>
+                                <span class="esriLegendServiceLabel">Color Legend</span>
                             </td>
                         </tr>
                     </tbody>
@@ -1465,7 +1465,7 @@
         allowClear: true,
         multiple: true,
         ajax: {
-            url: RootUrl + 'Home/GetBoroughs',
+            url: RootUrl + 'Home/GetBoroughsTA',
             type: "POST",
             dataType: 'json',
             data: function (term) {

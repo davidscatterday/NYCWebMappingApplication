@@ -557,6 +557,10 @@ namespace NYCMappingWebApp.Entities
     public class HeatmapAttributes
     {
         public int CD { get; set; }
-        public Int64 recordValue { get; set; }
+        public string DISTRICT { get; set; }
+        public Int64? BasePeriodValue { get; set; }
+        public Int64? AnalysisPeriodValue { get; set; }
+        public Int64? diff_value { get; set; }
+        public decimal? diff_percentage { get; set; }
     }
 }

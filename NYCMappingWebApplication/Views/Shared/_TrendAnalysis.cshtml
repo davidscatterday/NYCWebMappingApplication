@@ -29,6 +29,17 @@
                                 <input type="text" id="txtDistrictsTA" placeholder="Select Community District" />
                             </div>
                         </div>
+                        <div class="form-group">
+                            <div class="col-sm-5">
+                                <label for="cbZipCodeRangeTA">
+                                    <input id="cbZipCodeRangeTA" type="checkbox" style="margin-right: 5px">Zip Code Range
+                                </label>
+                            </div>
+                            <div class="col-sm-3" style="width: 29.166666655%">
+                                <input type="text" id="txtZipCodeRangeTAFrom" style="width: 100%" onkeyup="this.value=this.value.replace(/[^\d]/,'')" />
+                            </div>
+                            <div class="col-sm-3" style="width: 29.166666655%"><input type="text" id="txtZipCodeRangeTATo" style="width: 100%" onkeyup="this.value=this.value.replace(/[^\d]/,'')" /></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -54,21 +65,37 @@
                         <div class="form-group">
                             <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
                                 <label for="cbHmPsBasePeriod">
-                                    <input id="cbHmPsBasePeriod" type="checkbox" style="margin-right: 5px">Base Period
+                                    Base Period
                                 </label>
                             </div>
                             <div class="col-sm-4" style="padding-left: 0px;">
-                                <input type="text" class="date" id="txtHmPsBasePeriod" style="width: 100%" />
+                                <input type="text" class="date" id="txtHmPsBasePeriod" style="width: 100%; border: 1px solid;" />
+                            </div>
+                            <div class="col-sm-2" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    +/-days
+                                </label>
+                            </div>
+                            <div class="col-sm-2" style="padding-left: 0px;">
+                                <input type="number" id="numHmPsBasePeriod" value="15" style="width: 100%" />
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
-                                <label for="cbHmPsAnalysisPeriod">
-                                    <input id="cbHmPsAnalysisPeriod" type="checkbox" style="margin-right: 5px">Analysis Period
+                                <label>
+                                    Analysis Period
                                 </label>
                             </div>
                             <div class="col-sm-4" style="padding-left: 0px;">
-                                <input type="text" class="date" id="txtHmPsAnalysisPeriod" style="width: 100%" />
+                                <input type="text" class="date" id="txtHmPsAnalysisPeriod" style="width: 100%; border: 1px solid;" />
+                            </div>
+                            <div class="col-sm-2" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    +/-days
+                                </label>
+                            </div>
+                            <div class="col-sm-2" style="padding-left: 0px;">
+                                <input type="number" id="numHmPsAnalysisPeriod" value="15" style="width: 100%" />
                             </div>
                         </div>
                         <div class="form-group text-right">

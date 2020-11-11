@@ -179,8 +179,8 @@ input[type=text] {
     bottom: 0;
     padding: 10px;
     background-color: #ddd;
-    font: 14px Segoe UI;
-    width: 100px;
+    font: 14px Helvetica;
+    width: 120px;
     text-align: center;
     border-radius: 0 10px 0 0;
 }
@@ -230,6 +230,10 @@ input[type=text] {
         text-decoration: underline;
         font-family: helvetica;
     }
+
+.panel-title > a {
+    font-size: 14px !important;
+}
 /*.panel-heading a:after {
     font-family: 'Glyphicons Halflings';
     content: "\e114";
