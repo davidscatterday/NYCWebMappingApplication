@@ -38,8 +38,8 @@ require(["esri/map", "dojo/parser", "esri/layers/FeatureLayer", "esri/config", "
     serviceFeatures = new FeatureLayer(MapPlutoUrl, {
         visible: true,
         mode: FeatureLayer.MODE_ONDEMAND,
-        outFields: ["*"],
-        infoTemplate: new InfoTemplate("Tax Lot Info", "${*}")
+        outFields: ["*"]
+        //infoTemplate: new InfoTemplate("Tax Lot Info", "${*}")
     });
     //Takes a URL to a non cached map service.
     districtFeatures = new FeatureLayer(DistrictsUrl, {
