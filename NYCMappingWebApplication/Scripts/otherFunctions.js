@@ -332,10 +332,8 @@ function btnReset() {
     $("#slider-range-TotalGHGEmissions").slider("values", 0, 0);
     $("#slider-range-TotalGHGEmissions").slider("values", 1, maxTotalGHGEmissions);
     $("#txtTotalGHGEmissions").val($("#slider-range-TotalGHGEmissions").slider("values", 0) + " - " + $("#slider-range-TotalGHGEmissions").slider("values", 1).toLocaleString('en'));
-
-    if ($('.slider-bottom-arrow').hasClass("hideBottomPanel")) {
-        $('.slider-bottom-arrow').click();
-    }
+    
+    hideBottomPanel();
 
     document.getElementById("cbJobStartDate").checked = false;
     document.getElementById("cbJobType").checked = false;
@@ -1548,9 +1546,7 @@ function DatabaseSearch(whereEnergyClause, wherePermitClause, whereViolationClau
 function CreateDatabaseTable(data) {
     map.graphics.clear();
     selectionLayer.clear();
-    if ($('.slider-bottom-arrow').hasClass("showBottomPanel")) {
-        $('.slider-bottom-arrow').click();
-    }
+    showBottomPanel();
     if (data.length > 0) {
         var objectIDs = "";
         var htmlQueryRecords = '<div class="table-responsive"><table id=\"tblQueryRecords\" class="tablesorter"><thead><tr class=\"clickableRow\">';
@@ -2009,9 +2005,7 @@ function ShowInfoForSelectedAlert(AlertID, rowID) {
         else {
             document.getElementById("myAlertBadge").textContent = myDataObject.unreadAlerts;
         }
-        if ($('.slider-bottom-arrow').hasClass("showBottomPanel")) {
-            $('.slider-bottom-arrow').click();
-        }
+        showBottomPanel();
         if (data.length > 0) {
             lstTableAttributes = [];
             var htmlAlertData = '<div class="table-responsive"><table id=\"tblAlertData\" class="tablesorter"><thead><tr class=\"clickableRow\">';
@@ -2282,4 +2276,18 @@ function uncheckBuildingClass() {
         var name = lstBuildingClass[i];
         document.getElementById(name).checked = false;
     }
+}
+
+function showBottomPanel() {
+    $("#divBottomPanel").slideDown(1000, function () {
+        $('#divBottomPanelArrowTop').show();
+        $('#divBottomPanelArrowBottom').hide();
+    });
+}
+
+function hideBottomPanel() {
+    $('#divBottomPanelArrowTop').hide();
+    $("#divBottomPanel").slideUp(1000, function () {
+        $('#divBottomPanelArrowBottom').show();
+    });
 }

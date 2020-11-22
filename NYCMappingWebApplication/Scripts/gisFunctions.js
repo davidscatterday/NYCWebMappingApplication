@@ -1,10 +1,12 @@
 ﻿var selectionLayer, districtLayer, geometryService, selectionSymbolPoint, selectionSymbolLine, selectionSymbolFill, heatmapLayer;
 require(["esri/map", "dojo/parser", "esri/layers/FeatureLayer", "esri/config", "esri/symbols/SimpleMarkerSymbol", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol", "dojo/_base/array"
     , "esri/graphic", "esri/basemaps", "esri/InfoTemplate", "esri/layers/GraphicsLayer", "esri/tasks/QueryTask", "esri/tasks/query", "esri/toolbars/draw"
-    , "esri/tasks/GeometryService"
+    , "esri/tasks/GeometryService", "esri/Color", "esri/symbols/TextSymbol", "esri/renderers/SimpleRenderer"
+    , "esri/layers/LabelLayer"
 ], function (Map, parser, FeatureLayer, esriConfig, SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, arrayUtils
     , Graphic, esriBasemaps, InfoTemplate, GraphicsLayer, QueryTask, Query, Draw
-    , GeometryService) {
+    , GeometryService, Color, TextSymbol, SimpleRenderer
+    , LabelLayer) {
     parser.parse();
     esriConfig.defaults.io.proxyUrl = "/proxy/proxy.ashx";
     selectionLayer = new GraphicsLayer();
@@ -53,14 +55,22 @@ require(["esri/map", "dojo/parser", "esri/layers/FeatureLayer", "esri/config", "
         mode: FeatureLayer.MODE_ONDEMAND,
         outFields: ["*"]
     });
+    //Takes a URL to a non cached map service.
+    zipCodeFeatures = new FeatureLayer(NYCzipCodeUrl, {
+        id: "nycZipCodes",
+        visible: false,
+        mode: FeatureLayer.MODE_ONDEMAND,
+        outFields: ["*"]
+    });
     esriBasemaps.NYCbasemap = {
         baseMapLayers: [{ url: NYCbasemapUrl }
         ],
         title: "NYCbasemap"
     };
 
+    var baseMapLayer = new esri.layers.ArcGISTiledMapServiceLayer(NYCbasemapUrl);
     map = new Map("mapDiv", {
-        basemap: "NYCbasemap", // dark-gray, gray, hybrid, national-geographic, oceans, osm, satellite, streets, terrain, topo
+        //basemap: NYCbasemap, // dark-gray, gray, hybrid, national-geographic, oceans, osm, satellite, streets, terrain, topo
         extent: initExtent
     });
     map.on("load", function MapLoaded() {
@@ -68,7 +78,31 @@ require(["esri/map", "dojo/parser", "esri/layers/FeatureLayer", "esri/config", "
         selectionToolbar.on("draw-end", addSelectionToMap);
     });
 
-    map.addLayers([serviceFeatures, districtLayer, censusTractsFeatures, selectionLayer, heatmapLayer]);
+    //// create a text symbol to define the style of labels
+    //var statesLabel = new TextSymbol().setColor(new Color("#666"));
+    //statesLabel.font.setSize("14pt");
+    //statesLabel.font.setFamily("arial");
+
+    ////this is the very least of what should be set within the JSON  
+    //var json = {
+    //    "labelExpressionInfo": { "value": "{ZIPCODE}" }
+    //};
+
+    ////create instance of LabelClass (note: multiple LabelClasses can be passed in as an array)
+    //var labelClass = new LabelClass(json);
+    //labelClass.symbol = statesLabel; // symbol also can be set in LabelClass' json
+    //zipCodeFeatures.setLabelingInfo([labelClass]);
+
+    // create a text symbol to define the style of labels
+    var myLabel = new TextSymbol().setColor(new Color("#000000"));
+    myLabel.font.setSize("10pt");
+    myLabel.font.setFamily("helvetica");
+
+    myLabelRenderer = new SimpleRenderer(myLabel);
+    myLabelLayer = new LabelLayer({ id: "zipCodeLabels", visible: false });
+    myLabelLayer.addFeatureLayer(zipCodeFeatures, myLabelRenderer, "{ZIPCODE}");
+
+    map.addLayers([baseMapLayer, serviceFeatures, districtLayer, censusTractsFeatures, zipCodeFeatures, myLabelLayer, selectionLayer, heatmapLayer]);
 
     function addSelectionToMap(evt) {
         localStorage.setItem('ConsumerProfileSearchedDemographics', null);

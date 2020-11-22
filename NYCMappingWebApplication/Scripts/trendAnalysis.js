@@ -23,6 +23,7 @@ function btnSearchHeatMapPropertySales() {
     selectionLayer.clear();
     districtLayer.clear();
     map.setExtent(initExtent);
+    hideBottomPanel();
     $('#divSelectItemsTable').text('');
     $('#divSelectItemsMoreInfo').hide();
     $('#divSelectItemsMessage').hide();
@@ -41,8 +42,14 @@ function btnSearchHeatMapPropertySales() {
     var DateHmPsAnalysisPeriod = document.getElementById("txtHmPsAnalysisPeriod").value;
     var DiffDaysHmPsBasePeriod = document.getElementById("numHmPsAnalysisPeriod").value;
     var DiffDaysHmPsAnalysisPeriod = document.getElementById("numHmPsAnalysisPeriod").value;
-    var BoroughsTA = $(txtBoroughsTA).val();
-    var DistrictsTA = $(txtDistrictsTA).val();
+    var BoroughsTA = "";
+    var DistrictsTA = "";
+    if (document.getElementById("cbBoroughTA").checked == true) {
+        BoroughsTA = $(txtBoroughsTA).val();
+    }
+    if (document.getElementById("cbDistrictTA").checked == true) {
+        DistrictsTA = $(txtDistrictsTA).val();
+    }
     var ZipCodeRangeTAFrom = document.getElementById("txtZipCodeRangeTAFrom").value;
     var ZipCodeRangeTATo = document.getElementById("txtZipCodeRangeTATo").value;
     if (DateHmPsBasePeriod == "" || DateHmPsAnalysisPeriod == "" || DiffDaysHmPsBasePeriod == "" || DiffDaysHmPsAnalysisPeriod == "") {
@@ -67,29 +74,6 @@ function btnSearchHeatMapPropertySales() {
         lstTableAttributes = [{ name: 'Borough', attribute: "Borough", dataset: "Pluto" }, { name: 'District', attribute: "DISTRICT", dataset: "Districts" }
             , { name: 'Address', attribute: "Address", dataset: "Pluto" }, { name: 'Zip Code', attribute: "ZipCode", dataset: "Pluto" }
             , { name: 'Sale Date', attribute: "sale_date", dataset: "PropertySales" }, { name: 'Sale Price', attribute: "sale_price", dataset: "PropertySales" }];
-        //if (document.getElementById("cbBoroughTA").checked == true) {
-        //    Borough = $(txtBoroughsTA).val();
-        //    if (Borough != "") {
-        //        if (whereClauseHeatmapPropertySales == "") {
-        //            whereClauseHeatmapPropertySales = "p.Borough IN (" + Borough + ")";
-        //        }
-        //        else {
-        //            whereClauseHeatmapPropertySales += " AND p.Borough IN (" + Borough + ")";
-        //        }
-        //    }
-        //}
-        //if (document.getElementById("cbDistrictTA").checked == true) {
-        //    District = $(txtDistrictsTA).val();
-        //    if (District != "") {
-        //        if (whereClauseHeatmapPropertySales == "") {
-        //            whereClauseHeatmapPropertySales = "p.CD IN (" + District + ")";
-        //        }
-        //        else {
-        //            whereClauseHeatmapPropertySales += " AND p.CD IN (" + District + ")";
-        //        }
-        //        SearchGeometry("DISTRICTCODE IN (" + District + ")");
-        //    }
-        //}
         if (document.getElementById("cbZipCodeRangeTA").checked == true) {
             ZipCodeRangeTAFrom = document.getElementById("txtZipCodeRangeTAFrom").value;
             ZipCodeRangeTATo = document.getElementById("txtZipCodeRangeTATo").value;
@@ -107,6 +91,10 @@ function btnSearchHeatMapPropertySales() {
                     whereClauseHeatmapPropertySales += "p.ZipCode <= " + ZipCodeRangeTATo;;
                 }
             }
+        }
+        else {
+            ZipCodeRangeTAFrom = "";
+            ZipCodeRangeTATo = "";
         }
         $.ajax({
             url: RootUrl + 'Home/SearchDatabaseHeatMap',
@@ -292,8 +280,16 @@ function btnResetHeatMapPropertySales() {
     $('#divSelectItemsMessage').hide();
     $('#divSelectItemsCount').hide();
 
-    if ($('.slider-bottom-arrow').hasClass("hideBottomPanel")) {
-        $('.slider-bottom-arrow').click();
-    }
+    hideBottomPanel();
+}
 
+function cbZipCodeRangeTA_Click(evt) {
+    if (evt.checked) {
+        zipCodeFeatures.setVisibility(true);
+        myLabelLayer.setVisibility(true);
+    }
+    else {
+        zipCodeFeatures.setVisibility(false);
+        myLabelLayer.setVisibility(false);
+    }
 }

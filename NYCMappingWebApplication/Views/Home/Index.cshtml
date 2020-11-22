@@ -7,6 +7,7 @@
     MapPlutoUrl = "@(System.Configuration.ConfigurationManager.AppSettings["MapPlutoUrl"])";
     DistrictsUrl = "@(System.Configuration.ConfigurationManager.AppSettings["DistrictsUrl"])";
     CensusTractsUrl = "@(System.Configuration.ConfigurationManager.AppSettings["CensusTractsUrl"])";
+    NYCzipCodeUrl = "@(System.Configuration.ConfigurationManager.AppSettings["NYCzipCodeUrl"])";
     $(function () {
         $(".leftcolumn").resizable(
             {
@@ -1066,8 +1067,9 @@
     <div class="col-md-8" style="height: 100%; padding-right: 0px;padding-left: 0px;">
         <div id="mapDiv" style="height: 100%">
         </div>
-        <a href="javascript:void(0);" class="slider-bottom-arrow showBottomPanel">&ReverseUpEquilibrium;</a>
-        <div class="bottomPanel">
+        <a href="javascript:void(0);" id="divBottomPanelArrowTop" class="slider-bottom-arrow-top" onclick="hideBottomPanel()">&ReverseUpEquilibrium;</a>
+        <a href="javascript:void(0);" id="divBottomPanelArrowBottom" class="slider-bottom-arrow-bottom" onclick="showBottomPanel()">&ReverseUpEquilibrium;</a>
+        <div id="divBottomPanel" class="bottomPanel">
             <div class="form-group" style="margin-bottom: 5px;">
                 <div class="col-sm-8">
                     <div id="divSelectItemsCount"></div>
