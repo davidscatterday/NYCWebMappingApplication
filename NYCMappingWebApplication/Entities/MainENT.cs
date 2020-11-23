@@ -52,6 +52,7 @@ namespace NYCMappingWebApp.Entities
     public class DatabaseAttributes
     {
         public int OBJECTID { get; set; }
+        public string BBL { get; set; }
         public string Borough { get; set; }
         public string ZipCode { get; set; }
         public string Address { get; set; }

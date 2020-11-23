@@ -1406,7 +1406,7 @@ function btnSearch() {
 }
 
 function DatabaseSearch(whereEnergyClause, wherePermitClause, whereViolationClause, whereEvictionsClause, whereSocialServiceOrganizationsClause, whereElevatorsClause, wherePropertySaleClause, whereClause, lstTableAttributes) {
-    var selectStatement = "", fromStatement = "dbo.Pluto p", whereStatement = "", selectStatementList = ["p.OBJECTID"], fromStatementList = [];
+    var selectStatement = "", fromStatement = "dbo.Pluto p", whereStatement = "", selectStatementList = ["p.BBL"], fromStatementList = [];
     if (whereEnergyClause != "") {
         if (whereStatement == "") {
             whereStatement += whereEnergyClause;
@@ -1548,7 +1548,7 @@ function CreateDatabaseTable(data) {
     selectionLayer.clear();
     showBottomPanel();
     if (data.length > 0) {
-        var objectIDs = "";
+        var BBLs = "";
         var htmlQueryRecords = '<div class="table-responsive"><table id=\"tblQueryRecords\" class="tablesorter"><thead><tr class=\"clickableRow\">';
         for (var i = 0; i < lstTableAttributes.length; i++) {
             htmlQueryRecords += "<th>" + lstTableAttributes[i].name + "</th>"
@@ -1556,13 +1556,13 @@ function CreateDatabaseTable(data) {
         htmlQueryRecords += "</tr></thead><tbody>";
         //Loop through each feature returned
         for (var i = 0; i < data.length; i++) {
-            if (objectIDs == "") {
-                objectIDs += data[i].OBJECTID;
+            if (BBLs == "") {
+                BBLs += data[i].BBL;
             }
             else {
-                objectIDs += "," + data[i].OBJECTID;
+                BBLs += "," + data[i].BBL;
             }
-            htmlQueryRecords += "<tr class=\"clickableRow\" OnClick=\"ShowInfoForSelectedRecord('" + data[i].OBJECTID + "');\">";
+            htmlQueryRecords += "<tr class=\"clickableRow\" OnClick=\"ShowInfoForSelectedRecord('" + data[i].BBL + "');\">";
 
             for (var j = 0; j < lstTableAttributes.length; j++) {
                 switch (lstTableAttributes[j].attribute) {
@@ -1590,7 +1590,7 @@ function CreateDatabaseTable(data) {
             htmlQueryRecords += "</tr>";
         }
         if (data.length < 2000) {
-            MapPlutoGeometrySearch(objectIDs);
+            MapPlutoGeometrySearch(BBLs);
         }
         else {
             $('#loading').hide();
@@ -1624,14 +1624,14 @@ function CreateDatabaseTable(data) {
     }
 }
 
-function MapPlutoGeometrySearch(objectIDs) {
+function MapPlutoGeometrySearch(BBLs) {
     queryTask = new esri.tasks.QueryTask(MapPlutoUrl);
 
     //initialize query
     query = new esri.tasks.Query();
     query.returnGeometry = true;
 
-    query.where = "OBJECTID IN (" + objectIDs + ")";
+    query.where = "BBL IN (" + BBLs + ")";
 
     //execute query
     queryTask.execute(query, function executeMapPlutoSearch(featureSet) {
@@ -1707,7 +1707,7 @@ function btnSaveMyReportDatabase_Click() {
 }
 
 
-function ShowInfoForSelectedRecord(OBJECTID) {
+function ShowInfoForSelectedRecord(BBL) {
     map.graphics.clear();
     queryTask = new esri.tasks.QueryTask(MapPlutoUrl);
 
@@ -1716,7 +1716,7 @@ function ShowInfoForSelectedRecord(OBJECTID) {
     query.returnGeometry = true;
     query.outFields = ["*"];
 
-    query.where = "OBJECTID = " + OBJECTID;
+    query.where = "BBL = " + BBL;
 
     //execute query
     queryTask.execute(query, function executeMapPlutoSelect(featureSet) {
@@ -2018,7 +2018,7 @@ function ShowInfoForSelectedAlert(AlertID, rowID) {
             htmlAlertData += "</tr></thead><tbody>";
             //Loop through each feature returned
             for (var i = 0; i < data.length; i++) {
-                htmlAlertData += "<tr class=\"clickableRow\" OnClick=\"ShowInfoForSelectedRecord('" + data[i].OBJECTID + "');\">";
+                htmlAlertData += "<tr class=\"clickableRow\" OnClick=\"ShowInfoForSelectedRecord('" + data[i].BBL + "');\">";
                 for (var j = 0; j < lstTableAttributes.length; j++) {
                     htmlAlertData += "<td>" + data[i][lstTableAttributes[j]] + "</td>";
                 }

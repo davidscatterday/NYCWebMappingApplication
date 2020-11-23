@@ -62,6 +62,7 @@ require(["esri/map", "dojo/parser", "esri/layers/FeatureLayer", "esri/config", "
         mode: FeatureLayer.MODE_ONDEMAND,
         outFields: ["*"]
     });
+    zipCodeFeatures.setRenderer(new SimpleRenderer(new SimpleFillSymbol(SimpleFillSymbol.STYLE_NULL, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0, 0, 0]), 2), new Color([255, 255, 0, 0]))));
     esriBasemaps.NYCbasemap = {
         baseMapLayers: [{ url: NYCbasemapUrl }
         ],
@@ -77,22 +78,7 @@ require(["esri/map", "dojo/parser", "esri/layers/FeatureLayer", "esri/config", "
         selectionToolbar = new Draw(map, { showTooltips: false });
         selectionToolbar.on("draw-end", addSelectionToMap);
     });
-
-    //// create a text symbol to define the style of labels
-    //var statesLabel = new TextSymbol().setColor(new Color("#666"));
-    //statesLabel.font.setSize("14pt");
-    //statesLabel.font.setFamily("arial");
-
-    ////this is the very least of what should be set within the JSON  
-    //var json = {
-    //    "labelExpressionInfo": { "value": "{ZIPCODE}" }
-    //};
-
-    ////create instance of LabelClass (note: multiple LabelClasses can be passed in as an array)
-    //var labelClass = new LabelClass(json);
-    //labelClass.symbol = statesLabel; // symbol also can be set in LabelClass' json
-    //zipCodeFeatures.setLabelingInfo([labelClass]);
-
+        
     // create a text symbol to define the style of labels
     var myLabel = new TextSymbol().setColor(new Color("#000000"));
     myLabel.font.setSize("10pt");
@@ -102,7 +88,7 @@ require(["esri/map", "dojo/parser", "esri/layers/FeatureLayer", "esri/config", "
     myLabelLayer = new LabelLayer({ id: "zipCodeLabels", visible: false });
     myLabelLayer.addFeatureLayer(zipCodeFeatures, myLabelRenderer, "{ZIPCODE}");
 
-    map.addLayers([baseMapLayer, serviceFeatures, districtLayer, censusTractsFeatures, zipCodeFeatures, myLabelLayer, selectionLayer, heatmapLayer]);
+    map.addLayers([baseMapLayer, serviceFeatures, districtLayer, censusTractsFeatures, selectionLayer, heatmapLayer, zipCodeFeatures, myLabelLayer]);
 
     function addSelectionToMap(evt) {
         localStorage.setItem('ConsumerProfileSearchedDemographics', null);

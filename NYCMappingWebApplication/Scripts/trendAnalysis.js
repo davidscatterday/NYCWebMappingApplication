@@ -28,7 +28,7 @@ function btnSearchHeatMapPropertySales() {
     $('#divSelectItemsMoreInfo').hide();
     $('#divSelectItemsMessage').hide();
     $('#divSelectItemsCount').hide();
-    
+
     sqlQueryTA = "";
     var StoredProcedure = 1;
     if (document.getElementById('rbHeatMapByNumberOfPropertySales').checked) {
@@ -37,7 +37,7 @@ function btnSearchHeatMapPropertySales() {
     else {
         StoredProcedure = 2;
     }
-    sqlQueryTA = "select p.OBJECTID, CD, DISTRICT, p.Borough, p.Address, ZipCode, sale_date, sale_price from dbo.Pluto p inner join PropertySales ps on p.BBL = ps.bbl inner join Districts d on p.CD = d.DISTRICTCODE";
+    sqlQueryTA = "select p.OBJECTID, p.BBL, CD, DISTRICT, p.Borough, p.Address, ZipCode, sale_date, sale_price from dbo.Pluto p inner join PropertySales ps on p.BBL = ps.bbl inner join Districts d on p.CD = d.DISTRICTCODE";
     var DateHmPsBasePeriod = document.getElementById("txtHmPsBasePeriod").value;
     var DateHmPsAnalysisPeriod = document.getElementById("txtHmPsAnalysisPeriod").value;
     var DiffDaysHmPsBasePeriod = document.getElementById("numHmPsAnalysisPeriod").value;
@@ -65,7 +65,7 @@ function btnSearchHeatMapPropertySales() {
         var formatedBasePeriodFrom = formatDate(BasePeriodFrom);
         var formatedBasePeriodTo = formatDate(BasePeriodTo);
         var formatedAnalysisPeriodFrom = formatDate(AnalysisPeriodFrom);
-        var formatedAnalysisPeriodTo = formatDate(AnalysisPeriodTo); 
+        var formatedAnalysisPeriodTo = formatDate(AnalysisPeriodTo);
         whereClauseHeatmapPropertySales = " Where ((ps.sale_date >= '" + formatedBasePeriodFrom + "' AND ps.sale_date <= '" + formatedBasePeriodTo + "') OR (ps.sale_date >= '" + formatedAnalysisPeriodFrom + "' AND ps.sale_date <= '" + formatedAnalysisPeriodTo + "'))";
 
         if (document.getElementById('rbHeatMapByAveragePropertySalesPrice').checked) {
@@ -83,13 +83,18 @@ function btnSearchHeatMapPropertySales() {
                 }
                 if (ZipCodeRangeTAFrom != "" && ZipCodeRangeTATo != "") {
                     whereClauseHeatmapPropertySales += "p.ZipCode >= " + ZipCodeRangeTAFrom + " AND p.ZipCode <= " + ZipCodeRangeTATo;
+                    zipCodeFeatures.setDefinitionExpression("ZIPCODE >= " + ZipCodeRangeTAFrom + " AND ZIPCODE <= " + ZipCodeRangeTATo);
                 }
                 else if (ZipCodeRangeTAFrom != "") {
-                    whereClauseHeatmapPropertySales += "p.ZipCode >= " + ZipCodeRangeTAFrom;;
+                    whereClauseHeatmapPropertySales += "p.ZipCode >= " + ZipCodeRangeTAFrom;
+                    zipCodeFeatures.setDefinitionExpression("ZIPCODE >= " + ZipCodeRangeTAFrom);
                 }
                 else if (ZipCodeRangeTATo != "") {
-                    whereClauseHeatmapPropertySales += "p.ZipCode <= " + ZipCodeRangeTATo;;
+                    whereClauseHeatmapPropertySales += "p.ZipCode <= " + ZipCodeRangeTATo;
+                    zipCodeFeatures.setDefinitionExpression("ZIPCODE <= " + ZipCodeRangeTATo);
                 }
+                zipCodeFeatures.setVisibility(true);
+                myLabelLayer.setVisibility(true);
             }
         }
         else {
@@ -259,6 +264,8 @@ function btnResetHeatMapPropertySales() {
     selectionLayer.clear();
     districtLayer.clear();
     map.setExtent(initExtent);
+    zipCodeFeatures.setVisibility(false);
+    myLabelLayer.setVisibility(false);
 
     document.getElementById("cbBoroughTA").checked = false;
     document.getElementById("cbDistrictTA").checked = false;
@@ -284,12 +291,12 @@ function btnResetHeatMapPropertySales() {
 }
 
 function cbZipCodeRangeTA_Click(evt) {
-    if (evt.checked) {
-        zipCodeFeatures.setVisibility(true);
-        myLabelLayer.setVisibility(true);
-    }
-    else {
-        zipCodeFeatures.setVisibility(false);
-        myLabelLayer.setVisibility(false);
-    }
+    //if (evt.checked) {
+    //    zipCodeFeatures.setVisibility(true);
+    //    myLabelLayer.setVisibility(true);
+    //}
+    //else {
+    //    zipCodeFeatures.setVisibility(false);
+    //    myLabelLayer.setVisibility(false);
+    //}
 }
