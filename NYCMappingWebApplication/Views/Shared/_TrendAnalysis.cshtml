@@ -24,7 +24,7 @@
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <label for="cbDistrictTA">
-                                    <input id="cbDistrictTA" type="checkbox" style="margin-right: 5px">Community District
+                                    <input id="cbDistrictTA" type="checkbox" style="margin-right: 5px" onclick='cbDistrictTA_Click(this);'>Community District
                                 </label>
                                 <input type="text" id="txtDistrictsTA" placeholder="Select Community District" />
                             </div>
@@ -32,7 +32,7 @@
                         <div class="form-group">
                             <div class="col-sm-5">
                                 <label for="cbZipCodeRangeTA">
-                                    <input id="cbZipCodeRangeTA" type="checkbox" style="margin-right: 5px" onclick='cbZipCodeRangeTA_Click(this);'>Zip Code Range
+                                    <input id="cbZipCodeRangeTA" type="checkbox" style="margin-right: 5px">Zip Code Range
                                 </label>
                             </div>
                             <div class="col-sm-3" style="width: 29.166666655%">
@@ -101,7 +101,139 @@
                         <div class="form-group text-right">
                             <div class="col-sm-offset-7 col-sm-5">
                                 <button type="button" class="btn btn-primary btn-sm" onclick="btnSearchHeatMapPropertySales()">Search</button>
-                                <button type="button" class="btn btn-primary btn-sm" onclick="btnResetHeatMapPropertySales()">Reset</button>
+                                <button type="button" class="btn btn-primary btn-sm" onclick="btnResetHeatMap()">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordionTrendAnalysis" href="#collapse32">
+                            ECB Violations
+                        </a>
+                        <a class="fa fa-angle-down rotate-icon pull-right" data-toggle="collapse" data-parent="#accordionTrendAnalysis" href="#collapse32"></a>
+                    </h4>
+                </div>
+                <div id="collapse32" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-top: 5px; margin-left: -5px;">
+                                <label>
+                                    ECB Violation Type
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                @Html.DropDownList("ddlHmEcbViolationsViolationType", (IEnumerable<SelectListItem>)ViewBag.EcbViolationTypes, "Select ECB Violation Type", new { @class = "form-control input-width-xlarge", @style = "border: solid;border-width: 1px;" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbHmEcbViolationsBasePeriod">
+                                    Base Period
+                                </label>
+                            </div>
+                            <div class="col-sm-4" style="padding-left: 0px;">
+                                <input type="text" class="date" id="txtHmEcbViolationsBasePeriod" style="width: 100%; border: 1px solid;" />
+                            </div>
+                            <div class="col-sm-2" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    +/-days
+                                </label>
+                            </div>
+                            <div class="col-sm-2" style="padding-left: 0px;">
+                                <input type="number" id="numHmEcbViolationsBasePeriod" value="15" style="width: 100%" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Analysis Period
+                                </label>
+                            </div>
+                            <div class="col-sm-4" style="padding-left: 0px;">
+                                <input type="text" class="date" id="txtHmEcbViolationsAnalysisPeriod" style="width: 100%; border: 1px solid;" />
+                            </div>
+                            <div class="col-sm-2" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    +/-days
+                                </label>
+                            </div>
+                            <div class="col-sm-2" style="padding-left: 0px;">
+                                <input type="number" id="numHmEcbViolationsAnalysisPeriod" value="15" style="width: 100%" />
+                            </div>
+                        </div>
+                        <div class="form-group text-right">
+                            <div class="col-sm-offset-7 col-sm-5">
+                                <button type="button" class="btn btn-primary btn-sm" onclick="btnSearchHeatMapViolations(1)">Search</button>
+                                <button type="button" class="btn btn-primary btn-sm" onclick="btnResetHeatMap()">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordionTrendAnalysis" href="#collapse33">
+                            DOB Violations
+                        </a>
+                        <a class="fa fa-angle-down rotate-icon pull-right" data-toggle="collapse" data-parent="#accordionTrendAnalysis" href="#collapse33"></a>
+                    </h4>
+                </div>
+                <div id="collapse33" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-top: 5px; margin-left: -5px;">
+                                <label>
+                                    DOB Violation Type
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                @Html.DropDownList("ddlHmDobViolationsViolationType", (IEnumerable<SelectListItem>)ViewBag.DobViolationTypes, "Select DOB Violation Type", new { @class = "form-control input-width-xlarge", @style = "border: solid;border-width: 1px;" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbHmDobViolationsBasePeriod">
+                                    Base Period
+                                </label>
+                            </div>
+                            <div class="col-sm-4" style="padding-left: 0px;">
+                                <input type="text" class="date" id="txtHmDobViolationsBasePeriod" style="width: 100%; border: 1px solid;" />
+                            </div>
+                            <div class="col-sm-2" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    +/-days
+                                </label>
+                            </div>
+                            <div class="col-sm-2" style="padding-left: 0px;">
+                                <input type="number" id="numHmDobViolationsBasePeriod" value="15" style="width: 100%" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Analysis Period
+                                </label>
+                            </div>
+                            <div class="col-sm-4" style="padding-left: 0px;">
+                                <input type="text" class="date" id="txtHmDobViolationsAnalysisPeriod" style="width: 100%; border: 1px solid;" />
+                            </div>
+                            <div class="col-sm-2" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    +/-days
+                                </label>
+                            </div>
+                            <div class="col-sm-2" style="padding-left: 0px;">
+                                <input type="number" id="numHmDobViolationsAnalysisPeriod" value="15" style="width: 100%" />
+                            </div>
+                        </div>
+                        <div class="form-group text-right">
+                            <div class="col-sm-offset-7 col-sm-5">
+                                <button type="button" class="btn btn-primary btn-sm" onclick="btnSearchHeatMapViolations(2)">Search</button>
+                                <button type="button" class="btn btn-primary btn-sm" onclick="btnResetHeatMap()">Reset</button>
                             </div>
                         </div>
                     </div>

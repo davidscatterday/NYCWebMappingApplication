@@ -29,6 +29,8 @@ namespace NYCMappingWebApp.Controllers
             ViewBag.FilingStatuses = mainDAL.GetAllFilingStatuses();
             ViewBag.YesNoStatuses = mainDAL.GetAllYesNoStatuses();
             ViewBag.Frequencies = mainDAL.GetAllFrequencies();
+            ViewBag.EcbViolationTypes = mainDAL.GetTrendAnalysisEcbViolationTypes();
+            ViewBag.DobViolationTypes = mainDAL.GetTrendAnalysisDobViolationTypes();
             return View();
         }
 
@@ -123,7 +125,7 @@ namespace NYCMappingWebApp.Controllers
         public JsonResult SearchDatabase(string sqlQuery)
         {
             var data = mainDAL.SearchDatabase(sqlQuery);
-            
+
             return new JsonResult()
             {
                 Data = data,
@@ -149,6 +151,20 @@ namespace NYCMappingWebApp.Controllers
         {
             var data = mainDAL.SearchDatabaseHeatMap(StoredProcedure, DateHmPsBasePeriod, DateHmPsAnalysisPeriod, DiffDaysHmPsBasePeriod
             , DiffDaysHmPsAnalysisPeriod, BoroughsTA, DistrictsTA, ZipCodeRangeTAFrom, ZipCodeRangeTATo);
+
+            return new JsonResult()
+            {
+                Data = data,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                MaxJsonLength = Int32.MaxValue
+            };
+        }
+
+        public JsonResult SearchDatabaseHeatMapViolations(string ViolationType, string StoredProcedure, string FormatedBasePeriodFrom, string FormatedBasePeriodTo, string FormatedAnalysisPeriodFrom
+            , string FormatedAnalysisPeriodTo, string BoroughsTA, string DistrictsTA, string ZipCodeRangeTAFrom, string ZipCodeRangeTATo)
+        {
+            var data = mainDAL.SearchDatabaseHeatMapViolations(ViolationType, StoredProcedure, FormatedBasePeriodFrom, FormatedBasePeriodTo, FormatedAnalysisPeriodFrom
+            , FormatedAnalysisPeriodTo, BoroughsTA, DistrictsTA, ZipCodeRangeTAFrom, ZipCodeRangeTATo);
 
             return new JsonResult()
             {
@@ -363,8 +379,16 @@ namespace NYCMappingWebApp.Controllers
             if (elem.sale_price != null)
                 csvLine += isHeader ? ",Sale Price" : "," + elem.sale_price;
             return csvLine;
-          
-          
+
+
         }
+
+        public JsonResult UpdatePlutoDatatableTractIDs(string BBLs, int tractID, int OBJECTID)
+        {
+            var res = mainDAL.UpdatePlutoDatatableTractIDs(BBLs, tractID, OBJECTID);
+
+            return Json(res, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

@@ -77,8 +77,9 @@ require(["esri/map", "dojo/parser", "esri/layers/FeatureLayer", "esri/config", "
     map.on("load", function MapLoaded() {
         selectionToolbar = new Draw(map, { showTooltips: false });
         selectionToolbar.on("draw-end", addSelectionToMap);
+        //getAllTracts(2165);
     });
-        
+
     // create a text symbol to define the style of labels
     var myLabel = new TextSymbol().setColor(new Color("#000000"));
     myLabel.font.setSize("10pt");
@@ -144,5 +145,88 @@ require(["esri/map", "dojo/parser", "esri/layers/FeatureLayer", "esri/config", "
         }, function (error) {
             console.log(error);
         });
+    }
+    function getAllTracts(ObjectID) {
+        var queryTask = new QueryTask(CensusTractsUrl);
+        var query = new Query();
+        query.where = "OBJECTID=" + ObjectID;
+        query.returnGeometry = true;
+        query.outFields = ["*"];
+        queryTask.execute(query, function (featureSet) {
+            //Performance enhancer - assign featureSet array to a single variable.
+            var resultFeatures = featureSet.features;
+            if (resultFeatures.length > 0) {
+                //Loop through each feature returned
+                for (var i = 0, il = resultFeatures.length; i < il; i++) {
+                    //Feature is a graphic
+                    var graphic = resultFeatures[i];
+                    updatePlutoTractIDs(graphic.geometry, graphic.attributes.BoroCT2010, ObjectID);
+                }
+            }
+            else {
+                getAllTracts(--ObjectID);
+            }
+        }, function (error) {
+            console.log(error);
+        });
+    }
+    function updatePlutoTractIDs(tractGeometry, tractID, ObjectID) {
+        var queryTask = new QueryTask(MapPlutoUrl);
+        var query = new Query();
+        query.geometry = tractGeometry;
+        query.returnGeometry = true;
+        query.outFields = ["*"];
+        queryTask.execute(query, function (featureSet) {
+            //Performance enhancer - assign featureSet array to a single variable.
+            var resultFeatures = featureSet.features;
+            if (resultFeatures.length > 0) {
+                //Loop through each feature returned
+                var BBLs = "";
+                for (var i = 0, il = resultFeatures.length; i < il; i++) {
+                    //Feature is a graphic
+                    var graphic = resultFeatures[i];
+                    if (BBLs == "") {
+                        BBLs = graphic.attributes.BBL;
+                    }
+                    else {
+                        BBLs += "," + graphic.attributes.BBL;
+                        //if (BBLs.length > 100) {
+                        //    updatePlutoDatatableTractIDs(BBLs, tractID);
+                        //    BBLs = "";
+                        //}
+                    }
+                }
+                updatePlutoDatatableTractIDs(BBLs, tractID, ObjectID);
+            }
+            else {
+                getAllTracts(--ObjectID);
+            }
+        }, function (error) {
+            console.log(error);
+        });
+    }
+    function updatePlutoDatatableTractIDs(BBLs, tractID, OBJECTID) {
+        $.ajax({
+            url: RootUrl + 'Home/UpdatePlutoDatatableTractIDs',
+            type: "POST",
+            data: {
+                "BBLs": BBLs,
+                "tractID": tractID,
+                "OBJECTID": OBJECTID
+            }
+        }).done(function (data) {
+            if (data > 0) {
+                getAllTracts(--data);
+            }
+        }).fail(function (error) {
+            console.log(error);
+        });
+    }
+    function jsWaitFunc(i) {
+        if (i <= 0) return;
+        setTimeout(function () {
+            getAllTracts(i);
+            jsWaitFunc(--i);
+        }, 10000);
     }
 });

@@ -3,6 +3,7 @@
     , "rgb(141, 129, 16, 1)", "rgb(154, 116, 16, 1)", "rgb(166, 104, 16, 1)", "rgb(179, 91, 16, 1)", "rgb(192, 78, 16, 1)"
     , "rgb(204, 66, 16, 1)", "rgb(217, 53, 16, 1)", "rgb(229, 41, 16, 1)", "rgb(242, 28, 16, 1)", "rgb(255, 16, 16, 1)"];
 var whereClauseHeatmapPropertySales = "";
+var whereClauseHeatmapViolations = "";
 Date.prototype.addDays = function (days) {
     var date = new Date(this.valueOf());
     date.setDate(date.getDate() + days);
@@ -17,12 +18,23 @@ function formatDate(originalDate) {
     var formatedDate = formatedYear + "-" + formatedMonth + "-" + formatedDay;
     return formatedDate;
 }
+function formatDateViolations(originalDate) {
+    var formatedYear = originalDate.getFullYear();
+    var formatedMonth = originalDate.getMonth() + 1;
+    formatedMonth = formatedMonth < 10 ? "0" + formatedMonth : formatedMonth;
+    var formatedDay = originalDate.getDate();
+    formatedDay = formatedDay < 10 ? "0" + formatedDay : formatedDay;
+    var formatedDate = formatedYear + "" + formatedMonth + "" + formatedDay;
+    return formatedDate;
+}
 function btnSearchHeatMapPropertySales() {
     heatmapLayer.clear();
     map.graphics.clear();
     selectionLayer.clear();
     districtLayer.clear();
     map.setExtent(initExtent);
+    zipCodeFeatures.setVisibility(false);
+    myLabelLayer.setVisibility(false);
     hideBottomPanel();
     $('#divSelectItemsTable').text('');
     $('#divSelectItemsMoreInfo').hide();
@@ -257,7 +269,7 @@ function MapPlutoHeatmapSearch(CD, heatmapColor, percentage, district, basePerio
     }
 }
 
-function btnResetHeatMapPropertySales() {
+function btnResetHeatMap() {
     $('#infoColorRamp').hide();
     heatmapLayer.clear();
     map.graphics.clear();
@@ -282,6 +294,18 @@ function btnResetHeatMapPropertySales() {
     document.getElementById("numHmPsBasePeriod").value = "15";
     document.getElementById("numHmPsAnalysisPeriod").value = "15";
 
+    $("#ddlHmEcbViolationsViolationType").val($("#ddlHmEcbViolationsViolationType option:first").val());
+    document.getElementById("txtHmEcbViolationsBasePeriod").value = "";
+    document.getElementById("txtHmEcbViolationsAnalysisPeriod").value = "";
+    document.getElementById("numHmEcbViolationsBasePeriod").value = "15";
+    document.getElementById("numHmEcbViolationsAnalysisPeriod").value = "15";
+
+    $("#ddlHmDobViolationsViolationType").val($("#ddlHmDobViolationsViolationType option:first").val());
+    document.getElementById("txtHmDobViolationsBasePeriod").value = "";
+    document.getElementById("txtHmDobViolationsAnalysisPeriod").value = "";
+    document.getElementById("numHmDobViolationsBasePeriod").value = "15";
+    document.getElementById("numHmDobViolationsAnalysisPeriod").value = "15";
+
     $('#divSelectItemsTable').text('');
     $('#divSelectItemsMoreInfo').hide();
     $('#divSelectItemsMessage').hide();
@@ -290,13 +314,218 @@ function btnResetHeatMapPropertySales() {
     hideBottomPanel();
 }
 
-function cbZipCodeRangeTA_Click(evt) {
-    //if (evt.checked) {
-    //    zipCodeFeatures.setVisibility(true);
-    //    myLabelLayer.setVisibility(true);
-    //}
-    //else {
-    //    zipCodeFeatures.setVisibility(false);
-    //    myLabelLayer.setVisibility(false);
-    //}
+function btnSearchHeatMapViolations(StoredProcedure) {
+    heatmapLayer.clear();
+    map.graphics.clear();
+    selectionLayer.clear();
+    districtLayer.clear();
+    map.setExtent(initExtent);
+    zipCodeFeatures.setVisibility(false);
+    myLabelLayer.setVisibility(false);
+    hideBottomPanel();
+    $('#divSelectItemsTable').text('');
+    $('#divSelectItemsMoreInfo').hide();
+    $('#divSelectItemsMessage').hide();
+    $('#divSelectItemsCount').hide();
+
+    sqlQueryTA = "";
+    var databaseTable = "Violation";
+    var selectedViolationType = "";
+    var DateHmViolationBasePeriod = "";
+    var DateHmViolationAnalysisPeriod = "";
+    var DiffDaysHmViolationBasePeriod = "";
+    var DiffDaysHmViolationAnalysisPeriod = "";
+    if (StoredProcedure == 1) {
+        databaseTable = "EcbViolations";
+        selectedViolationType = ddlHmEcbViolationsViolationType.options[ddlHmEcbViolationsViolationType.selectedIndex].value;
+        DateHmViolationBasePeriod = document.getElementById("txtHmEcbViolationsBasePeriod").value;
+        DateHmViolationAnalysisPeriod = document.getElementById("txtHmEcbViolationsAnalysisPeriod").value;
+        DiffDaysHmViolationBasePeriod = document.getElementById("numHmEcbViolationsAnalysisPeriod").value;
+        DiffDaysHmViolationAnalysisPeriod = document.getElementById("numHmEcbViolationsAnalysisPeriod").value;
+    }
+    else {
+        databaseTable = "Violation";
+        selectedViolationType = ddlHmDobViolationsViolationType.options[ddlHmDobViolationsViolationType.selectedIndex].value;
+        DateHmViolationBasePeriod = document.getElementById("txtHmDobViolationsBasePeriod").value;
+        DateHmViolationAnalysisPeriod = document.getElementById("txtHmDobViolationsAnalysisPeriod").value;
+        DiffDaysHmViolationBasePeriod = document.getElementById("numHmDobViolationsAnalysisPeriod").value;
+        DiffDaysHmViolationAnalysisPeriod = document.getElementById("numHmDobViolationsAnalysisPeriod").value;
+    }
+    sqlQueryTA = "select p.OBJECTID, p.BBL, CD, DISTRICT, p.Borough, p.Address, ZipCode, issue_date, violation_type from dbo.Pluto p inner join " + databaseTable + " v on p.BBL = v.bbl_10_digits inner join Districts d on p.CD = d.DISTRICTCODE";
+    var BoroughsTA = "";
+    var DistrictsTA = "";
+    if (document.getElementById("cbBoroughTA").checked == true) {
+        BoroughsTA = $(txtBoroughsTA).val();
+    }
+    if (document.getElementById("cbDistrictTA").checked == true) {
+        DistrictsTA = $(txtDistrictsTA).val();
+    }
+    var ZipCodeRangeTAFrom = document.getElementById("txtZipCodeRangeTAFrom").value;
+    var ZipCodeRangeTATo = document.getElementById("txtZipCodeRangeTATo").value;
+    if (selectedViolationType == "" || DateHmViolationBasePeriod == "" || DateHmViolationAnalysisPeriod == "" || DiffDaysHmViolationBasePeriod == "" || DiffDaysHmViolationAnalysisPeriod == "") {
+        swal('Violation Type, Base and Analysis periods and +/- days are required fields');
+    }
+    else {
+        var BasePeriod = new Date(DateHmViolationBasePeriod);
+        var BasePeriodFrom = BasePeriod.addDays(DiffDaysHmViolationBasePeriod * (-1));
+        var BasePeriodTo = BasePeriod.addDays(DiffDaysHmViolationBasePeriod * (1));
+        var AnalysisPeriod = new Date(DateHmViolationAnalysisPeriod);
+        var AnalysisPeriodFrom = AnalysisPeriod.addDays(DiffDaysHmViolationAnalysisPeriod * (-1));
+        var AnalysisPeriodTo = AnalysisPeriod.addDays(DiffDaysHmViolationAnalysisPeriod * (1));
+        var formatedBasePeriodFrom = formatDateViolations(BasePeriodFrom);
+        var formatedBasePeriodTo = formatDateViolations(BasePeriodTo);
+        var formatedAnalysisPeriodFrom = formatDateViolations(AnalysisPeriodFrom);
+        var formatedAnalysisPeriodTo = formatDateViolations(AnalysisPeriodTo);
+        whereClauseHeatmapViolations = " Where (v.violation_type = '" + selectedViolationType + "') AND ((v.issue_date >= '" + formatedBasePeriodFrom + "' AND v.issue_date <= '" + formatedBasePeriodTo + "') OR (v.issue_date >= '" + formatedAnalysisPeriodFrom + "' AND v.issue_date <= '" + formatedAnalysisPeriodTo + "'))";
+        
+        lstTableAttributes = [{ name: 'Borough', attribute: "Borough", dataset: "Pluto" }, { name: 'District', attribute: "DISTRICT", dataset: "Districts" }
+            , { name: 'Address', attribute: "Address", dataset: "Pluto" }, { name: 'Zip Code', attribute: "ZipCode", dataset: "Pluto" }
+            , { name: 'Date', attribute: "issue_date", dataset: databaseTable }, { name: 'Violation Type', attribute: "violation_type", dataset: databaseTable }];
+        if (document.getElementById("cbZipCodeRangeTA").checked == true) {
+            ZipCodeRangeTAFrom = document.getElementById("txtZipCodeRangeTAFrom").value;
+            ZipCodeRangeTATo = document.getElementById("txtZipCodeRangeTATo").value;
+            if (ZipCodeRangeTAFrom != "" || ZipCodeRangeTATo != "") {
+                if (whereClauseHeatmapViolations != "") {
+                    whereClauseHeatmapViolations += " AND ";
+                }
+                if (ZipCodeRangeTAFrom != "" && ZipCodeRangeTATo != "") {
+                    whereClauseHeatmapViolations += "p.ZipCode >= " + ZipCodeRangeTAFrom + " AND p.ZipCode <= " + ZipCodeRangeTATo;
+                    zipCodeFeatures.setDefinitionExpression("ZIPCODE >= " + ZipCodeRangeTAFrom + " AND ZIPCODE <= " + ZipCodeRangeTATo);
+                }
+                else if (ZipCodeRangeTAFrom != "") {
+                    whereClauseHeatmapViolations += "p.ZipCode >= " + ZipCodeRangeTAFrom;
+                    zipCodeFeatures.setDefinitionExpression("ZIPCODE >= " + ZipCodeRangeTAFrom);
+                }
+                else if (ZipCodeRangeTATo != "") {
+                    whereClauseHeatmapViolations += "p.ZipCode <= " + ZipCodeRangeTATo;
+                    zipCodeFeatures.setDefinitionExpression("ZIPCODE <= " + ZipCodeRangeTATo);
+                }
+                zipCodeFeatures.setVisibility(true);
+                myLabelLayer.setVisibility(true);
+            }
+        }
+        else {
+            ZipCodeRangeTAFrom = "";
+            ZipCodeRangeTATo = "";
+        }
+        $.ajax({
+            url: RootUrl + 'Home/SearchDatabaseHeatMapViolations',
+            type: "POST",
+            data: {
+                "ViolationType": selectedViolationType,
+                "StoredProcedure": StoredProcedure,
+                "FormatedBasePeriodFrom": formatedBasePeriodFrom,
+                "FormatedBasePeriodTo": formatedBasePeriodTo,
+                "FormatedAnalysisPeriodFrom": formatedAnalysisPeriodFrom,
+                "FormatedAnalysisPeriodTo": formatedAnalysisPeriodTo,
+                "BoroughsTA": BoroughsTA,
+                "DistrictsTA": DistrictsTA,
+                "ZipCodeRangeTAFrom": ZipCodeRangeTAFrom,
+                "ZipCodeRangeTATo": ZipCodeRangeTATo,
+            }
+        }).done(function (data) {
+            if (data.length > 0) {
+                $('#infoColorRamp').show();
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].diff_percentage > 100) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[0], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= 100 && data[i].diff_percentage > 90) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[1], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= 90 && data[i].diff_percentage > 80) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[2], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= 80 && data[i].diff_percentage > 70) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[3], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= 70 && data[i].diff_percentage > 60) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[4], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= 60 && data[i].diff_percentage > 50) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[5], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= 50 && data[i].diff_percentage > 40) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[6], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= 40 && data[i].diff_percentage > 30) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[7], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= 30 && data[i].diff_percentage > 20) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[8], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= 20 && data[i].diff_percentage > 10) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[9], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= 10 && data[i].diff_percentage > 0) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[10], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= 0 && data[i].diff_percentage > -10) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[11], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= -10 && data[i].diff_percentage > -20) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[12], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= -20 && data[i].diff_percentage > -30) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[13], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= -30 && data[i].diff_percentage > -40) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[14], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= -40 && data[i].diff_percentage > -50) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[15], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= -50 && data[i].diff_percentage > -60) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[16], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= -60 && data[i].diff_percentage > -70) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[17], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= -70 && data[i].diff_percentage > -80) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[18], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= -80) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[19], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                }
+                dojo.connect(heatmapLayer, "onMouseMove", function (evt) {
+                    var g = evt.graphic;
+                    var basePeriodValue = g.attributes.basePeriodValue == null ? "" : g.attributes.basePeriodValue.toLocaleString('en');
+                    var analysisPeriodValue = g.attributes.analysisPeriodValue == null ? "" : g.attributes.analysisPeriodValue.toLocaleString('en');
+                    var diff_value = g.attributes.diff_value == null ? "" : g.attributes.diff_value.toLocaleString('en');
+                    var percentage = g.attributes.percentage == null ? "" : g.attributes.percentage.toLocaleString('en') + "%";
+                    var html = "<b>Base Period Value: </b>" + basePeriodValue + "<br/>";
+                    html += "<b>Analysis Period Value: </b>" + analysisPeriodValue + "<br/>";
+                    html += "<b>Difference: </b>" + diff_value + "<br/>";
+                    html += "<b>Difference Percentage: </b>" + percentage + "<br/>";
+                    map.infoWindow.setContent(html);
+                    map.infoWindow.setTitle(g.attributes.district);
+                    map.infoWindow.show(evt.screenPoint, map.getInfoWindowAnchor(evt.screenPoint));
+                });
+                dojo.connect(heatmapLayer, "onMouseOut", function () { map.infoWindow.hide(); });
+                dojo.connect(heatmapLayer, "onClick", function (evt) {
+                    var g = evt.graphic;
+                    sqlQuery = sqlQueryTA + whereClauseHeatmapViolations + " AND CD = " + g.attributes.districtcode + " order by issue_date";
+                    $.ajax({
+                        url: RootUrl + 'Home/SearchDatabase',
+                        type: "POST",
+                        data: {
+                            "sqlQuery": sqlQuery
+                        }
+                    }).done(function (data) {
+                        CreateDatabaseTable(data);
+                    }).fail(function (f) {
+                        $('#loading').hide();
+                        swal("Failed to search the query");
+                    });
+                });
+            }
+            else {
+                swal("Records not found");
+                $('#infoColorRamp').hide();
+            }
+        }).fail(function (f) {
+            swal("Failed to search the query");
+        });
+    }
 }

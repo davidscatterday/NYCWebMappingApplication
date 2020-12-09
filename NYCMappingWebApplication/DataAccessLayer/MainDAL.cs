@@ -213,6 +213,31 @@ namespace NYCMappingWebApp.DataAccessLayer
                             }).OrderBy(w => w.Text).Distinct().ToList();
             return returnResult;
         }
+        public List<SelectListItem> GetTrendAnalysisEcbViolationTypes()
+        {
+            List<SelectListItem> returnResult = new List<SelectListItem>();
+            returnResult.Add(new SelectListItem() { Text = "Construction", Value = "Construction" });
+            returnResult.Add(new SelectListItem() { Text = "Elevators", Value = "Elevators" });
+            returnResult.Add(new SelectListItem() { Text = "Plumbing", Value = "Plumbing" });
+            returnResult.Add(new SelectListItem() { Text = "Quality of Life", Value = "Quality of Life" });
+            returnResult.Add(new SelectListItem() { Text = "Local Law", Value = "Local Law" });
+            returnResult.Add(new SelectListItem() { Text = "Zoning", Value = "Zoning" });
+            returnResult.Add(new SelectListItem() { Text = "Signs", Value = "Signs" });
+            returnResult.Add(new SelectListItem() { Text = "Boilers", Value = "Boilers" });
+            returnResult.Add(new SelectListItem() { Text = "HPD", Value = "HPD" });
+            return returnResult;
+        }
+        public List<SelectListItem> GetTrendAnalysisDobViolationTypes()
+        {
+            List<SelectListItem> returnResult = new List<SelectListItem>();
+            returnResult.Add(new SelectListItem() { Text = "B-BOILER", Value = "B-BOILER" });
+            returnResult.Add(new SelectListItem() { Text = "C-CONSTRUCTION", Value = "C-CONSTRUCTION" });
+            returnResult.Add(new SelectListItem() { Text = "E-ELEVATOR", Value = "E-ELEVATOR" });
+            returnResult.Add(new SelectListItem() { Text = "P-PLUMBING", Value = "P-PLUMBING" });
+            returnResult.Add(new SelectListItem() { Text = "UB-UNSAFE BUILDINGS", Value = "UB-UNSAFE BUILDINGS" });
+            returnResult.Add(new SelectListItem() { Text = "Z-ZONING", Value = "Z-ZONING" });
+            return returnResult;
+        }
 
         public List<SelectListItem> GetAllYesNoStatuses()
         {
@@ -624,6 +649,7 @@ namespace NYCMappingWebApp.DataAccessLayer
             }
             return returnResult;
         }
+
         public List<HeatmapAttributes> SearchDatabaseHeatMap(string StoredProcedure, string DateHmPsBasePeriod, string DateHmPsAnalysisPeriod, string DiffDaysHmPsBasePeriod
             , string DiffDaysHmPsAnalysisPeriod, string BoroughsTA, string DistrictsTA, string ZipCodeRangeTAFrom, string ZipCodeRangeTATo)
         {
@@ -651,6 +677,48 @@ namespace NYCMappingWebApp.DataAccessLayer
                                         BasePeriodFromParametar, BasePeriodToParametar, AnalysisPeriodFromParametar, AnalysisPeriodToParametar, BoroughParametar, CDParametar, ZipCodeFromParametar, ZipCodeToParametar).ToList();
             }
             return returnResult;
+        }
+
+        public List<HeatmapAttributes> SearchDatabaseHeatMapViolations(string ViolationType, string StoredProcedure, string FormatedBasePeriodFrom, string FormatedBasePeriodTo, string FormatedAnalysisPeriodFrom
+            , string FormatedAnalysisPeriodTo, string BoroughsTA, string DistrictsTA, string ZipCodeRangeTAFrom, string ZipCodeRangeTATo)
+        {
+            List<HeatmapAttributes> returnResult = new List<HeatmapAttributes>();
+            using (var ctx = new NYC_Web_Mapping_AppEntities())
+            {
+                string StoredProcedureName = "TrendAnalysis_NumberOfEcbViolations";
+                if (StoredProcedure == "2")
+                {
+                    StoredProcedureName = "TrendAnalysis_NumberOfDobViolations";
+                }
+                var ViolationTypeParametar = new SqlParameter("ViolationType", ViolationType);
+                var BasePeriodFromParametar = new SqlParameter("BasePeriodFrom", FormatedBasePeriodFrom);
+                var BasePeriodToParametar = new SqlParameter("BasePeriodTo", FormatedBasePeriodTo);
+                var AnalysisPeriodFromParametar = new SqlParameter("AnalysisPeriodFrom", FormatedAnalysisPeriodFrom);
+                var AnalysisPeriodToParametar = new SqlParameter("AnalysisPeriodTo", FormatedAnalysisPeriodTo);
+                var BoroughParametar = !String.IsNullOrEmpty(BoroughsTA) ? new SqlParameter("Borough", BoroughsTA) : new SqlParameter("Borough", DBNull.Value);
+                var CDParametar = !String.IsNullOrEmpty(DistrictsTA) ? new SqlParameter("CD", DistrictsTA) : new SqlParameter("CD", DBNull.Value);
+                var ZipCodeFromParametar = !String.IsNullOrEmpty(ZipCodeRangeTAFrom) ? new SqlParameter("ZipCodeFrom", ZipCodeRangeTAFrom) : new SqlParameter("ZipCodeFrom", DBNull.Value);
+                var ZipCodeToParametar = !String.IsNullOrEmpty(ZipCodeRangeTATo) ? new SqlParameter("ZipCodeTo", ZipCodeRangeTATo) : new SqlParameter("ZipCodeTo", DBNull.Value);
+                returnResult = ctx.Database.SqlQuery<HeatmapAttributes>("EXEC dbo." + StoredProcedureName + " @ViolationType, @BasePeriodFrom, @BasePeriodTo, @AnalysisPeriodFrom, @AnalysisPeriodTo, @Borough, @CD, @ZipCodeFrom, @ZipCodeTo ",
+                                        ViolationTypeParametar, BasePeriodFromParametar, BasePeriodToParametar, AnalysisPeriodFromParametar, AnalysisPeriodToParametar, BoroughParametar, CDParametar, ZipCodeFromParametar, ZipCodeToParametar).ToList();
+            }
+            return returnResult;
+        }
+
+        public int UpdatePlutoDatatableTractIDs(string BBLs, int tractID, int OBJECTID)
+        {
+            using (var ctx = new NYC_Web_Mapping_AppEntities())
+            {
+                var BBL = BBLs.Split(',');
+                foreach (string item in BBL)
+                {
+                    var BBLsParametar = new SqlParameter("BBLs", item);
+                    var TractIDParametar = new SqlParameter("TractID", tractID);
+                    ctx.Database.ExecuteSqlCommand("EXEC dbo.UpdateMapPlutoTractID @BBLs, @TractID ",
+                        BBLsParametar, TractIDParametar);
+                }
+            }
+            return OBJECTID;
         }
     }
 }
