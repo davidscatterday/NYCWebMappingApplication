@@ -125,7 +125,7 @@
                                 </label>
                             </div>
                             <div class="col-sm-8" style="padding-left: 0px;">
-                                @Html.DropDownList("ddlHmEcbViolationsViolationType", (IEnumerable<SelectListItem>)ViewBag.EcbViolationTypes, "Select ECB Violation Type", new { @class = "form-control input-width-xlarge", @style = "border: solid;border-width: 1px;" })
+                                <input type="text" id="txtEcbViolationTypes" placeholder="Select ECB Violation Type" />
                             </div>
                         </div>
                         <div class="form-group">
@@ -191,7 +191,7 @@
                                 </label>
                             </div>
                             <div class="col-sm-8" style="padding-left: 0px;">
-                                @Html.DropDownList("ddlHmDobViolationsViolationType", (IEnumerable<SelectListItem>)ViewBag.DobViolationTypes, "Select DOB Violation Type", new { @class = "form-control input-width-xlarge", @style = "border: solid;border-width: 1px;" })
+                                <input type="text" id="txtDobViolationTypes" placeholder="Select DOB Violation Type" />
                             </div>
                         </div>
                         <div class="form-group">
@@ -242,3 +242,47 @@
         </div>
     </div>
 </div>
+<script>
+    $("#txtEcbViolationTypes").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetTrendAnalysisEcbViolationTypes',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.EcbViolationTypesList,
+                };
+            }
+        }
+    });
+    $("#txtDobViolationTypes").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetTrendAnalysisDobViolationTypes',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.DobViolationTypesList,
+                };
+            }
+        }
+    });
+</script>

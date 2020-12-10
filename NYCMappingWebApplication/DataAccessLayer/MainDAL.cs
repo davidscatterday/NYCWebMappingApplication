@@ -213,30 +213,30 @@ namespace NYCMappingWebApp.DataAccessLayer
                             }).OrderBy(w => w.Text).Distinct().ToList();
             return returnResult;
         }
-        public List<SelectListItem> GetTrendAnalysisEcbViolationTypes()
+        public List<Select2DTO> GetTrendAnalysisEcbViolationTypes(string term)
         {
-            List<SelectListItem> returnResult = new List<SelectListItem>();
-            returnResult.Add(new SelectListItem() { Text = "Construction", Value = "Construction" });
-            returnResult.Add(new SelectListItem() { Text = "Elevators", Value = "Elevators" });
-            returnResult.Add(new SelectListItem() { Text = "Plumbing", Value = "Plumbing" });
-            returnResult.Add(new SelectListItem() { Text = "Quality of Life", Value = "Quality of Life" });
-            returnResult.Add(new SelectListItem() { Text = "Local Law", Value = "Local Law" });
-            returnResult.Add(new SelectListItem() { Text = "Zoning", Value = "Zoning" });
-            returnResult.Add(new SelectListItem() { Text = "Signs", Value = "Signs" });
-            returnResult.Add(new SelectListItem() { Text = "Boilers", Value = "Boilers" });
-            returnResult.Add(new SelectListItem() { Text = "HPD", Value = "HPD" });
-            return returnResult;
+            List<Select2DTO> returnResult = new List<Select2DTO>();
+            returnResult.Add(new Select2DTO() { id = "Construction", text = "Construction" });
+            returnResult.Add(new Select2DTO() { id = "Elevators", text = "Elevators" });
+            returnResult.Add(new Select2DTO() { id = "Plumbing", text = "Plumbing" });
+            returnResult.Add(new Select2DTO() { id = "Quality of Life", text = "Quality of Life" });
+            returnResult.Add(new Select2DTO() { id = "Local Law", text = "Local Law" });
+            returnResult.Add(new Select2DTO() { id = "Zoning", text = "Zoning" });
+            returnResult.Add(new Select2DTO() { id = "Signs", text = "Signs" });
+            returnResult.Add(new Select2DTO() { id = "Boilers", text = "Boilers" });
+            returnResult.Add(new Select2DTO() { id = "HPD", text = "HPD" });
+            return returnResult.Where(w => w.text.Contains(term)).ToList();
         }
-        public List<SelectListItem> GetTrendAnalysisDobViolationTypes()
+        public List<Select2DTO> GetTrendAnalysisDobViolationTypes(string term)
         {
-            List<SelectListItem> returnResult = new List<SelectListItem>();
-            returnResult.Add(new SelectListItem() { Text = "B-BOILER", Value = "B-BOILER" });
-            returnResult.Add(new SelectListItem() { Text = "C-CONSTRUCTION", Value = "C-CONSTRUCTION" });
-            returnResult.Add(new SelectListItem() { Text = "E-ELEVATOR", Value = "E-ELEVATOR" });
-            returnResult.Add(new SelectListItem() { Text = "P-PLUMBING", Value = "P-PLUMBING" });
-            returnResult.Add(new SelectListItem() { Text = "UB-UNSAFE BUILDINGS", Value = "UB-UNSAFE BUILDINGS" });
-            returnResult.Add(new SelectListItem() { Text = "Z-ZONING", Value = "Z-ZONING" });
-            return returnResult;
+            List<Select2DTO> returnResult = new List<Select2DTO>();
+            returnResult.Add(new Select2DTO() { id = "B-BOILER", text = "B-BOILER" });
+            returnResult.Add(new Select2DTO() { id = "C-CONSTRUCTION", text = "C-CONSTRUCTION" });
+            returnResult.Add(new Select2DTO() { id = "E-ELEVATOR", text = "E-ELEVATOR" });
+            returnResult.Add(new Select2DTO() { id = "P-PLUMBING", text = "P-PLUMBING" });
+            returnResult.Add(new Select2DTO() { id = "UB-UNSAFE BUILDINGS", text = "UB-UNSAFE BUILDINGS" });
+            returnResult.Add(new Select2DTO() { id = "Z-ZONING", text = "Z-ZONING" });
+            return returnResult.Where(w => w.text.Contains(term)).ToList();
         }
 
         public List<SelectListItem> GetAllYesNoStatuses()
@@ -251,6 +251,7 @@ namespace NYCMappingWebApp.DataAccessLayer
             List<DatabaseAttributes> returnResult = new List<DatabaseAttributes>();
             using (var ctx = new NYC_Web_Mapping_AppEntities())
             {
+                ctx.Database.CommandTimeout = 600;
                 returnResult = ctx.Database.SqlQuery<DatabaseAttributes>(sqlQuery).ToList();
             }
             return returnResult;
@@ -685,6 +686,7 @@ namespace NYCMappingWebApp.DataAccessLayer
             List<HeatmapAttributes> returnResult = new List<HeatmapAttributes>();
             using (var ctx = new NYC_Web_Mapping_AppEntities())
             {
+                ctx.Database.CommandTimeout = 600;
                 string StoredProcedureName = "TrendAnalysis_NumberOfEcbViolations";
                 if (StoredProcedure == "2")
                 {

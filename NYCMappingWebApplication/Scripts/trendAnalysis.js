@@ -217,7 +217,7 @@ function btnSearchHeatMapPropertySales() {
                             "sqlQuery": sqlQuery
                         }
                     }).done(function (data) {
-                        CreateDatabaseTable(data);
+                        CreateDatabaseTable(data, true);
                     }).fail(function (f) {
                         $('#loading').hide();
                         swal("Failed to search the query");
@@ -293,14 +293,14 @@ function btnResetHeatMap() {
     document.getElementById("txtHmPsAnalysisPeriod").value = "";
     document.getElementById("numHmPsBasePeriod").value = "15";
     document.getElementById("numHmPsAnalysisPeriod").value = "15";
-
-    $("#ddlHmEcbViolationsViolationType").val($("#ddlHmEcbViolationsViolationType option:first").val());
+    
+    $("#txtEcbViolationTypes").select2("val", "");
     document.getElementById("txtHmEcbViolationsBasePeriod").value = "";
     document.getElementById("txtHmEcbViolationsAnalysisPeriod").value = "";
     document.getElementById("numHmEcbViolationsBasePeriod").value = "15";
     document.getElementById("numHmEcbViolationsAnalysisPeriod").value = "15";
-
-    $("#ddlHmDobViolationsViolationType").val($("#ddlHmDobViolationsViolationType option:first").val());
+    
+    $("#txtDobViolationTypes").select2("val", "");
     document.getElementById("txtHmDobViolationsBasePeriod").value = "";
     document.getElementById("txtHmDobViolationsAnalysisPeriod").value = "";
     document.getElementById("numHmDobViolationsBasePeriod").value = "15";
@@ -337,7 +337,7 @@ function btnSearchHeatMapViolations(StoredProcedure) {
     var DiffDaysHmViolationAnalysisPeriod = "";
     if (StoredProcedure == 1) {
         databaseTable = "EcbViolations";
-        selectedViolationType = ddlHmEcbViolationsViolationType.options[ddlHmEcbViolationsViolationType.selectedIndex].value;
+        selectedViolationType = $(txtEcbViolationTypes).val();
         DateHmViolationBasePeriod = document.getElementById("txtHmEcbViolationsBasePeriod").value;
         DateHmViolationAnalysisPeriod = document.getElementById("txtHmEcbViolationsAnalysisPeriod").value;
         DiffDaysHmViolationBasePeriod = document.getElementById("numHmEcbViolationsAnalysisPeriod").value;
@@ -345,7 +345,7 @@ function btnSearchHeatMapViolations(StoredProcedure) {
     }
     else {
         databaseTable = "Violation";
-        selectedViolationType = ddlHmDobViolationsViolationType.options[ddlHmDobViolationsViolationType.selectedIndex].value;
+        selectedViolationType = $(txtDobViolationTypes).val();
         DateHmViolationBasePeriod = document.getElementById("txtHmDobViolationsBasePeriod").value;
         DateHmViolationAnalysisPeriod = document.getElementById("txtHmDobViolationsAnalysisPeriod").value;
         DiffDaysHmViolationBasePeriod = document.getElementById("numHmDobViolationsAnalysisPeriod").value;
@@ -366,6 +366,7 @@ function btnSearchHeatMapViolations(StoredProcedure) {
         swal('Violation Type, Base and Analysis periods and +/- days are required fields');
     }
     else {
+        $('#loading').show();
         var BasePeriod = new Date(DateHmViolationBasePeriod);
         var BasePeriodFrom = BasePeriod.addDays(DiffDaysHmViolationBasePeriod * (-1));
         var BasePeriodTo = BasePeriod.addDays(DiffDaysHmViolationBasePeriod * (1));
@@ -376,7 +377,7 @@ function btnSearchHeatMapViolations(StoredProcedure) {
         var formatedBasePeriodTo = formatDateViolations(BasePeriodTo);
         var formatedAnalysisPeriodFrom = formatDateViolations(AnalysisPeriodFrom);
         var formatedAnalysisPeriodTo = formatDateViolations(AnalysisPeriodTo);
-        whereClauseHeatmapViolations = " Where (v.violation_type = '" + selectedViolationType + "') AND ((v.issue_date >= '" + formatedBasePeriodFrom + "' AND v.issue_date <= '" + formatedBasePeriodTo + "') OR (v.issue_date >= '" + formatedAnalysisPeriodFrom + "' AND v.issue_date <= '" + formatedAnalysisPeriodTo + "'))";
+        whereClauseHeatmapViolations = " Where (v.violation_type IN ('" + selectedViolationType.split(",").join("','") + "')) AND ((v.issue_date >= '" + formatedBasePeriodFrom + "' AND v.issue_date <= '" + formatedBasePeriodTo + "') OR (v.issue_date >= '" + formatedAnalysisPeriodFrom + "' AND v.issue_date <= '" + formatedAnalysisPeriodTo + "'))";
         
         lstTableAttributes = [{ name: 'Borough', attribute: "Borough", dataset: "Pluto" }, { name: 'District', attribute: "DISTRICT", dataset: "Districts" }
             , { name: 'Address', attribute: "Address", dataset: "Pluto" }, { name: 'Zip Code', attribute: "ZipCode", dataset: "Pluto" }
@@ -504,6 +505,7 @@ function btnSearchHeatMapViolations(StoredProcedure) {
                 });
                 dojo.connect(heatmapLayer, "onMouseOut", function () { map.infoWindow.hide(); });
                 dojo.connect(heatmapLayer, "onClick", function (evt) {
+                    $('#loading').show();
                     var g = evt.graphic;
                     sqlQuery = sqlQueryTA + whereClauseHeatmapViolations + " AND CD = " + g.attributes.districtcode + " order by issue_date";
                     $.ajax({
@@ -513,7 +515,8 @@ function btnSearchHeatMapViolations(StoredProcedure) {
                             "sqlQuery": sqlQuery
                         }
                     }).done(function (data) {
-                        CreateDatabaseTable(data);
+                        CreateDatabaseTable(data, false);
+                        $('#loading').hide();
                     }).fail(function (f) {
                         $('#loading').hide();
                         swal("Failed to search the query");
@@ -523,9 +526,12 @@ function btnSearchHeatMapViolations(StoredProcedure) {
             else {
                 swal("Records not found");
                 $('#infoColorRamp').hide();
+                $('#loading').hide();
             }
+            $('#loading').hide();
         }).fail(function (f) {
             swal("Failed to search the query");
+            $('#loading').hide();
         });
     }
 }

@@ -29,8 +29,6 @@ namespace NYCMappingWebApp.Controllers
             ViewBag.FilingStatuses = mainDAL.GetAllFilingStatuses();
             ViewBag.YesNoStatuses = mainDAL.GetAllYesNoStatuses();
             ViewBag.Frequencies = mainDAL.GetAllFrequencies();
-            ViewBag.EcbViolationTypes = mainDAL.GetTrendAnalysisEcbViolationTypes();
-            ViewBag.DobViolationTypes = mainDAL.GetTrendAnalysisDobViolationTypes();
             return View();
         }
 
@@ -98,6 +96,18 @@ namespace NYCMappingWebApp.Controllers
         {
             var DataList = mainDAL.GetCensusTracts11Digit(term);
             return Json(new { DataList }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetTrendAnalysisEcbViolationTypes(string term)
+        {
+            var EcbViolationTypesList = mainDAL.GetTrendAnalysisEcbViolationTypes(term);
+            return Json(new { EcbViolationTypesList }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetTrendAnalysisDobViolationTypes(string term)
+        {
+            var DobViolationTypesList = mainDAL.GetTrendAnalysisDobViolationTypes(term);
+            return Json(new { DobViolationTypesList }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult SearchLookaLikeByBBL(string bbl)

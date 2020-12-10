@@ -332,7 +332,7 @@ function btnReset() {
     $("#slider-range-TotalGHGEmissions").slider("values", 0, 0);
     $("#slider-range-TotalGHGEmissions").slider("values", 1, maxTotalGHGEmissions);
     $("#txtTotalGHGEmissions").val($("#slider-range-TotalGHGEmissions").slider("values", 0) + " - " + $("#slider-range-TotalGHGEmissions").slider("values", 1).toLocaleString('en'));
-    
+
     hideBottomPanel();
 
     document.getElementById("cbJobStartDate").checked = false;
@@ -348,8 +348,8 @@ function btnReset() {
     document.getElementById("cbViolationCategory").checked = false;
     document.getElementById("txtIssueDateFrom").value = "";
     document.getElementById("txtIssueDateTo").value = "";
-    $("#ddlViolationType").val($("#ddlViolationType option:first").val());
-    $("#ddlViolationCategory").val($("#ddlViolationCategory option:first").val());
+    $("#txtViolationTypes").select2("val", "");
+    $("#txtViolationCategories").select2("val", "");
 
     document.getElementById("cbExecutedDate").checked = false;
     document.getElementById("cbEvictionStatus").checked = false;
@@ -1536,14 +1536,14 @@ function DatabaseSearch(whereEnergyClause, wherePermitClause, whereViolationClau
             "sqlQuery": sqlQuery
         }
     }).done(function (data) {
-        CreateDatabaseTable(data);
+        CreateDatabaseTable(data, true);
     }).fail(function (f) {
         $('#loading').hide();
         swal("Failed to search the query");
     });
 }
 
-function CreateDatabaseTable(data) {
+function CreateDatabaseTable(data, zoomTo) {
     map.graphics.clear();
     selectionLayer.clear();
     showBottomPanel();
@@ -1590,7 +1590,9 @@ function CreateDatabaseTable(data) {
             htmlQueryRecords += "</tr>";
         }
         if (data.length < 2000) {
-            MapPlutoGeometrySearch(BBLs);
+            if (zoomTo) {
+                MapPlutoGeometrySearch(BBLs);
+            }
         }
         else {
             $('#loading').hide();
@@ -1950,7 +1952,7 @@ function txtLookaLikeBbl_Change(evt) {
             },
             success: function (data) {
                 sqlQuery = data.sqlQuery;
-                CreateDatabaseTable(data.data);
+                CreateDatabaseTable(data.data, true);
                 $('#loading').hide();
             },
             error: function (error) {
@@ -1977,7 +1979,7 @@ function txtLookaLikeAddress_Change(evt) {
             },
             success: function (data) {
                 sqlQuery = data.sqlQuery;
-                CreateDatabaseTable(data.data);
+                CreateDatabaseTable(data.data, true);
                 $('#loading').hide();
             },
             error: function (error) {
@@ -2111,7 +2113,7 @@ function CreateHtmlMyReports(data) {
                 htmlReportRecords += "<tr id='" + rowID + "' style='height: 30px;'>";
             }
             htmlReportRecords += "<td style='width: 70%'>" + data[i].ReportName + "</td>";
-            htmlReportRecords += "<td style='text-align: center;'><a href=" + RootUrl + "Reports\\" + data[i].FileName.replace(" ","%20") + ">Open</a></td>";
+            htmlReportRecords += "<td style='text-align: center;'><a href=" + RootUrl + "Reports\\" + data[i].FileName.replace(" ", "%20") + ">Open</a></td>";
             htmlReportRecords += "<td style='text-align: center;'><button type=\"button\" class='buttonDelete' style=\"padding: 0; border: none; background-color: transparent;\" onclick=\"btnDeleteMyReport_Click(" + data[i].ID + ")\">Delete</button></td>";
             htmlReportRecords += "</tr>";
         }
