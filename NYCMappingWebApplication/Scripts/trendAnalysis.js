@@ -336,8 +336,8 @@ function btnSearchHeatMapViolations(StoredProcedure) {
     var DiffDaysHmViolationBasePeriod = "";
     var DiffDaysHmViolationAnalysisPeriod = "";
     if (StoredProcedure == 1) {
-        databaseTable = "EcbViolations";
-        selectedViolationType = $(txtEcbViolationTypes).val();
+        databaseTable = "EcbDobViolations";
+        selectedViolationType = $(txtEcbViolationTypes).val().replace(";", ",");
         DateHmViolationBasePeriod = document.getElementById("txtHmEcbViolationsBasePeriod").value;
         DateHmViolationAnalysisPeriod = document.getElementById("txtHmEcbViolationsAnalysisPeriod").value;
         DiffDaysHmViolationBasePeriod = document.getElementById("numHmEcbViolationsAnalysisPeriod").value;

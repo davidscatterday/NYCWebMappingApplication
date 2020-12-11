@@ -216,15 +216,16 @@ namespace NYCMappingWebApp.DataAccessLayer
         public List<Select2DTO> GetTrendAnalysisEcbViolationTypes(string term)
         {
             List<Select2DTO> returnResult = new List<Select2DTO>();
-            returnResult.Add(new Select2DTO() { id = "Construction", text = "Construction" });
-            returnResult.Add(new Select2DTO() { id = "Elevators", text = "Elevators" });
-            returnResult.Add(new Select2DTO() { id = "Plumbing", text = "Plumbing" });
-            returnResult.Add(new Select2DTO() { id = "Quality of Life", text = "Quality of Life" });
-            returnResult.Add(new Select2DTO() { id = "Local Law", text = "Local Law" });
-            returnResult.Add(new Select2DTO() { id = "Zoning", text = "Zoning" });
-            returnResult.Add(new Select2DTO() { id = "Signs", text = "Signs" });
-            returnResult.Add(new Select2DTO() { id = "Boilers", text = "Boilers" });
-            returnResult.Add(new Select2DTO() { id = "HPD", text = "HPD" });
+            returnResult.Add(new Select2DTO() { text = "Boilers", id = "Boilers;B-BOILER" });
+            returnResult.Add(new Select2DTO() { text = "Construction", id = "Construction;C-CONSTRUCTION" });
+            returnResult.Add(new Select2DTO() { text = "Elevators", id = "Elevators;E-ELEVATOR" });
+            returnResult.Add(new Select2DTO() { text = "HPD", id = "HPD" });
+            returnResult.Add(new Select2DTO() { text = "Local Law", id = "Local Law" });
+            returnResult.Add(new Select2DTO() { text = "Plumbing", id = "Plumbing;P-PLUMBING" });
+            returnResult.Add(new Select2DTO() { text = "Quality of Life", id = "Quality of Life" });
+            returnResult.Add(new Select2DTO() { text = "Signs", id = "Signs" });
+            returnResult.Add(new Select2DTO() { text = "Unsafe Buildings", id = "UB-UNSAFE BUILDINGS" });
+            returnResult.Add(new Select2DTO() { text = "Zoning", id = "Zoning;Z-ZONING" });
             return returnResult.Where(w => w.text.Contains(term)).ToList();
         }
         public List<Select2DTO> GetTrendAnalysisDobViolationTypes(string term)
