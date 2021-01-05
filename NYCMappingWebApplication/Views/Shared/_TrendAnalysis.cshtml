@@ -173,35 +173,62 @@
                     </div>
                 </div>
             </div>
-            @*<div class="panel panel-default">
+            <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a data-toggle="collapse" data-parent="#accordionTrendAnalysis" href="#collapse33">
-                            DOB Violations
+                            Permits
                         </a>
                         <a class="fa fa-angle-down rotate-icon pull-right" data-toggle="collapse" data-parent="#accordionTrendAnalysis" href="#collapse33"></a>
                     </h4>
                 </div>
                 <div id="collapse33" class="panel-collapse collapse">
                     <div class="panel-body">
+                        @*<div class="form-group" style="padding-left: 10px">
+            <label class="radio-inline">
+                <input type="radio" name="rbHeatMapPermits" id="rbHeatMapPermitsNewBuilding" value="NB" checked /> New Building
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="rbHeatMapPermits" id="rbHeatMapPermitsDemolition" value="DM" /> Demolition
+            </label>
+            <label class="radio-inline" style="margin-right: 10px">
+                <input type="radio" name="rbHeatMapPermits" id="rbHeatMapPermitsAlterationType1" value="A1" /> Alteration Type 1
+            </label>
+            <label class="radio-inline" style="margin-left: 0px">
+                <input type="radio" name="rbHeatMapPermits" id="rbHeatMapPermitsAlterationType2" value="A2" /> Alteration Type 2
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="rbHeatMapPermits" id="rbHeatMapPermitsAlterationType3" value="A3" /> Alteration Type 3
+            </label>
+        </div>*@
                         <div class="form-group">
                             <div class="col-sm-4" style="margin-top: 5px; margin-left: -5px;">
                                 <label>
-                                    DOB Violation Type
+                                    Job Type
                                 </label>
                             </div>
                             <div class="col-sm-8" style="padding-left: 0px;">
-                                <input type="text" id="txtDobViolationTypes" placeholder="Select DOB Violation Type" />
+                                <input type="text" id="txtPermitJobTypes" placeholder="Select Work Type" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-top: 5px; margin-left: -5px;">
+                                <label>
+                                    Work Type
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtPermitWorkTypes" placeholder="Select Work Type" />
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
-                                <label for="cbHmDobViolationsBasePeriod">
+                                <label for="cbHmPermitsBasePeriod">
                                     Base Period
                                 </label>
                             </div>
                             <div class="col-sm-4" style="padding-left: 0px;">
-                                <input type="text" class="date" id="txtHmDobViolationsBasePeriod" style="width: 100%; border: 1px solid;" />
+                                <input type="text" class="date" id="txtHmPermitsBasePeriod" style="width: 100%; border: 1px solid;" />
                             </div>
                             <div class="col-sm-2" style="margin-bottom: 0px; margin-left: -5px;">
                                 <label>
@@ -209,7 +236,7 @@
                                 </label>
                             </div>
                             <div class="col-sm-2" style="padding-left: 0px;">
-                                <input type="number" id="numHmDobViolationsBasePeriod" value="15" style="width: 100%" />
+                                <input type="number" id="numHmPermitsBasePeriod" value="15" style="width: 100%" />
                             </div>
                         </div>
                         <div class="form-group">
@@ -219,7 +246,7 @@
                                 </label>
                             </div>
                             <div class="col-sm-4" style="padding-left: 0px;">
-                                <input type="text" class="date" id="txtHmDobViolationsAnalysisPeriod" style="width: 100%; border: 1px solid;" />
+                                <input type="text" class="date" id="txtHmPermitsAnalysisPeriod" style="width: 100%; border: 1px solid;" />
                             </div>
                             <div class="col-sm-2" style="margin-bottom: 0px; margin-left: -5px;">
                                 <label>
@@ -227,18 +254,18 @@
                                 </label>
                             </div>
                             <div class="col-sm-2" style="padding-left: 0px;">
-                                <input type="number" id="numHmDobViolationsAnalysisPeriod" value="15" style="width: 100%" />
+                                <input type="number" id="numHmPermitsAnalysisPeriod" value="15" style="width: 100%" />
                             </div>
                         </div>
                         <div class="form-group text-right">
                             <div class="col-sm-offset-7 col-sm-5">
-                                <button type="button" class="btn btn-primary btn-sm" onclick="btnSearchHeatMapViolations(2)">Search</button>
+                                <button type="button" class="btn btn-primary btn-sm" onclick="btnSearchHeatMapPermits()">Search</button>
                                 <button type="button" class="btn btn-primary btn-sm" onclick="btnResetHeatMap()">Reset</button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>*@
+            </div>
         </div>
     </div>
 </div>
@@ -264,13 +291,13 @@
             }
         }
     });
-    $("#txtDobViolationTypes").select2({
+    $("#txtPermitWorkTypes").select2({
         minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
         width: '100%',   // to adjust proper width of select2 wrapped elements
         allowClear: true,
         multiple: true,
         ajax: {
-            url: RootUrl + 'Home/GetTrendAnalysisDobViolationTypes',
+            url: RootUrl + 'Home/GetTrendAnalysisPermitWorkTypes',
             type: "POST",
             dataType: 'json',
             data: function (term) {
@@ -280,7 +307,28 @@
             },
             results: function (data, page) {
                 return {
-                    results: data.DobViolationTypesList,
+                    results: data.PermitWorkTypesList,
+                };
+            }
+        }
+    });
+    $("#txtPermitJobTypes").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetTrendAnalysisPermitJobTypes',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.PermitJobTypesList,
                 };
             }
         }

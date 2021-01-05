@@ -4,6 +4,7 @@
     , "rgb(204, 66, 16, 1)", "rgb(217, 53, 16, 1)", "rgb(229, 41, 16, 1)", "rgb(242, 28, 16, 1)", "rgb(255, 16, 16, 1)"];
 var whereClauseHeatmapPropertySales = "";
 var whereClauseHeatmapViolations = "";
+var whereClauseHeatmapPermits = "";
 Date.prototype.addDays = function (days) {
     var date = new Date(this.valueOf());
     date.setDate(date.getDate() + days);
@@ -293,18 +294,23 @@ function btnResetHeatMap() {
     document.getElementById("txtHmPsAnalysisPeriod").value = "";
     document.getElementById("numHmPsBasePeriod").value = "15";
     document.getElementById("numHmPsAnalysisPeriod").value = "15";
-    
+
     $("#txtEcbViolationTypes").select2("val", "");
     document.getElementById("txtHmEcbViolationsBasePeriod").value = "";
     document.getElementById("txtHmEcbViolationsAnalysisPeriod").value = "";
     document.getElementById("numHmEcbViolationsBasePeriod").value = "15";
     document.getElementById("numHmEcbViolationsAnalysisPeriod").value = "15";
-    
-    $("#txtDobViolationTypes").select2("val", "");
-    document.getElementById("txtHmDobViolationsBasePeriod").value = "";
-    document.getElementById("txtHmDobViolationsAnalysisPeriod").value = "";
-    document.getElementById("numHmDobViolationsBasePeriod").value = "15";
-    document.getElementById("numHmDobViolationsAnalysisPeriod").value = "15";
+
+    document.getElementById("rbHeatMapPermitsNewBuilding").checked = true;
+    document.getElementById("rbHeatMapPermitsDemolition").checked = false;
+    document.getElementById("rbHeatMapPermitsAlterationType1").checked = false;
+    document.getElementById("rbHeatMapPermitsAlterationType2").checked = false;
+    document.getElementById("rbHeatMapPermitsAlterationType3").checked = false;
+    $("#txtPermitWorkTypes").select2("val", "");
+    document.getElementById("txtHmPermitsBasePeriod").value = "";
+    document.getElementById("txtHmPermitsAnalysisPeriod").value = "";
+    document.getElementById("numHmPermitsBasePeriod").value = "15";
+    document.getElementById("numHmPermitsAnalysisPeriod").value = "15";
 
     $('#divSelectItemsTable').text('');
     $('#divSelectItemsMoreInfo').hide();
@@ -378,7 +384,7 @@ function btnSearchHeatMapViolations(StoredProcedure) {
         var formatedAnalysisPeriodFrom = formatDateViolations(AnalysisPeriodFrom);
         var formatedAnalysisPeriodTo = formatDateViolations(AnalysisPeriodTo);
         whereClauseHeatmapViolations = " Where (v.violation_type IN ('" + selectedViolationType.split(",").join("','") + "')) AND ((v.issue_date >= '" + formatedBasePeriodFrom + "' AND v.issue_date <= '" + formatedBasePeriodTo + "') OR (v.issue_date >= '" + formatedAnalysisPeriodFrom + "' AND v.issue_date <= '" + formatedAnalysisPeriodTo + "'))";
-        
+
         lstTableAttributes = [{ name: 'Borough', attribute: "Borough", dataset: "Pluto" }, { name: 'District', attribute: "DISTRICT", dataset: "Districts" }
             , { name: 'Address', attribute: "Address", dataset: "Pluto" }, { name: 'Zip Code', attribute: "ZipCode", dataset: "Pluto" }
             , { name: 'Date', attribute: "issue_date", dataset: databaseTable }, { name: 'Violation Type', attribute: "violation_type", dataset: databaseTable }];
@@ -508,6 +514,213 @@ function btnSearchHeatMapViolations(StoredProcedure) {
                     $('#loading').show();
                     var g = evt.graphic;
                     sqlQuery = sqlQueryTA + whereClauseHeatmapViolations + " AND CD = " + g.attributes.districtcode + " order by issue_date";
+                    $.ajax({
+                        url: RootUrl + 'Home/SearchDatabase',
+                        type: "POST",
+                        data: {
+                            "sqlQuery": sqlQuery
+                        }
+                    }).done(function (data) {
+                        CreateDatabaseTable(data, false);
+                        $('#loading').hide();
+                    }).fail(function (f) {
+                        $('#loading').hide();
+                        swal("Failed to search the query");
+                    });
+                });
+            }
+            else {
+                swal("Records not found");
+                $('#infoColorRamp').hide();
+                $('#loading').hide();
+            }
+            $('#loading').hide();
+        }).fail(function (f) {
+            swal("Failed to search the query");
+            $('#loading').hide();
+        });
+    }
+}
+
+function btnSearchHeatMapPermits() {
+    heatmapLayer.clear();
+    map.graphics.clear();
+    selectionLayer.clear();
+    districtLayer.clear();
+    map.setExtent(initExtent);
+    zipCodeFeatures.setVisibility(false);
+    myLabelLayer.setVisibility(false);
+    hideBottomPanel();
+    $('#divSelectItemsTable').text('');
+    $('#divSelectItemsMoreInfo').hide();
+    $('#divSelectItemsMessage').hide();
+    $('#divSelectItemsCount').hide();
+
+    sqlQueryTA = "";
+    var selectedPermitJobType = $(txtPermitJobTypes).val();
+    var selectedPermitWorkType = $(txtPermitWorkTypes).val();
+    var DateHmPermitBasePeriod = document.getElementById("txtHmPermitsBasePeriod").value;
+    var DateHmPermitAnalysisPeriod = document.getElementById("txtHmPermitsAnalysisPeriod").value;
+    var DiffDaysHmPermitBasePeriod = document.getElementById("numHmPermitsAnalysisPeriod").value;
+    var DiffDaysHmPermitAnalysisPeriod = document.getElementById("numHmPermitsAnalysisPeriod").value;
+    sqlQueryTA = "select p.OBJECTID, p.BBL, CD, DISTRICT, p.Borough, p.Address, ZipCode, job_type, work_type, job_start_date from dbo.Pluto p inner join Permit pe on p.BBL = pe.bbl_10_digits inner join Districts d on p.CD = d.DISTRICTCODE";
+    var BoroughsTA = "";
+    var DistrictsTA = "";
+    if (document.getElementById("cbBoroughTA").checked == true) {
+        BoroughsTA = $(txtBoroughsTA).val();
+    }
+    if (document.getElementById("cbDistrictTA").checked == true) {
+        DistrictsTA = $(txtDistrictsTA).val();
+    }
+    var ZipCodeRangeTAFrom = document.getElementById("txtZipCodeRangeTAFrom").value;
+    var ZipCodeRangeTATo = document.getElementById("txtZipCodeRangeTATo").value;
+    if ((selectedPermitJobType == "" && selectedPermitWorkType == "") || DateHmPermitBasePeriod == "" || DateHmPermitAnalysisPeriod == "" || DiffDaysHmPermitBasePeriod == "" || DiffDaysHmPermitAnalysisPeriod == "") {
+        swal('Permit Job/Work Type, Base and Analysis periods and +/- days are required fields');
+    }
+    else {
+        $('#loading').show();
+        var BasePeriod = new Date(DateHmPermitBasePeriod);
+        var BasePeriodFrom = BasePeriod.addDays(DiffDaysHmPermitBasePeriod * (-1));
+        var BasePeriodTo = BasePeriod.addDays(DiffDaysHmPermitBasePeriod * (1));
+        var AnalysisPeriod = new Date(DateHmPermitAnalysisPeriod);
+        var AnalysisPeriodFrom = AnalysisPeriod.addDays(DiffDaysHmPermitAnalysisPeriod * (-1));
+        var AnalysisPeriodTo = AnalysisPeriod.addDays(DiffDaysHmPermitAnalysisPeriod * (1));
+        var formatedBasePeriodFrom = formatDate(BasePeriodFrom);
+        var formatedBasePeriodTo = formatDate(BasePeriodTo);
+        var formatedAnalysisPeriodFrom = formatDate(AnalysisPeriodFrom);
+        var formatedAnalysisPeriodTo = formatDate(AnalysisPeriodTo);
+        whereClauseHeatmapPermits = " Where (pe.work_type IN ('" + selectedPermitWorkType.split(",").join("','") + "')) AND (pe.job_type IN ('" + selectedPermitJobType.split(",").join("','") + "')) AND ((pe.job_start_date >= '" + formatedBasePeriodFrom + "' AND pe.job_start_date <= '" + formatedBasePeriodTo + "') OR (pe.job_start_date >= '" + formatedAnalysisPeriodFrom + "' AND pe.job_start_date <= '" + formatedAnalysisPeriodTo + "'))";
+
+        lstTableAttributes = [{ name: 'Borough', attribute: "Borough", dataset: "Pluto" }, { name: 'District', attribute: "DISTRICT", dataset: "Districts" }
+            , { name: 'Address', attribute: "Address", dataset: "Pluto" }, { name: 'Zip Code', attribute: "ZipCode", dataset: "Pluto" }
+            , { name: 'Job Start Date', attribute: "job_start_date", dataset: "Permit" }, { name: 'Work Type', attribute: "work_type", dataset: "Permit" }
+            , { name: 'Job Type', attribute: "job_type", dataset: "Permit" }];
+        if (document.getElementById("cbZipCodeRangeTA").checked == true) {
+            ZipCodeRangeTAFrom = document.getElementById("txtZipCodeRangeTAFrom").value;
+            ZipCodeRangeTATo = document.getElementById("txtZipCodeRangeTATo").value;
+            if (ZipCodeRangeTAFrom != "" || ZipCodeRangeTATo != "") {
+                if (whereClauseHeatmapPermits != "") {
+                    whereClauseHeatmapPermits += " AND ";
+                }
+                if (ZipCodeRangeTAFrom != "" && ZipCodeRangeTATo != "") {
+                    whereClauseHeatmapPermits += "p.ZipCode >= " + ZipCodeRangeTAFrom + " AND p.ZipCode <= " + ZipCodeRangeTATo;
+                    zipCodeFeatures.setDefinitionExpression("ZIPCODE >= " + ZipCodeRangeTAFrom + " AND ZIPCODE <= " + ZipCodeRangeTATo);
+                }
+                else if (ZipCodeRangeTAFrom != "") {
+                    whereClauseHeatmapPermits += "p.ZipCode >= " + ZipCodeRangeTAFrom;
+                    zipCodeFeatures.setDefinitionExpression("ZIPCODE >= " + ZipCodeRangeTAFrom);
+                }
+                else if (ZipCodeRangeTATo != "") {
+                    whereClauseHeatmapPermits += "p.ZipCode <= " + ZipCodeRangeTATo;
+                    zipCodeFeatures.setDefinitionExpression("ZIPCODE <= " + ZipCodeRangeTATo);
+                }
+                zipCodeFeatures.setVisibility(true);
+                myLabelLayer.setVisibility(true);
+            }
+        }
+        else {
+            ZipCodeRangeTAFrom = "";
+            ZipCodeRangeTATo = "";
+        }
+        $.ajax({
+            url: RootUrl + 'Home/SearchDatabaseHeatMapPermits',
+            type: "POST",
+            data: {
+                "PermitJobType": selectedPermitJobType,
+                "PermitWorkType": selectedPermitWorkType,
+                "FormatedBasePeriodFrom": formatedBasePeriodFrom,
+                "FormatedBasePeriodTo": formatedBasePeriodTo,
+                "FormatedAnalysisPeriodFrom": formatedAnalysisPeriodFrom,
+                "FormatedAnalysisPeriodTo": formatedAnalysisPeriodTo,
+                "BoroughsTA": BoroughsTA,
+                "DistrictsTA": DistrictsTA,
+                "ZipCodeRangeTAFrom": ZipCodeRangeTAFrom,
+                "ZipCodeRangeTATo": ZipCodeRangeTATo,
+            }
+        }).done(function (data) {
+            if (data.length > 0) {
+                $('#infoColorRamp').show();
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].diff_percentage > 100) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[0], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= 100 && data[i].diff_percentage > 90) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[1], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= 90 && data[i].diff_percentage > 80) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[2], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= 80 && data[i].diff_percentage > 70) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[3], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= 70 && data[i].diff_percentage > 60) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[4], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= 60 && data[i].diff_percentage > 50) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[5], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= 50 && data[i].diff_percentage > 40) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[6], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= 40 && data[i].diff_percentage > 30) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[7], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= 30 && data[i].diff_percentage > 20) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[8], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= 20 && data[i].diff_percentage > 10) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[9], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= 10 && data[i].diff_percentage > 0) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[10], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= 0 && data[i].diff_percentage > -10) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[11], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= -10 && data[i].diff_percentage > -20) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[12], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= -20 && data[i].diff_percentage > -30) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[13], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= -30 && data[i].diff_percentage > -40) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[14], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= -40 && data[i].diff_percentage > -50) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[15], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= -50 && data[i].diff_percentage > -60) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[16], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= -60 && data[i].diff_percentage > -70) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[17], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= -70 && data[i].diff_percentage > -80) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[18], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                    else if (data[i].diff_percentage <= -80) {
+                        MapPlutoHeatmapSearch(data[i].CD, heatmapColorRamp[19], data[i].diff_percentage, data[i].DISTRICT, data[i].BasePeriodValue, data[i].AnalysisPeriodValue, data[i].diff_value);
+                    }
+                }
+                dojo.connect(heatmapLayer, "onMouseMove", function (evt) {
+                    var g = evt.graphic;
+                    var basePeriodValue = g.attributes.basePeriodValue == null ? "" : g.attributes.basePeriodValue.toLocaleString('en');
+                    var analysisPeriodValue = g.attributes.analysisPeriodValue == null ? "" : g.attributes.analysisPeriodValue.toLocaleString('en');
+                    var diff_value = g.attributes.diff_value == null ? "" : g.attributes.diff_value.toLocaleString('en');
+                    var percentage = g.attributes.percentage == null ? "" : g.attributes.percentage.toLocaleString('en') + "%";
+                    var html = "<b>Base Period Value: </b>" + basePeriodValue + "<br/>";
+                    html += "<b>Analysis Period Value: </b>" + analysisPeriodValue + "<br/>";
+                    html += "<b>Difference: </b>" + diff_value + "<br/>";
+                    html += "<b>Difference Percentage: </b>" + percentage + "<br/>";
+                    map.infoWindow.setContent(html);
+                    map.infoWindow.setTitle(g.attributes.district);
+                    map.infoWindow.show(evt.screenPoint, map.getInfoWindowAnchor(evt.screenPoint));
+                });
+                dojo.connect(heatmapLayer, "onMouseOut", function () { map.infoWindow.hide(); });
+                dojo.connect(heatmapLayer, "onClick", function (evt) {
+                    $('#loading').show();
+                    var g = evt.graphic;
+                    sqlQuery = sqlQueryTA + whereClauseHeatmapPermits + " AND CD = " + g.attributes.districtcode + " order by job_start_date";
                     $.ajax({
                         url: RootUrl + 'Home/SearchDatabase',
                         type: "POST",

@@ -23,7 +23,7 @@ namespace NYCMappingWebApp.DataAccessLayer
             returnResult.Add(new Select2DTO() { id = "'MN'", text = "Manhattan" });
             returnResult.Add(new Select2DTO() { id = "'QN'", text = "Queens" });
             returnResult.Add(new Select2DTO() { id = "'SI'", text = "Staten Island" });
-            return returnResult.Where(w => w.text.Contains(term)).ToList();
+            return returnResult.Where(w => w.text.ToLower().Contains(term.ToLower())).ToList();
         }
         public List<Select2DTO> GetAllBoroughsCP(string term)
         {
@@ -33,7 +33,7 @@ namespace NYCMappingWebApp.DataAccessLayer
             returnResult.Add(new Select2DTO() { id = "'061'", text = "Manhattan" });
             returnResult.Add(new Select2DTO() { id = "'081'", text = "Queens" });
             returnResult.Add(new Select2DTO() { id = "'085'", text = "Staten Island" });
-            return returnResult.Where(w => w.text.Contains(term)).ToList();
+            return returnResult.Where(w => w.text.ToLower().Contains(term.ToLower())).ToList();
         }
         public List<Select2DTO> GetAllBoroughsTA(string term)
         {
@@ -43,13 +43,13 @@ namespace NYCMappingWebApp.DataAccessLayer
             returnResult.Add(new Select2DTO() { id = "MN", text = "Manhattan" });
             returnResult.Add(new Select2DTO() { id = "QN", text = "Queens" });
             returnResult.Add(new Select2DTO() { id = "SI", text = "Staten Island" });
-            return returnResult.Where(w => w.text.Contains(term)).ToList();
+            return returnResult.Where(w => w.text.ToLower().Contains(term.ToLower())).ToList();
         }
         public List<Select2DTO> GetAllDistricts(string term)
         {
             List<Select2DTO> returnResult = new List<Select2DTO>();
             returnResult = (from d in db.Districts
-                            where d.DISTRICT1.Contains(term)
+                            where d.DISTRICT1.ToLower().Contains(term.ToLower())
                             select new Select2DTO()
                             {
                                 id = d.DISTRICTCODE.ToString(),
@@ -81,7 +81,7 @@ namespace NYCMappingWebApp.DataAccessLayer
             returnResult.Add(new Select2DTO() { text = "Alteration Type 1", id = "'A1'" });
             returnResult.Add(new Select2DTO() { text = "Alteration Type 2", id = "'A2'" });
             returnResult.Add(new Select2DTO() { text = "Alteration Type 3", id = "'A3'" });
-            return returnResult.Where(w => w.text.Contains(term)).ToList();
+            return returnResult.Where(w => w.text.ToLower().Contains(term.ToLower())).ToList();
         }
         public List<Select2DTO> GetAllWorkTypes(string term)
         {
@@ -108,7 +108,7 @@ namespace NYCMappingWebApp.DataAccessLayer
             returnResult.Add(new Select2DTO() { text = "New Building", id = "'NB'" });
             returnResult.Add(new Select2DTO() { text = "Plumbing", id = "'PL'" });
             returnResult.Add(new Select2DTO() { text = "Sign", id = "'SG'" });
-            return returnResult.Where(w => w.text.Contains(term)).ToList();
+            return returnResult.Where(w => w.text.ToLower().Contains(term.ToLower())).ToList();
         }
         public List<Select2DTO> GetAllViolationTypes(string term)
         {
@@ -162,7 +162,7 @@ namespace NYCMappingWebApp.DataAccessLayer
             returnResult.Add(new Select2DTO() { text = "A-SEU", id = "'A-SEU'" });
             returnResult.Add(new Select2DTO() { text = "IMD-IMMEDIATE EMERGENCY", id = "'IMD-IMMEDIATE EMERGENCY'" });
             returnResult.Add(new Select2DTO() { text = "COMPBLD-STRUCTURALLY COMPROMISED BUILDING", id = "'COMPBLD-STRUCTURALLY COMPROMISED BUILDING'" });
-            return returnResult.OrderBy(w => w.text).Where(w => w.text.Contains(term)).ToList();
+            return returnResult.OrderBy(w => w.text).Where(w => w.text.ToLower().Contains(term.ToLower())).ToList();
         }
         public List<Select2DTO> GetAllViolationCategories(string term)
         {
@@ -170,7 +170,7 @@ namespace NYCMappingWebApp.DataAccessLayer
             returnResult.Add(new Select2DTO() { text = "V*-DOB VIOLATION - DISMISSED", id = "'V*-DOB VIOLATION - DISMISSED'" });
             returnResult.Add(new Select2DTO() { text = "V*-DOB VIOLATION - Resolved", id = "'V*-DOB VIOLATION - Resolved'" });
             returnResult.Add(new Select2DTO() { text = "V-DOB VIOLATION - ACTIVE", id = "'V-DOB VIOLATION - ACTIVE'" });
-            return returnResult.Where(w => w.text.Contains(term)).ToList();
+            return returnResult.Where(w => w.text.ToLower().Contains(term.ToLower())).ToList();
         }
         public List<SelectListItem> GetAllEvictionStatuses()
         {
@@ -226,18 +226,34 @@ namespace NYCMappingWebApp.DataAccessLayer
             returnResult.Add(new Select2DTO() { text = "Signs", id = "Signs" });
             returnResult.Add(new Select2DTO() { text = "Unsafe Buildings", id = "UB-UNSAFE BUILDINGS" });
             returnResult.Add(new Select2DTO() { text = "Zoning", id = "Zoning;Z-ZONING" });
-            return returnResult.Where(w => w.text.Contains(term)).ToList();
+            return returnResult.Where(w => w.text.ToLower().Contains(term.ToLower())).ToList();
         }
-        public List<Select2DTO> GetTrendAnalysisDobViolationTypes(string term)
+        public List<Select2DTO> GetTrendAnalysisPermitWorkTypes(string term)
         {
             List<Select2DTO> returnResult = new List<Select2DTO>();
-            returnResult.Add(new Select2DTO() { id = "B-BOILER", text = "B-BOILER" });
-            returnResult.Add(new Select2DTO() { id = "C-CONSTRUCTION", text = "C-CONSTRUCTION" });
-            returnResult.Add(new Select2DTO() { id = "E-ELEVATOR", text = "E-ELEVATOR" });
-            returnResult.Add(new Select2DTO() { id = "P-PLUMBING", text = "P-PLUMBING" });
-            returnResult.Add(new Select2DTO() { id = "UB-UNSAFE BUILDINGS", text = "UB-UNSAFE BUILDINGS" });
-            returnResult.Add(new Select2DTO() { id = "Z-ZONING", text = "Z-ZONING" });
-            return returnResult.Where(w => w.text.Contains(term)).ToList();
+            returnResult.Add(new Select2DTO() { id = "BL", text = "BL-Boiler" });
+            returnResult.Add(new Select2DTO() { id = "EQ", text = "EQ-Construction Equipment" });
+            returnResult.Add(new Select2DTO() { id = "FA", text = "FA-Fire Alarm" });
+            returnResult.Add(new Select2DTO() { id = "FB", text = "FB-Fuel Burning" });
+            returnResult.Add(new Select2DTO() { id = "FP", text = "FP-Fire Suppression" });
+            returnResult.Add(new Select2DTO() { id = "FS", text = "FS-Fuel Storage" });
+            returnResult.Add(new Select2DTO() { id = "MH", text = "MH-Mechanical/HVAC" });
+            returnResult.Add(new Select2DTO() { id = "NB", text = "NB-New Building" });
+            returnResult.Add(new Select2DTO() { id = "OT", text = "OT-Other-General Construction, Partitions, Marquees, BPP (Builder Pavement Plan), etc." });
+            returnResult.Add(new Select2DTO() { id = "PL", text = "PL-Plumbing" });
+            returnResult.Add(new Select2DTO() { id = "SD", text = "SD-Standpipe" });
+            returnResult.Add(new Select2DTO() { id = "SP", text = "SP-Sprinkler" });
+            return returnResult.Where(w => w.text.ToLower().Contains(term.ToLower())).ToList();
+        }
+        public List<Select2DTO> GetTrendAnalysisPermitJobTypes(string term)
+        {
+            List<Select2DTO> returnResult = new List<Select2DTO>();
+            returnResult.Add(new Select2DTO() { id = "NB", text = "New Building" });
+            returnResult.Add(new Select2DTO() { id = "DM", text = "Demolition" });
+            returnResult.Add(new Select2DTO() { id = "A1", text = "Alteration Type 1" });
+            returnResult.Add(new Select2DTO() { id = "A2", text = "Alteration Type 2" });
+            returnResult.Add(new Select2DTO() { id = "A3", text = "Alteration Type 3" });
+            return returnResult.Where(w => w.text.ToLower().Contains(term.ToLower())).ToList();
         }
 
         public List<SelectListItem> GetAllYesNoStatuses()
@@ -472,7 +488,7 @@ namespace NYCMappingWebApp.DataAccessLayer
         {
             List<Select2DTO> returnResult = new List<Select2DTO>();
             returnResult = (from d in db.Plutoes
-                            where d.Address.Contains(term)
+                            where d.Address.ToLower().Contains(term.ToLower())
                             select new Select2DTO()
                             {
                                 id = d.Address.ToString(),
@@ -704,6 +720,29 @@ namespace NYCMappingWebApp.DataAccessLayer
                 var ZipCodeToParametar = !String.IsNullOrEmpty(ZipCodeRangeTATo) ? new SqlParameter("ZipCodeTo", ZipCodeRangeTATo) : new SqlParameter("ZipCodeTo", DBNull.Value);
                 returnResult = ctx.Database.SqlQuery<HeatmapAttributes>("EXEC dbo." + StoredProcedureName + " @ViolationType, @BasePeriodFrom, @BasePeriodTo, @AnalysisPeriodFrom, @AnalysisPeriodTo, @Borough, @CD, @ZipCodeFrom, @ZipCodeTo ",
                                         ViolationTypeParametar, BasePeriodFromParametar, BasePeriodToParametar, AnalysisPeriodFromParametar, AnalysisPeriodToParametar, BoroughParametar, CDParametar, ZipCodeFromParametar, ZipCodeToParametar).ToList();
+            }
+            return returnResult;
+        }
+
+        public List<HeatmapAttributes> SearchDatabaseHeatMapPermits(string PermitJobType, string PermitWorkType, string FormatedBasePeriodFrom, string FormatedBasePeriodTo, string FormatedAnalysisPeriodFrom
+            , string FormatedAnalysisPeriodTo, string BoroughsTA, string DistrictsTA, string ZipCodeRangeTAFrom, string ZipCodeRangeTATo)
+        {
+            List<HeatmapAttributes> returnResult = new List<HeatmapAttributes>();
+            using (var ctx = new NYC_Web_Mapping_AppEntities())
+            {
+                ctx.Database.CommandTimeout = 600;
+                var PermitJobTypeParametar = new SqlParameter("PermitJobType", PermitJobType);
+                var PermitWorkTypeParametar = new SqlParameter("PermitWorkType", PermitWorkType);
+                var BasePeriodFromParametar = new SqlParameter("BasePeriodFrom", FormatedBasePeriodFrom);
+                var BasePeriodToParametar = new SqlParameter("BasePeriodTo", FormatedBasePeriodTo);
+                var AnalysisPeriodFromParametar = new SqlParameter("AnalysisPeriodFrom", FormatedAnalysisPeriodFrom);
+                var AnalysisPeriodToParametar = new SqlParameter("AnalysisPeriodTo", FormatedAnalysisPeriodTo);
+                var BoroughParametar = !String.IsNullOrEmpty(BoroughsTA) ? new SqlParameter("Borough", BoroughsTA) : new SqlParameter("Borough", DBNull.Value);
+                var CDParametar = !String.IsNullOrEmpty(DistrictsTA) ? new SqlParameter("CD", DistrictsTA) : new SqlParameter("CD", DBNull.Value);
+                var ZipCodeFromParametar = !String.IsNullOrEmpty(ZipCodeRangeTAFrom) ? new SqlParameter("ZipCodeFrom", ZipCodeRangeTAFrom) : new SqlParameter("ZipCodeFrom", DBNull.Value);
+                var ZipCodeToParametar = !String.IsNullOrEmpty(ZipCodeRangeTATo) ? new SqlParameter("ZipCodeTo", ZipCodeRangeTATo) : new SqlParameter("ZipCodeTo", DBNull.Value);
+                returnResult = ctx.Database.SqlQuery<HeatmapAttributes>("EXEC dbo.TrendAnalysis_NumberOfPermits @PermitJobType, @PermitWorkType, @BasePeriodFrom, @BasePeriodTo, @AnalysisPeriodFrom, @AnalysisPeriodTo, @Borough, @CD, @ZipCodeFrom, @ZipCodeTo ",
+                                        PermitJobTypeParametar, PermitWorkTypeParametar, BasePeriodFromParametar, BasePeriodToParametar, AnalysisPeriodFromParametar, AnalysisPeriodToParametar, BoroughParametar, CDParametar, ZipCodeFromParametar, ZipCodeToParametar).ToList();
             }
             return returnResult;
         }

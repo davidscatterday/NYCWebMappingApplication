@@ -104,10 +104,16 @@ namespace NYCMappingWebApp.Controllers
             return Json(new { EcbViolationTypesList }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetTrendAnalysisDobViolationTypes(string term)
+        public JsonResult GetTrendAnalysisPermitWorkTypes(string term)
         {
-            var DobViolationTypesList = mainDAL.GetTrendAnalysisDobViolationTypes(term);
-            return Json(new { DobViolationTypesList }, JsonRequestBehavior.AllowGet);
+            var PermitWorkTypesList = mainDAL.GetTrendAnalysisPermitWorkTypes(term);
+            return Json(new { PermitWorkTypesList }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetTrendAnalysisPermitJobTypes(string term)
+        {
+            var PermitJobTypesList = mainDAL.GetTrendAnalysisPermitJobTypes(term);
+            return Json(new { PermitJobTypesList }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult SearchLookaLikeByBBL(string bbl)
@@ -174,6 +180,20 @@ namespace NYCMappingWebApp.Controllers
             , string FormatedAnalysisPeriodTo, string BoroughsTA, string DistrictsTA, string ZipCodeRangeTAFrom, string ZipCodeRangeTATo)
         {
             var data = mainDAL.SearchDatabaseHeatMapViolations(ViolationType, StoredProcedure, FormatedBasePeriodFrom, FormatedBasePeriodTo, FormatedAnalysisPeriodFrom
+            , FormatedAnalysisPeriodTo, BoroughsTA, DistrictsTA, ZipCodeRangeTAFrom, ZipCodeRangeTATo);
+
+            return new JsonResult()
+            {
+                Data = data,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                MaxJsonLength = Int32.MaxValue
+            };
+        }
+
+        public JsonResult SearchDatabaseHeatMapPermits(string PermitJobType, string PermitWorkType, string FormatedBasePeriodFrom, string FormatedBasePeriodTo, string FormatedAnalysisPeriodFrom
+            , string FormatedAnalysisPeriodTo, string BoroughsTA, string DistrictsTA, string ZipCodeRangeTAFrom, string ZipCodeRangeTATo)
+        {
+            var data = mainDAL.SearchDatabaseHeatMapPermits(PermitJobType, PermitWorkType, FormatedBasePeriodFrom, FormatedBasePeriodTo, FormatedAnalysisPeriodFrom
             , FormatedAnalysisPeriodTo, BoroughsTA, DistrictsTA, ZipCodeRangeTAFrom, ZipCodeRangeTATo);
 
             return new JsonResult()
