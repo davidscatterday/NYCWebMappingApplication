@@ -160,6 +160,8 @@ namespace NYCMappingWebApp.Entities
         public string sale_date_string_format { get; set; }
 
         public string sale_price { get; set; }
+
+        public string DESCRIPTION { get; set; }
     }
 
     public class DatabaseMaxValues

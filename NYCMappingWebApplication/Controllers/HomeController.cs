@@ -116,6 +116,12 @@ namespace NYCMappingWebApp.Controllers
             return Json(new { PermitJobTypesList }, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetDesignationDescriptions(string term)
+        {
+            var DesignationDescriptionsList = mainDAL.GetDesignationDescriptions(term);
+            return Json(new { DesignationDescriptionsList }, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult SearchLookaLikeByBBL(string bbl)
         {
             ReturnLookaLike data = mainDAL.SearchLookaLikeByBBL(bbl);
@@ -408,6 +414,8 @@ namespace NYCMappingWebApp.Controllers
                 csvLine += isHeader ? ",Sale Date" : "," + elem.sale_date_string_format;
             if (elem.sale_price != null)
                 csvLine += isHeader ? ",Sale Price" : "," + elem.sale_price;
+            if (elem.DESCRIPTION != null)
+                csvLine += isHeader ? ",Description" : "," + elem.DESCRIPTION;
             return csvLine;
 
 

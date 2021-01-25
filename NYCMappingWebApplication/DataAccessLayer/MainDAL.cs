@@ -49,7 +49,7 @@ namespace NYCMappingWebApp.DataAccessLayer
         {
             List<Select2DTO> returnResult = new List<Select2DTO>();
             returnResult = (from d in db.Districts
-                            where d.DISTRICT1.ToLower().Contains(term.ToLower())
+                            where term == "" || d.DISTRICT1.ToLower().Contains(term.ToLower())
                             select new Select2DTO()
                             {
                                 id = d.DISTRICTCODE.ToString(),
@@ -189,7 +189,6 @@ namespace NYCMappingWebApp.DataAccessLayer
                                 Text = el.elevatordevicetype
                             }).OrderBy(w => w.Text).Distinct().ToList();
             return returnResult;
-            //return returnResult;
         }
         public List<SelectListItem> GetAllFilingTypes()
         {
@@ -254,6 +253,18 @@ namespace NYCMappingWebApp.DataAccessLayer
             returnResult.Add(new Select2DTO() { id = "A2", text = "Alteration Type 2" });
             returnResult.Add(new Select2DTO() { id = "A3", text = "Alteration Type 3" });
             return returnResult.Where(w => w.text.ToLower().Contains(term.ToLower())).ToList();
+        }
+        public List<Select2DTO> GetDesignationDescriptions(string term)
+        {
+            List<Select2DTO> returnResult = new List<Select2DTO>();
+            returnResult = (from d in db.Designations
+                            where !String.IsNullOrEmpty(d.DESCRIPTION) && (term == "" || d.DESCRIPTION.ToLower().Contains(term.ToLower()))
+                            select new Select2DTO()
+                            {
+                                id = "'" + d.DESCRIPTION + "'",
+                                text = d.DESCRIPTION
+                            }).OrderBy(w => w.text).Distinct().ToList();
+            return returnResult;
         }
 
         public List<SelectListItem> GetAllYesNoStatuses()

@@ -383,6 +383,22 @@
           <Property Name="DP03_0085E" Type="nchar" MaxLength="10" />
           <Property Name="DP03_0085PE" Type="nchar" MaxLength="10" />
         </EntityType>
+        <EntityType Name="Designations">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OBJECTID" Type="int" Nullable="false" />
+          <Property Name="ENUMBER" Type="nvarchar" MaxLength="50" />
+          <Property Name="CEQR_NUM" Type="nvarchar" MaxLength="50" />
+          <Property Name="ULURP_NUM" Type="nvarchar" MaxLength="50" />
+          <Property Name="BOROCODE" Type="int" />
+          <Property Name="TAXBLOCK" Type="int" />
+          <Property Name="TAXLOT" Type="int" />
+          <Property Name="ZONING_MAP" Type="nvarchar" MaxLength="50" />
+          <Property Name="DESCRIPTION" Type="nvarchar(max)" />
+          <Property Name="BBL" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'NYC_Web_Mapping_App.dbo.Districts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Districts">
@@ -476,9 +492,11 @@ warning 6002: The table/view 'NYC_Web_Mapping_App.dbo.Districts' does not have a
           <Property Name="BldgClass" Type="nvarchar" MaxLength="50" />
           <Property Name="IsRentStabilizedProperty" Type="bit" />
           <Property Name="CD" Type="int" />
+          <Property Name="TractID" Type="int" />
         </EntityType>
         <EntityContainer Name="NYC_Web_Mapping_AppModelStoreContainer">
           <EntitySet Name="ConsumerProfiles" EntityType="Self.ConsumerProfiles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Designations" EntityType="Self.Designations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Elevators" EntityType="Self.Elevators" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MyAlerts" EntityType="Self.MyAlerts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MyReports" EntityType="Self.MyReports" Schema="dbo" store:Type="Tables" />
@@ -506,22 +524,13 @@ warning 6002: The table/view 'NYC_Web_Mapping_App.dbo.Districts' does not have a
         </EntityType>
         <EntityContainer Name="NYC_Web_Mapping_AppEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="MyReports" EntityType="Self.MyReport" />
-          <EntitySet Name="Districts" EntityType="NYC_Web_Mapping_AppModel.District" />
           <EntitySet Name="Plutoes" EntityType="NYC_Web_Mapping_AppModel.Pluto" />
           <EntitySet Name="Elevators" EntityType="NYC_Web_Mapping_AppModel.Elevator" />
           <EntitySet Name="MyAlerts" EntityType="NYC_Web_Mapping_AppModel.MyAlert" />
           <EntitySet Name="ConsumerProfiles" EntityType="NYC_Web_Mapping_AppModel.ConsumerProfile" />
+          <EntitySet Name="Districts" EntityType="NYC_Web_Mapping_AppModel.District" />
+          <EntitySet Name="Designations" EntityType="NYC_Web_Mapping_AppModel.Designation" />
         </EntityContainer>
-        <EntityType Name="District">
-          <Key>
-            <PropertyRef Name="OBJECTID" />
-            <PropertyRef Name="DISTRICTCODE" />
-            <PropertyRef Name="DISTRICT1" />
-          </Key>
-          <Property Name="OBJECTID" Type="Int32" Nullable="false" />
-          <Property Name="DISTRICTCODE" Type="Int32" Nullable="false" />
-          <Property Name="DISTRICT1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="Pluto">
           <Key>
             <PropertyRef Name="OBJECTID" />
@@ -547,6 +556,7 @@ warning 6002: The table/view 'NYC_Web_Mapping_App.dbo.Districts' does not have a
           <Property Name="BldgClass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsRentStabilizedProperty" Type="Boolean" />
           <Property Name="CD" Type="Int32" />
+          <Property Name="TractID" Type="Int32" />
         </EntityType>
         <EntityType Name="Elevator">
           <Key>
@@ -973,6 +983,32 @@ warning 6002: The table/view 'NYC_Web_Mapping_App.dbo.Districts' does not have a
           <Property Name="DP03_0085E" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="DP03_0085PE" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
+        <EntityType Name="District">
+          <Key>
+            <PropertyRef Name="OBJECTID" />
+            <PropertyRef Name="DISTRICTCODE" />
+            <PropertyRef Name="DISTRICT1" />
+          </Key>
+          <Property Name="OBJECTID" Type="Int32" Nullable="false" />
+          <Property Name="DISTRICTCODE" Type="Int32" Nullable="false" />
+          <Property Name="DISTRICT1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Designation">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OBJECTID" Type="Int32" Nullable="false" />
+          <Property Name="ENUMBER" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CEQR_NUM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ULURP_NUM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BOROCODE" Type="Int32" />
+          <Property Name="TAXBLOCK" Type="Int32" />
+          <Property Name="TAXLOT" Type="Int32" />
+          <Property Name="ZONING_MAP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BBL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -989,18 +1025,10 @@ warning 6002: The table/view 'NYC_Web_Mapping_App.dbo.Districts' does not have a
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Districts">
-            <EntityTypeMapping TypeName="NYC_Web_Mapping_AppModel.District">
-              <MappingFragment StoreEntitySet="Districts">
-                <ScalarProperty Name="DISTRICT1" ColumnName="DISTRICT" />
-                <ScalarProperty Name="DISTRICTCODE" ColumnName="DISTRICTCODE" />
-                <ScalarProperty Name="OBJECTID" ColumnName="OBJECTID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Plutoes">
             <EntityTypeMapping TypeName="NYC_Web_Mapping_AppModel.Pluto">
               <MappingFragment StoreEntitySet="Pluto">
+                <ScalarProperty Name="TractID" ColumnName="TractID" />
                 <ScalarProperty Name="CD" ColumnName="CD" />
                 <ScalarProperty Name="IsRentStabilizedProperty" ColumnName="IsRentStabilizedProperty" />
                 <ScalarProperty Name="BldgClass" ColumnName="BldgClass" />
@@ -1449,6 +1477,32 @@ warning 6002: The table/view 'NYC_Web_Mapping_App.dbo.Districts' does not have a
                 <ScalarProperty Name="Tract" ColumnName="Tract" />
                 <ScalarProperty Name="County" ColumnName="County" />
                 <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Districts">
+            <EntityTypeMapping TypeName="NYC_Web_Mapping_AppModel.District">
+              <MappingFragment StoreEntitySet="Districts">
+                <ScalarProperty Name="DISTRICT1" ColumnName="DISTRICT" />
+                <ScalarProperty Name="DISTRICTCODE" ColumnName="DISTRICTCODE" />
+                <ScalarProperty Name="OBJECTID" ColumnName="OBJECTID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Designations">
+            <EntityTypeMapping TypeName="NYC_Web_Mapping_AppModel.Designation">
+              <MappingFragment StoreEntitySet="Designations">
+                <ScalarProperty Name="BBL" ColumnName="BBL" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="ZONING_MAP" ColumnName="ZONING_MAP" />
+                <ScalarProperty Name="TAXLOT" ColumnName="TAXLOT" />
+                <ScalarProperty Name="TAXBLOCK" ColumnName="TAXBLOCK" />
+                <ScalarProperty Name="BOROCODE" ColumnName="BOROCODE" />
+                <ScalarProperty Name="ULURP_NUM" ColumnName="ULURP_NUM" />
+                <ScalarProperty Name="CEQR_NUM" ColumnName="CEQR_NUM" />
+                <ScalarProperty Name="ENUMBER" ColumnName="ENUMBER" />
+                <ScalarProperty Name="OBJECTID" ColumnName="OBJECTID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

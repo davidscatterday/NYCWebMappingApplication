@@ -35,5 +35,6 @@ namespace NYCMappingWebApp.Models
         public string BldgClass { get; set; }
         public Nullable<bool> IsRentStabilizedProperty { get; set; }
         public Nullable<int> CD { get; set; }
+        public Nullable<int> TractID { get; set; }
     }
 }

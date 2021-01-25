@@ -202,6 +202,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Designation.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\District.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>

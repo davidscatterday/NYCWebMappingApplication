@@ -57,9 +57,10 @@ lstAllTableAttributes.push({ name: 'Filing Status', attribute: "filing_status", 
 lstAllTableAttributes.push({ name: 'Filing Date', attribute: "filing_date_string_format", dataset: "Elevators" });
 lstAllTableAttributes.push({ name: 'Sale Date', attribute: "sale_date", dataset: "PropertySales" });
 lstAllTableAttributes.push({ name: 'Sale Price', attribute: "sale_price", dataset: "PropertySales" });
+lstAllTableAttributes.push({ name: 'Description', attribute: "DESCRIPTION", dataset: "Designations" });
 
 var sqlQuery = "";
-var IsPlutoSearch = false, IsEnergySearch = false, IsPermitSearch = false, IsViolationSearch = false, IsEvictionSearch = false, IsSocialServiceOrganizationsSearch = false, IsElevatorSearch = false, IsPropertySalesSearch = false;
+var IsPlutoSearch = false, IsEnergySearch = false, IsPermitSearch = false, IsViolationSearch = false, IsEvictionSearch = false, IsSocialServiceOrganizationsSearch = false, IsElevatorSearch = false, IsPropertySalesSearch = false, IsDesignationSearch = false;
 $(function () {
     $("#slider-range-TotalBuildingFloorArea").slider({
         range: true,
@@ -430,6 +431,8 @@ function btnReset() {
     $("#slider-range-SalePrice").slider("values", 1, maxSalePrice);
     $("#txtSalePrice").val("$" + $("#slider-range-SalePrice").slider("values", 0) + " - $" + $("#slider-range-SalePrice").slider("values", 1).toLocaleString('en'));
 
+    document.getElementById("cbDesignationDescriptions").checked = false;
+    $("#txtDesignationDescriptions").select2("val", "");
 
     map.graphics.clear();
     selectionLayer.clear();
@@ -457,6 +460,7 @@ function btnSearch() {
     var whereSocialServiceOrganizationsClause = "";
     var whereElevatorsClause = "";
     var wherePropertySaleClause = "";
+    var whereDesignationClause = "";
     if (document.getElementById("cbBorough").checked == true) {
         Borough = $(txtBoroughs).val();
         if (Borough != "") {
@@ -1384,28 +1388,42 @@ function btnSearch() {
         }
     }
     if (document.getElementById("cbSalePrice").checked == true) {
-        IsPlutoSearch = true;
+        IsPropertySalesSearch = true;
         lstTableAttributes.push({ name: 'Sale Price', attribute: "sale_price", dataset: "PropertySales" });
         SalePriceStart = $("#slider-range-SalePrice").slider("values", 0);
         SalePriceEnd = $("#slider-range-SalePrice").slider("values", 1);
-        if (whereClause == "") {
-            whereClause = "cast(cast(ps.sale_price AS money) as bigint) >= " + SalePriceStart + " AND cast(cast(ps.sale_price AS money) as bigint) <= " + SalePriceEnd;
+        if (wherePropertySaleClause == "") {
+            wherePropertySaleClause = "cast(cast(ps.sale_price AS money) as bigint) >= " + SalePriceStart + " AND cast(cast(ps.sale_price AS money) as bigint) <= " + SalePriceEnd;
         }
         else {
-            whereClause += " AND cast(cast(ps.sale_price AS money) as bigint) >= " + SalePriceStart + " AND cast(cast(ps.sale_price AS money) as bigint) <= " + SalePriceEnd;
+            wherePropertySaleClause += " AND cast(cast(ps.sale_price AS money) as bigint) >= " + SalePriceStart + " AND cast(cast(ps.sale_price AS money) as bigint) <= " + SalePriceEnd;
+        }
+    }
+    
+    if (document.getElementById("cbDesignationDescriptions").checked == true) {
+        DesignationDescriptions = $(txtDesignationDescriptions).val();
+        if (DesignationDescriptions != "") {
+            IsDesignationSearch = true;
+            lstTableAttributes.push({ name: 'Description', attribute: "DESCRIPTION", dataset: "Designations" });
+            if (whereDesignationClause == "") {
+                whereDesignationClause = "de.DESCRIPTION IN (" + DesignationDescriptions.replace("|", ",") + ")";
+            }
+            else {
+                whereDesignationClause += " AND de.DESCRIPTION IN (" + DesignationDescriptions.replace("|", ",") + ")";
+            }
         }
     }
 
-    if (whereClause != "" || whereEnergyClause != "" || wherePermitClause != "" || whereViolationClause != "" || whereEvictionsClause || whereSocialServiceOrganizationsClause || whereElevatorsClause || wherePropertySaleClause) {
+    if (whereClause != "" || whereEnergyClause != "" || wherePermitClause != "" || whereViolationClause != "" || whereEvictionsClause || whereSocialServiceOrganizationsClause || whereElevatorsClause || wherePropertySaleClause || whereDesignationClause) {
         $('#loading').show();
-        DatabaseSearch(whereEnergyClause, wherePermitClause, whereViolationClause, whereEvictionsClause, whereSocialServiceOrganizationsClause, whereElevatorsClause, wherePropertySaleClause, whereClause, lstTableAttributes);
+        DatabaseSearch(whereEnergyClause, wherePermitClause, whereViolationClause, whereEvictionsClause, whereSocialServiceOrganizationsClause, whereElevatorsClause, wherePropertySaleClause, whereDesignationClause, whereClause, lstTableAttributes);
     }
     else {
         swal("Please choose some searching criteria first");
     }
 }
 
-function DatabaseSearch(whereEnergyClause, wherePermitClause, whereViolationClause, whereEvictionsClause, whereSocialServiceOrganizationsClause, whereElevatorsClause, wherePropertySaleClause, whereClause, lstTableAttributes) {
+function DatabaseSearch(whereEnergyClause, wherePermitClause, whereViolationClause, whereEvictionsClause, whereSocialServiceOrganizationsClause, whereElevatorsClause, wherePropertySaleClause, whereDesignationClause, whereClause, lstTableAttributes) {
     var selectStatement = "", fromStatement = "dbo.Pluto p", whereStatement = "", selectStatementList = ["p.BBL"], fromStatementList = [];
     if (whereEnergyClause != "") {
         if (whereStatement == "") {
@@ -1463,6 +1481,13 @@ function DatabaseSearch(whereEnergyClause, wherePermitClause, whereViolationClau
         }
         else {
             whereStatement += " AND " + wherePropertySaleClause;
+        }
+    } if (whereDesignationClause != "") {
+        if (whereStatement == "") {
+            whereStatement += whereDesignationClause;
+        }
+        else {
+            whereStatement += " AND " + whereDesignationClause;
         }
     }
 
@@ -1523,6 +1548,12 @@ function DatabaseSearch(whereEnergyClause, wherePermitClause, whereViolationClau
                     fromStatement += " LEFT JOIN dbo.PropertySales ps on p.BBL = ps.bbl";
                 }
                 selectStatementList.push("ps." + lstTableAttributes[i].attribute);
+                break;
+            case "Designations":
+                if (!fromStatementList.includes(lstTableAttributes[i].dataset)) {
+                    fromStatement += " LEFT JOIN dbo.Designations de on p.BBL = de.BBL";
+                }
+                selectStatementList.push("de." + lstTableAttributes[i].attribute);
                 break;
         }
         fromStatementList.push(lstTableAttributes[i].dataset);
