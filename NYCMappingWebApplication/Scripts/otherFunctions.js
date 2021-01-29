@@ -1406,10 +1406,10 @@ function btnSearch() {
             IsDesignationSearch = true;
             lstTableAttributes.push({ name: 'Description', attribute: "DESCRIPTION", dataset: "Designations" });
             if (whereDesignationClause == "") {
-                whereDesignationClause = "de.DESCRIPTION IN (" + DesignationDescriptions.replace("|", ",") + ")";
+                whereDesignationClause = "de.DESCRIPTION IN (" + DesignationDescriptions.replaceAll("|", ",") + ")";
             }
             else {
-                whereDesignationClause += " AND de.DESCRIPTION IN (" + DesignationDescriptions.replace("|", ",") + ")";
+                whereDesignationClause += " AND de.DESCRIPTION IN (" + DesignationDescriptions.replaceAll("|", ",") + ")";
             }
         }
     }

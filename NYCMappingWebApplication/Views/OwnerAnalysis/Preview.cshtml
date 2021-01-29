@@ -1,0 +1,44 @@
+﻿@model List<NYCMappingWebApp.Entities.Hpd_Registrations_Group>
+
+@{
+    Layout = "~/Views/Shared/_LayoutPages.cshtml";
+    string infoMessage = TempData["InfoMessage"] as string;
+    string errorMessage = TempData["ErrorMessage"] as string;
+}
+<h2> Total records @Model.Count</h2>
+<table width="100%" border="1" class="table table-striped">
+    <thead>
+        <tr>
+            <td colspan="4" align="center">Location</td>
+            <td colspan="2" align="center">Last Sale</td>
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td>Zipcode</td>
+            <td>Borough</td>
+            <td>BBL</td>
+            <td>Date</td>
+            <td>Amount</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (NYCMappingWebApp.Entities.Hpd_Registrations_Group item in Model)
+        {
+            <tr>
+                <td>@item.Address</td>
+                <td>@item.Zip</td>
+                <td>@item.Boro</td>
+                <td>@item.bbl</td>
+                @if (item.sale_date.HasValue)
+                {
+                    <td>@item.sale_date.Value.ToShortDateString()</td>
+                }
+                else
+                {
+                    <td></td>
+                }
+                <td>@item.sale_price</td>
+            </tr>
+        }
+    </tbody>
+</table>

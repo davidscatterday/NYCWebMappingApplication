@@ -178,8 +178,11 @@
     <Compile Include="Controllers\ConsumerProfilesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MyReportsController.cs" />
+    <Compile Include="Controllers\OwnerAnalysisController.cs" />
     <Compile Include="DataAccessLayer\MainDAL.cs" />
+    <Compile Include="DataAccessLayer\OwnerAnalysisDAL.cs" />
     <Compile Include="Entities\MainENT.cs" />
+    <Compile Include="Entities\OwnerAnalysisENT.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -209,6 +212,15 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Elevator.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\hpd_business_addresses.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\hpd_contacts.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\hpd_registrations.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MyAlert.cs">
@@ -369,6 +381,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\otherFunctions.js" />
+    <Content Include="Scripts\ownerAnalysis.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
@@ -405,6 +418,7 @@
     <Content Include="Views\Shared\_LayoutPages.cshtml" />
     <Content Include="Views\Shared\_ConsumerProfile.cshtml" />
     <Content Include="Views\Shared\_TrendAnalysis.cshtml" />
+    <Content Include="Views\OwnerAnalysis\Preview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -34,10 +34,11 @@
     <div class="col-md-4 leftcolumn" style="height: 100%; padding-left: 0px; padding-right: 0px; overflow: auto; overflow-x: hidden;">
         <div id="tabs" style="border: none;">
             <ul>
-                <li style="width: 24%;"><a href="#tabs-1" style="font-size: 10px; width: 100%; text-align: center;">Custom Profile</a></li>
-                <li style="width: 24%;"><a href="#tabs-2" style="font-size: 10px; width: 100%; text-align: center;">Look-a-Like Properties</a></li>
-                <li style="width: 24%;"><a href="#tabs-3" style="font-size: 10px; width: 100%; text-align: center;">Consumer Profile</a></li>
-                <li style="width: 24%;"><a href="#tabs-4" style="font-size: 10px; width: 100%; text-align: center;">Trend Analysis</a></li>
+                <li style="width: 19%;"><a href="#tabs-1" style="font-size: 10px; width: 100%; text-align: center;">Custom Profile</a></li>
+                <li style="width: 19%;"><a href="#tabs-2" style="font-size: 10px; width: 100%; text-align: center;">Look-a-Like</a></li>
+                <li style="width: 19%;"><a href="#tabs-3" style="font-size: 10px; width: 100%; text-align: center;">Consumer Profile</a></li>
+                <li style="width: 19%;"><a href="#tabs-4" style="font-size: 10px; width: 100%; text-align: center;">Trend Analysis</a></li>
+                <li style="width: 19%;"><a href="#tabs-5" style="font-size: 10px; width: 100%; text-align: center;">Owner Analysis</a></li>
             </ul>
             <div id="tabs-1" style="padding-top: 0px">
                 <form class="form-horizontal" style="margin-top: 10px">
@@ -1084,6 +1085,20 @@
                     @Html.Partial("_TrendAnalysis")
                 </form>
             </div>
+            <div id="tabs-5">
+                <form class="form-horizontal" style="margin-top: 10px">
+                    <div class="form-group">
+                        <div class="col-sm-12" id="divHpdAddresses">
+                            <input type="text" id="txtHpdAddresses" placeholder="Select Address" />
+                        </div>
+                    </div>
+                    <div class="form-group text-right">
+                        <div class="col-sm-offset-7 col-sm-5">
+                            <button type="button" class="btn btn-primary btn-sm" onclick="btnSearchHpd()">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
     <div class="col-md-8" style="height: 100%; padding-right: 0px;padding-left: 0px;">
@@ -1543,6 +1558,27 @@
             results: function (data, page) {
                 return {
                     results: data.DesignationDescriptionsList,
+                };
+            }
+        }
+    });
+    $("#txtHpdAddresses").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: false,
+        ajax: {
+            url: RootUrl + 'OwnerAnalysis/GetHpdAddress',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.HpdAddressList,
                 };
             }
         }

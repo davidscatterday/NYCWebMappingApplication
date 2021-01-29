@@ -437,6 +437,63 @@ warning 6002: The table/view 'NYC_Web_Mapping_App.dbo.Districts' does not have a
           <Property Name="bbl" Type="varchar" MaxLength="50" />
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
+        <EntityType Name="hpd_business_addresses">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="businesshousenumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="businessstreetname" Type="nvarchar" MaxLength="100" />
+          <Property Name="businesszip" Type="nvarchar" MaxLength="50" />
+          <Property Name="businessapartment" Type="nvarchar" MaxLength="50" />
+          <Property Name="numberOfContacts" Type="nvarchar" MaxLength="50" />
+          <Property Name="corporationnames" Type="nvarchar(max)" />
+          <Property Name="ownernames" Type="nvarchar(max)" />
+          <Property Name="uniqregids" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="hpd_contacts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RegistrationContactID" Type="nvarchar" MaxLength="50" />
+          <Property Name="RegistrationID" Type="nvarchar" MaxLength="50" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContactDescription" Type="nvarchar" MaxLength="50" />
+          <Property Name="CorporationName" Type="nvarchar" MaxLength="150" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="MiddleInitial" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="BusinessHouseNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="BusinessStreetName" Type="nvarchar" MaxLength="150" />
+          <Property Name="BusinessApartment" Type="nvarchar" MaxLength="50" />
+          <Property Name="BusinessCity" Type="nvarchar" MaxLength="50" />
+          <Property Name="BusinessState" Type="nvarchar" MaxLength="50" />
+          <Property Name="BusinessZip" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="hpd_registrations">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RegistrationID" Type="nvarchar" MaxLength="50" />
+          <Property Name="BuildingID" Type="nvarchar" MaxLength="50" />
+          <Property Name="BoroID" Type="nvarchar" MaxLength="50" />
+          <Property Name="Boro" Type="nvarchar" MaxLength="50" />
+          <Property Name="HouseNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="LowHouseNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="HighHouseNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="StreetName" Type="nvarchar" MaxLength="150" />
+          <Property Name="Zip" Type="nvarchar" MaxLength="50" />
+          <Property Name="Block" Type="int" />
+          <Property Name="Lot" Type="int" />
+          <Property Name="BIN" Type="int" />
+          <Property Name="CommunityBoard" Type="int" />
+          <Property Name="LastRegistrationDate" Type="datetime" />
+          <Property Name="RegistrationEndDate" Type="datetime" />
+          <Property Name="bbl" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="MyAlerts">
           <Key>
             <PropertyRef Name="ID" />
@@ -494,10 +551,21 @@ warning 6002: The table/view 'NYC_Web_Mapping_App.dbo.Districts' does not have a
           <Property Name="CD" Type="int" />
           <Property Name="TractID" Type="int" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'NYC_Web_Mapping_App.dbo.hpd_addresses' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="hpd_addresses">
+          <Property Name="BBL" Type="nvarchar" MaxLength="50" />
+          <Property Name="Borough" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="150" />
+          <Property Name="AddressBorough" Type="nvarchar" MaxLength="165" />
+        </EntityType>-->
         <EntityContainer Name="NYC_Web_Mapping_AppModelStoreContainer">
           <EntitySet Name="ConsumerProfiles" EntityType="Self.ConsumerProfiles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Designations" EntityType="Self.Designations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Elevators" EntityType="Self.Elevators" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="hpd_business_addresses" EntityType="Self.hpd_business_addresses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="hpd_contacts" EntityType="Self.hpd_contacts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="hpd_registrations" EntityType="Self.hpd_registrations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MyAlerts" EntityType="Self.MyAlerts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MyReports" EntityType="Self.MyReports" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pluto" EntityType="Self.Pluto" Schema="dbo" store:Type="Tables" />
@@ -530,6 +598,9 @@ warning 6002: The table/view 'NYC_Web_Mapping_App.dbo.Districts' does not have a
           <EntitySet Name="ConsumerProfiles" EntityType="NYC_Web_Mapping_AppModel.ConsumerProfile" />
           <EntitySet Name="Districts" EntityType="NYC_Web_Mapping_AppModel.District" />
           <EntitySet Name="Designations" EntityType="NYC_Web_Mapping_AppModel.Designation" />
+          <EntitySet Name="hpd_business_addresses" EntityType="NYC_Web_Mapping_AppModel.hpd_business_addresses" />
+          <EntitySet Name="hpd_contacts" EntityType="NYC_Web_Mapping_AppModel.hpd_contacts" />
+          <EntitySet Name="hpd_registrations" EntityType="NYC_Web_Mapping_AppModel.hpd_registrations" />
         </EntityContainer>
         <EntityType Name="Pluto">
           <Key>
@@ -1008,6 +1079,63 @@ warning 6002: The table/view 'NYC_Web_Mapping_App.dbo.Districts' does not have a
           <Property Name="ZONING_MAP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DESCRIPTION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="BBL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="hpd_business_addresses">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="businesshousenumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="businessstreetname" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="businesszip" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="businessapartment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="numberOfContacts" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="corporationnames" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ownernames" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="uniqregids" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="hpd_contacts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegistrationContactID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RegistrationID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CorporationName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleInitial" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BusinessHouseNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BusinessStreetName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="BusinessApartment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BusinessCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BusinessState" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BusinessZip" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="hpd_registrations">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegistrationID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BuildingID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BoroID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Boro" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HouseNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LowHouseNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HighHouseNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StreetName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Zip" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Block" Type="Int32" />
+          <Property Name="Lot" Type="Int32" />
+          <Property Name="BIN" Type="Int32" />
+          <Property Name="CommunityBoard" Type="Int32" />
+          <Property Name="LastRegistrationDate" Type="DateTime" Precision="3" />
+          <Property Name="RegistrationEndDate" Type="DateTime" Precision="3" />
+          <Property Name="bbl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1503,6 +1631,66 @@ warning 6002: The table/view 'NYC_Web_Mapping_App.dbo.Districts' does not have a
                 <ScalarProperty Name="CEQR_NUM" ColumnName="CEQR_NUM" />
                 <ScalarProperty Name="ENUMBER" ColumnName="ENUMBER" />
                 <ScalarProperty Name="OBJECTID" ColumnName="OBJECTID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="hpd_business_addresses">
+            <EntityTypeMapping TypeName="NYC_Web_Mapping_AppModel.hpd_business_addresses">
+              <MappingFragment StoreEntitySet="hpd_business_addresses">
+                <ScalarProperty Name="uniqregids" ColumnName="uniqregids" />
+                <ScalarProperty Name="ownernames" ColumnName="ownernames" />
+                <ScalarProperty Name="corporationnames" ColumnName="corporationnames" />
+                <ScalarProperty Name="numberOfContacts" ColumnName="numberOfContacts" />
+                <ScalarProperty Name="businessapartment" ColumnName="businessapartment" />
+                <ScalarProperty Name="businesszip" ColumnName="businesszip" />
+                <ScalarProperty Name="businessstreetname" ColumnName="businessstreetname" />
+                <ScalarProperty Name="businesshousenumber" ColumnName="businesshousenumber" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="hpd_contacts">
+            <EntityTypeMapping TypeName="NYC_Web_Mapping_AppModel.hpd_contacts">
+              <MappingFragment StoreEntitySet="hpd_contacts">
+                <ScalarProperty Name="BusinessZip" ColumnName="BusinessZip" />
+                <ScalarProperty Name="BusinessState" ColumnName="BusinessState" />
+                <ScalarProperty Name="BusinessCity" ColumnName="BusinessCity" />
+                <ScalarProperty Name="BusinessApartment" ColumnName="BusinessApartment" />
+                <ScalarProperty Name="BusinessStreetName" ColumnName="BusinessStreetName" />
+                <ScalarProperty Name="BusinessHouseNumber" ColumnName="BusinessHouseNumber" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleInitial" ColumnName="MiddleInitial" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="CorporationName" ColumnName="CorporationName" />
+                <ScalarProperty Name="ContactDescription" ColumnName="ContactDescription" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="RegistrationID" ColumnName="RegistrationID" />
+                <ScalarProperty Name="RegistrationContactID" ColumnName="RegistrationContactID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="hpd_registrations">
+            <EntityTypeMapping TypeName="NYC_Web_Mapping_AppModel.hpd_registrations">
+              <MappingFragment StoreEntitySet="hpd_registrations">
+                <ScalarProperty Name="bbl" ColumnName="bbl" />
+                <ScalarProperty Name="RegistrationEndDate" ColumnName="RegistrationEndDate" />
+                <ScalarProperty Name="LastRegistrationDate" ColumnName="LastRegistrationDate" />
+                <ScalarProperty Name="CommunityBoard" ColumnName="CommunityBoard" />
+                <ScalarProperty Name="BIN" ColumnName="BIN" />
+                <ScalarProperty Name="Lot" ColumnName="Lot" />
+                <ScalarProperty Name="Block" ColumnName="Block" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="StreetName" ColumnName="StreetName" />
+                <ScalarProperty Name="HighHouseNumber" ColumnName="HighHouseNumber" />
+                <ScalarProperty Name="LowHouseNumber" ColumnName="LowHouseNumber" />
+                <ScalarProperty Name="HouseNumber" ColumnName="HouseNumber" />
+                <ScalarProperty Name="Boro" ColumnName="Boro" />
+                <ScalarProperty Name="BoroID" ColumnName="BoroID" />
+                <ScalarProperty Name="BuildingID" ColumnName="BuildingID" />
+                <ScalarProperty Name="RegistrationID" ColumnName="RegistrationID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

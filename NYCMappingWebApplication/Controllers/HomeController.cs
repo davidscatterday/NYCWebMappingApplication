@@ -14,6 +14,7 @@ namespace NYCMappingWebApp.Controllers
     public class HomeController : Controller
     {
         MainDAL mainDAL = new MainDAL();
+        OwnerAnalysisDAL ownerAnalysisDAL = new OwnerAnalysisDAL();
         private NYC_Web_Mapping_AppEntities db = new NYC_Web_Mapping_AppEntities();
         public ActionResult Index()
         {
