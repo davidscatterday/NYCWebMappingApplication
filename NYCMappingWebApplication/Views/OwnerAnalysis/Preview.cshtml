@@ -9,14 +9,26 @@
 <table width="100%" border="1" class="table table-striped">
     <thead>
         <tr>
-            <td colspan="4" align="center">Location</td>
-            <td colspan="2" align="center">Last Sale</td>
+            <td align="center" colspan="4">Location</td>
+            <td align="center" colspan="2">Information</td>
+            <td align="center">RS Units</td>
+            <td align="center" colspan="2">HPD Violations</td>
+            <td align="center">Evictions</td>
+            <td align="center">Landlord</td>
+            <td align="center" colspan="2">Last Sale</td>
         </tr>
         <tr>
             <td>Address</td>
             <td>Zipcode</td>
             <td>Borough</td>
             <td>BBL</td>
+            <td>Built</td>
+            <td>Units</td>
+            <td>2019</td>
+            <td>Open</td>
+            <td>Total</td>
+            <td>2019</td>
+            <td>Officer/Owner</td>
             <td>Date</td>
             <td>Amount</td>
         </tr>
@@ -29,15 +41,15 @@
                 <td>@item.Zip</td>
                 <td>@item.Boro</td>
                 <td>@item.bbl</td>
-                @if (item.sale_date.HasValue)
-                {
-                    <td>@item.sale_date.Value.ToShortDateString()</td>
-                }
-                else
-                {
-                    <td></td>
-                }
-                <td>@item.sale_price</td>
+                <td>@item.yearbuilt</td>
+                <td>@item.unitsres</td>
+                <td>@item.rsunits2019</td>
+                <td>@item.openviolations</td>
+                <td>@item.totalviolations</td>
+                <td>@item.totalevictions</td>
+                <td>@item.OwnerName</td>
+                <td>@item.DOC_DATE</td>
+                <td>@item.DOC_AMOUNT</td>
             </tr>
         }
     </tbody>

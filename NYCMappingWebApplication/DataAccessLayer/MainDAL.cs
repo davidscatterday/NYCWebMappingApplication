@@ -773,5 +773,17 @@ namespace NYCMappingWebApp.DataAccessLayer
             }
             return OBJECTID;
         }
+
+        public IndexData GetIndexData(string username)
+        {
+            IndexData result = new IndexData() { Username = "", TabIDs = new List<int>() };
+            User_Tabs userTabs = db.User_Tabs.Where(w => w.Username == username).FirstOrDefault();
+            if (userTabs != null)
+            {
+                result.Username = userTabs.Username;
+                result.TabIDs = userTabs.TabIDs.Split(',').Select(s => int.Parse(s)).ToList();
+            }
+            return result;
+        }
     }
 }

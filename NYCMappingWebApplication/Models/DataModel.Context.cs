@@ -32,8 +32,7 @@ namespace NYCMappingWebApp.Models
         public virtual DbSet<ConsumerProfile> ConsumerProfiles { get; set; }
         public virtual DbSet<District> Districts { get; set; }
         public virtual DbSet<Designation> Designations { get; set; }
-        public virtual DbSet<hpd_business_addresses> hpd_business_addresses { get; set; }
-        public virtual DbSet<hpd_contacts> hpd_contacts { get; set; }
-        public virtual DbSet<hpd_registrations> hpd_registrations { get; set; }
+        public virtual DbSet<Tab> Tabs { get; set; }
+        public virtual DbSet<User_Tabs> User_Tabs { get; set; }
     }
 }

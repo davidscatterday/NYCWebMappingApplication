@@ -40,6 +40,7 @@ namespace NYCMappingWebApp
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/font-awesome.css",
+                      "~/Content/Gridmvc.css",
                       "~/Content/site.css",
                       "~/Content/headerStyle.css",
                       "~/Content/select2-3.5.2.css",

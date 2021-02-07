@@ -12,16 +12,10 @@ namespace NYCMappingWebApp.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class hpd_business_addresses
+    public partial class User_Tabs
     {
         public int ID { get; set; }
-        public string businesshousenumber { get; set; }
-        public string businessstreetname { get; set; }
-        public string businesszip { get; set; }
-        public string businessapartment { get; set; }
-        public string numberOfContacts { get; set; }
-        public string corporationnames { get; set; }
-        public string ownernames { get; set; }
-        public string uniqregids { get; set; }
+        public string Username { get; set; }
+        public string TabIDs { get; set; }
     }
 }

@@ -5,6 +5,11 @@ using System.Web;
 
 namespace NYCMappingWebApp.Entities
 {
+    public class IndexData
+    {
+        public string Username { get; set; }
+        public List<int> TabIDs { get; set; }
+    }
     public class Select2DTO // as select2 is formed like id and text so we used DTO
     {
         public string id { get; set; }

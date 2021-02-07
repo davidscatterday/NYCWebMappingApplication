@@ -25,6 +25,14 @@
     <nav class="navbar navbar-inverse" style="margin-bottom: 2px; background-color: white; border: none">
         <div class="container-fluid">
             <ul class="nav navbar-nav navbar-right">
+                @if (User.Identity.Name == "david@scatterdayassociates.com" || User.Identity.Name == "pavlejovanov@gmail.com")
+                {
+                    <li class="list-inline-item text-md" style="margin-right: 5px">
+                        <a href="/Users/UserTabs" target="_blank" class="notification" id="signout">
+                            Admin Users
+                        </a>
+                    </li>
+                }
                 <li class="list-inline-item text-md">
                     <a href="#" class="notification" id="support-menu-link" onclick="btnOpenMyReports_Click()">
                         @*<span class="myReportsIcon"></span>*@ Saved Reports

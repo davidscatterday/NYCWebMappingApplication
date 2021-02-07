@@ -179,14 +179,18 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MyReportsController.cs" />
     <Compile Include="Controllers\OwnerAnalysisController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DataAccessLayer\MainDAL.cs" />
     <Compile Include="DataAccessLayer\OwnerAnalysisDAL.cs" />
+    <Compile Include="DataAccessLayer\UserDAL.cs" />
     <Compile Include="Entities\MainENT.cs" />
     <Compile Include="Entities\OwnerAnalysisENT.cs" />
+    <Compile Include="Entities\UserENT.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\GlobalVariables.cs" />
+    <Compile Include="Helpers\LevenshteinDistance.cs" />
     <Compile Include="Models\ConsumerProfile.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -214,15 +218,6 @@
     <Compile Include="Models\Elevator.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\hpd_business_addresses.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\hpd_contacts.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\hpd_registrations.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\MyAlert.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -230,6 +225,12 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Pluto.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tab.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User_Tabs.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -419,6 +420,10 @@
     <Content Include="Views\Shared\_ConsumerProfile.cshtml" />
     <Content Include="Views\Shared\_TrendAnalysis.cshtml" />
     <Content Include="Views\OwnerAnalysis\Preview.cshtml" />
+    <Content Include="Views\Users\UserTabs.cshtml" />
+    <Content Include="Views\Users\AddUserTab.cshtml" />
+    <Content Include="Views\Users\EditUserTab.cshtml" />
+    <Content Include="Views\Users\DeleteUserTab.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

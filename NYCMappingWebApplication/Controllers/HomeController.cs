@@ -8,6 +8,7 @@ using System.IO;
 using System.Text;
 using System.Web.Mvc;
 using System.Dynamic;
+using NYCMappingWebApp.Helpers;
 
 namespace NYCMappingWebApp.Controllers
 {
@@ -22,6 +23,7 @@ namespace NYCMappingWebApp.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
+            IndexData data = mainDAL.GetIndexData(User.Identity.Name);
             ViewBag.ZoningDistricts = mainDAL.GetAllZoningDistricts();
             ViewBag.CommercialOverlays = mainDAL.GetAllCommercialOverlays();
             ViewBag.EvictionStatuses = mainDAL.GetAllEvictionStatuses();
@@ -30,7 +32,7 @@ namespace NYCMappingWebApp.Controllers
             ViewBag.FilingStatuses = mainDAL.GetAllFilingStatuses();
             ViewBag.YesNoStatuses = mainDAL.GetAllYesNoStatuses();
             ViewBag.Frequencies = mainDAL.GetAllFrequencies();
-            return View();
+            return View(data);
         }
 
         public JsonResult GetBoroughs(string term)

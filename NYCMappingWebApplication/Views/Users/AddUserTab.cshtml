@@ -1,0 +1,100 @@
+﻿@model NYCMappingWebApp.Entities.AddUserTabs
+
+@{
+    string infoMessage = TempData["InfoMessage"] as string;
+    string errorMessage = TempData["ErrorMessage"] as string;
+}
+
+<div class="container body-content">
+    <h2 class="col-sm-offset-2">Add new User</h2>
+    @if (infoMessage != null)
+    {
+        <div class="form-group">
+            <div class="alert alert-success fade in">
+                @infoMessage
+            </div>
+        </div>
+    }
+    @if (errorMessage != null)
+    {
+        <div class="form-group">
+            <div class="alert alert-danger fade in">
+                @errorMessage
+            </div>
+        </div>
+    }
+
+    @using (Html.BeginForm())
+    {
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true)
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Username</label>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(model => model.Username, new { @class = "form-control input-width-xlarge", @autocomplete = "off", @style = "width: 500px;border: solid;border-width: 1px;" })
+                    @Html.ValidationMessageFor(model => model.Username)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Tabs</label>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(model => model.TabIDs, new { @autocomplete = "off", @id = "txtUserTabs", @placeholder = "Select Tabs" })
+                    @Html.ValidationMessageFor(model => model.TabIDs)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label"></label>
+                <div class="col-sm-10">
+                    <input type="submit" value="Save" class="btn btn-primary btn-large" />
+                    @Html.ActionLink("Cancel", "UserTabs", new { @class = "btn btn-large" })
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#txtUserTabs").select2({
+            minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+            width: '500px',   // to adjust proper width of select2 wrapped elements
+            allowClear: true,
+            multiple: true,
+            ajax: {
+                url: "/Users/GetAllTabs", // Controller - CoinGroups and Action - GetMinters
+                type: "POST",
+                dataType: 'json',
+                data: function (term) {
+                    return {
+                        term: term,
+                    };
+                },
+                results: function (data, page) {
+                    return {
+                        results: data.TabsList,
+                    };
+                }
+            },
+            initSelection: function (item, callback) {
+                var data = [];
+                var id = "";
+                var text = "";
+                var arrayTabs = item.val().split(',');
+                for (var i = 0; i < arrayTabs.length; i++) {
+                    //if (i % 2 == 0) {
+                        text = arrayTabs[i];
+                    //}
+                    //else {
+                        id = arrayTabs[i];
+                        var value = { id: id, text: text };
+                        data.push(value);
+                    //}
+                }
+
+                callback(data);
+            }
+        });
+    });
+</script>
