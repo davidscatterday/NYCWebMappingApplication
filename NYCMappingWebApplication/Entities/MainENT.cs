@@ -167,6 +167,13 @@ namespace NYCMappingWebApp.Entities
         public string sale_price { get; set; }
 
         public string DESCRIPTION { get; set; }
+
+        public string BusinessName { get; set; }
+        public string GeneralContractor { get; set; }
+        public string Architect { get; set; }
+        public string TOTAL_CONSTRUCTION_FLOOR_AREA { get; set; }
+        public string Proposed_Height { get; set; }
+        public string Proposed_Occupancy { get; set; }
     }
 
     public class DatabaseMaxValues

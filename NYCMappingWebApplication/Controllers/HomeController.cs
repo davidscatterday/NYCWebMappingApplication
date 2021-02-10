@@ -419,6 +419,18 @@ namespace NYCMappingWebApp.Controllers
                 csvLine += isHeader ? ",Sale Price" : "," + elem.sale_price;
             if (elem.DESCRIPTION != null)
                 csvLine += isHeader ? ",Description" : "," + elem.DESCRIPTION;
+            if (elem.BusinessName != null)
+                csvLine += isHeader ? ",Business Name" : "," + elem.BusinessName;
+            if (elem.GeneralContractor != null)
+                csvLine += isHeader ? ",General Contractor" : "," + elem.GeneralContractor;
+            if (elem.Architect != null)
+                csvLine += isHeader ? ",Architect" : "," + elem.Architect;
+            if (elem.TOTAL_CONSTRUCTION_FLOOR_AREA != null)
+                csvLine += isHeader ? ",Construction Floor Area" : "," + elem.TOTAL_CONSTRUCTION_FLOOR_AREA;
+            if (elem.Proposed_Height != null)
+                csvLine += isHeader ? ",Proposed Height" : "," + elem.Proposed_Height;
+            if (elem.Proposed_Occupancy != null)
+                csvLine += isHeader ? ",Proposed Occupancy" : "," + elem.Proposed_Occupancy;
             return csvLine;
 
 
@@ -429,6 +441,48 @@ namespace NYCMappingWebApp.Controllers
             var res = mainDAL.UpdatePlutoDatatableTractIDs(BBLs, tractID, OBJECTID);
 
             return Json(res, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetPersonaTypeSearchOwner(string term)
+        {
+            var PersonaTypeSearchOwnerList = mainDAL.GetPersonaTypeSearchOwner(term);
+            return Json(new { PersonaTypeSearchOwnerList }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetPersonaTypeSearchGeneralContractor(string term)
+        {
+            var PersonaTypeSearchGeneralContractorList = mainDAL.GetPersonaTypeSearchGeneralContractor(term);
+            return Json(new { PersonaTypeSearchGeneralContractorList }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetPersonaTypeSearchArchitect(string term)
+        {
+            var PersonaTypeSearchArchitectList = mainDAL.GetPersonaTypeSearchArchitect(term);
+            return Json(new { PersonaTypeSearchArchitectList }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetPropertySearchJobType(string term)
+        {
+            var PropertySearchJobTypeList = mainDAL.GetPropertySearchJobType(term);
+            return Json(new { PropertySearchJobTypeList }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetPropertySearchBorough(string term)
+        {
+            var PropertySearchBoroughList = mainDAL.GetPropertySearchBorough(term);
+            return Json(new { PropertySearchBoroughList }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetPropertySearchBuildingClass(string term)
+        {
+            var PropertySearchBuildingClassList = mainDAL.GetPropertySearchBuildingClass(term);
+            return Json(new { PropertySearchBuildingClassList }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetPropertySearchZoningDistrict(string term)
+        {
+            var PropertySearchZoningDistrictList = mainDAL.GetPropertySearchZoningDistrict(term);
+            return Json(new { PropertySearchZoningDistrictList }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetPropertySearchProposedOccupancy(string term)
+        {
+            var PropertySearchProposedOccupancyList = mainDAL.GetPropertySearchProposedOccupancy(term);
+            return Json(new { PropertySearchProposedOccupancyList }, JsonRequestBehavior.AllowGet);
         }
 
     }

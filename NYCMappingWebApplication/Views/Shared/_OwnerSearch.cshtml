@@ -1,0 +1,303 @@
+﻿
+<div class="form-group">
+    <div class="col-sm-12" style="padding-left: 0px">
+        <div class="panel-group" id="accordionOwnerSearch">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordionOwnerSearch" href="#collapse61">
+                            Persona Type Search
+                        </a>
+                        <a class="fa fa-angle-down rotate-icon pull-right" data-toggle="collapse" data-parent="#accordionOwnerSearch" href="#collapse61"></a>
+                    </h4>
+                </div>
+                <div id="collapse61" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Owner
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtPersonaTypeSearchOwner" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    General Contractor
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtPersonaTypeSearchGeneralContractor" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Architect
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtPersonaTypeSearchArchitect" style="width: 100%;" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordionOwnerSearch" href="#collapse62">
+                            Property Search
+                        </a>
+                        <a class="fa fa-angle-down rotate-icon pull-right" data-toggle="collapse" data-parent="#accordionOwnerSearch" href="#collapse62"></a>
+                    </h4>
+                </div>
+                <div id="collapse62" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Job Type
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtPropertySearchJobType" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Borough
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtPropertySearchBorough" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <p id="sliderPropertySearchConstructionFloorArea" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                    <label for="cbPropertySearchConstructionFloorArea">
+                                        <input id="cbPropertySearchConstructionFloorArea" type="checkbox" style="margin-right: 5px">Construction Floor Area:
+                                        <input type="text" id="txtPropertySearchConstructionFloorArea" style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%" onkeyup="txtSlider_KeyUp(this,'PropertySearchConstructionFloorArea')">
+                                    </label>
+                                </p>
+                                <div id="slider-range-PropertySearchConstructionFloorArea"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Building Class
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtPropertySearchBuildingClass" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Zoning District
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtPropertySearchZoningDistrict" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Proposed Occupancy
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtPropertySearchProposedOccupancy" style="width: 100%;" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group text-right" style="margin-top: 10px">
+                <div class="col-sm-offset-7 col-sm-5">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="btnOwnerSearch()">Search</button>
+                    <button type="button" class="btn btn-primary btn-sm" onclick="btnResetOwnerSearch()">Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $("#txtPersonaTypeSearchOwner").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: false,
+        ajax: {
+            url: RootUrl + 'Home/GetPersonaTypeSearchOwner',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.PersonaTypeSearchOwnerList,
+                };
+            }
+        }
+    });
+    $("#txtPersonaTypeSearchGeneralContractor").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: false,
+        ajax: {
+            url: RootUrl + 'Home/GetPersonaTypeSearchGeneralContractor',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.PersonaTypeSearchGeneralContractorList,
+                };
+            }
+        }
+    });
+    $("#txtPersonaTypeSearchArchitect").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: false,
+        ajax: {
+            url: RootUrl + 'Home/GetPersonaTypeSearchArchitect',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.PersonaTypeSearchArchitectList,
+                };
+            }
+        }
+    });
+
+    $("#txtPropertySearchJobType").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetPropertySearchJobType',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.PropertySearchJobTypeList,
+                };
+            }
+        }
+    });
+    $("#txtPropertySearchBorough").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetPropertySearchBorough',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.PropertySearchBoroughList,
+                };
+            }
+        }
+    });
+    $("#txtPropertySearchBuildingClass").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetPropertySearchBuildingClass',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.PropertySearchBuildingClassList,
+                };
+            }
+        }
+    });
+    $("#txtPropertySearchZoningDistrict").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetPropertySearchZoningDistrict',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.PropertySearchZoningDistrictList,
+                };
+            }
+        }
+    });
+    $("#txtPropertySearchProposedOccupancy").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetPropertySearchProposedOccupancy',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.PropertySearchProposedOccupancyList,
+                };
+            }
+        }
+    });
+</script>

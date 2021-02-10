@@ -1624,6 +1624,9 @@ function CreateDatabaseTable(data, zoomTo) {
             if (zoomTo) {
                 MapPlutoGeometrySearch(BBLs);
             }
+            else {
+                $('#loading').hide();
+            }
         }
         else {
             $('#loading').hide();
@@ -2266,6 +2269,7 @@ function txtSlider_KeyUp(x, name) {
         case "AssessedTotalValue": maxValueTotal = maxAssessedTotalValue; break
         case "AssessedValuePerSquareFoot": maxValueTotal = maxAssessedValuePerSquareFoot; break
         case "SalePrice": maxValueTotal = maxSalePrice; break
+        case "PropertySearchConstructionFloorArea": maxValueTotal = maxPropertySearchConstructionFloorArea; break
         default: return
     }
     try {

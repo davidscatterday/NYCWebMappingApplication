@@ -785,5 +785,92 @@ namespace NYCMappingWebApp.DataAccessLayer
             }
             return result;
         }
+
+        public List<Select2DTO> GetPersonaTypeSearchOwner(string term)
+        {
+            List<Select2DTO> returnResult = new List<Select2DTO>();
+            using (var ctx = new NYC_Web_Mapping_AppEntities())
+            {
+                var termParametar = !String.IsNullOrEmpty(term) ? new SqlParameter("term", term) : new SqlParameter("term", DBNull.Value);
+                returnResult = ctx.Database.SqlQuery<Select2DTO>("EXEC dbo.OwnerSearch_GetPersonaTypeSearchOwner @term ", termParametar).ToList();
+            }
+            return returnResult;
+        }
+        public List<Select2DTO> GetPersonaTypeSearchGeneralContractor(string term)
+        {
+            List<Select2DTO> returnResult = new List<Select2DTO>();
+            using (var ctx = new NYC_Web_Mapping_AppEntities())
+            {
+                var termParametar = !String.IsNullOrEmpty(term) ? new SqlParameter("term", term) : new SqlParameter("term", DBNull.Value);
+                returnResult = ctx.Database.SqlQuery<Select2DTO>("EXEC dbo.OwnerSearch_GetPersonaTypeSearchGeneralContractor @term ", termParametar).ToList();
+            }
+            return returnResult;
+        }
+        public List<Select2DTO> GetPersonaTypeSearchArchitect(string term)
+        {
+            List<Select2DTO> returnResult = new List<Select2DTO>();
+            using (var ctx = new NYC_Web_Mapping_AppEntities())
+            {
+                var termParametar = !String.IsNullOrEmpty(term) ? new SqlParameter("term", term) : new SqlParameter("term", DBNull.Value);
+                returnResult = ctx.Database.SqlQuery<Select2DTO>("EXEC dbo.OwnerSearch_GetPersonaTypeSearchArchitect @term ", termParametar).ToList();
+            }
+            return returnResult;
+        }
+
+        public List<Select2DTO> GetPropertySearchJobType(string term)
+        {
+            List<Select2DTO> returnResult = new List<Select2DTO>();
+            returnResult.Add(new Select2DTO() { id = "'A1'", text = "A1" });
+            returnResult.Add(new Select2DTO() { id = "'A2'", text = "A2" });
+            returnResult.Add(new Select2DTO() { id = "'A3'", text = "A3" });
+            returnResult.Add(new Select2DTO() { id = "'DM'", text = "DM" });
+            returnResult.Add(new Select2DTO() { id = "'NB'", text = "NB" });
+            returnResult.Add(new Select2DTO() { id = "'PA'", text = "PA" });
+            returnResult.Add(new Select2DTO() { id = "'SC'", text = "SC" });
+            returnResult.Add(new Select2DTO() { id = "'SG'", text = "SG" });
+            returnResult.Add(new Select2DTO() { id = "'SI'", text = "SI" });
+            return returnResult.Where(w => w.text.ToLower().Contains(term.ToLower())).ToList();
+        }
+        public List<Select2DTO> GetPropertySearchBorough(string term)
+        {
+            List<Select2DTO> returnResult = new List<Select2DTO>();
+            returnResult.Add(new Select2DTO() { id = "'BRONX'", text = "Bronx" });
+            returnResult.Add(new Select2DTO() { id = "'BROOKLYN'", text = "Brooklyn" });
+            returnResult.Add(new Select2DTO() { id = "'MANHATTAN'", text = "Manhattan" });
+            returnResult.Add(new Select2DTO() { id = "'QUEENS'", text = "Queens" });
+            returnResult.Add(new Select2DTO() { id = "'STATEN ISLAND'", text = "Staten Island" });
+            return returnResult.Where(w => w.text.ToLower().Contains(term.ToLower())).ToList();
+        }
+        public List<Select2DTO> GetPropertySearchBuildingClass(string term)
+        {
+            List<Select2DTO> returnResult = new List<Select2DTO>();
+            using (var ctx = new NYC_Web_Mapping_AppEntities())
+            {
+                var termParametar = !String.IsNullOrEmpty(term) ? new SqlParameter("term", term) : new SqlParameter("term", DBNull.Value);
+                returnResult = ctx.Database.SqlQuery<Select2DTO>("EXEC dbo.OwnerSearch_GetPropertySearchBuildingClass @term ", termParametar).ToList();
+            }
+            return returnResult;
+        }
+        public List<Select2DTO> GetPropertySearchZoningDistrict(string term)
+        {
+            List<Select2DTO> returnResult = new List<Select2DTO>();
+            using (var ctx = new NYC_Web_Mapping_AppEntities())
+            {
+                var termParametar = !String.IsNullOrEmpty(term) ? new SqlParameter("term", term) : new SqlParameter("term", DBNull.Value);
+                returnResult = ctx.Database.SqlQuery<Select2DTO>("EXEC dbo.OwnerSearch_GetPropertySearchZoningDistrict @term ", termParametar).ToList();
+            }
+            return returnResult;
+        }
+        public List<Select2DTO> GetPropertySearchProposedOccupancy(string term)
+        {
+            List<Select2DTO> returnResult = new List<Select2DTO>();
+            using (var ctx = new NYC_Web_Mapping_AppEntities())
+            {
+                var termParametar = !String.IsNullOrEmpty(term) ? new SqlParameter("term", term) : new SqlParameter("term", DBNull.Value);
+                returnResult = ctx.Database.SqlQuery<Select2DTO>("EXEC dbo.OwnerSearch_GetPropertySearchProposedOccupancy @term ", termParametar).ToList();
+            }
+            return returnResult;
+        }
+
     }
 }

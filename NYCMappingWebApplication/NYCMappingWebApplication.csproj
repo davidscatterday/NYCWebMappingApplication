@@ -383,6 +383,7 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\otherFunctions.js" />
     <Content Include="Scripts\ownerAnalysis.js" />
+    <Content Include="Scripts\ownerSearch.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
@@ -424,6 +425,7 @@
     <Content Include="Views\Users\AddUserTab.cshtml" />
     <Content Include="Views\Users\EditUserTab.cshtml" />
     <Content Include="Views\Users\DeleteUserTab.cshtml" />
+    <Content Include="Views\Shared\_OwnerSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

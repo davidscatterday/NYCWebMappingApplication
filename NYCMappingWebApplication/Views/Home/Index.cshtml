@@ -53,6 +53,10 @@
                 {
                     <li style="width: 19%;"><a href="#tabs-5" style="font-size: 10px; width: 100%; text-align: center;">Owner Analysis</a></li>
                 }
+                @if (Model.TabIDs.Contains(6))
+                {
+                    <li style="width: 19%;"><a href="#tabs-6" style="font-size: 10px; width: 100%; text-align: center;">Owner Search</a></li>
+                }
             </ul>
             <div id="tabs-1" style="padding-top: 0px">
                 <form class="form-horizontal" style="margin-top: 10px">
@@ -1122,6 +1126,14 @@
                                 <button type="button" class="btn btn-primary btn-sm" onclick="btnSearchHpd()">Search</button>
                             </div>
                         </div>
+                    </form>
+                </div>
+            }
+            @if (Model.TabIDs.Contains(6))
+            {
+                <div id="tabs-6" style="padding-top: 0px">
+                    <form class="form-horizontal" style="margin-top: 10px">
+                        @Html.Partial("_OwnerSearch")
                     </form>
                 </div>
             }

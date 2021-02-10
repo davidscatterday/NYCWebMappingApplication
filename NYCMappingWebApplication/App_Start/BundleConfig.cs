@@ -29,6 +29,7 @@ namespace NYCMappingWebApp
                         "~/Scripts/trendAnalysis.js",
                         "~/Scripts/consumerProfiles.js",
                         "~/Scripts/ownerAnalysis.js",
+                        "~/Scripts/ownerSearch.js",
                         "~/Scripts/gridmvc.js",
                         "~/Scripts/select2-3.5.2.js",
                         "~/Scripts/gisFunctions.js"));
