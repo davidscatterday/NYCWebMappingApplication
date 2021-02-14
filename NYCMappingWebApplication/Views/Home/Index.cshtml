@@ -10,58 +10,58 @@
     DistrictsUrl = "@(System.Configuration.ConfigurationManager.AppSettings["DistrictsUrl"])";
     CensusTractsUrl = "@(System.Configuration.ConfigurationManager.AppSettings["CensusTractsUrl"])";
     NYCzipCodeUrl = "@(System.Configuration.ConfigurationManager.AppSettings["NYCzipCodeUrl"])";
-    $(function () {
-        $(".leftcolumn").resizable(
-            {
-                autoHide: true,
-                handles: 'e',
-                resize: function (e, ui) {
-                    var parent = ui.element.parent();
-                    var greenboxspace = parent.width() - ui.element.outerWidth(),
-                        redbox = ui.element.next(),
-                        redboxwidth = (greenboxspace - (redbox.outerWidth() - redbox.width())) / parent.width() * 100 + "%";
-                    redbox.width(redboxwidth);
-                },
-                stop: function (e, ui) {
-                    var parent = ui.element.parent();
-                    ui.element.css(
-                        {
-                            width: ui.element.width() / parent.width() * 100 + "%",
-                        });
-                }
-            });
-    });
+    //$(function () {
+    //    $(".leftcolumn").resizable(
+    //        {
+    //            autoHide: true,
+    //            handles: 'e',
+    //            resize: function (e, ui) {
+    //                var parent = ui.element.parent();
+    //                var greenboxspace = parent.width() - ui.element.outerWidth(),
+    //                    redbox = ui.element.next(),
+    //                    redboxwidth = (greenboxspace - (redbox.outerWidth() - redbox.width())) / parent.width() * 100 + "%";
+    //                redbox.width(redboxwidth);
+    //            },
+    //            stop: function (e, ui) {
+    //                var parent = ui.element.parent();
+    //                ui.element.css(
+    //                    {
+    //                        width: ui.element.width() / parent.width() * 100 + "%",
+    //                    });
+    //            }
+    //        });
+    //});
 </script>
 <div class="row" style="margin:0px; height: 100%">
     <div class="col-md-4 leftcolumn" style="height: 100%; padding-left: 0px; padding-right: 0px; overflow: auto; overflow-x: hidden;">
-        <div id="tabs" style="border: none;">
+        <div id="tabs" style="border: none; height: 100%;">
             <ul>
-                <li style="width: 19%;"><a href="#tabs-1" style="font-size: 10px; width: 100%; text-align: center;">Custom Profile</a></li>
+                <li style="width: 100%;"><a href="#tabs-1" style="font-size: 10px; width: 100%; text-align: center;">Custom<br />Profile</a></li>
                 @if (Model.TabIDs.Contains(2))
                 {
-                    <li style="width: 19%;"><a href="#tabs-2" style="font-size: 10px; width: 100%; text-align: center;">Look-a-Like</a></li>
+                    <li style="width: 100%;"><a href="#tabs-2" style="font-size: 10px; width: 100%; text-align: center;">Look<br />a-Like</a></li>
                 }
                 @if (Model.TabIDs.Contains(3))
                 {
-                    <li style="width: 19%;"><a href="#tabs-3" style="font-size: 10px; width: 100%; text-align: center;">Consumer Profile</a></li>
+                    <li style="width: 100%;"><a href="#tabs-3" style="font-size: 10px; width: 100%; text-align: center;">Consumer<br />Profile</a></li>
                 }
                 @if (Model.TabIDs.Contains(4))
                 {
-                    <li style="width: 19%;"><a href="#tabs-4" style="font-size: 10px; width: 100%; text-align: center;">Trend Analysis</a></li>
+                    <li style="width: 100%;"><a href="#tabs-4" style="font-size: 10px; width: 100%; text-align: center;">Trend<br />Analysis</a></li>
                 }
                 @if (Model.TabIDs.Contains(5))
                 {
-                    <li style="width: 19%;"><a href="#tabs-5" style="font-size: 10px; width: 100%; text-align: center;">Owner Analysis</a></li>
+                    <li style="width: 100%;"><a href="#tabs-5" style="font-size: 10px; width: 100%; text-align: center;">Owner<br />Analysis</a></li>
                 }
                 @if (Model.TabIDs.Contains(6))
                 {
-                    <li style="width: 19%;"><a href="#tabs-6" style="font-size: 10px; width: 100%; text-align: center;">Owner Search</a></li>
+                    <li style="width: 100%;"><a href="#tabs-6" style="font-size: 10px; width: 100%; text-align: center;">Owner<br />Search</a></li>
                 }
             </ul>
             <div id="tabs-1" style="padding-top: 0px">
                 <form class="form-horizontal" style="margin-top: 10px">
                     <div class="form-group">
-                        <div class="col-sm-12" style="padding-left: 0px">
+                        <div class="col-sm-12" style="padding-left: 0px;padding-right: 0px;">
                             <div class="panel-group" id="accordionMain">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
@@ -1066,7 +1066,7 @@
                         </div>
                     </div>
                     <div class="form-group text-right">
-                        <div class="col-sm-offset-7 col-sm-5">
+                        <div class="col-sm-offset-7 col-sm-5" style="padding-right: 0px;">
                             <button type="button" class="btn btn-primary btn-sm" onclick="btnSearch()">Search</button>
                             <button type="button" class="btn btn-primary btn-sm" onclick="btnReset()">Reset</button>
                         </div>
@@ -1098,7 +1098,7 @@
             }
             @if (Model.TabIDs.Contains(3))
             {
-                <div id="tabs-3">
+                <div id="tabs-3" style="padding-right: 0px">
                     <form class="form-horizontal">
                         @Html.Partial("_ConsumerProfile")
                     </form>
@@ -1106,7 +1106,7 @@
             }
             @if (Model.TabIDs.Contains(4))
             {
-                <div id="tabs-4" style="padding-top: 0px">
+                <div id="tabs-4" style="padding-top: 0px;padding-right: 0px">
                     <form class="form-horizontal" style="margin-top: 10px">
                         @Html.Partial("_TrendAnalysis")
                     </form>
@@ -1131,7 +1131,7 @@
             }
             @if (Model.TabIDs.Contains(6))
             {
-                <div id="tabs-6" style="padding-top: 0px">
+                <div id="tabs-6" style="padding-top: 0px;padding-right: 0px;">
                     <form class="form-horizontal" style="margin-top: 10px">
                         @Html.Partial("_OwnerSearch")
                     </form>

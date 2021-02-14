@@ -1,6 +1,6 @@
 ﻿var maxPropertySearchConstructionFloorArea = 999999999;
 var whereOwnerSearchClause = "";
-var sqlQueryJobPermit = "select bbl_10_digits AS BBL, j.Job_Type AS job_type, (j.House + ' ' + j.Street_Name) AS Address, j.Borough, j.TOTAL_CONSTRUCTION_FLOOR_AREA, j.BUILDING_CLASS AS BldgClass, j.Zoning_Dist1 AS ZoneDist1, j.Proposed_Height, j.Proposed_Occupancy, (j.Owner_s_First_Name + ' ' + j.Owner_s_Last_Name) AS OwnerName, j.Owner_s_Business_Name AS BusinessName, (p.permittee_s_first_name + ' ' + p.permittee_s_last_name) AS GeneralContractor, (j.Applicant_s_First_Name + ' ' + j.Applicant_s_Last_Name) AS Architect from dbo.DOB_Job_Application_Filings j inner join dbo.Permit p on j.Job = p.job__ where ";
+var sqlQueryJobPermit = "select ISNULL(bbl_10_digits, 0) AS BBL, j.Job_Type AS job_type, (j.House + ' ' + j.Street_Name) AS Address, j.Borough, j.TOTAL_CONSTRUCTION_FLOOR_AREA, j.BUILDING_CLASS AS BldgClass, j.Zoning_Dist1 AS ZoneDist1, j.Proposed_Height, j.Proposed_Occupancy, (j.Owner_s_First_Name + ' ' + j.Owner_s_Last_Name) AS OwnerName, j.Owner_s_Business_Name AS BusinessName, p.permittee_s_business_name AS GeneralContractor, (j.Applicant_s_First_Name + ' ' + j.Applicant_s_Last_Name) AS Architect from dbo.DOB_Job_Application_Filings j left join dbo.Permit p on j.Job = p.job__ where ";
 lstTableAttributes = [{ name: "Borough", attribute: "Borough", dataset: "OwnerSearch" }, { name: "Address", attribute: "Address", dataset: "OwnerSearch" }
     , { name: "Owner Name", attribute: "OwnerName", dataset: "OwnerSearch" }, { name: "Business Name", attribute: "BusinessName", dataset: "OwnerSearch" }
     , { name: "General Contractor", attribute: "GeneralContractor", dataset: "OwnerSearch" }, { name: "Architect", attribute: "Architect", dataset: "OwnerSearch" }
@@ -22,12 +22,6 @@ $(function () {
 
 });
 
-function btnResetPersonaTypeSearch() {
-    $("#txtPersonaTypeSearchOwner").select2("val", "");
-    $("#txtPersonaTypeSearchGeneralContractor").select2("val", "");
-    $("#txtPersonaTypeSearchArchitect").select2("val", "");
-}
-
 function btnOwnerSearch() {
     whereOwnerSearchClause = "";
     var PropertySearchConstructionFloorAreaStart = null, PropertySearchConstructionFloorAreaEnd = null;
@@ -42,26 +36,26 @@ function btnOwnerSearch() {
     var PropertySearchProposedOccupancy = $(txtPropertySearchProposedOccupancy).val();
     if (PersonaTypeSearchOwner != "") {
         if (whereOwnerSearchClause == "") {
-            whereOwnerSearchClause = "(j.Owner_s_First_Name + ' ' + j.Owner_s_Last_Name = '" + PersonaTypeSearchOwner + "' OR j.Owner_s_Business_Name = '" + PersonaTypeSearchOwner + "')";
+            whereOwnerSearchClause = "(j.Owner_s_First_Name + ' ' + j.Owner_s_Last_Name IN (" + PersonaTypeSearchOwner + ") OR j.Owner_s_Business_Name IN (" + PersonaTypeSearchOwner + "))";
         }
         else {
-            whereOwnerSearchClause += " AND (j.Owner_s_First_Name + ' ' + j.Owner_s_Last_Name = '" + PersonaTypeSearchOwner + "' OR j.Owner_s_Business_Name = '" + PersonaTypeSearchOwner + "')";
+            whereOwnerSearchClause += " AND (j.Owner_s_First_Name + ' ' + j.Owner_s_Last_Name IN (" + PersonaTypeSearchOwner + ") OR j.Owner_s_Business_Name IN (" + PersonaTypeSearchOwner + "))";
         }
     }
     if (PersonaTypeSearchGeneralContractor != "") {
         if (whereOwnerSearchClause == "") {
-            whereOwnerSearchClause = "(p.permittee_s_first_name + ' ' + p.permittee_s_last_name = '" + PersonaTypeSearchGeneralContractor + "')";
+            whereOwnerSearchClause = "(p.permittee_s_business_name IN (" + PersonaTypeSearchGeneralContractor + "))";
         }
         else {
-            whereOwnerSearchClause += " AND (p.permittee_s_first_name + ' ' + p.permittee_s_last_name = '" + PersonaTypeSearchGeneralContractor + "')";
+            whereOwnerSearchClause += " AND (p.permittee_s_business_name IN (" + PersonaTypeSearchGeneralContractor + "))";
         }
     }
     if (PersonaTypeSearchArchitect != "") {
         if (whereOwnerSearchClause == "") {
-            whereOwnerSearchClause = "(j.Applicant_s_First_Name + ' ' + j.Applicant_s_Last_Name = '" + PersonaTypeSearchArchitect + "')";
+            whereOwnerSearchClause = "(j.Applicant_s_First_Name + ' ' + j.Applicant_s_Last_Name IN (" + PersonaTypeSearchArchitect + "))";
         }
         else {
-            whereOwnerSearchClause += " AND (j.Applicant_s_First_Name + ' ' + j.Applicant_s_Last_Name = '" + PersonaTypeSearchArchitect + "')";
+            whereOwnerSearchClause += " AND (j.Applicant_s_First_Name + ' ' + j.Applicant_s_Last_Name IN (" + PersonaTypeSearchArchitect + "))";
         }
     }
     if (PropertySearchJobType != "") {
@@ -129,6 +123,7 @@ function btnOwnerSearch() {
         }).done(function (data) {
             CreateDatabaseTable(data, true);
             $('#btnOpenAlerts').hide();
+            $('#loading').hide();
         }).fail(function (f) {
             $('#loading').hide();
             swal("Failed to search the query");

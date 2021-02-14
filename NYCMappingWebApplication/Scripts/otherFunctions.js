@@ -1953,7 +1953,7 @@ $(function () {
 });
 
 $(document).ready(function () {
-    $("#tabs").tabs();
+    $("#tabs").tabs().addClass('ui-tabs-vertical ui-helper-clearfix');
     $("#tabsConsumerProfiles").tabs();
     var myTimeout = setTimeout(function () {
         $('input.select2-input').attr('autocomplete', "off");

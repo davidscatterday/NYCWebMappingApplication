@@ -298,6 +298,7 @@ namespace NYCMappingWebApp.DataAccessLayer
             DatabaseMaxValues result = new DatabaseMaxValues();
             using (var ctx = new NYC_Web_Mapping_AppEntities())
             {
+                ctx.Database.CommandTimeout = 600;
                 result = ctx.Database.SqlQuery<DatabaseMaxValues>("EXEC dbo.GetMaxValues ").FirstOrDefault();
             }
             return result;
@@ -583,6 +584,7 @@ namespace NYCMappingWebApp.DataAccessLayer
             List<DatabaseAttributes> returnResult = new List<DatabaseAttributes>();
             using (var ctx = new NYC_Web_Mapping_AppEntities())
             {
+                ctx.Database.CommandTimeout = 600;
                 returnResult = ctx.Database.SqlQuery<DatabaseAttributes>(sqlQuery).ToList();
             }
             result.data = returnResult;
@@ -652,6 +654,7 @@ namespace NYCMappingWebApp.DataAccessLayer
             List<DatabaseAttributes> returnResult = new List<DatabaseAttributes>();
             using (var ctx = new NYC_Web_Mapping_AppEntities())
             {
+                ctx.Database.CommandTimeout = 600;
                 returnResult = ctx.Database.SqlQuery<DatabaseAttributes>(sqlQuery).ToList();
             }
             result.data = returnResult;
@@ -664,6 +667,7 @@ namespace NYCMappingWebApp.DataAccessLayer
             ConsumerProfiles returnResult = new ConsumerProfiles();
             using (var ctx = new NYC_Web_Mapping_AppEntities())
             {
+                ctx.Database.CommandTimeout = 600;
                 returnResult = ctx.Database.SqlQuery<ConsumerProfiles>(sqlQuery).FirstOrDefault();
             }
             return returnResult;
@@ -674,6 +678,7 @@ namespace NYCMappingWebApp.DataAccessLayer
             List<ConsumerProfiles> returnResult = new List<ConsumerProfiles>();
             using (var ctx = new NYC_Web_Mapping_AppEntities())
             {
+                ctx.Database.CommandTimeout = 600;
                 returnResult = ctx.Database.SqlQuery<ConsumerProfiles>(sqlQuery).ToList();
             }
             return returnResult;
@@ -685,6 +690,7 @@ namespace NYCMappingWebApp.DataAccessLayer
             List<HeatmapAttributes> returnResult = new List<HeatmapAttributes>();
             using (var ctx = new NYC_Web_Mapping_AppEntities())
             {
+                ctx.Database.CommandTimeout = 600;
                 string StoredProcedureName = "TrendAnalysis_NumberOfPropertySales";
                 if (StoredProcedure == "2")
                 {
@@ -762,6 +768,7 @@ namespace NYCMappingWebApp.DataAccessLayer
         {
             using (var ctx = new NYC_Web_Mapping_AppEntities())
             {
+                ctx.Database.CommandTimeout = 600;
                 var BBL = BBLs.Split(',');
                 foreach (string item in BBL)
                 {
@@ -791,6 +798,7 @@ namespace NYCMappingWebApp.DataAccessLayer
             List<Select2DTO> returnResult = new List<Select2DTO>();
             using (var ctx = new NYC_Web_Mapping_AppEntities())
             {
+                ctx.Database.CommandTimeout = 600;
                 var termParametar = !String.IsNullOrEmpty(term) ? new SqlParameter("term", term) : new SqlParameter("term", DBNull.Value);
                 returnResult = ctx.Database.SqlQuery<Select2DTO>("EXEC dbo.OwnerSearch_GetPersonaTypeSearchOwner @term ", termParametar).ToList();
             }
@@ -801,6 +809,7 @@ namespace NYCMappingWebApp.DataAccessLayer
             List<Select2DTO> returnResult = new List<Select2DTO>();
             using (var ctx = new NYC_Web_Mapping_AppEntities())
             {
+                ctx.Database.CommandTimeout = 600;
                 var termParametar = !String.IsNullOrEmpty(term) ? new SqlParameter("term", term) : new SqlParameter("term", DBNull.Value);
                 returnResult = ctx.Database.SqlQuery<Select2DTO>("EXEC dbo.OwnerSearch_GetPersonaTypeSearchGeneralContractor @term ", termParametar).ToList();
             }
@@ -811,6 +820,7 @@ namespace NYCMappingWebApp.DataAccessLayer
             List<Select2DTO> returnResult = new List<Select2DTO>();
             using (var ctx = new NYC_Web_Mapping_AppEntities())
             {
+                ctx.Database.CommandTimeout = 600;
                 var termParametar = !String.IsNullOrEmpty(term) ? new SqlParameter("term", term) : new SqlParameter("term", DBNull.Value);
                 returnResult = ctx.Database.SqlQuery<Select2DTO>("EXEC dbo.OwnerSearch_GetPersonaTypeSearchArchitect @term ", termParametar).ToList();
             }
@@ -846,6 +856,7 @@ namespace NYCMappingWebApp.DataAccessLayer
             List<Select2DTO> returnResult = new List<Select2DTO>();
             using (var ctx = new NYC_Web_Mapping_AppEntities())
             {
+                ctx.Database.CommandTimeout = 600;
                 var termParametar = !String.IsNullOrEmpty(term) ? new SqlParameter("term", term) : new SqlParameter("term", DBNull.Value);
                 returnResult = ctx.Database.SqlQuery<Select2DTO>("EXEC dbo.OwnerSearch_GetPropertySearchBuildingClass @term ", termParametar).ToList();
             }
@@ -856,6 +867,7 @@ namespace NYCMappingWebApp.DataAccessLayer
             List<Select2DTO> returnResult = new List<Select2DTO>();
             using (var ctx = new NYC_Web_Mapping_AppEntities())
             {
+                ctx.Database.CommandTimeout = 600;
                 var termParametar = !String.IsNullOrEmpty(term) ? new SqlParameter("term", term) : new SqlParameter("term", DBNull.Value);
                 returnResult = ctx.Database.SqlQuery<Select2DTO>("EXEC dbo.OwnerSearch_GetPropertySearchZoningDistrict @term ", termParametar).ToList();
             }
@@ -866,6 +878,7 @@ namespace NYCMappingWebApp.DataAccessLayer
             List<Select2DTO> returnResult = new List<Select2DTO>();
             using (var ctx = new NYC_Web_Mapping_AppEntities())
             {
+                ctx.Database.CommandTimeout = 600;
                 var termParametar = !String.IsNullOrEmpty(term) ? new SqlParameter("term", term) : new SqlParameter("term", DBNull.Value);
                 returnResult = ctx.Database.SqlQuery<Select2DTO>("EXEC dbo.OwnerSearch_GetPropertySearchProposedOccupancy @term ", termParametar).ToList();
             }
