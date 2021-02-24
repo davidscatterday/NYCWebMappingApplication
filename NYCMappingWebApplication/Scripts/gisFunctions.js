@@ -28,7 +28,6 @@ require(["esri/map", "dojo/parser", "esri/layers/FeatureLayer", "esri/config", "
     selectionSymbolPoint = new SimpleMarkerSymbol().setColor(new dojo.Color([51, 255, 204, 0.5])).setSize(8);
     selectionSymbolLine = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new dojo.Color([51, 255, 204, 0.5]), 3);
     selectionSymbolFill = new SimpleFillSymbol().setColor(new dojo.Color([51, 255, 204, 0.5]));
-
     //xmin   //ymin    //xmax    //ymax
     //initExtent = new esri.geometry.Extent(-8276983.607858135, 4935156.731231112, -8169207.3979761815, 5005402.3602250945,
     //        new esri.SpatialReference({ wkid: 102100 }));
@@ -51,7 +50,7 @@ require(["esri/map", "dojo/parser", "esri/layers/FeatureLayer", "esri/config", "
     });
     //Takes a URL to a non cached map service.
     censusTractsFeatures = new FeatureLayer(CensusTractsUrl, {
-        visible: true,
+        visible: false,
         mode: FeatureLayer.MODE_ONDEMAND,
         outFields: ["*"]
     });

@@ -174,6 +174,7 @@ namespace NYCMappingWebApp.Entities
         public string TOTAL_CONSTRUCTION_FLOOR_AREA { get; set; }
         public string Proposed_Height { get; set; }
         public string Proposed_Occupancy { get; set; }
+        public string Pre_Filing_Date { get; set; }
     }
 
     public class DatabaseMaxValues

@@ -2328,3 +2328,13 @@ function hideBottomPanel() {
         $('#divBottomPanelArrowBottom').show();
     });
 }
+
+function tabGeneral_Clicked(evt) {
+    var pom = evt.text;
+    if (evt.text == 'ConsumerProfile') {
+        censusTractsFeatures.setVisibility(true);
+    }
+    else {
+        censusTractsFeatures.setVisibility(false);
+    }
+}

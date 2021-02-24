@@ -36,26 +36,26 @@
     <div class="col-md-4 leftcolumn" style="height: 100%; padding-left: 0px; padding-right: 0px; overflow: auto; overflow-x: hidden;">
         <div id="tabs" style="border: none; height: 100%;">
             <ul>
-                <li style="width: 100%;"><a href="#tabs-1" style="font-size: 10px; width: 100%; text-align: center;">Custom<br />Profile</a></li>
+                <li style="width: 100%;"><a href="#tabs-1" style="font-size: 10px; width: 100%; text-align: center;" onclick="tabGeneral_Clicked(this)">Custom<br />Profile</a></li>
                 @if (Model.TabIDs.Contains(2))
                 {
-                    <li style="width: 100%;"><a href="#tabs-2" style="font-size: 10px; width: 100%; text-align: center;">Look<br />a-Like</a></li>
+                    <li style="width: 100%;"><a href="#tabs-2" style="font-size: 10px; width: 100%; text-align: center;" onclick="tabGeneral_Clicked(this)">Look<br />a-Like</a></li>
                 }
                 @if (Model.TabIDs.Contains(3))
                 {
-                    <li style="width: 100%;"><a href="#tabs-3" style="font-size: 10px; width: 100%; text-align: center;">Consumer<br />Profile</a></li>
+                    <li style="width: 100%;"><a href="#tabs-3" style="font-size: 10px; width: 100%; text-align: center;" onclick="tabGeneral_Clicked(this)">Consumer<br />Profile</a></li>
                 }
                 @if (Model.TabIDs.Contains(4))
                 {
-                    <li style="width: 100%;"><a href="#tabs-4" style="font-size: 10px; width: 100%; text-align: center;">Trend<br />Analysis</a></li>
+                    <li style="width: 100%;"><a href="#tabs-4" style="font-size: 10px; width: 100%; text-align: center;" onclick="tabGeneral_Clicked(this)">Trend<br />Analysis</a></li>
                 }
                 @if (Model.TabIDs.Contains(5))
                 {
-                    <li style="width: 100%;"><a href="#tabs-5" style="font-size: 10px; width: 100%; text-align: center;">Owner<br />Analysis</a></li>
+                    <li style="width: 100%;"><a href="#tabs-5" style="font-size: 10px; width: 100%; text-align: center;" onclick="tabGeneral_Clicked(this)">Owner<br />Analysis</a></li>
                 }
                 @if (Model.TabIDs.Contains(6))
                 {
-                    <li style="width: 100%;"><a href="#tabs-6" style="font-size: 10px; width: 100%; text-align: center;">Owner<br />Search</a></li>
+                    <li style="width: 100%;"><a href="#tabs-6" style="font-size: 10px; width: 100%; text-align: center;" onclick="tabGeneral_Clicked(this)">Owner<br />Search</a></li>
                 }
             </ul>
             <div id="tabs-1" style="padding-top: 0px">
@@ -1118,7 +1118,7 @@
                     <form class="form-horizontal" style="margin-top: 10px">
                         <div class="form-group">
                             <div class="col-sm-12" id="divHpdAddresses">
-                                <input type="text" id="txtHpdAddresses" placeholder="Select Address" />
+                                <input type="text" id="txtHpdAddresses" placeholder="Select Address" onchange="txtHpdAddresses_Change()" />
                             </div>
                         </div>
                         <div class="form-group text-right">

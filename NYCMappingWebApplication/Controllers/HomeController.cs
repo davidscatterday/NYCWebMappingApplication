@@ -371,7 +371,7 @@ namespace NYCMappingWebApp.Controllers
             if (elem.total_ghg_emissions_metric != null)
                 csvLine += isHeader ? ",Total GHG Emissions" : "," + elem.total_ghg_emissions_metric;
             if (elem.OwnerName != null)
-                csvLine += isHeader ? ",Owner Name" : "," + elem.OwnerName;
+                csvLine += isHeader ? ",Owner Name" : "," + elem.OwnerName.Replace(",", string.Empty);
             if (elem.job_start_date != null)
                 csvLine += isHeader ? ",Job Start Date" : "," + elem.job_start_date_string_format;
             if (elem.job_type != null)
@@ -418,19 +418,21 @@ namespace NYCMappingWebApp.Controllers
             if (elem.sale_price != null)
                 csvLine += isHeader ? ",Sale Price" : "," + elem.sale_price;
             if (elem.DESCRIPTION != null)
-                csvLine += isHeader ? ",Description" : "," + elem.DESCRIPTION;
+                csvLine += isHeader ? ",Description" : "," + elem.DESCRIPTION.Replace(",", string.Empty);
             if (elem.BusinessName != null)
-                csvLine += isHeader ? ",Business Name" : "," + elem.BusinessName;
+                csvLine += isHeader ? ",Business Name" : "," + elem.BusinessName.Replace(",", string.Empty);
             if (elem.GeneralContractor != null)
-                csvLine += isHeader ? ",General Contractor" : "," + elem.GeneralContractor;
+                csvLine += isHeader ? ",General Contractor" : "," + elem.GeneralContractor.Replace(",", string.Empty);
             if (elem.Architect != null)
-                csvLine += isHeader ? ",Architect" : "," + elem.Architect;
+                csvLine += isHeader ? ",Architect" : "," + elem.Architect.Replace(",", string.Empty);
             if (elem.TOTAL_CONSTRUCTION_FLOOR_AREA != null)
                 csvLine += isHeader ? ",Construction Floor Area" : "," + elem.TOTAL_CONSTRUCTION_FLOOR_AREA;
             if (elem.Proposed_Height != null)
                 csvLine += isHeader ? ",Proposed Height" : "," + elem.Proposed_Height;
             if (elem.Proposed_Occupancy != null)
                 csvLine += isHeader ? ",Proposed Occupancy" : "," + elem.Proposed_Occupancy;
+            if (elem.Pre_Filing_Date != null)
+                csvLine += isHeader ? ",Filing Date" : "," + elem.Pre_Filing_Date;
             return csvLine;
 
 

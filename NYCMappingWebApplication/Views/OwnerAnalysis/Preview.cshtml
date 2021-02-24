@@ -1,11 +1,54 @@
-﻿@model List<NYCMappingWebApp.Entities.Hpd_Registrations_Group>
+﻿@model NYCMappingWebApp.Entities.OwnerAnalysisData
 
 @{
     Layout = "~/Views/Shared/_LayoutPages.cshtml";
     string infoMessage = TempData["InfoMessage"] as string;
     string errorMessage = TempData["ErrorMessage"] as string;
 }
-<h2> Total records @Model.Count</h2>
+<table width="100%">
+    <tr>
+        <td><h3>Address: @Model.FullAddress</h3></td>
+        <td height="56px"><a style="margin-top: 20px;float: right" class="btn btn-primary btn-sm" href="@Url.Content("~/")OwnerAnalysis/DownloadOwnerAnalysis?bbl=@Model.selectedBuilding.bbl">Export Data</a></td>
+    </tr>
+</table>
+<table width="100%" border="1" class="table">
+    <tr>
+        <td rowspan="8" width="33%">
+            <img src="@Model.GoogleStreetViewLink" alt="Google Street View" class="img-responsive">
+        </td>
+        <td width="33%" style="background-color: lightgray; font-weight: bold">Key Statistics</td>
+        <td width="33%" style="background-color: lightgray; font-weight: bold">Associated Entities & People</td>
+    </tr>
+    <tr>
+        <td style="padding-left: 20px"><b>BBL:</b> @Model.selectedBuilding.bbl</td>
+        <td style="padding-left: 20px"><b>Business Entities:</b> @Model.BusinessEntities</td>
+    </tr>
+    <tr>
+        <td style="padding-left: 20px"><b>Year Built:</b> @Model.selectedBuilding.yearbuilt</td>
+        <td style="padding-left: 20px"><b>Agent:</b> @Model.Agent</td>
+    </tr>
+    <tr>
+        <td style="padding-left: 20px"><b>Total Units:</b> @Model.selectedBuilding.unitsres</td>
+        <td style="padding-left: 20px"><b>Site Manager:</b> @Model.SiteManager</td>
+    </tr>
+    <tr>
+        <td style="padding-left: 20px"><b>RS Units:</b> @Model.selectedBuilding.rsunits2019</td>
+        <td style="background-color: lightgray; font-weight: bold">City Records</td>
+    </tr>
+    <tr>
+        <td style="padding-left: 20px"><b>Open Violations:</b> @Model.selectedBuilding.openviolations</td>
+        <td><a href="@Model.selectedBuilding.ACRIS_DocumentsLink" target="_blank" rel="noopener noreferrer" class="btn btn-block" style="text-align: left;">ACRIS Documents</a></td>
+    </tr>
+    <tr>
+        <td style="padding-left: 20px"><b>Total Violations:</b> @Model.selectedBuilding.totalviolations</td>
+        <td><a href="@Model.selectedBuilding.DOB_BuildingProfileLink" target="_blank" rel="noopener noreferrer" class="btn btn-block" style="text-align: left;">DOB Building Profile</a></td>
+    </tr>
+    <tr>
+        <td style="padding-left: 20px"><b>2019 Evictions:</b> @Model.selectedBuilding.totalevictions</td>
+        <td><a href="@Model.selectedBuilding.ANHD_DAP_PortalLink" target="_blank" rel="noopener noreferrer" class="btn btn-block" style="text-align: left;">ANHD DAP Portal</a></td>
+    </tr>
+</table>
+<h2> Total records @Model.lstPortfolio.Count</h2>
 <table width="100%" border="1" class="table table-striped">
     <thead>
         <tr>
@@ -16,6 +59,7 @@
             <td align="center">Evictions</td>
             <td align="center">Landlord</td>
             <td align="center" colspan="2">Last Sale</td>
+            <td align="center" colspan="3">Documents</td>
         </tr>
         <tr>
             <td>Address</td>
@@ -29,12 +73,15 @@
             <td>Total</td>
             <td>2019</td>
             <td>Officer/Owner</td>
-            <td>Date</td>
+            <td style="min-width: 90px">Date</td>
             <td>Amount</td>
+            <td align="center">ACRIS Documents</td>
+            <td align="center">DOB Building Profile</td>
+            <td align="center">ANHD DAP Portal</td>
         </tr>
     </thead>
     <tbody>
-        @foreach (NYCMappingWebApp.Entities.Hpd_Registrations_Group item in Model)
+        @foreach (NYCMappingWebApp.Entities.Hpd_Registrations_Group item in Model.lstPortfolio)
         {
             <tr>
                 <td>@item.Address</td>
@@ -50,6 +97,9 @@
                 <td>@item.OwnerName</td>
                 <td>@item.DOC_DATE</td>
                 <td>@item.DOC_AMOUNT</td>
+                <td><a href="@item.ACRIS_DocumentsLink" target="_blank" rel="noopener noreferrer" class="btn btn-block">Link</a></td>
+                <td><a href="@item.DOB_BuildingProfileLink" target="_blank" rel="noopener noreferrer" class="btn btn-block">Link</a></td>
+                <td><a href="@item.ANHD_DAP_PortalLink" target="_blank" rel="noopener noreferrer" class="btn btn-block">Link</a></td>
             </tr>
         }
     </tbody>
