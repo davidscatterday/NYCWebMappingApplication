@@ -70,10 +70,10 @@ function SelectBBLsOnMap(BBLs, originalBBl) {
             var spatialRef = new esri.SpatialReference({ wkid: 102718 });
             var zoomExtent = new esri.geometry.Extent();
             zoomExtent.spatialReference = spatialRef;
-            zoomExtent.xmin = esri.graphicsExtent(features).xmin - 1000;
-            zoomExtent.ymin = esri.graphicsExtent(features).ymin - 1000;
-            zoomExtent.xmax = esri.graphicsExtent(features).xmax + 1000;
-            zoomExtent.ymax = esri.graphicsExtent(features).ymax + 1000;
+            zoomExtent.xmin = esri.graphicsExtent(features).xmin - 10000;
+            zoomExtent.ymin = esri.graphicsExtent(features).ymin - 10000;
+            zoomExtent.xmax = esri.graphicsExtent(features).xmax + 10000;
+            zoomExtent.ymax = esri.graphicsExtent(features).ymax + 10000;
             map.setExtent(zoomExtent);
             $('#loading').hide();
         }

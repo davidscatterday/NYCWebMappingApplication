@@ -48,50 +48,50 @@ namespace NYCMappingWebApp.Controllers
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             using (ExcelPackage xlPackage = new ExcelPackage())
             {
-                ExcelWorksheet workSheetDemographics = xlPackage.Workbook.Worksheets.Add("OwnerAnalysis");
+                ExcelWorksheet workSheetOwnerAnalysis = xlPackage.Workbook.Worksheets.Add("OwnerAnalysis");
 
-                workSheetDemographics.Cells["A1:D1"].Merge = true;
-                workSheetDemographics.Cells["A1"].Value = "Location";
-                workSheetDemographics.Cells["E1:F1"].Merge = true;
-                workSheetDemographics.Cells["E1"].Value = "Information";
-                workSheetDemographics.Cells["G1"].Value = "RS Units";
-                workSheetDemographics.Cells["H1:I1"].Merge = true;
-                workSheetDemographics.Cells["H1"].Value = "HPD Violations";
-                workSheetDemographics.Cells["J1"].Value = "Evictions";
-                workSheetDemographics.Cells["K1"].Value = "Landlord";
-                workSheetDemographics.Cells["L1:M1"].Merge = true;
-                workSheetDemographics.Cells["L1"].Value = "Last Sale";
+                workSheetOwnerAnalysis.Cells["A1:D1"].Merge = true;
+                workSheetOwnerAnalysis.Cells["A1"].Value = "Location";
+                workSheetOwnerAnalysis.Cells["E1:F1"].Merge = true;
+                workSheetOwnerAnalysis.Cells["E1"].Value = "Information";
+                workSheetOwnerAnalysis.Cells["G1"].Value = "RS Units";
+                workSheetOwnerAnalysis.Cells["H1:I1"].Merge = true;
+                workSheetOwnerAnalysis.Cells["H1"].Value = "HPD Violations";
+                workSheetOwnerAnalysis.Cells["J1"].Value = "Evictions";
+                workSheetOwnerAnalysis.Cells["K1"].Value = "Landlord";
+                workSheetOwnerAnalysis.Cells["L1:M1"].Merge = true;
+                workSheetOwnerAnalysis.Cells["L1"].Value = "Last Sale";
 
-                workSheetDemographics.Cells["A2"].Value = "Address";
-                workSheetDemographics.Cells["B2"].Value = "Zipcode";
-                workSheetDemographics.Cells["C2"].Value = "Borough";
-                workSheetDemographics.Cells["D2"].Value = "BBL";
-                workSheetDemographics.Cells["E2"].Value = "Built";
-                workSheetDemographics.Cells["F2"].Value = "Units";
-                workSheetDemographics.Cells["G2"].Value = "2019";
-                workSheetDemographics.Cells["H2"].Value = "Open";
-                workSheetDemographics.Cells["I2"].Value = "Total";
-                workSheetDemographics.Cells["J2"].Value = "2019";
-                workSheetDemographics.Cells["K2"].Value = "Officer/Owner";
-                workSheetDemographics.Cells["L2"].Value = "Date";
-                workSheetDemographics.Cells["M2"].Value = "Amount";
+                workSheetOwnerAnalysis.Cells["A2"].Value = "Address";
+                workSheetOwnerAnalysis.Cells["B2"].Value = "Zipcode";
+                workSheetOwnerAnalysis.Cells["C2"].Value = "Borough";
+                workSheetOwnerAnalysis.Cells["D2"].Value = "BBL";
+                workSheetOwnerAnalysis.Cells["E2"].Value = "Built";
+                workSheetOwnerAnalysis.Cells["F2"].Value = "Units";
+                workSheetOwnerAnalysis.Cells["G2"].Value = "2019";
+                workSheetOwnerAnalysis.Cells["H2"].Value = "Open";
+                workSheetOwnerAnalysis.Cells["I2"].Value = "Total";
+                workSheetOwnerAnalysis.Cells["J2"].Value = "2019";
+                workSheetOwnerAnalysis.Cells["K2"].Value = "Officer/Owner";
+                workSheetOwnerAnalysis.Cells["L2"].Value = "Date";
+                workSheetOwnerAnalysis.Cells["M2"].Value = "Amount";
 
                 int i = 3;
                 foreach (Hpd_Registrations_Group item in data.lstPortfolio)
                 {
-                    workSheetDemographics.Cells["A" + i].Value = item.Address;
-                    workSheetDemographics.Cells["B" + i].Value = item.Zip;
-                    workSheetDemographics.Cells["C" + i].Value = item.Boro;
-                    workSheetDemographics.Cells["D" + i].Value = item.bbl;
-                    workSheetDemographics.Cells["E" + i].Value = item.yearbuilt;
-                    workSheetDemographics.Cells["F" + i].Value = item.unitsres;
-                    workSheetDemographics.Cells["G" + i].Value = item.rsunits2019;
-                    workSheetDemographics.Cells["H" + i].Value = item.openviolations;
-                    workSheetDemographics.Cells["I" + i].Value = item.totalviolations;
-                    workSheetDemographics.Cells["J" + i].Value = item.totalevictions;
-                    workSheetDemographics.Cells["K" + i].Value = item.OwnerName;
-                    workSheetDemographics.Cells["L" + i].Value = item.DOC_DATE;
-                    workSheetDemographics.Cells["M" + i].Value = item.DOC_AMOUNT;
+                    workSheetOwnerAnalysis.Cells["A" + i].Value = item.Address;
+                    workSheetOwnerAnalysis.Cells["B" + i].Value = item.Zip;
+                    workSheetOwnerAnalysis.Cells["C" + i].Value = item.Boro;
+                    workSheetOwnerAnalysis.Cells["D" + i].Value = item.bbl;
+                    workSheetOwnerAnalysis.Cells["E" + i].Value = item.yearbuilt;
+                    workSheetOwnerAnalysis.Cells["F" + i].Value = item.unitsres;
+                    workSheetOwnerAnalysis.Cells["G" + i].Value = item.rsunits2019;
+                    workSheetOwnerAnalysis.Cells["H" + i].Value = item.openviolations;
+                    workSheetOwnerAnalysis.Cells["I" + i].Value = item.totalviolations;
+                    workSheetOwnerAnalysis.Cells["J" + i].Value = item.totalevictions;
+                    workSheetOwnerAnalysis.Cells["K" + i].Value = item.OwnerName;
+                    workSheetOwnerAnalysis.Cells["L" + i].Value = item.DOC_DATE;
+                    workSheetOwnerAnalysis.Cells["M" + i].Value = item.DOC_AMOUNT;
                     i++;
                 }
 

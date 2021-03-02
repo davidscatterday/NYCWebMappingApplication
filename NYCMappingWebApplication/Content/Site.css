@@ -203,6 +203,19 @@ input[type=text] {
     border-radius: 0 10px 0 0;
 }
 
+#infoColorRampDistricts {
+    display: none;
+    position: absolute;
+    right: 0;
+    bottom: 10px;
+    padding: 10px;
+    background-color: #ddd;
+    font: 14px Helvetica;
+    width: 120px;
+    text-align: center;
+    border-radius: 0 10px 0 0;
+}
+
 .panel-default > .panel-heading {
     color: #333;
     background-color: white;
