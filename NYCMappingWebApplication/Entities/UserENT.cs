@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace NYCMappingWebApp.Entities
 {
@@ -20,5 +21,7 @@ namespace NYCMappingWebApp.Entities
         public string Username { get; set; }
         [Required(ErrorMessage = "Required field")]
         public string TabIDs { get; set; }
+
+        public List<SelectListItem> lstUsers = new List<SelectListItem>();
     }
 }

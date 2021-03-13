@@ -1,4 +1,5 @@
 ﻿using NYCMappingWebApp.Entities;
+using NYCMappingWebApp.Helpers;
 using NYCMappingWebApp.Models;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace NYCMappingWebApp.Controllers
         // GET: MyReports
         public ActionResult Preview()
         {
-            return View(db.MyReports.Where(w => w.Username == User.Identity.Name).OrderByDescending(w => w.ID).ToList());
+            return View(db.MyReports.Where(w => w.Username == GlobalVariables.GetFromCookie("NYCUser", "Username")).OrderByDescending(w => w.ID).ToList());
         }
     }
 }

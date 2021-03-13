@@ -37,6 +37,9 @@ namespace NYCMappingWebApp
             bundles.Add(new ScriptBundle("~/bundles/emptyLayoutJavascript").Include(
                         "~/Scripts/emptyLayoutJS.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/loginJS").Include(
+                        "~/Scripts/loginJS.js"));
+
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
@@ -65,6 +68,10 @@ namespace NYCMappingWebApp
                       "~/Content/themes/base/tabs.css",
                       "~/Content/themes/base/theme.css",
                       "~/Content/themes/base/tooltip.css"));
+
+            bundles.Add(new StyleBundle("~/Login/css").Include(
+                      "~/Content/bootstrap.css",
+                      "~/Content/Login.css"));
         }
     }
 }

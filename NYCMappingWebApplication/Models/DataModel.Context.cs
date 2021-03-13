@@ -26,7 +26,6 @@ namespace NYCMappingWebApp.Models
         }
     
         public virtual DbSet<MyReport> MyReports { get; set; }
-        public virtual DbSet<Pluto> Plutoes { get; set; }
         public virtual DbSet<Elevator> Elevators { get; set; }
         public virtual DbSet<MyAlert> MyAlerts { get; set; }
         public virtual DbSet<ConsumerProfile> ConsumerProfiles { get; set; }
@@ -34,5 +33,9 @@ namespace NYCMappingWebApp.Models
         public virtual DbSet<Designation> Designations { get; set; }
         public virtual DbSet<Tab> Tabs { get; set; }
         public virtual DbSet<User_Tabs> User_Tabs { get; set; }
+        public virtual DbSet<UserRole> UserRoles { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Logger> Loggers { get; set; }
+        public virtual DbSet<Pluto> Plutoes { get; set; }
     }
 }

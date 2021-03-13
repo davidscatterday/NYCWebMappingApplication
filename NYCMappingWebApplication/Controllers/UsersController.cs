@@ -1,5 +1,6 @@
 ﻿using NYCMappingWebApp.DataAccessLayer;
 using NYCMappingWebApp.Entities;
+using NYCMappingWebApp.Helpers;
 using NYCMappingWebApp.Models;
 using System;
 using System.Collections.Generic;
@@ -18,9 +19,9 @@ namespace NYCMappingWebApp.Controllers
         // GET: Users
         public ActionResult UserTabs()
         {
-            if (User.Identity.Name != "david@scatterdayassociates.com" && User.Identity.Name != "pavlejovanov@gmail.com")
+            if (!(GlobalVariables.GetFromCookie("NYCUser", "IsAdmin") == "True"))
             {
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("Login", "AppUsers");
             }
             var data = userDAL.GetUserTabs();
             return View(data);
@@ -28,11 +29,12 @@ namespace NYCMappingWebApp.Controllers
         // GET: Users/AddUserTab
         public ActionResult AddUserTab()
         {
-            if (User.Identity.Name != "david@scatterdayassociates.com" && User.Identity.Name != "pavlejovanov@gmail.com")
+            if (!(GlobalVariables.GetFromCookie("NYCUser", "IsAdmin") == "True"))
             {
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("Login", "AppUsers");
             }
             AddUserTabs data = new AddUserTabs();
+            data.lstUsers = userDAL.GetAllUsers();
 
             return View(data);
         }
@@ -41,6 +43,7 @@ namespace NYCMappingWebApp.Controllers
         [HttpPost]
         public ActionResult AddUserTab(AddUserTabs data)
         {
+            data.lstUsers = userDAL.GetAllUsers();
             if (db.User_Tabs.Any(w => w.Username == data.Username))
             {
                 TempData["ErrorMessage"] = "This username already exists";
@@ -58,16 +61,16 @@ namespace NYCMappingWebApp.Controllers
                 TempData["InfoMessage"] = "New user privileges has been successfully added";
                 return RedirectToAction("UserTabs");
             }
-            
+
             return View(data);
         }
 
         // GET: Users/EditUserTab
         public ActionResult EditUserTab(int ID)
         {
-            if (User.Identity.Name != "david@scatterdayassociates.com" && User.Identity.Name != "pavlejovanov@gmail.com")
+            if (!(GlobalVariables.GetFromCookie("NYCUser", "IsAdmin") == "True"))
             {
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("Login", "AppUsers");
             }
             var record = db.User_Tabs.Find(ID);
             AddUserTabs data = new AddUserTabs()
@@ -76,6 +79,7 @@ namespace NYCMappingWebApp.Controllers
                 Username = record.Username,
                 TabIDs = userDAL.GetTabNamesByIDs(record.TabIDs)
             };
+            data.lstUsers = userDAL.GetAllUsers();
 
             return View(data);
         }
@@ -84,6 +88,7 @@ namespace NYCMappingWebApp.Controllers
         [HttpPost]
         public ActionResult EditUserTab(AddUserTabs data)
         {
+            data.lstUsers = userDAL.GetAllUsers();
             if (ModelState.IsValid)
             {
                 User_Tabs editedUser_Tab = db.User_Tabs.Find(data.ID);
@@ -99,16 +104,16 @@ namespace NYCMappingWebApp.Controllers
                 TempData["InfoMessage"] = "User privileges has been successfully edited";
                 return RedirectToAction("UserTabs");
             }
-            
+
             return View(data);
         }
 
         // GET: /Users/DeleteUserTab
         public ActionResult DeleteUserTab(int ID)
         {
-            if (User.Identity.Name != "david@scatterdayassociates.com" && User.Identity.Name != "pavlejovanov@gmail.com")
+            if (!(GlobalVariables.GetFromCookie("NYCUser", "IsAdmin") == "True"))
             {
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("Login", "AppUsers");
             }
             var user_tab = db.User_Tabs.Find(ID);
             if (user_tab == null)

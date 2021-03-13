@@ -49,7 +49,7 @@ $(document).ready(function () {
             mode: FeatureLayer.MODE_ONDEMAND,
             outFields: ["*"]
         });
-        //districtFeatures.setOpacity(0.1);
+        //districtFeatures.setOpacity(0.1);//color districts
 
         //Takes a URL to a non cached map service.
         censusTractsFeatures = new FeatureLayer(CensusTractsUrl, {
@@ -79,17 +79,17 @@ $(document).ready(function () {
         map.on("load", function MapLoaded() {
             selectionToolbar = new Draw(map, { showTooltips: false });
             selectionToolbar.on("draw-end", addSelectionToMap);
-            //ColorDistricts();
+            //ColorDistricts();//color districts
             //getAllTracts(2165);
         });
 
         // create a text symbol to define the style of labels
         var myLabel = new TextSymbol().setColor(new Color("#000000"));
         myLabel.font.setSize("10pt");
-        myLabel.font.setFamily("helvetica");
+        myLabel.font.setFamily("Arial");
 
         myLabelRenderer = new SimpleRenderer(myLabel);
-        myLabelLayer = new LabelLayer({ id: "zipCodeLabels", visible: true });
+        myLabelLayer = new LabelLayer({ id: "districtLabels", visible: true });
         myLabelLayer.addFeatureLayer(districtFeatures, myLabelRenderer, "{DISTRICT}");
 
         map.addLayers([baseMapLayer, serviceFeatures, districtLayer, censusTractsFeatures, selectionLayer, heatmapLayer, zipCodeFeatures]);
@@ -262,11 +262,11 @@ $(document).ready(function () {
                             graphic.setSymbol(symbolDistrictFillDarkGreen);
                             districtLayer.add(graphic);
                         }
-                        else if (['QW06', 'QE13', 'BKS07', 'BKS12'].indexOf(districtCode) >= 0) {
+                        else if (['QW06', 'BKS07'].indexOf(districtCode) >= 0) {
                             graphic.setSymbol(symbolDistrictFillMediumGreen);
                             districtLayer.add(graphic);
                         }
-                        else if (['QW02', 'QE14', 'MN10', 'BX09', 'BX03', 'BX01', 'BKS06', 'BKN04', 'BKN02', 'BKN16', 'BKS14', 'BKS13', 'BKS10', 'QE07'].indexOf(districtCode) >= 0) {
+                        else if (['QE13', 'BKS12', 'QW02', 'QE14', 'MN10', 'BX09', 'BX03', 'BX01', 'BKS06', 'BKN04', 'BKN02', 'BKN16', 'BKS14', 'BKS13', 'BKS10', 'QE07'].indexOf(districtCode) >= 0) {
                             graphic.setSymbol(symbolDistrictFillLightGreen);
                             districtLayer.add(graphic);
                         }

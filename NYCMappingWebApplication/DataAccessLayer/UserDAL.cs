@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace NYCMappingWebApp.DataAccessLayer
 {
@@ -58,5 +59,18 @@ namespace NYCMappingWebApp.DataAccessLayer
             return returnResult;
         }
 
+        public List<SelectListItem> GetAllUsers()
+        {
+            List<string> lstUsedUsernames = db.User_Tabs.Select(w => w.Username).ToList();
+            List<SelectListItem> result = new List<SelectListItem>();
+            result = (from u in db.Users
+                      where !lstUsedUsernames.Contains(u.Username)
+                      select new SelectListItem
+                      {
+                          Text = u.Username,
+                          Value = u.Username
+                      }).ToList();
+            return result;
+        }
     }
 }

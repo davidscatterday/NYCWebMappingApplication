@@ -61,9 +61,33 @@ input[type=text] {
     border-bottom: 1px solid #c5c5c5;
 }
 
-.navbar-inverse .navbar-toggle {
-    border-color: burlywood !important;
-    background-color: burlywood !important;
+.navbar-inverse-admin {
+    background-color: #428bca;
+    border-color: #428bca;
+}
+
+    .navbar-inverse-admin .navbar-nav > li > a {
+        color: #ffffff !important;
+        font-size: 14px
+    }
+
+    .navbar-inverse-admin .navbar-brand {
+        color: #ffffff !important;
+    }
+
+    .navbar-inverse-admin .navbar-nav > .dropdown > a .caret {
+        border-top-color: #ffffff;
+        border-bottom-color: #ffffff;
+    }
+
+    .navbar-inverse-admin .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+        color: #ffffff !important;
+        background-color: #7b97f3;
+    }
+
+.navbar-right-admin {
+    color: white !important;
+    font-size: 14px
 }
 
 .bottomPanel {
@@ -173,7 +197,7 @@ input[type=text] {
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
     background-repeat: repeat-x;
     background-image: linear-gradient(#ffffff 0px, rgba(255, 255, 255, 0) 3px, rgba(255, 255, 255, 0.75) 100%);
-    width: 69px;
+    /*width: 69px;*/
     margin-bottom: 7px;
 }
 
@@ -185,7 +209,7 @@ input[type=text] {
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
     background-repeat: repeat-x;
     background-image: linear-gradient(#ffffff 0px, rgba(255, 255, 255, 0) 3px, rgba(255, 255, 255, 0.75) 100%);
-    width: 71px;
+    /*width: 71px;*/
     margin-bottom: 7px;
     margin-left: -1px;
 }
@@ -207,11 +231,11 @@ input[type=text] {
     display: none;
     position: absolute;
     right: 0;
-    bottom: 10px;
+    bottom: 0;
     padding: 10px;
     background-color: #ddd;
-    font: 14px Helvetica;
-    width: 120px;
+    font: 14px Arial;
+    width: 160px;
     text-align: center;
     border-radius: 0 10px 0 0;
 }
@@ -329,4 +353,10 @@ input[type=text] {
 .sizer .actionsPane .actionList a {
     float: right;
     margin-top: -25px;
+}
+
+.textBoxControl {
+    width: 500px !important;
+    border: solid !important;
+    border-width: 1px !important;
 }

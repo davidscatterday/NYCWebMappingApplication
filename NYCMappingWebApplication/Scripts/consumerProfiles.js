@@ -9638,12 +9638,12 @@ function activateSelectionTool(tool, bth) {
 }
 
 function resetAllSelectionTools() {
-    document.getElementById("btnSelectByPoint").className = " btn btn-small classSelectButtons";
-    document.getElementById("btnSelectByMultiPoint").className = " btn btn-small classSelectButtons";
-    document.getElementById("btnSelectByPolyline").className = " btn btn-small classSelectButtons";
-    document.getElementById("btnSelectByPolygon").className = " btn btn-small classSelectButtons";
-    document.getElementById("btnSelectByFreehandPolyline").className = " btn btn-small classSelectButtons";
-    document.getElementById("btnSelectByRectangle").className = " btn btn-small classSelectButtons";
+    document.getElementById("btnSelectByPoint").className = " btn btn-small classSelectButtons col-sm-2";
+    document.getElementById("btnSelectByMultiPoint").className = " btn btn-small classSelectButtons col-sm-2";
+    document.getElementById("btnSelectByPolyline").className = " btn btn-small classSelectButtons col-sm-2";
+    document.getElementById("btnSelectByPolygon").className = " btn btn-small classSelectButtons col-sm-2";
+    document.getElementById("btnSelectByFreehandPolyline").className = " btn btn-small classSelectButtons col-sm-2";
+    document.getElementById("btnSelectByRectangle").className = " btn btn-small classSelectButtons col-sm-2";
 }
 
 function btnOpenMyReportConsumerProfile_Click() {

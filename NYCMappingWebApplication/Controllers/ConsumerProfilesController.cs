@@ -1976,7 +1976,7 @@ namespace NYCMappingWebApp.Controllers
 
                 MyReport myReport = new MyReport()
                 {
-                    Username = User.Identity.Name,
+                    Username = GlobalVariables.GetFromCookie("NYCUser", "Username"),
                     ReportName = ReportName,
                     FileName = fileName
                 };

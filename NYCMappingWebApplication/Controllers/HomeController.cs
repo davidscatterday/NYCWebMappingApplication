@@ -19,11 +19,11 @@ namespace NYCMappingWebApp.Controllers
         private NYC_Web_Mapping_AppEntities db = new NYC_Web_Mapping_AppEntities();
         public ActionResult Index()
         {
-            if (!User.Identity.IsAuthenticated)
+            if (!(GlobalVariables.GetFromCookie("NYCUser", "IsLogged") == "True"))
             {
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("Login", "AppUsers");
             }
-            IndexData data = mainDAL.GetIndexData(User.Identity.Name);
+            IndexData data = mainDAL.GetIndexData(GlobalVariables.GetFromCookie("NYCUser", "Username"));
             ViewBag.ZoningDistricts = mainDAL.GetAllZoningDistricts();
             ViewBag.CommercialOverlays = mainDAL.GetAllCommercialOverlays();
             ViewBag.EvictionStatuses = mainDAL.GetAllEvictionStatuses();
@@ -215,7 +215,7 @@ namespace NYCMappingWebApp.Controllers
 
         public JsonResult GetMyAlerts()
         {
-            var data = mainDAL.GetMyAlerts(User.Identity.Name);
+            var data = mainDAL.GetMyAlerts(GlobalVariables.GetFromCookie("NYCUser", "Username"));
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
@@ -223,14 +223,14 @@ namespace NYCMappingWebApp.Controllers
         public JsonResult DeleteAlert(int AlertID)
         {
             var res = mainDAL.DeleteAlert(AlertID);
-            var data = mainDAL.GetMyAlerts(User.Identity.Name);
+            var data = mainDAL.GetMyAlerts(GlobalVariables.GetFromCookie("NYCUser", "Username"));
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetMyReports()
         {
-            var data = mainDAL.GetMyReports(User.Identity.Name);
+            var data = mainDAL.GetMyReports(GlobalVariables.GetFromCookie("NYCUser", "Username"));
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
@@ -271,7 +271,7 @@ namespace NYCMappingWebApp.Controllers
 
                 MyReport myReport = new MyReport()
                 {
-                    Username = User.Identity.Name,
+                    Username = GlobalVariables.GetFromCookie("NYCUser", "Username"),
                     ReportName = ReportName,
                     FileName = fileName
                 };
@@ -303,7 +303,7 @@ namespace NYCMappingWebApp.Controllers
                 DatabaseMaxValues result = IsPlutoSearch ? mainDAL.GetMaxValues() : new DatabaseMaxValues();
                 MyAlert myAlert = new MyAlert()
                 {
-                    Username = User.Identity.Name,
+                    Username = GlobalVariables.GetFromCookie("NYCUser", "Username"),
                     AlertName = AlertName,
                     AlertQuery = AlertQuery,
                     Frequency = Convert.ToInt32(AlertFrequency),

@@ -1,6 +1,7 @@
 ﻿@model NYCMappingWebApp.Entities.AddUserTabs
 
 @{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
     string infoMessage = TempData["InfoMessage"] as string;
     string errorMessage = TempData["ErrorMessage"] as string;
 }
@@ -32,11 +33,13 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">Username</label>
                 <div class="col-sm-10">
-                    @Html.TextBoxFor(model => model.Username, new { @class = "form-control input-width-xlarge", @autocomplete = "off", @style = "width: 500px;border: solid;border-width: 1px;" })
-                    @Html.ValidationMessageFor(model => model.Username)
+                    @Html.DropDownListFor(
+                     model => model.Username,
+                     Model.lstUsers, "Select Role",
+                     new { @class = "form-control input-width-xlarge textBoxControl", id = "ddlRoleNames" })
+                    @Html.ValidationMessageFor(model => model.Username, null, new { @class = "text-danger" })
                 </div>
             </div>
-
             <div class="form-group">
                 <label class="col-sm-2 control-label">Tabs</label>
                 <div class="col-sm-10">
