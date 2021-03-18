@@ -63,7 +63,7 @@ function SelectBBLsOnMap(BBLs, originalBBl) {
             }
             var sms = new esri.symbol.SimpleMarkerSymbol().setStyle(esri.symbol.SimpleMarkerSymbol.STYLE_CIRCLE).setColor(myColor);
             var attr = { "Latitude": graphic.attributes.Latitude, "Longitude": graphic.attributes.Longitude, "BBL": graphic.attributes.BBL };
-            var infoTemplate = new esri.InfoTemplate(graphic.attributes.Address, "Latitude: ${Latitude} <br/>Longitude: ${Longitude} <br/>BBL: ${BBL} <br/><a href=" + RootUrl + "OwnerAnalysis/Preview?bbl=" + graphic.attributes.BBL + " target='_blank'>Search</a>");
+            var infoTemplate = new esri.InfoTemplate(graphic.attributes.Address, "<b>Latitude:</b> ${Latitude} <br/><b>Longitude:</b> ${Longitude} <br/><b>BBL:</b> ${BBL} <br/><a href=" + RootUrl + "OwnerAnalysis/Preview?bbl=" + graphic.attributes.BBL + " target='_blank'>Search</a>");
             var myGraphic = new esri.Graphic(pt, sms, attr, infoTemplate);
             selectionLayer.add(myGraphic);
             features.push(graphic);

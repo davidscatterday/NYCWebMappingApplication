@@ -487,5 +487,17 @@ namespace NYCMappingWebApp.Controllers
             return Json(new { PropertySearchProposedOccupancyList }, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetBuildingClassInclusionCriteria(string term)
+        {
+            var BuildingClassICList = mainDAL.GetBuildingClassInclusionCriteria(term);
+            return Json(new { BuildingClassICList }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetBuildingClassExclusionCriteria(string term)
+        {
+            var BuildingClassECList = mainDAL.GetBuildingClassExclusionCriteria(term);
+            return Json(new { BuildingClassECList }, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

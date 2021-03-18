@@ -353,10 +353,20 @@ input[type=text] {
 .sizer .actionsPane .actionList a {
     float: right;
     margin-top: -25px;
+    display: none;
 }
 
 .textBoxControl {
     width: 500px !important;
     border: solid !important;
     border-width: 1px !important;
+}
+
+#custom-handle {
+    width: 3em;
+    height: 1.6em;
+    top: 50%;
+    margin-top: -.8em;
+    text-align: center;
+    line-height: 1.6em;
 }

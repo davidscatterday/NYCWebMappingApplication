@@ -218,7 +218,7 @@ function btnSearchHeatMapPropertySales() {
                             "sqlQuery": sqlQuery
                         }
                     }).done(function (data) {
-                        CreateDatabaseTable(data, true);
+                        CreateDatabaseTable(data, true, true);
                     }).fail(function (f) {
                         $('#loading').hide();
                         swal("Failed to search the query");
@@ -521,7 +521,7 @@ function btnSearchHeatMapViolations(StoredProcedure) {
                             "sqlQuery": sqlQuery
                         }
                     }).done(function (data) {
-                        CreateDatabaseTable(data, false);
+                        CreateDatabaseTable(data, false, true);
                         $('#loading').hide();
                     }).fail(function (f) {
                         $('#loading').hide();
@@ -728,7 +728,7 @@ function btnSearchHeatMapPermits() {
                             "sqlQuery": sqlQuery
                         }
                     }).done(function (data) {
-                        CreateDatabaseTable(data, false);
+                        CreateDatabaseTable(data, false, true);
                         $('#loading').hide();
                     }).fail(function (f) {
                         $('#loading').hide();

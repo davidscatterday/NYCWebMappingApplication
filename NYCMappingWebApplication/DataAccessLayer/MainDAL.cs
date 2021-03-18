@@ -887,6 +887,61 @@ namespace NYCMappingWebApp.DataAccessLayer
             return returnResult;
         }
 
+        public List<Select2DTO> GetBuildingClassInclusionCriteria(string term)
+        {
+            List<Select2DTO> returnResult = new List<Select2DTO>();
+            returnResult.Add(new Select2DTO() { id = "'R5'", text = "R5 Commercial Unit" });
+            returnResult.Add(new Select2DTO() { id = "'R7'", text = "R7 1-3 Units, Commercial Unit" });
+            returnResult.Add(new Select2DTO() { id = "'R8'", text = "R8 2-10 Unit Residential Bldg, Commercial Unit" });
+            returnResult.Add(new Select2DTO() { id = "'RA'", text = "RA Cultural, Medical, Educational, Etc." });
+            returnResult.Add(new Select2DTO() { id = "'RC'", text = "RC Commercial Building (Mixed Commercial Condo Building)" });
+            returnResult.Add(new Select2DTO() { id = "'RK'", text = "RK Retail Space" });
+            returnResult.Add(new Select2DTO() { id = "'RM'", text = "RM Mixed Residential & Commercial Building (Mixed Residential & Commercial Condo Building)" });
+            returnResult.Add(new Select2DTO() { id = "'RP'", text = "RP Outdoor Parking" });
+            returnResult.Add(new Select2DTO() { id = "'RR'", text = "RR Condo Rentals" });
+            returnResult.Add(new Select2DTO() { id = "'RW'", text = "RW Warehouse/Factory/Industrial" });
+            returnResult.Add(new Select2DTO() { id = "'RI'", text = "RI Mixed Warehouse/Factory/Industrial & Commercial" });
+            returnResult.Add(new Select2DTO() { id = "'RX'", text = "RX Mixed Residential & Commercial Building" });
+            returnResult.Add(new Select2DTO() { id = "'S0'", text = "S0 Primarily One Family with Two Stores or Offices" });
+            returnResult.Add(new Select2DTO() { id = "'S1'", text = "S1 Primarily One Family With Store or Office" });
+            returnResult.Add(new Select2DTO() { id = "'S2'", text = "S2 Primarily Two Family With Store or Office" });
+            returnResult.Add(new Select2DTO() { id = "'S3'", text = "S3 Primarily Three Family With Store or Office" });
+            returnResult.Add(new Select2DTO() { id = "'S4'", text = "S4 Primarily Four Family With Store or Office" });
+            returnResult.Add(new Select2DTO() { id = "'S5'", text = "S5 Primarily Five to Six Family With Store or Office" });
+            returnResult.Add(new Select2DTO() { id = "'S9'", text = "S9 Primarily One to Six Families with Stores or Offices" });
+            returnResult.Add(new Select2DTO() { id = "'K1'", text = "K1 One Story Store Building" });
+            returnResult.Add(new Select2DTO() { id = "'K2'", text = "K2 Two Story or Store and Office" });
+            returnResult.Add(new Select2DTO() { id = "'K3'", text = "K3 Department Stores, Multi-Story" });
+            returnResult.Add(new Select2DTO() { id = "'K4'", text = "K4 Stores, Apartments Above" });
+            returnResult.Add(new Select2DTO() { id = "'K5'", text = "K5 Diners, Franchised Type Stand" });
+            returnResult.Add(new Select2DTO() { id = "'K6'", text = "K6 Shopping Centers With Parking Facilities" });
+            returnResult.Add(new Select2DTO() { id = "'K7'", text = "K7 Funeral Home" });
+            returnResult.Add(new Select2DTO() { id = "'K9'", text = "K9 Miscellaneous" });
+            returnResult.Add(new Select2DTO() { id = "'V1'", text = "V1 Not Zoned Residential or Manhattan Below 110 St" });
+            returnResult.Add(new Select2DTO() { id = "'V2'", text = "V2 Not Zoned Residential, but Adjacent to Tax Class 1 Dwelling" });
+            returnResult.Add(new Select2DTO() { id = "'V3'", text = "V3 Zoned Primarily Residential, Except Not Manhattan Below 110 St" });
+            return returnResult.Where(w => w.text.ToLower().Contains(term.ToLower())).ToList();
+        }
+        public List<Select2DTO> GetBuildingClassExclusionCriteria(string term)
+        {
+            List<Select2DTO> returnResult = new List<Select2DTO>();
+            returnResult.Add(new Select2DTO() { id = "'M1'", text = "M1 Church, Synagogue, Chapel" });
+            returnResult.Add(new Select2DTO() { id = "'M2'", text = "M2 Mission House (Non-Residential)" });
+            returnResult.Add(new Select2DTO() { id = "'M3'", text = "M3 Parsonage, Rectory" });
+            returnResult.Add(new Select2DTO() { id = "'M4'", text = "M4 Convents" });
+            returnResult.Add(new Select2DTO() { id = "'M9'", text = "M9 Miscellaneous" });
+            returnResult.Add(new Select2DTO() { id = "'W1'", text = "W1 Public Elementary Junior and Senior High Schools" });
+            returnResult.Add(new Select2DTO() { id = "'W2'", text = "W2 Parochial Schools, Yeshivas" });
+            returnResult.Add(new Select2DTO() { id = "'W3'", text = "W3 Schools or Academies" });
+            returnResult.Add(new Select2DTO() { id = "'W4'", text = "W4 Training Schools" });
+            returnResult.Add(new Select2DTO() { id = "'W5'", text = "W5 City University" });
+            returnResult.Add(new Select2DTO() { id = "'W6'", text = "W6 Other Colleges and Universities" });
+            returnResult.Add(new Select2DTO() { id = "'W7'", text = "W7 Theological Seminaries" });
+            returnResult.Add(new Select2DTO() { id = "'W8'", text = "W8 Other Private Schools" });
+            returnResult.Add(new Select2DTO() { id = "'W9'", text = "W9 Miscellaneous" });
+            return returnResult.Where(w => w.text.ToLower().Contains(term.ToLower())).ToList();
+        }
+
         public string CalculateMD5Hash(string input)
         {
             // step 1, calculate MD5 hash from input

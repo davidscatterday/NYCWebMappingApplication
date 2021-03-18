@@ -169,7 +169,7 @@ function btnOwnerSearch() {
                 "sqlQuery": sqlQuery
             }
         }).done(function (data) {
-            CreateDatabaseTable(data, true);
+            CreateDatabaseTable(data, true, true);
             $('#btnOpenAlerts').hide();
             $('#loading').hide();
         }).fail(function (f) {

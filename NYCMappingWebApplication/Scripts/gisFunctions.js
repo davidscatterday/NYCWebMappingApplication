@@ -1,5 +1,7 @@
-﻿var selectionLayer, districtLayer, geometryService, selectionSymbolPoint, selectionSymbolLine, selectionSymbolFill, heatmapLayer;
+﻿var selectionLayer, districtLayer, geometryService, selectionSymbolPoint, selectionSymbolLine, selectionSymbolFill, heatmapLayer, selectionLayerCDL;
 $(document).ready(function () {
+    dojo.require("dojo.on");
+    dojo.require("esri.tasks.geometry");
     require(["esri/map", "dojo/parser", "esri/layers/FeatureLayer", "esri/config", "esri/symbols/SimpleMarkerSymbol", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol", "dojo/_base/array"
         , "esri/graphic", "esri/basemaps", "esri/InfoTemplate", "esri/layers/GraphicsLayer", "esri/tasks/QueryTask", "esri/tasks/query", "esri/toolbars/draw"
         , "esri/tasks/GeometryService", "esri/Color", "esri/symbols/TextSymbol", "esri/renderers/SimpleRenderer"
@@ -13,6 +15,8 @@ $(document).ready(function () {
         selectionLayer = new GraphicsLayer();
         districtLayer = new GraphicsLayer();
         heatmapLayer = new GraphicsLayer();
+        selectionLayerCDL = new GraphicsLayer();
+        selectionLayerExclusionCriteriaCDL = new GraphicsLayer();
         geometryService = new GeometryService(GeometryServiceUrl);
 
         //create symbol polygon for districts features
@@ -29,19 +33,27 @@ $(document).ready(function () {
         selectionSymbolPoint = new SimpleMarkerSymbol().setColor(new dojo.Color([51, 255, 204, 0.5])).setSize(8);
         selectionSymbolLine = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new dojo.Color([51, 255, 204, 0.5]), 3);
         selectionSymbolFill = new SimpleFillSymbol().setColor(new dojo.Color([51, 255, 204, 0.5]));
+
+        //create symbols for excluded features in CDL
+        selectionSymbolEC_CDL_Fill = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 0, 0, 0.65]), 2), new Color([255, 0, 0, 0.35]));
         //xmin   //ymin    //xmax    //ymax
         //initExtent = new esri.geometry.Extent(-8276983.607858135, 4935156.731231112, -8169207.3979761815, 5005402.3602250945,
         //        new esri.SpatialReference({ wkid: 102100 }));
         //xmin   //ymin    //xmax    //ymax
         initExtent = new esri.geometry.Extent(913128.926351264, 120048.986001998, 1067335.95126992, 272811.183429763,
             new esri.SpatialReference({ wkid: 102718 }));
+        var arrayAttributes = ["OBJECTID", "Borough", "Block", "Lot", "CD", "CT2010", "CB2010", "SchoolDist", "Council", "ZipCode", "FireComp", "PolicePrct", "HealthCenterDistrict", "HealthArea", "Sanitboro", "SanitDistrict", "SanitSub", "Address", "ZoneDist1", "ZoneDist2", "ZoneDist3", "ZoneDist4", "Overlay1", "Overlay2", "SPDist1", "SPDist2", "SPDist3", "LtdHeight", "SplitZone", "BldgClass", "LandUse", "Easements", "OwnerType", "OwnerName", "LotArea", "BldgArea", "ComArea", "ResArea", "OfficeArea", "RetailArea", "GarageArea", "StrgeArea", "FactryArea", "OtherArea", "AreaSource", "NumBldgs", "NumFloors", "UnitsRes", "UnitsTotal", "LotFront", "LotDepth", "BldgFront", "BldgDepth", "Ext", "ProxCode", "IrrLotCode", "LotType", "BsmtCode", "AssessLand", "AssessTot", "ExemptTot", "YearBuilt", "YearAlter1", "YearAlter2", "HistDist", "Landmark", "BuiltFAR", "ResidFAR", "CommFAR", "FacilFAR", "BoroCode", "BBL", "CondoNo", "Tract2010", "XCoord", "YCoord", "ZoneMap", "ZMCode", "Sanborn", "TaxMap", "EDesigNum", "APPBBL", "APPDate", "PLUTOMapID", "FIRM07_FLAG", "PFIRM15_FLAG", "Version", "DCPEdited", "Latitude", "Longitude", "Notes"];
+        infoTemplateContent = "<img src ='https://maps.googleapis.com/maps/api/streetview?size=235x145&location=${Latitude},${Longitude}&key=AIzaSyCuf0Ca1EvxogvbZQKOBl_40y0UWm4Fk30'>";
+        for (var i = 0; i < arrayAttributes.length; i++) {
+            infoTemplateContent += "<br><b>" + arrayAttributes[i] + "</b>: ${" + arrayAttributes[i] + "}";
+        }
 
         //Takes a URL to a non cached map service.
         serviceFeatures = new FeatureLayer(MapPlutoUrl, {
             visible: true,
             mode: FeatureLayer.MODE_ONDEMAND,
-            outFields: ["*"]
-            //infoTemplate: new InfoTemplate("Tax Lot Info", "${*}")
+            outFields: ["*"],
+            infoTemplate: new InfoTemplate("Tax Lot Info", infoTemplateContent)
         });
         //Takes a URL to a non cached map service.
         districtFeatures = new FeatureLayer(DistrictsUrl, {
@@ -79,6 +91,7 @@ $(document).ready(function () {
         map.on("load", function MapLoaded() {
             selectionToolbar = new Draw(map, { showTooltips: false });
             selectionToolbar.on("draw-end", addSelectionToMap);
+            selectionToolbarCDL = new Draw(map, { showTooltips: false });
             //ColorDistricts();//color districts
             //getAllTracts(2165);
         });
@@ -92,7 +105,7 @@ $(document).ready(function () {
         myLabelLayer = new LabelLayer({ id: "districtLabels", visible: true });
         myLabelLayer.addFeatureLayer(districtFeatures, myLabelRenderer, "{DISTRICT}");
 
-        map.addLayers([baseMapLayer, serviceFeatures, districtLayer, censusTractsFeatures, selectionLayer, heatmapLayer, zipCodeFeatures]);
+        map.addLayers([baseMapLayer, serviceFeatures, districtLayer, censusTractsFeatures, selectionLayer, heatmapLayer, zipCodeFeatures, selectionLayerCDL, selectionLayerExclusionCriteriaCDL]);
 
         function addSelectionToMap(evt) {
             localStorage.setItem('ConsumerProfileSearchedDemographics', null);

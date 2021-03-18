@@ -375,6 +375,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\cannabisDispensaryLocator.js" />
     <Content Include="Scripts\consumerProfiles.js" />
     <Content Include="Scripts\emptyLayoutJS.js" />
     <Content Include="Scripts\gisFunctions.js" />
@@ -449,6 +450,7 @@
     <Content Include="Views\AppUsers\Edit.cshtml" />
     <Content Include="Views\AppUsers\ChangePassword.cshtml" />
     <Content Include="Views\AppUsers\ResetPassword.cshtml" />
+    <Content Include="Views\Shared\_CannabisDispensaryLocator.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

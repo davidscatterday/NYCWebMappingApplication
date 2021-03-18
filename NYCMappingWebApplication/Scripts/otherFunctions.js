@@ -1399,7 +1399,7 @@ function btnSearch() {
             wherePropertySaleClause += " AND cast(cast(ps.sale_price AS money) as bigint) >= " + SalePriceStart + " AND cast(cast(ps.sale_price AS money) as bigint) <= " + SalePriceEnd;
         }
     }
-    
+
     if (document.getElementById("cbDesignationDescriptions").checked == true) {
         DesignationDescriptions = $(txtDesignationDescriptions).val();
         if (DesignationDescriptions != "") {
@@ -1567,16 +1567,18 @@ function DatabaseSearch(whereEnergyClause, wherePermitClause, whereViolationClau
             "sqlQuery": sqlQuery
         }
     }).done(function (data) {
-        CreateDatabaseTable(data, true);
+        CreateDatabaseTable(data, true, true);
     }).fail(function (f) {
         $('#loading').hide();
         swal("Failed to search the query");
     });
 }
 
-function CreateDatabaseTable(data, zoomTo) {
+function CreateDatabaseTable(data, zoomTo, clearSelectionLayer) {
     map.graphics.clear();
-    selectionLayer.clear();
+    if (clearSelectionLayer) {
+        selectionLayer.clear();
+    }
     showBottomPanel();
     if (data.length > 0) {
         var BBLs = "";
@@ -1866,7 +1868,6 @@ function btnOpenMyReports_Click() {
         }
     });
     $("#myModalShowReport").modal();
-    //openModalWindow(RootUrl + "MyReports/Preview", 800, 820, "My Reports", true, "iframeMyReports");
 }
 
 function btnOpenMyAlerts_Click() {
@@ -1986,7 +1987,7 @@ function txtLookaLikeBbl_Change(evt) {
             },
             success: function (data) {
                 sqlQuery = data.sqlQuery;
-                CreateDatabaseTable(data.data, true);
+                CreateDatabaseTable(data.data, true, true);
                 $('#loading').hide();
             },
             error: function (error) {
@@ -2013,7 +2014,7 @@ function txtLookaLikeAddress_Change(evt) {
             },
             success: function (data) {
                 sqlQuery = data.sqlQuery;
-                CreateDatabaseTable(data.data, true);
+                CreateDatabaseTable(data.data, true, true);
                 $('#loading').hide();
             },
             error: function (error) {
@@ -2329,12 +2330,39 @@ function hideBottomPanel() {
     });
 }
 
-function tabGeneral_Clicked(evt) {
-    var pom = evt.text;
-    if (evt.text == 'ConsumerProfile') {
-        censusTractsFeatures.setVisibility(true);
-    }
-    else {
-        censusTractsFeatures.setVisibility(false);
+function tabGeneral_Clicked(TabID) {
+    switch (TabID) {
+        case 1:
+            censusTractsFeatures.setVisibility(false);
+            map.setInfoWindowOnClick(true);
+            serviceFeatures.infoTemplate = new esri.InfoTemplate("Tax Lot Info", infoTemplateContent);
+            break;
+        case 2:
+            censusTractsFeatures.setVisibility(false);
+            map.setInfoWindowOnClick(false);
+            break;
+        case 3:
+            censusTractsFeatures.setVisibility(true);
+            map.setInfoWindowOnClick(false);
+            break;
+        case 4:
+            censusTractsFeatures.setVisibility(false);
+            map.setInfoWindowOnClick(false);
+            break;
+        case 5:
+            censusTractsFeatures.setVisibility(false);
+            map.setInfoWindowOnClick(true);
+            serviceFeatures.infoTemplate = null;
+            break;
+        case 6:
+            censusTractsFeatures.setVisibility(false);
+            map.setInfoWindowOnClick(false);
+            break;
+        case 7:
+            censusTractsFeatures.setVisibility(false);
+            map.setInfoWindowOnClick(true);
+            serviceFeatures.infoTemplate = new esri.InfoTemplate("Tax Lot Info", infoTemplateContent);
+            break;
+        default: return
     }
 }
