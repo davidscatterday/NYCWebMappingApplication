@@ -1,62 +1,102 @@
 ﻿<div class="form-group">
     <div class="col-sm-12" style="padding-left: 0px">
-        <h4 style="font-size: 16px; margin-top: 5px;">Step 1: Draw searching area</h4>
-        <div class="form-group" id="divSearchByGeometryCDL" style="padding-right: 15px; padding-left: 15px">
-            <a id="btnSelectByPointCDL" class="btn btn-small classSelectButtons col-sm-2" onclick="activateSelectionToolCDL('Point',this)">
-                <img src="~/Images/DrawTools/DrawPoint.png" title="Point" class="drawTolbarButtons" /><br />Point
-            </a>
-            <a id="btnSelectByMultiPointCDL" class="btn btn-small classSelectButtons col-sm-2" onclick="activateSelectionToolCDL('Multi_Point',this)">
-                <img src="~/Images/DrawTools/DrawPoint.png" title="Point" class="drawTolbarButtons" /><br />MultiPoint
-            </a>
-            <a id="btnSelectByPolylineCDL" class="btn btn-small classSelectButtons col-sm-2" onclick="activateSelectionToolCDL('Polyline',this)">
-                <img src="~/Images/DrawTools/DrawPolyline.png" title="Polyline" class="drawTolbarButtons" /><br />Polyline
-            </a>
-            <a id="btnSelectByPolygonCDL" class="btn btn-small classSelectButtons col-sm-2" onclick="activateSelectionToolCDL('Polygon',this)">
-                <img src="~/Images/DrawTools/DrawPolygon.png" title="Polygon" class="drawTolbarButtons" /><br />Polygon
-            </a>
-            <a id="btnSelectByFreehandPolylineCDL" class="btn btn-small classSelectButtons col-sm-2" onclick="activateSelectionToolCDL('Freehand_Polyline',this)">
-                <img src="~/Images/DrawTools/DrawFreehandPolyline.png" title="Freehand Polyline" class="drawTolbarButtons" /><br />Freehand
-            </a>
-            <a id="btnSelectByRectangleCDL" class="btn btn-small classSelectButtons col-sm-2" onclick="activateSelectionToolCDL('Rectangle',this)">
-                <img src="~/Images/DrawTools/DrawRectangle.png" title="Ellipse" class="drawTolbarButtons" /><br />Rectangle
-            </a>
-        </div>
-        <h4 style="font-size: 16px; margin-top: 5px;">Step 2: Inclusion Criteria</h4>
-        <div class="form-group">
-            <div class="col-sm-12">
-                <input type="text" id="txtBuildingClassIC" placeholder="Select Building Class" />
-            </div>
-        </div>
-        <h4 style="font-size: 16px; margin-top: 5px;">Step 3: Exclusion Criteria</h4>
-        <div class="form-group">
-            <div class="col-sm-12" style="margin: 0 auto;">
-                <div class="form-group" style="padding-left: 15px">
-                    <label class="radio-inline">
-                        <input type="radio" name="rbDistanceCDL" id="rbDistanceCDLFeet" value="DistanceCDLFeet" checked /> Distance Feet
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="rbDistanceCDL" id="rbDistanceCDLMeters" value="DistanceCDLMeters" /> Distance Meters
-                    </label>
+        <div class="panel-group" id="accordionCDL">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordionCDL" href="#collapse71">
+                            Search Area
+                        </a>
+                        <a class="fa fa-angle-down rotate-icon pull-right" data-toggle="collapse" data-parent="#accordionCDL" href="#collapse71"></a>
+                    </h4>
                 </div>
-                <div id="slider-DistanceCDL">
-                    <div id="custom-handle" class="ui-slider-handle"></div>
+                <div id="collapse71" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="form-group" id="divSearchByGeometryCDL" style="padding-right: 1px; padding-left: 1px">
+                            <a id="btnSelectByPointCDL" class="btn btn-small classSelectButtons col-sm-2" onclick="activateSelectionToolCDL('Point',this)">
+                                <img src="~/Images/DrawTools/DrawPoint.png" title="Point" class="drawTolbarButtons" /><br />Point
+                            </a>
+                            <a id="btnSelectByMultiPointCDL" class="btn btn-small classSelectButtons col-sm-2" onclick="activateSelectionToolCDL('Multi_Point',this)">
+                                <img src="~/Images/DrawTools/DrawPoint.png" title="Point" class="drawTolbarButtons" /><br />MultiPoint
+                            </a>
+                            <a id="btnSelectByPolylineCDL" class="btn btn-small classSelectButtons col-sm-2" onclick="activateSelectionToolCDL('Polyline',this)">
+                                <img src="~/Images/DrawTools/DrawPolyline.png" title="Polyline" class="drawTolbarButtons" /><br />Polyline
+                            </a>
+                            <a id="btnSelectByPolygonCDL" class="btn btn-small classSelectButtons col-sm-2" onclick="activateSelectionToolCDL('Polygon',this)">
+                                <img src="~/Images/DrawTools/DrawPolygon.png" title="Polygon" class="drawTolbarButtons" /><br />Polygon
+                            </a>
+                            <a id="btnSelectByFreehandPolylineCDL" class="btn btn-small classSelectButtons col-sm-2" onclick="activateSelectionToolCDL('Freehand_Polyline',this)">
+                                <img src="~/Images/DrawTools/DrawFreehandPolyline.png" title="Freehand Polyline" class="drawTolbarButtons" /><br />Freehand
+                            </a>
+                            <a id="btnSelectByRectangleCDL" class="btn btn-small classSelectButtons col-sm-2" onclick="activateSelectionToolCDL('Rectangle',this)">
+                                <img src="~/Images/DrawTools/DrawRectangle.png" title="Ellipse" class="drawTolbarButtons" /><br />Rectangle
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-12">
-                <input type="text" id="txtBuildingClassEC" placeholder="Select Building Class" />
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordionCDL" href="#collapse72">
+                            Property Inclusion Criteria
+                        </a>
+                        <a class="fa fa-angle-down rotate-icon pull-right" data-toggle="collapse" data-parent="#accordionCDL" href="#collapse72"></a>
+                    </h4>
+                </div>
+                <div id="collapse72" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <input type="text" id="txtBuildingClassIC" placeholder="Select Building Class" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="form-group text-right" style="margin-bottom: 5px;">
-            <div class="col-sm-12">
-                <button type="button" class="btn btn-primary btn-sm" onclick="btnSearchCDL()">Search</button>
-                <button type="button" class="btn btn-primary btn-sm" onclick="btnResetCDL()">Reset</button>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordionCDL" href="#collapse73">
+                            Property Exclusion Criteria
+                        </a>
+                        <a class="fa fa-angle-down rotate-icon pull-right" data-toggle="collapse" data-parent="#accordionCDL" href="#collapse73"></a>
+                    </h4>
+                </div>
+                <div id="collapse73" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-sm-12" style="margin: 0 auto;">
+                                <div class="form-group" style="padding-left: 15px">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="rbDistanceCDL" id="rbDistanceCDLFeet" value="DistanceCDLFeet" checked /> Distance Feet
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="rbDistanceCDL" id="rbDistanceCDLMeters" value="DistanceCDLMeters" /> Distance Meters
+                                    </label>
+                                </div>
+                                <div id="slider-DistanceCDL">
+                                    <div id="custom-handle" class="ui-slider-handle"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <input type="text" id="txtBuildingClassEC" placeholder="Select Building Class" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group text-right" style="margin-top: 10px">
+                <div class="col-sm-12">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="btnSearchCDL()">Search</button>
+                    <button type="button" class="btn btn-primary btn-sm" onclick="btnResetCDL()">Reset</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
 <script>
     $("#txtBuildingClassIC").select2({
         minimumInputLength: 0,  // minimumInputLength for sending ajax request to server

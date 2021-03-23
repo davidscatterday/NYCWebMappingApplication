@@ -1,4 +1,4 @@
-﻿var maxDistanceCDL = 1000, currentGeometryNum = 0;
+﻿var maxDistanceCDL = 1000, currentGeometryNum = 0, currentBufferNum = 0;
 $(function () {
     handle = $("#custom-handle"), handleWidth = handle.width();
     $("#slider-DistanceCDL").slider({
@@ -28,13 +28,16 @@ function btnResetCDL() {
     document.getElementById("rbDistanceCDLMeters").checked = false;
     $("#slider-DistanceCDL").slider("value", 100);
     handle.text(100);
+    $('.panel-collapse.in').collapse('toggle');
     hideBottomPanel();
     map.setExtent(initExtent);
 }
 
 function btnSearchCDL() {
     currentGeometryNum = 0;
+    currentBufferNum = 0;
     $('#loading').show();
+    document.getElementById("divLoadingText").innerHTML = "";
     var BldgClassIC = document.getElementById("txtBuildingClassIC").value;
     var drawnGraphics = selectionLayerCDL.graphics;
     selectionLayerExclusionCriteriaCDL.clear();
@@ -160,6 +163,8 @@ function doBuffer(myGeometry, totalGeometries) {
     params.outSpatialReference = map.spatialReference;
 
     geometryService.buffer(params, function (bufferedGeometries) {
+        currentBufferNum++;
+        document.getElementById("divLoadingText").innerHTML = percentage(currentGeometryNum + currentBufferNum, totalGeometries * 2) + " %";
         var graphic = new esri.Graphic(bufferedGeometries[0], selectionSymbolEC_CDL_Fill);
         selectionLayerExclusionCriteriaCDL.add(graphic);
         for (var i = 0; i < selectionLayer.graphics.length; i++) {
@@ -181,8 +186,12 @@ function checkIntersection(selectionLayerGraphics, excludeBufferGeometry, isLast
                     currentGeometryNum++;
                     if (totalGeometries == currentGeometryNum) {
                         CallCreateTable();
+                        document.getElementById("divLoadingText").innerHTML = "";
                         $('#loading').hide();
                     }
+                }
+                else {
+                    document.getElementById("divLoadingText").innerHTML = percentage(currentGeometryNum + currentBufferNum, totalGeometries * 2) + " %";
                 }
             }
         );
@@ -239,3 +248,7 @@ function resetAllSelectionToolsCDL() {
     document.getElementById("btnSelectByFreehandPolylineCDL").className = " btn btn-small classSelectButtons col-sm-2";
     document.getElementById("btnSelectByRectangleCDL").className = " btn btn-small classSelectButtons col-sm-2";
 }
+
+function percentage(partialValue, totalValue) {
+    return ((100 * partialValue) / totalValue).toFixed(0);
+} 
