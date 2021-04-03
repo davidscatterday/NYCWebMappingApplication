@@ -175,6 +175,15 @@ namespace NYCMappingWebApp.Entities
         public string Proposed_Height { get; set; }
         public string Proposed_Occupancy { get; set; }
         public string Pre_Filing_Date { get; set; }
+        public string owner_name { get; set; }
+        public string owner_bus_name { get; set; }
+        public string qewi_name { get; set; }
+        public string qewi_bus_name { get; set; }
+
+        public string RESPONDENT_NAME { get; set; }
+        public string LandUse { get; set; }
+        public string VIOLATION_DESCRIPTION { get; set; }
+        public string Owner_Type { get; set; }
     }
 
     public class DatabaseMaxValues

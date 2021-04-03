@@ -1589,11 +1589,13 @@ function CreateDatabaseTable(data, zoomTo, clearSelectionLayer) {
         htmlQueryRecords += "</tr></thead><tbody>";
         //Loop through each feature returned
         for (var i = 0; i < data.length; i++) {
-            if (BBLs == "") {
-                BBLs += data[i].BBL;
-            }
-            else {
-                BBLs += "," + data[i].BBL;
+            if (data.length < 2000) {
+                if (BBLs == "") {
+                    BBLs += data[i].BBL;
+                }
+                else {
+                    BBLs += "," + data[i].BBL;
+                }
             }
             htmlQueryRecords += "<tr class=\"clickableRow\" OnClick=\"ShowInfoForSelectedRecord('" + data[i].BBL + "');\">";
 
@@ -2271,6 +2273,11 @@ function txtSlider_KeyUp(x, name) {
         case "AssessedValuePerSquareFoot": maxValueTotal = maxAssessedValuePerSquareFoot; break
         case "SalePrice": maxValueTotal = maxSalePrice; break
         case "PropertySearchConstructionFloorArea": maxValueTotal = maxPropertySearchConstructionFloorArea; break
+        case "UnsafeBuildingFacadeConditionNumFloors": maxValueTotal = maxNumberOfFloors; break
+        case "UnsafeBuildingFacadeConditionYearBuilt": maxValueTotal = new Date().getFullYear(); break
+        case "ConstructionViolationsBldgArea": maxValueTotal = maxConstructionViolationsBldgArea; break
+        case "ConstructionViolationsAssessTot": maxValueTotal = maxAssessedTotalValue; break
+        case "PlanApprovalWithNoPermitIssuanceTotalConstructionFloorArea": maxValueTotal = maxPropertySearchConstructionFloorArea; break
         default: return
     }
     try {
@@ -2289,7 +2296,7 @@ function txtSlider_KeyUp(x, name) {
         else {
             $("#slider-range-" + name).slider("values", 0, 0);
             $("#slider-range-" + name).slider("values", 1, maxValueTotal);
-            if (name == "AssessedTotalValue" || name == "AssessedValuePerSquareFoot" || name == "SalePrice") {
+            if (name == "AssessedTotalValue" || name == "AssessedValuePerSquareFoot" || name == "SalePrice" || "ConstructionViolationsAssessTot") {
                 $("#txt" + name).val("$0 - $" + maxValueTotal.toLocaleString('en'));
             }
             else {
@@ -2300,7 +2307,7 @@ function txtSlider_KeyUp(x, name) {
     catch (e) {
         $("#slider-range-" + name).slider("values", 0, 0);
         $("#slider-range-" + name).slider("values", 1, maxValueTotal);
-        if (name == "AssessedTotalValue" || name == "AssessedValuePerSquareFoot" || name == "SalePrice") {
+        if (name == "AssessedTotalValue" || name == "AssessedValuePerSquareFoot" || name == "SalePrice" || "ConstructionViolationsAssessTot") {
             $("#txt" + name).val("$0 - $" + maxValueTotal.toLocaleString('en'));
         }
         else {

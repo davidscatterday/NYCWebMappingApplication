@@ -124,10 +124,10 @@
                                 </label>
                             </div>
                             <div class="col-sm-4" style="padding-left: 0px;">
-                                <input type="text" class="date" id="txtFilingDateFrom" style="width: 100%; border: 1px solid;" />
+                                <input type="text" class="date" id="txtFilingDateFrom" style="width: 100%; border: 1px solid;" autocomplete="new-password" />
                             </div>
                             <div class="col-sm-4" style="padding-left: 0px;">
-                                <input type="text" class="date" id="txtFilingDateTo" style="width: 100%; border: 1px solid;" />
+                                <input type="text" class="date" id="txtFilingDateTo" style="width: 100%; border: 1px solid;" autocomplete="new-password" />
                             </div>
                         </div>
                     </div>
@@ -142,7 +142,418 @@
         </div>
     </div>
 </div>
+<div class="form-group">
+    <div class="col-sm-12" style="padding-left: 0px">
+        <div class="panel-group" id="accordionOwnerSearchAdditional">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordionOwnerSearchAdditional" href="#collapse81">
+                            Land Sale + Demolition
+                        </a>
+                        <a class="fa fa-angle-down rotate-icon pull-right" data-toggle="collapse" data-parent="#accordionOwnerSearchAdditional" href="#collapse81"></a>
+                    </h4>
+                </div>
+                <div id="collapse81" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Building Class
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtLandSaleDemolitionBuildingClass" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Owner
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtLandSaleDemolitionOwner" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group text-right" style="margin-top: 10px">
+                            <div class="col-sm-12">
+                                <button type="button" class="btn btn-primary btn-sm" onclick="btnOwnerSearchLandSaleDemolition()">Search</button>
+                                <button type="button" class="btn btn-primary btn-sm" onclick="btnResetOwnerSearchLandSaleDemolition()">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordionOwnerSearchAdditional" href="#collapse82">
+                            Unsafe Building Facade Condition
+                        </a>
+                        <a class="fa fa-angle-down rotate-icon pull-right" data-toggle="collapse" data-parent="#accordionOwnerSearchAdditional" href="#collapse82"></a>
+                    </h4>
+                </div>
+                <div id="collapse82" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbFilingDateUbfc">
+                                    <input id="cbFilingDateUbfc" type="checkbox" style="margin-right: 5px">Filling Date
+                                </label>
+                            </div>
+                            <div class="col-sm-4" style="padding-left: 0px;">
+                                <input type="text" class="date" id="txtFilingDateUbfcFrom" style="width: 100%; border: 1px solid;" autocomplete="new-password" />
+                            </div>
+                            <div class="col-sm-4" style="padding-left: 0px;">
+                                <input type="text" class="date" id="txtFilingDateUbfcTo" style="width: 100%; border: 1px solid;" autocomplete="new-password" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Address
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtUnsafeBuildingFacadeConditionAddress" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Borough
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtUnsafeBuildingFacadeConditionBorough" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Zoning District
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtUnsafeBuildingFacadeConditionZoningDistrict" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Building Class
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtUnsafeBuildingFacadeConditionBuildingClass" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <p id="sliderUnsafeBuildingFacadeConditionNumFloors" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                    <label for="cbUnsafeBuildingFacadeConditionNumFloors">
+                                        <input id="cbUnsafeBuildingFacadeConditionNumFloors" type="checkbox" style="margin-right: 5px">Number of Floors:
+                                        <input type="text" id="txtUnsafeBuildingFacadeConditionNumFloors" style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%" onkeyup="txtSlider_KeyUp(this,'UnsafeBuildingFacadeConditionNumFloors')">
+                                    </label>
+                                </p>
+                                <div id="slider-range-UnsafeBuildingFacadeConditionNumFloors"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <p id="sliderUnsafeBuildingFacadeConditionYearBuilt" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                    <label for="cbUnsafeBuildingFacadeConditionYearBuilt">
+                                        <input id="cbUnsafeBuildingFacadeConditionYearBuilt" type="checkbox" style="margin-right: 5px">Year Built:
+                                        <input type="text" id="txtUnsafeBuildingFacadeConditionYearBuilt" style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%" onkeyup="txtSlider_KeyUp(this,'UnsafeBuildingFacadeConditionYearBuilt')">
+                                    </label>
+                                </p>
+                                <div id="slider-range-UnsafeBuildingFacadeConditionYearBuilt"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Owner Name
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtUnsafeBuildingFacadeConditionOwnerName" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Owner Bus Name
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtUnsafeBuildingFacadeConditionOwnerBusName" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Filing Status
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtUnsafeBuildingFacadeConditionFilingStatus" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Qewi Name
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtUnsafeBuildingFacadeConditionQewiName" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Qewi Bus Name
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtUnsafeBuildingFacadeConditionQewiBusName" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group text-right" style="margin-top: 10px">
+                            <div class="col-sm-12">
+                                <button type="button" class="btn btn-primary btn-sm" onclick="btnOwnerSearchUnsafeBuildingFacadeCondition()">Search</button>
+                                <button type="button" class="btn btn-primary btn-sm" onclick="btnResetOwnerSearch()">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordionOwnerSearchAdditional" href="#collapse83">
+                            Construction Violations
+                        </a>
+                        <a class="fa fa-angle-down rotate-icon pull-right" data-toggle="collapse" data-parent="#accordionOwnerSearchAdditional" href="#collapse83"></a>
+                    </h4>
+                </div>
+                <div id="collapse83" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbIssueDateCV">
+                                    <input id="cbIssueDateCV" type="checkbox" style="margin-right: 5px">Issue Date
+                                </label>
+                            </div>
+                            <div class="col-sm-4" style="padding-left: 0px;">
+                                <input type="text" class="date" id="txtIssueDateCVFrom" style="width: 100%; border: 1px solid;" autocomplete="new-password" />
+                            </div>
+                            <div class="col-sm-4" style="padding-left: 0px;">
+                                <input type="text" class="date" id="txtIssueDateCVTo" style="width: 100%; border: 1px solid;" autocomplete="new-password" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Address
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtConstructionViolationsAddress" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Respondent Name
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtConstructionViolationsRespondentName" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Building Class
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtConstructionViolationsBuildingClass" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Land Use
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtConstructionViolationsLandUse" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <p id="sliderConstructionViolationsBldgArea" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                    <label for="cbConstructionViolationsBldgArea">
+                                        <input id="cbConstructionViolationsBldgArea" type="checkbox" style="margin-right: 5px">Building Area:
+                                        <input type="text" id="txtConstructionViolationsBldgArea" style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%" onkeyup="txtSlider_KeyUp(this,'ConstructionViolationsBldgArea')">
+                                    </label>
+                                </p>
+                                <div id="slider-range-ConstructionViolationsBldgArea"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <p id="sliderConstructionViolationsAssessTot" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                    <label for="cbConstructionViolationsAssessTot">
+                                        <input id="cbConstructionViolationsAssessTot" type="checkbox" style="margin-right: 5px">Assessed Total Value:
+                                        <input type="text" id="txtConstructionViolationsAssessTot" style="border:0; color:rgb(213,168,72); font-weight:bold; width: 211px" onkeyup="txtSlider_KeyUp(this,'ConstructionViolationsAssessTot')">
+                                    </label>
+                                </p>
+                                <div id="slider-range-ConstructionViolationsAssessTot"></div>
+                            </div>
+                        </div>
+                        <div class="form-group text-right" style="margin-top: 10px">
+                            <div class="col-sm-12">
+                                <button type="button" class="btn btn-primary btn-sm" onclick="btnOwnerSearchConstructionViolations()">Search</button>
+                                <button type="button" class="btn btn-primary btn-sm" onclick="btnResetOwnerSearch()">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordionOwnerSearchAdditional" href="#collapse84">
+                            Plan Approval with No Permit Issuance
+                        </a>
+                        <a class="fa fa-angle-down rotate-icon pull-right" data-toggle="collapse" data-parent="#accordionOwnerSearchAdditional" href="#collapse84"></a>
+                    </h4>
+                </div>
+                <div id="collapse84" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbFilingDatePAWNPI">
+                                    <input id="cbFilingDatePAWNPI" type="checkbox" style="margin-right: 5px">Filing Date
+                                </label>
+                            </div>
+                            <div class="col-sm-4" style="padding-left: 0px;">
+                                <input type="text" class="date" id="txtFilingDatePAWNPIFrom" style="width: 100%; border: 1px solid;" autocomplete="new-password" />
+                            </div>
+                            <div class="col-sm-4" style="padding-left: 0px;">
+                                <input type="text" class="date" id="txtFilingDatePAWNPITo" style="width: 100%; border: 1px solid;" autocomplete="new-password" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Address
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtPlanApprovalWithNoPermitIssuanceAddress" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Borough
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtPlanApprovalWithNoPermitIssuanceBorough" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Zoning District
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtPlanApprovalWithNoPermitIssuanceZoningDistrict" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Proposed Occupancy
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtPlanApprovalWithNoPermitIssuanceProposedOccupancy" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <p id="sliderPlanApprovalWithNoPermitIssuanceTotalConstructionFloorArea" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                    <label for="cbPlanApprovalWithNoPermitIssuanceTotalConstructionFloorArea">
+                                        <input id="cbPlanApprovalWithNoPermitIssuanceTotalConstructionFloorArea" type="checkbox" style="margin-right: 5px">Construction Floor Area:
+                                        <input type="text" id="txtPlanApprovalWithNoPermitIssuanceTotalConstructionFloorArea" style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%" onkeyup="txtSlider_KeyUp(this,'PlanApprovalWithNoPermitIssuanceTotalConstructionFloorArea')">
+                                    </label>
+                                </p>
+                                <div id="slider-range-PlanApprovalWithNoPermitIssuanceTotalConstructionFloorArea"></div>
+                            </div>
+                        </div>
+                        <div class="form-group text-right" style="margin-top: 10px">
+                            <div class="col-sm-12">
+                                <button type="button" class="btn btn-primary btn-sm" onclick="btnOwnerSearchPlanApprovalWithNoPermitIssuance()">Search</button>
+                                <button type="button" class="btn btn-primary btn-sm" onclick="btnResetOwnerSearch()">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordionOwnerSearchAdditional" href="#collapse85">
+                            New Construction Permit Issuance
+                        </a>
+                        <a class="fa fa-angle-down rotate-icon pull-right" data-toggle="collapse" data-parent="#accordionOwnerSearchAdditional" href="#collapse85"></a>
+                    </h4>
+                </div>
+                <div id="collapse85" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="form-group text-right" style="margin-top: 10px">
+                            <div class="col-sm-12">
+                                <button type="button" class="btn btn-primary btn-sm" onclick="btnOwnerSearchNewConstructionPermitIssuance()">Search</button>
+                                <button type="button" class="btn btn-primary btn-sm" onclick="btnResetOwnerSearch()">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordionOwnerSearchAdditional" href="#collapse86">
+                            Major Alteration Permit Issuance
+                        </a>
+                        <a class="fa fa-angle-down rotate-icon pull-right" data-toggle="collapse" data-parent="#accordionOwnerSearchAdditional" href="#collapse86"></a>
+                    </h4>
+                </div>
+                <div id="collapse86" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="form-group text-right" style="margin-top: 10px">
+                            <div class="col-sm-12">
+                                <button type="button" class="btn btn-primary btn-sm" onclick="btnOwnerSearchMajorAlterationPermitIssuance()">Search</button>
+                                <button type="button" class="btn btn-primary btn-sm" onclick="btnResetOwnerSearch()">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
+    //#region Persona Type
     $("#txtPersonaTypeSearchOwner").select2({
         minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
         width: '100%',   // to adjust proper width of select2 wrapped elements
@@ -206,7 +617,9 @@
             }
         }
     });
+    //#endregion Persona Type
 
+    //#region Property Search
     $("#txtPropertySearchJobType").select2({
         minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
         width: '100%',   // to adjust proper width of select2 wrapped elements
@@ -255,7 +668,7 @@
         allowClear: true,
         multiple: true,
         ajax: {
-            url: RootUrl + 'Home/GetPropertySearchBuildingClass',
+            url: RootUrl + 'Home/GetDistinctBuildingClass',
             type: "POST",
             dataType: 'json',
             data: function (term) {
@@ -276,7 +689,7 @@
         allowClear: true,
         multiple: true,
         ajax: {
-            url: RootUrl + 'Home/GetPropertySearchZoningDistrict',
+            url: RootUrl + 'Home/GetDistinctZoningDistrict',
             type: "POST",
             dataType: 'json',
             data: function (term) {
@@ -297,7 +710,7 @@
         allowClear: true,
         multiple: true,
         ajax: {
-            url: RootUrl + 'Home/GetPropertySearchProposedOccupancy',
+            url: RootUrl + 'Home/GetDistinctProposedOccupancy',
             type: "POST",
             dataType: 'json',
             data: function (term) {
@@ -312,4 +725,416 @@
             }
         }
     });
+    //#endregion Property Search
+
+    //#region Land Sale Demolition
+    $("#txtLandSaleDemolitionBuildingClass").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetDistinctBuildingClass',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.PropertySearchBuildingClassList,
+                };
+            }
+        }
+    });
+    $("#txtLandSaleDemolitionOwner").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetPersonaTypeSearchOwner',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.PersonaTypeSearchOwnerList,
+                };
+            }
+        }
+    });
+    //#endregion Land Sale Demolition
+
+    //#region Unsafe Building Facade Condition
+    $("#txtUnsafeBuildingFacadeConditionAddress").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetUnsafeBuildingFacadeConditionAddress',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.UnsafeBuildingFacadeConditionAddressList,
+                };
+            }
+        }
+    });
+    $("#txtUnsafeBuildingFacadeConditionBorough").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetBoroughs',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.BoroughsList,
+                };
+            }
+        }
+    });
+    $("#txtUnsafeBuildingFacadeConditionZoningDistrict").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetDistinctZoningDistrict',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.PropertySearchZoningDistrictList,
+                };
+            }
+        }
+    });
+    $("#txtUnsafeBuildingFacadeConditionBuildingClass").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetDistinctBuildingClass',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.PropertySearchBuildingClassList,
+                };
+            }
+        }
+    });
+    $("#txtUnsafeBuildingFacadeConditionOwnerName").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetUnsafeBuildingFacadeConditionOwnerName',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.UnsafeBuildingFacadeConditionOwnerNameList,
+                };
+            }
+        }
+    });
+    $("#txtUnsafeBuildingFacadeConditionOwnerBusName").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetUnsafeBuildingFacadeConditionOwnerBusName',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.UnsafeBuildingFacadeConditionOwnerBusNameList,
+                };
+            }
+        }
+    });
+    $("#txtUnsafeBuildingFacadeConditionFilingStatus").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetUnsafeBuildingFacadeConditionFilingStatus',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.UnsafeBuildingFacadeConditionFilingStatusList,
+                };
+            }
+        }
+    });
+    $("#txtUnsafeBuildingFacadeConditionQewiName").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetUnsafeBuildingFacadeConditionQewiName',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.UnsafeBuildingFacadeConditionQewiNameList,
+                };
+            }
+        }
+    });
+    $("#txtUnsafeBuildingFacadeConditionQewiBusName").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetUnsafeBuildingFacadeConditionQewiBusName',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.UnsafeBuildingFacadeConditionQewiBusNameList,
+                };
+            }
+        }
+    });
+    //#endregion Unsafe Building Facade Condition
+
+    //#region Construction Violations
+    $("#txtConstructionViolationsAddress").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetTopAddresses',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.AddressList,
+                };
+            }
+        }
+    });
+    $("#txtConstructionViolationsRespondentName").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetConstructionViolationsRespondentName',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.ConstructionViolationsRespondentNameList,
+                };
+            }
+        }
+    });
+    $("#txtConstructionViolationsBuildingClass").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetDistinctBuildingClass',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.PropertySearchBuildingClassList,
+                };
+            }
+        }
+    });
+    $("#txtConstructionViolationsLandUse").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetDistinctLandUse',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.LandUseList,
+                };
+            }
+        }
+    });
+    //#endregion Construction Violations
+
+    //#region Plan Approval with No Permit Issuance
+    $("#txtPlanApprovalWithNoPermitIssuanceAddress").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetDOB_Job_Application_Filings_Address',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.AddressList,
+                };
+            }
+        }
+    });
+    $("#txtPlanApprovalWithNoPermitIssuanceBorough").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetPropertySearchBorough',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.PropertySearchBoroughList,
+                };
+            }
+        }
+    });
+    $("#txtPlanApprovalWithNoPermitIssuanceZoningDistrict").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetDistinctZoningDistrict',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.PropertySearchZoningDistrictList,
+                };
+            }
+        }
+    });
+    $("#txtPlanApprovalWithNoPermitIssuanceProposedOccupancy").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetDistinctProposedOccupancy',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.PropertySearchProposedOccupancyList,
+                };
+            }
+        }
+    });
+    //#endregion Plan Approval with No Permit Issuance
 </script>

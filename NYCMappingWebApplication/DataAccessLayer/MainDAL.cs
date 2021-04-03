@@ -502,12 +502,12 @@ namespace NYCMappingWebApp.DataAccessLayer
         {
             List<Select2DTO> returnResult = new List<Select2DTO>();
             returnResult = (from d in db.Plutoes
-                            where d.Address.ToLower().Contains(term.ToLower())
+                            where d.Address != null && (term == "" || d.Address.ToLower().Contains(term.ToLower()))
                             select new Select2DTO()
                             {
                                 id = d.Address.ToString(),
                                 text = d.Address
-                            }).Take(30).ToList();
+                            }).Take(1000).ToList();
             return returnResult;
         }
 
@@ -853,36 +853,47 @@ namespace NYCMappingWebApp.DataAccessLayer
             returnResult.Add(new Select2DTO() { id = "'STATEN ISLAND'", text = "Staten Island" });
             return returnResult.Where(w => w.text.ToLower().Contains(term.ToLower())).ToList();
         }
-        public List<Select2DTO> GetPropertySearchBuildingClass(string term)
+        public List<Select2DTO> GetDistinctBuildingClass(string term)
         {
             List<Select2DTO> returnResult = new List<Select2DTO>();
             using (var ctx = new NYC_Web_Mapping_AppEntities())
             {
                 ctx.Database.CommandTimeout = 600;
                 var termParametar = !String.IsNullOrEmpty(term) ? new SqlParameter("term", term) : new SqlParameter("term", DBNull.Value);
-                returnResult = ctx.Database.SqlQuery<Select2DTO>("EXEC dbo.OwnerSearch_GetPropertySearchBuildingClass @term ", termParametar).ToList();
+                returnResult = ctx.Database.SqlQuery<Select2DTO>("EXEC dbo.Distinct_GetBuildingClass @term ", termParametar).ToList();
             }
             return returnResult;
         }
-        public List<Select2DTO> GetPropertySearchZoningDistrict(string term)
+        public List<Select2DTO> GetDistinctZoningDistrict(string term)
         {
             List<Select2DTO> returnResult = new List<Select2DTO>();
             using (var ctx = new NYC_Web_Mapping_AppEntities())
             {
                 ctx.Database.CommandTimeout = 600;
                 var termParametar = !String.IsNullOrEmpty(term) ? new SqlParameter("term", term) : new SqlParameter("term", DBNull.Value);
-                returnResult = ctx.Database.SqlQuery<Select2DTO>("EXEC dbo.OwnerSearch_GetPropertySearchZoningDistrict @term ", termParametar).ToList();
+                returnResult = ctx.Database.SqlQuery<Select2DTO>("EXEC dbo.Distinct_GetZoningDistrict @term ", termParametar).ToList();
             }
             return returnResult;
         }
-        public List<Select2DTO> GetPropertySearchProposedOccupancy(string term)
+        public List<Select2DTO> GetDistinctProposedOccupancy(string term)
         {
             List<Select2DTO> returnResult = new List<Select2DTO>();
             using (var ctx = new NYC_Web_Mapping_AppEntities())
             {
                 ctx.Database.CommandTimeout = 600;
                 var termParametar = !String.IsNullOrEmpty(term) ? new SqlParameter("term", term) : new SqlParameter("term", DBNull.Value);
-                returnResult = ctx.Database.SqlQuery<Select2DTO>("EXEC dbo.OwnerSearch_GetPropertySearchProposedOccupancy @term ", termParametar).ToList();
+                returnResult = ctx.Database.SqlQuery<Select2DTO>("EXEC dbo.Distinct_GetProposedOccupancy @term ", termParametar).ToList();
+            }
+            return returnResult;
+        }
+        public List<Select2DTO> GetDistinctLandUse(string term)
+        {
+            List<Select2DTO> returnResult = new List<Select2DTO>();
+            using (var ctx = new NYC_Web_Mapping_AppEntities())
+            {
+                ctx.Database.CommandTimeout = 600;
+                var termParametar = !String.IsNullOrEmpty(term) ? new SqlParameter("term", term) : new SqlParameter("term", DBNull.Value);
+                returnResult = ctx.Database.SqlQuery<Select2DTO>("EXEC dbo.Distinct_GetLandUse @term ", termParametar).ToList();
             }
             return returnResult;
         }
@@ -940,6 +951,97 @@ namespace NYCMappingWebApp.DataAccessLayer
             returnResult.Add(new Select2DTO() { id = "'W8'", text = "W8 Other Private Schools" });
             returnResult.Add(new Select2DTO() { id = "'W9'", text = "W9 Miscellaneous" });
             return returnResult.Where(w => w.text.ToLower().Contains(term.ToLower())).ToList();
+        }
+
+        public List<Select2DTO> GetUnsafeBuildingFacadeConditionAddress(string term)
+        {
+            List<Select2DTO> returnResult = new List<Select2DTO>();
+            using (var ctx = new NYC_Web_Mapping_AppEntities())
+            {
+                ctx.Database.CommandTimeout = 600;
+                var termParametar = !String.IsNullOrEmpty(term) ? new SqlParameter("term", term) : new SqlParameter("term", DBNull.Value);
+                returnResult = ctx.Database.SqlQuery<Select2DTO>("EXEC dbo.UnsafeBuildingFacadeCondition_Address @term ", termParametar).ToList();
+            }
+            return returnResult;
+        }
+        public List<Select2DTO> GetUnsafeBuildingFacadeConditionOwnerName(string term)
+        {
+            List<Select2DTO> returnResult = new List<Select2DTO>();
+            using (var ctx = new NYC_Web_Mapping_AppEntities())
+            {
+                ctx.Database.CommandTimeout = 600;
+                var termParametar = !String.IsNullOrEmpty(term) ? new SqlParameter("term", term) : new SqlParameter("term", DBNull.Value);
+                returnResult = ctx.Database.SqlQuery<Select2DTO>("EXEC dbo.UnsafeBuildingFacadeCondition_OwnerName @term ", termParametar).ToList();
+            }
+            return returnResult;
+        }
+        public List<Select2DTO> GetUnsafeBuildingFacadeConditionOwnerBusName(string term)
+        {
+            List<Select2DTO> returnResult = new List<Select2DTO>();
+            using (var ctx = new NYC_Web_Mapping_AppEntities())
+            {
+                ctx.Database.CommandTimeout = 600;
+                var termParametar = !String.IsNullOrEmpty(term) ? new SqlParameter("term", term) : new SqlParameter("term", DBNull.Value);
+                returnResult = ctx.Database.SqlQuery<Select2DTO>("EXEC dbo.UnsafeBuildingFacadeCondition_OwnerBusName @term ", termParametar).ToList();
+            }
+            return returnResult;
+        }
+        public List<Select2DTO> GetUnsafeBuildingFacadeConditionFilingStatus(string term)
+        {
+            List<Select2DTO> returnResult = new List<Select2DTO>();
+            using (var ctx = new NYC_Web_Mapping_AppEntities())
+            {
+                ctx.Database.CommandTimeout = 600;
+                var termParametar = !String.IsNullOrEmpty(term) ? new SqlParameter("term", term) : new SqlParameter("term", DBNull.Value);
+                returnResult = ctx.Database.SqlQuery<Select2DTO>("EXEC dbo.UnsafeBuildingFacadeCondition_FilingStatus @term ", termParametar).ToList();
+            }
+            return returnResult;
+        }
+        public List<Select2DTO> GetUnsafeBuildingFacadeConditionQewiName(string term)
+        {
+            List<Select2DTO> returnResult = new List<Select2DTO>();
+            using (var ctx = new NYC_Web_Mapping_AppEntities())
+            {
+                ctx.Database.CommandTimeout = 600;
+                var termParametar = !String.IsNullOrEmpty(term) ? new SqlParameter("term", term) : new SqlParameter("term", DBNull.Value);
+                returnResult = ctx.Database.SqlQuery<Select2DTO>("EXEC dbo.UnsafeBuildingFacadeCondition_QewiName @term ", termParametar).ToList();
+            }
+            return returnResult;
+        }
+        public List<Select2DTO> GetUnsafeBuildingFacadeConditionQewiBusName(string term)
+        {
+            List<Select2DTO> returnResult = new List<Select2DTO>();
+            using (var ctx = new NYC_Web_Mapping_AppEntities())
+            {
+                ctx.Database.CommandTimeout = 600;
+                var termParametar = !String.IsNullOrEmpty(term) ? new SqlParameter("term", term) : new SqlParameter("term", DBNull.Value);
+                returnResult = ctx.Database.SqlQuery<Select2DTO>("EXEC dbo.UnsafeBuildingFacadeCondition_QewiBusName @term ", termParametar).ToList();
+            }
+            return returnResult;
+        }
+
+        public List<Select2DTO> GetConstructionViolationsRespondentName(string term)
+        {
+            List<Select2DTO> returnResult = new List<Select2DTO>();
+            using (var ctx = new NYC_Web_Mapping_AppEntities())
+            {
+                ctx.Database.CommandTimeout = 600;
+                var termParametar = !String.IsNullOrEmpty(term) ? new SqlParameter("term", term) : new SqlParameter("term", DBNull.Value);
+                returnResult = ctx.Database.SqlQuery<Select2DTO>("EXEC dbo.ConstructionViolations_RespondentName @term ", termParametar).ToList();
+            }
+            return returnResult;
+        }
+
+        public List<Select2DTO> GetDOB_Job_Application_Filings_Address(string term)
+        {
+            List<Select2DTO> returnResult = new List<Select2DTO>();
+            using (var ctx = new NYC_Web_Mapping_AppEntities())
+            {
+                ctx.Database.CommandTimeout = 600;
+                var termParametar = !String.IsNullOrEmpty(term) ? new SqlParameter("term", term) : new SqlParameter("term", DBNull.Value);
+                returnResult = ctx.Database.SqlQuery<Select2DTO>("EXEC dbo.DOB_Job_Application_Filings_Address @term ", termParametar).ToList();
+            }
+            return returnResult;
         }
 
         public string CalculateMD5Hash(string input)

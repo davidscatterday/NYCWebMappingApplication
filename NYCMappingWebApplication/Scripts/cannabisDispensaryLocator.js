@@ -31,6 +31,13 @@ function btnResetCDL() {
     $('.panel-collapse.in').collapse('toggle');
     hideBottomPanel();
     map.setExtent(initExtent);
+
+    $('#divSelectItemsTable').text('');
+    $('#divSelectItemsMessage').hide();
+    $('#divSelectItemsMoreInfo').hide();
+    $('#divSelectItemsCount').hide();
+    $('#btnOpenSaveReport').hide();
+    $('#btnOpenAlerts').hide();
 }
 
 function btnSearchCDL() {

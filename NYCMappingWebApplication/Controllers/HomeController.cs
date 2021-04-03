@@ -433,6 +433,22 @@ namespace NYCMappingWebApp.Controllers
                 csvLine += isHeader ? ",Proposed Occupancy" : "," + elem.Proposed_Occupancy;
             if (elem.Pre_Filing_Date != null)
                 csvLine += isHeader ? ",Filing Date" : "," + elem.Pre_Filing_Date;
+            if (elem.owner_name != null)
+                csvLine += isHeader ? ",Owner Name" : "," + elem.owner_name.Replace(",", string.Empty);
+            if (elem.owner_bus_name != null)
+                csvLine += isHeader ? ",Owner Bus Name" : "," + elem.owner_bus_name.Replace(",", string.Empty);
+            if (elem.qewi_name != null)
+                csvLine += isHeader ? ",Qewi Name" : "," + elem.qewi_name.Replace(",", string.Empty);
+            if (elem.qewi_bus_name != null)
+                csvLine += isHeader ? ",Qewi Bus Name" : "," + elem.qewi_bus_name.Replace(",", string.Empty);
+            if (elem.RESPONDENT_NAME != null)
+                csvLine += isHeader ? ",Respondent Name" : "," + elem.RESPONDENT_NAME.Replace(",", string.Empty);
+            if (elem.LandUse != null)
+                csvLine += isHeader ? ",Land Use" : "," + elem.LandUse.Replace(",", string.Empty);
+            if (elem.VIOLATION_DESCRIPTION != null)
+                csvLine += isHeader ? ",Violation Description" : "," + elem.VIOLATION_DESCRIPTION.Replace(",", string.Empty);
+            if (elem.Owner_Type != null)
+                csvLine += isHeader ? ",Owner Type" : "," + elem.Owner_Type.Replace(",", string.Empty);
             return csvLine;
 
 
@@ -471,20 +487,25 @@ namespace NYCMappingWebApp.Controllers
             var PropertySearchBoroughList = mainDAL.GetPropertySearchBorough(term);
             return Json(new { PropertySearchBoroughList }, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult GetPropertySearchBuildingClass(string term)
+        public JsonResult GetDistinctBuildingClass(string term)
         {
-            var PropertySearchBuildingClassList = mainDAL.GetPropertySearchBuildingClass(term);
+            var PropertySearchBuildingClassList = mainDAL.GetDistinctBuildingClass(term);
             return Json(new { PropertySearchBuildingClassList }, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult GetPropertySearchZoningDistrict(string term)
+        public JsonResult GetDistinctZoningDistrict(string term)
         {
-            var PropertySearchZoningDistrictList = mainDAL.GetPropertySearchZoningDistrict(term);
+            var PropertySearchZoningDistrictList = mainDAL.GetDistinctZoningDistrict(term);
             return Json(new { PropertySearchZoningDistrictList }, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult GetPropertySearchProposedOccupancy(string term)
+        public JsonResult GetDistinctProposedOccupancy(string term)
         {
-            var PropertySearchProposedOccupancyList = mainDAL.GetPropertySearchProposedOccupancy(term);
+            var PropertySearchProposedOccupancyList = mainDAL.GetDistinctProposedOccupancy(term);
             return Json(new { PropertySearchProposedOccupancyList }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetDistinctLandUse(string term)
+        {
+            var LandUseList = mainDAL.GetDistinctLandUse(term);
+            return Json(new { LandUseList }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetBuildingClassInclusionCriteria(string term)
@@ -499,5 +520,47 @@ namespace NYCMappingWebApp.Controllers
             return Json(new { BuildingClassECList }, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetUnsafeBuildingFacadeConditionAddress(string term)
+        {
+            var UnsafeBuildingFacadeConditionAddressList = mainDAL.GetUnsafeBuildingFacadeConditionAddress(term);
+            return Json(new { UnsafeBuildingFacadeConditionAddressList }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetUnsafeBuildingFacadeConditionOwnerName(string term)
+        {
+            var UnsafeBuildingFacadeConditionOwnerNameList = mainDAL.GetUnsafeBuildingFacadeConditionOwnerName(term);
+            return Json(new { UnsafeBuildingFacadeConditionOwnerNameList }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetUnsafeBuildingFacadeConditionOwnerBusName(string term)
+        {
+            var UnsafeBuildingFacadeConditionOwnerBusNameList = mainDAL.GetUnsafeBuildingFacadeConditionOwnerBusName(term);
+            return Json(new { UnsafeBuildingFacadeConditionOwnerBusNameList }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetUnsafeBuildingFacadeConditionFilingStatus(string term)
+        {
+            var UnsafeBuildingFacadeConditionFilingStatusList = mainDAL.GetUnsafeBuildingFacadeConditionFilingStatus(term);
+            return Json(new { UnsafeBuildingFacadeConditionFilingStatusList }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetUnsafeBuildingFacadeConditionQewiName(string term)
+        {
+            var UnsafeBuildingFacadeConditionQewiNameList = mainDAL.GetUnsafeBuildingFacadeConditionQewiName(term);
+            return Json(new { UnsafeBuildingFacadeConditionQewiNameList }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetUnsafeBuildingFacadeConditionQewiBusName(string term)
+        {
+            var UnsafeBuildingFacadeConditionQewiBusNameList = mainDAL.GetUnsafeBuildingFacadeConditionQewiBusName(term);
+            return Json(new { UnsafeBuildingFacadeConditionQewiBusNameList }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetConstructionViolationsRespondentName(string term)
+        {
+            var ConstructionViolationsRespondentNameList = mainDAL.GetConstructionViolationsRespondentName(term);
+            return Json(new { ConstructionViolationsRespondentNameList }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetDOB_Job_Application_Filings_Address(string term)
+        {
+            var AddressList = mainDAL.GetDOB_Job_Application_Filings_Address(term);
+            return Json(new { AddressList }, JsonRequestBehavior.AllowGet);
+        }
     }
 }
