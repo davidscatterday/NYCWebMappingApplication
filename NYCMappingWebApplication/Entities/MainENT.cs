@@ -184,6 +184,21 @@ namespace NYCMappingWebApp.Entities
         public string LandUse { get; set; }
         public string VIOLATION_DESCRIPTION { get; set; }
         public string Owner_Type { get; set; }
+        private DateTime? _issuance_date;
+        public DateTime? issuance_date
+        {
+            get { return _issuance_date; }
+            set
+            {
+                _issuance_date = value;
+
+                issuance_date_string_format = _issuance_date.HasValue ? String.Format("{0:MM/dd/yyyy}", _issuance_date) : "";
+            }
+        }
+        public string issuance_date_string_format { get; set; }
+        public string PermitteName { get; set; }
+        public string permittee_s_business_name { get; set; }
+        public string permittee_s_license_type { get; set; }
     }
 
     public class DatabaseMaxValues

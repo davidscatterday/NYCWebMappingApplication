@@ -1,9 +1,11 @@
 ﻿var maxPropertySearchConstructionFloorArea = 999999999, maxConstructionViolationsBldgArea = 24000000;
 var whereOwnerSearchClause = "";
 var sqlQueryJobPermit = "select ISNULL(bbl_10_digits, 0) AS BBL, j.Job_Type AS job_type, (j.House + ' ' + j.Street_Name) AS Address, j.Borough, j.TOTAL_CONSTRUCTION_FLOOR_AREA, ISNULL(j.BUILDING_CLASS, '') AS BldgClass, ISNULL(j.Zoning_Dist1, '') AS ZoneDist1, ISNULL(j.Proposed_Height, '') AS Proposed_Height, ISNULL(j.Proposed_Occupancy, '') AS Proposed_Occupancy, (j.Owner_s_First_Name + ' ' + j.Owner_s_Last_Name) AS OwnerName, j.Owner_s_Business_Name AS BusinessName, ISNULL(p.permittee_s_business_name, '') AS GeneralContractor, (j.Applicant_s_First_Name + ' ' + j.Applicant_s_Last_Name) AS Architect, j.Pre_Filing_Date from dbo.DOB_Job_Application_Filings j left join dbo.Permit p on j.Job = p.job__ where ";
+var sqlQueryLandSaleDemolition = "select p.bbl_10_digits AS BBL, ps.address AS Address, p.borough AS Borough, building_class_at_present AS BldgClass, ISNULL(year_built, 0) AS YearBuilt, sale_price, sale_date from dbo.Permit p inner join dbo.PropertySales ps on p.bbl_10_digits = ps.bbl where ";
 var sqlQueryUnsafeBuildingFacadeCondition = "select s.bbl_10_digits AS BBL, s.borough, s.address, ISNULL(p.ZoneDist1, '') AS ZoneDist1, ISNULL(p.BldgClass, '') AS BldgClass, ISNULL(p.NumFloors, '') AS NumFloors, ISNULL(p.YearBuilt, '') AS YearBuilt, s.owner_name, s.owner_bus_name, s.filing_date, s.filing_status, s.qewi_name, s.qewi_bus_name from dbo.SafetyFacadesComplianceFilings s left join dbo.Pluto p on s.bbl_10_digits = p.BBL where ";
 var sqlQueryConstructionViolations = "select p.BBL, p.Borough, p.Address, v.RESPONDENT_NAME, v.issue_date, p.BldgClass, p.LandUse, p.BldgArea, p.AssessTot, v.VIOLATION_DESCRIPTION from dbo.EcbViolations v inner join dbo.Pluto p on v.bbl_10_digits = p.BBL where ";
 var sqlQueryPlanApprovalWithNoPermitIssuance = "select j.BBL, j.Borough, j.Address, j.Pre_Filing_Date, j.Zoning_Dist1 AS ZoneDist1, j.Proposed_Occupancy, j.TOTAL_CONSTRUCTION_FLOOR_AREA, j.Owner_Type, (j.Owner_s_First_Name + ' ' + j.Owner_s_Last_Name) AS OwnerName, j.Owner_s_Business_Name AS BusinessName from dbo.DOB_Job_Application_Filings j left join dbo.Permit p on j.BBL = p.bbl_10_digits where ";
+var sqlQueryPermitIssuance = "select p.BBL, p.Address, p.Borough, j.issuance_date, p.ZoneDist1, ISNULL(p.BldgArea, 0) AS BldgArea, ISNULL(p.AssessTot, 0) AS AssessTot, ISNULL(p.OwnerName, '') AS OwnerName, (j.permittee_s_first_name + ' ' + j.permittee_s_last_name) AS PermitteName, j.permittee_s_business_name, j.permittee_s_license_type from dbo.Permit j inner join dbo.Pluto p on j.bbl_10_digits = p.BBL where ";
 $(function () {
     $("#slider-range-PropertySearchConstructionFloorArea").slider({
         range: true,
@@ -76,6 +78,55 @@ $(function () {
     });
     $("#txtPlanApprovalWithNoPermitIssuanceTotalConstructionFloorArea").val($("#slider-range-PlanApprovalWithNoPermitIssuanceTotalConstructionFloorArea").slider("values", 0).toLocaleString('en') +
         " - " + $("#slider-range-PlanApprovalWithNoPermitIssuanceTotalConstructionFloorArea").slider("values", 1).toLocaleString('en'));
+
+    $("#slider-range-NewConstructionPermitIssuanceBldgArea").slider({
+        range: true,
+        min: 0,
+        max: maxConstructionViolationsBldgArea,
+        values: [0, maxConstructionViolationsBldgArea],
+        slide: function (event, ui) {
+            $("#txtNewConstructionPermitIssuanceBldgArea").val(ui.values[0].toLocaleString('en') + " - " + ui.values[1].toLocaleString('en'));
+        }
+    });
+    $("#txtNewConstructionPermitIssuanceBldgArea").val($("#slider-range-NewConstructionPermitIssuanceBldgArea").slider("values", 0).toLocaleString('en') +
+        " - " + $("#slider-range-NewConstructionPermitIssuanceBldgArea").slider("values", 1).toLocaleString('en'));
+
+    $("#slider-range-NewConstructionPermitIssuanceAssessTot").slider({
+        range: true,
+        min: 0,
+        max: maxAssessedTotalValue,
+        values: [0, maxAssessedTotalValue],
+        slide: function (event, ui) {
+            $("#txtNewConstructionPermitIssuanceAssessTot").val("$" + ui.values[0].toLocaleString('en') + " - $" + ui.values[1].toLocaleString('en'));
+        }
+    });
+    $("#txtNewConstructionPermitIssuanceAssessTot").val("$" + $("#slider-range-NewConstructionPermitIssuanceAssessTot").slider("values", 0).toLocaleString('en') +
+        " - $" + $("#slider-range-NewConstructionPermitIssuanceAssessTot").slider("values", 1).toLocaleString('en'));
+
+    $("#slider-range-MajorAlterationPermitIssuanceBldgArea").slider({
+        range: true,
+        min: 0,
+        max: maxConstructionViolationsBldgArea,
+        values: [0, maxConstructionViolationsBldgArea],
+        slide: function (event, ui) {
+            $("#txtMajorAlterationPermitIssuanceBldgArea").val(ui.values[0].toLocaleString('en') + " - " + ui.values[1].toLocaleString('en'));
+        }
+    });
+    $("#txtMajorAlterationPermitIssuanceBldgArea").val($("#slider-range-MajorAlterationPermitIssuanceBldgArea").slider("values", 0).toLocaleString('en') +
+        " - " + $("#slider-range-MajorAlterationPermitIssuanceBldgArea").slider("values", 1).toLocaleString('en'));
+
+    $("#slider-range-MajorAlterationPermitIssuanceAssessTot").slider({
+        range: true,
+        min: 0,
+        max: maxAssessedTotalValue,
+        values: [0, maxAssessedTotalValue],
+        slide: function (event, ui) {
+            $("#txtMajorAlterationPermitIssuanceAssessTot").val("$" + ui.values[0].toLocaleString('en') + " - $" + ui.values[1].toLocaleString('en'));
+        }
+    });
+    $("#txtMajorAlterationPermitIssuanceAssessTot").val("$" + $("#slider-range-MajorAlterationPermitIssuanceAssessTot").slider("values", 0).toLocaleString('en') +
+        " - $" + $("#slider-range-MajorAlterationPermitIssuanceAssessTot").slider("values", 1).toLocaleString('en'));
+
 });
 
 function btnOwnerSearch() {
@@ -259,6 +310,10 @@ function btnResetOwnerSearch() {
     document.getElementById("txtFilingDateFrom").value = "";
     document.getElementById("txtFilingDateTo").value = "";
 
+    document.getElementById("cbSaleDateLSD").checked = false;
+    document.getElementById("txtSaleDateLSDFrom").value = "";
+    document.getElementById("txtSaleDateLSDTo").value = "";
+
     $("#txtUnsafeBuildingFacadeConditionAddress").select2("val", "");
     $("#txtUnsafeBuildingFacadeConditionBorough").select2("val", "");
     $("#txtUnsafeBuildingFacadeConditionZoningDistrict").select2("val", "");
@@ -308,6 +363,44 @@ function btnResetOwnerSearch() {
     $("#slider-range-PlanApprovalWithNoPermitIssuanceTotalConstructionFloorArea").slider("values", 1, maxPropertySearchConstructionFloorArea);
     $("#txtPlanApprovalWithNoPermitIssuanceTotalConstructionFloorArea").val($("#slider-range-PlanApprovalWithNoPermitIssuanceTotalConstructionFloorArea").slider("values", 0) + " - " + $("#slider-range-PlanApprovalWithNoPermitIssuanceTotalConstructionFloorArea").slider("values", 1).toLocaleString('en'));
 
+    $("#txtNewConstructionPermitIssuanceAddress").select2("val", "");
+    $("#txtNewConstructionPermitIssuanceBorough").select2("val", "");
+    $("#txtNewConstructionPermitIssuanceZoningDistrict").select2("val", "");
+    $("#txtNewConstructionPermitIssuanceOwnerName").select2("val", "");
+    $("#txtNewConstructionPermitIssuancePermitteName").select2("val", "");
+    $("#txtNewConstructionPermitIssuancePermitteeBusinessName").select2("val", "");
+    $("#txtNewConstructionPermitIssuancePermitteeLicenseType").select2("val", "");
+    document.getElementById("cbIssuanceDateNCPI").checked = false;
+    document.getElementById("txtIssuanceDateNCPIFrom").value = "";
+    document.getElementById("txtIssuanceDateNCPITo").value = "";
+    document.getElementById("cbNewConstructionPermitIssuanceBldgArea").checked = false;
+    $("#slider-range-NewConstructionPermitIssuanceBldgArea").slider("values", 0, 0);
+    $("#slider-range-NewConstructionPermitIssuanceBldgArea").slider("values", 1, maxConstructionViolationsBldgArea);
+    $("#txtNewConstructionPermitIssuanceBldgArea").val($("#slider-range-NewConstructionPermitIssuanceBldgArea").slider("values", 0) + " - " + $("#slider-range-NewConstructionPermitIssuanceBldgArea").slider("values", 1).toLocaleString('en'));
+    document.getElementById("cbNewConstructionPermitIssuanceAssessTot").checked = false;
+    $("#slider-range-NewConstructionPermitIssuanceAssessTot").slider("values", 0, 0);
+    $("#slider-range-NewConstructionPermitIssuanceAssessTot").slider("values", 1, maxAssessedTotalValue);
+    $("#txtNewConstructionPermitIssuanceAssessTot").val($("#slider-range-NewConstructionPermitIssuanceAssessTot").slider("values", 0) + " - " + $("#slider-range-NewConstructionPermitIssuanceAssessTot").slider("values", 1).toLocaleString('en'));
+
+    $("#txtMajorAlterationPermitIssuanceAddress").select2("val", "");
+    $("#txtMajorAlterationPermitIssuanceBorough").select2("val", "");
+    $("#txtMajorAlterationPermitIssuanceZoningDistrict").select2("val", "");
+    $("#txtMajorAlterationPermitIssuanceOwnerName").select2("val", "");
+    $("#txtMajorAlterationPermitIssuancePermitteName").select2("val", "");
+    $("#txtMajorAlterationPermitIssuancePermitteeBusinessName").select2("val", "");
+    $("#txtMajorAlterationPermitIssuancePermitteeLicenseType").select2("val", "");
+    document.getElementById("cbIssuanceDateMAPI").checked = false;
+    document.getElementById("txtIssuanceDateMAPIFrom").value = "";
+    document.getElementById("txtIssuanceDateMAPITo").value = "";
+    document.getElementById("cbMajorAlterationPermitIssuanceBldgArea").checked = false;
+    $("#slider-range-MajorAlterationPermitIssuanceBldgArea").slider("values", 0, 0);
+    $("#slider-range-MajorAlterationPermitIssuanceBldgArea").slider("values", 1, maxConstructionViolationsBldgArea);
+    $("#txtMajorAlterationPermitIssuanceBldgArea").val($("#slider-range-MajorAlterationPermitIssuanceBldgArea").slider("values", 0) + " - " + $("#slider-range-MajorAlterationPermitIssuanceBldgArea").slider("values", 1).toLocaleString('en'));
+    document.getElementById("cbMajorAlterationPermitIssuanceAssessTot").checked = false;
+    $("#slider-range-MajorAlterationPermitIssuanceAssessTot").slider("values", 0, 0);
+    $("#slider-range-MajorAlterationPermitIssuanceAssessTot").slider("values", 1, maxAssessedTotalValue);
+    $("#txtMajorAlterationPermitIssuanceAssessTot").val($("#slider-range-MajorAlterationPermitIssuanceAssessTot").slider("values", 0) + " - " + $("#slider-range-MajorAlterationPermitIssuanceAssessTot").slider("values", 1).toLocaleString('en'));
+
     $('.panel-collapse.in').collapse('toggle');
     hideBottomPanel();
 
@@ -315,6 +408,81 @@ function btnResetOwnerSearch() {
     selectionLayer.clear();
     districtLayer.clear();
     map.setExtent(initExtent);
+}
+
+function btnOwnerSearchLandSaleDemolition() {
+    lstTableAttributes = [{ name: "Borough", attribute: "Borough", dataset: "OwnerSearch" }, { name: "Address", attribute: "Address", dataset: "OwnerSearch" }
+        , { name: "Building Class", attribute: "BldgClass", dataset: "OwnerSearch" }, { name: "Year Built", attribute: "YearBuilt", dataset: "OwnerSearch" }
+        , { name: "Sale Price", attribute: "sale_price", dataset: "OwnerSearch" }, { name: "Sale Date", attribute: "sale_date", dataset: "OwnerSearch" }];
+    whereOwnerSearchClause = "p.job_type = 'DM'";
+    if (document.getElementById("cbSaleDateLSD").checked == true) {
+        SaleDateLSDFrom = document.getElementById("txtSaleDateLSDFrom").value;
+        SaleDateLSDTo = document.getElementById("txtSaleDateLSDTo").value;
+        if (SaleDateLSDFrom != "" || SaleDateLSDTo != "") {
+            if (whereOwnerSearchClause != "") {
+                whereOwnerSearchClause += " AND ";
+            }
+            if (SaleDateLSDFrom != "" && SaleDateLSDTo != "") {
+                var dFrom = new Date(SaleDateLSDFrom);
+                var yearFrom = dFrom.getFullYear();
+                var monthFrom = dFrom.getMonth() + 1;
+                monthFrom = monthFrom < 10 ? "0" + monthFrom : monthFrom;
+                var dayFrom = dFrom.getDate();
+                dayFrom = dayFrom < 10 ? "0" + dayFrom : dayFrom;
+                var valueFrom = yearFrom + "-" + monthFrom + "-" + dayFrom;
+
+                var dTo = new Date(SaleDateLSDTo);
+                var yearTo = dTo.getFullYear();
+                var monthTo = dTo.getMonth() + 1;
+                monthTo = monthTo < 10 ? "0" + monthTo : monthTo;
+                var dayTo = dTo.getDate();
+                dayTo = dayTo < 10 ? "0" + dayTo : dayTo;
+                var valueTo = yearTo + "-" + monthTo + "-" + dayTo;
+                whereOwnerSearchClause += "ps.sale_date >= '" + valueFrom + "' AND ps.sale_date <= '" + valueTo + "'";
+            }
+            else if (SaleDateLSDFrom != "") {
+                var dFrom = new Date(SaleDateLSDFrom);
+                var yearFrom = dFrom.getFullYear();
+                var monthFrom = dFrom.getMonth() + 1;
+                monthFrom = monthFrom < 10 ? "0" + monthFrom : monthFrom;
+                var dayFrom = dFrom.getDate();
+                dayFrom = dayFrom < 10 ? "0" + dayFrom : dayFrom;
+                var valueFrom = yearFrom + "-" + monthFrom + "-" + dayFrom;
+                whereOwnerSearchClause += "ps.sale_date >= '" + valueFrom + "'";
+            }
+            else if (SaleDateLSDTo != "") {
+                var dTo = new Date(SaleDateLSDTo);
+                var yearTo = dTo.getFullYear();
+                var monthTo = dTo.getMonth() + 1;
+                monthTo = monthTo < 10 ? "0" + monthTo : monthTo;
+                var dayTo = dTo.getDate();
+                dayTo = dayTo < 10 ? "0" + dayTo : dayTo;
+                var valueTo = yearTo + "-" + monthTo + "-" + dayTo;
+                whereOwnerSearchClause += "ps.sale_date <= '" + valueTo + "'";
+            }
+        }
+    }
+    if (whereOwnerSearchClause == "") {
+        swal("Please choose any search criteria");
+    }
+    else {
+        $('#loading').show();
+        sqlQuery = sqlQueryLandSaleDemolition + whereOwnerSearchClause;
+        $.ajax({
+            url: RootUrl + 'Home/SearchDatabase',
+            type: "POST",
+            data: {
+                "sqlQuery": sqlQuery
+            }
+        }).done(function (data) {
+            CreateDatabaseTable(data, true, true);
+            $('#btnOpenAlerts').hide();
+            $('#loading').hide();
+        }).fail(function (f) {
+            $('#loading').hide();
+            swal("Failed to search the query");
+        });
+    }
 }
 
 function btnOwnerSearchUnsafeBuildingFacadeCondition() {
@@ -745,6 +913,330 @@ function btnOwnerSearchPlanApprovalWithNoPermitIssuance() {
     else {
         $('#loading').show();
         sqlQuery = sqlQueryPlanApprovalWithNoPermitIssuance + whereOwnerSearchClause;
+        $.ajax({
+            url: RootUrl + 'Home/SearchDatabase',
+            type: "POST",
+            data: {
+                "sqlQuery": sqlQuery
+            }
+        }).done(function (data) {
+            CreateDatabaseTable(data, true, true);
+            $('#btnOpenAlerts').hide();
+            $('#loading').hide();
+        }).fail(function (f) {
+            $('#loading').hide();
+            swal("Failed to search the query");
+        });
+    }
+}
+
+function btnOwnerSearchNewConstructionPermitIssuance() {
+    lstTableAttributes = [{ name: "Borough", attribute: "Borough", dataset: "OwnerSearch" }, { name: "Address", attribute: "Address", dataset: "OwnerSearch" }
+        , { name: "Permit Issuance date", attribute: "issuance_date", dataset: "OwnerSearch" }, { name: "Zoning District", attribute: "ZoneDist1", dataset: "OwnerSearch" }
+        , { name: "Building Area", attribute: "BldgArea", dataset: "OwnerSearch" }, { name: "Assessed Property Value", attribute: "AssessTot", dataset: "OwnerSearch" }
+        , { name: "Owner Name", attribute: "OwnerName", dataset: "OwnerSearch" }, { name: "Permitte Name", attribute: "PermitteName", dataset: "OwnerSearch" }
+        , { name: "Permittee Business Name", attribute: "permittee_s_business_name", dataset: "OwnerSearch" }, { name: "Permittee License Type", attribute: "permittee_s_license_type", dataset: "OwnerSearch" }];
+    whereOwnerSearchClause = "j.job_type = 'NB'";
+    var NewConstructionPermitIssuanceBldgAreaStart = null, NewConstructionPermitIssuanceBldgAreaEnd = null, NewConstructionPermitIssuanceAssessTotStart = null, NewConstructionPermitIssuanceAssessTotEnd = null;
+    var NewConstructionPermitIssuanceAddress = document.getElementById("txtNewConstructionPermitIssuanceAddress").value;
+    var NewConstructionPermitIssuanceBorough = document.getElementById("txtNewConstructionPermitIssuanceBorough").value;
+    var NewConstructionPermitIssuanceZoningDistrict = document.getElementById("txtNewConstructionPermitIssuanceZoningDistrict").value;
+    var NewConstructionPermitIssuanceOwnerName = document.getElementById("txtNewConstructionPermitIssuanceOwnerName").value;
+    var NewConstructionPermitIssuancePermitteName = document.getElementById("txtNewConstructionPermitIssuancePermitteName").value;
+    var NewConstructionPermitIssuancePermitteeBusinessName = document.getElementById("txtNewConstructionPermitIssuancePermitteeBusinessName").value;
+    var NewConstructionPermitIssuancePermitteeLicenseType = document.getElementById("txtNewConstructionPermitIssuancePermitteeLicenseType").value;
+
+    if (document.getElementById("cbNewConstructionPermitIssuanceBldgArea").checked == true) {
+        NewConstructionPermitIssuanceBldgAreaStart = $("#slider-range-NewConstructionPermitIssuanceBldgArea").slider("values", 0);
+        NewConstructionPermitIssuanceBldgAreaEnd = $("#slider-range-NewConstructionPermitIssuanceBldgArea").slider("values", 1);
+        if (whereOwnerSearchClause == "") {
+            whereOwnerSearchClause = "p.BldgArea >= " + NewConstructionPermitIssuanceBldgAreaStart + " AND p.BldgArea <= " + NewConstructionPermitIssuanceBldgAreaEnd;
+        }
+        else {
+            whereOwnerSearchClause += " AND p.BldgArea >= " + NewConstructionPermitIssuanceBldgAreaStart + " AND p.BldgArea <= " + NewConstructionPermitIssuanceBldgAreaEnd;
+        }
+    }
+    if (document.getElementById("cbNewConstructionPermitIssuanceAssessTot").checked == true) {
+        NewConstructionPermitIssuanceAssessTotStart = $("#slider-range-NewConstructionPermitIssuanceAssessTot").slider("values", 0);
+        NewConstructionPermitIssuanceAssessTotEnd = $("#slider-range-NewConstructionPermitIssuanceAssessTot").slider("values", 1);
+        if (whereOwnerSearchClause == "") {
+            whereOwnerSearchClause = "p.AssessTot >= " + NewConstructionPermitIssuanceAssessTotStart + " AND p.AssessTot <= " + NewConstructionPermitIssuanceAssessTotEnd;
+        }
+        else {
+            whereOwnerSearchClause += " AND p.AssessTot >= " + NewConstructionPermitIssuanceAssessTotStart + " AND p.AssessTot <= " + NewConstructionPermitIssuanceAssessTotEnd;
+        }
+    }
+    if (NewConstructionPermitIssuanceAddress != "") {
+        if (whereOwnerSearchClause == "") {
+            whereOwnerSearchClause = "p.Address IN (" + NewConstructionPermitIssuanceAddress + ")";
+        }
+        else {
+            whereOwnerSearchClause += " AND p.Address IN (" + NewConstructionPermitIssuanceAddress + ")";
+        }
+    }
+    if (NewConstructionPermitIssuanceBorough != "") {
+        if (whereOwnerSearchClause == "") {
+            whereOwnerSearchClause = "p.Borough IN (" + NewConstructionPermitIssuanceBorough + ")";
+        }
+        else {
+            whereOwnerSearchClause += " AND p.Borough IN (" + NewConstructionPermitIssuanceBorough + ")";
+        }
+    }
+    if (NewConstructionPermitIssuanceZoningDistrict != "") {
+        if (whereOwnerSearchClause == "") {
+            whereOwnerSearchClause = "p.ZoneDist1 IN (" + NewConstructionPermitIssuanceZoningDistrict + ")";
+        }
+        else {
+            whereOwnerSearchClause += " AND p.ZoneDist1 IN (" + NewConstructionPermitIssuanceZoningDistrict + ")";
+        }
+    }
+    if (NewConstructionPermitIssuanceOwnerName != "") {
+        if (whereOwnerSearchClause == "") {
+            whereOwnerSearchClause = "p.OwnerName IN (" + NewConstructionPermitIssuanceOwnerName + ")";
+        }
+        else {
+            whereOwnerSearchClause += " AND p.OwnerName IN (" + NewConstructionPermitIssuanceOwnerName + ")";
+        }
+    }
+    if (NewConstructionPermitIssuancePermitteName != "") {
+        if (whereOwnerSearchClause == "") {
+            whereOwnerSearchClause = "j.permittee_s_first_name + ' ' + j.permittee_s_last_name IN (" + NewConstructionPermitIssuancePermitteName + ")";
+        }
+        else {
+            whereOwnerSearchClause += " AND j.permittee_s_first_name + ' ' + j.permittee_s_last_name IN (" + NewConstructionPermitIssuancePermitteName + ")";
+        }
+    }
+    if (NewConstructionPermitIssuancePermitteeBusinessName != "") {
+        if (whereOwnerSearchClause == "") {
+            whereOwnerSearchClause = "j.permittee_s_business_name IN (" + NewConstructionPermitIssuancePermitteeBusinessName + ")";
+        }
+        else {
+            whereOwnerSearchClause += " AND j.permittee_s_business_name IN (" + NewConstructionPermitIssuancePermitteeBusinessName + ")";
+        }
+    }
+    if (NewConstructionPermitIssuancePermitteeLicenseType != "") {
+        if (whereOwnerSearchClause == "") {
+            whereOwnerSearchClause = "j.permittee_s_license_type IN (" + NewConstructionPermitIssuancePermitteeLicenseType + ")";
+        }
+        else {
+            whereOwnerSearchClause += " AND j.permittee_s_license_type IN (" + NewConstructionPermitIssuancePermitteeLicenseType + ")";
+        }
+    }
+    if (document.getElementById("cbIssuanceDateNCPI").checked == true) {
+        IssuanceDateNCPIFrom = document.getElementById("txtIssuanceDateNCPIFrom").value;
+        IssuanceDateNCPITo = document.getElementById("txtIssuanceDateNCPITo").value;
+        if (IssuanceDateNCPIFrom != "" || IssuanceDateNCPITo != "") {
+            if (whereOwnerSearchClause != "") {
+                whereOwnerSearchClause += " AND ";
+            }
+            if (IssuanceDateNCPIFrom != "" && IssuanceDateNCPITo != "") {
+                var dFrom = new Date(IssuanceDateNCPIFrom);
+                var yearFrom = dFrom.getFullYear();
+                var monthFrom = dFrom.getMonth() + 1;
+                monthFrom = monthFrom < 10 ? "0" + monthFrom : monthFrom;
+                var dayFrom = dFrom.getDate();
+                dayFrom = dayFrom < 10 ? "0" + dayFrom : dayFrom;
+                var valueFrom = yearFrom + "-" + monthFrom + "-" + dayFrom;
+
+                var dTo = new Date(IssuanceDateNCPITo);
+                var yearTo = dTo.getFullYear();
+                var monthTo = dTo.getMonth() + 1;
+                monthTo = monthTo < 10 ? "0" + monthTo : monthTo;
+                var dayTo = dTo.getDate();
+                dayTo = dayTo < 10 ? "0" + dayTo : dayTo;
+                var valueTo = yearTo + "-" + monthTo + "-" + dayTo;
+                whereOwnerSearchClause += "j.issuance_date >= '" + valueFrom + "' AND j.issuance_date <= '" + valueTo + "'";
+            }
+            else if (IssuanceDateNCPIFrom != "") {
+                var dFrom = new Date(IssuanceDateNCPIFrom);
+                var yearFrom = dFrom.getFullYear();
+                var monthFrom = dFrom.getMonth() + 1;
+                monthFrom = monthFrom < 10 ? "0" + monthFrom : monthFrom;
+                var dayFrom = dFrom.getDate();
+                dayFrom = dayFrom < 10 ? "0" + dayFrom : dayFrom;
+                var valueFrom = yearFrom + "-" + monthFrom + "-" + dayFrom;
+                whereOwnerSearchClause += "j.issuance_date >= '" + valueFrom + "'";
+            }
+            else if (IssuanceDateNCPITo != "") {
+                var dTo = new Date(IssuanceDateNCPITo);
+                var yearTo = dTo.getFullYear();
+                var monthTo = dTo.getMonth() + 1;
+                monthTo = monthTo < 10 ? "0" + monthTo : monthTo;
+                var dayTo = dTo.getDate();
+                dayTo = dayTo < 10 ? "0" + dayTo : dayTo;
+                var valueTo = yearTo + "-" + monthTo + "-" + dayTo;
+                whereOwnerSearchClause += "j.issuance_date <= '" + valueTo + "'";
+            }
+        }
+    }
+    if (whereOwnerSearchClause == "") {
+        swal("Please choose any search criteria");
+    }
+    else {
+        $('#loading').show();
+        sqlQuery = sqlQueryPermitIssuance + whereOwnerSearchClause;
+        $.ajax({
+            url: RootUrl + 'Home/SearchDatabase',
+            type: "POST",
+            data: {
+                "sqlQuery": sqlQuery
+            }
+        }).done(function (data) {
+            CreateDatabaseTable(data, true, true);
+            $('#btnOpenAlerts').hide();
+            $('#loading').hide();
+        }).fail(function (f) {
+            $('#loading').hide();
+            swal("Failed to search the query");
+        });
+    }
+}
+
+function btnOwnerSearchMajorAlterationPermitIssuance() {
+    lstTableAttributes = [{ name: "Borough", attribute: "Borough", dataset: "OwnerSearch" }, { name: "Address", attribute: "Address", dataset: "OwnerSearch" }
+        , { name: "Permit Issuance date", attribute: "issuance_date", dataset: "OwnerSearch" }, { name: "Zoning District", attribute: "ZoneDist1", dataset: "OwnerSearch" }
+        , { name: "Building Area", attribute: "BldgArea", dataset: "OwnerSearch" }, { name: "Assessed Property Value", attribute: "AssessTot", dataset: "OwnerSearch" }
+        , { name: "Owner Name", attribute: "OwnerName", dataset: "OwnerSearch" }, { name: "Permitte Name", attribute: "PermitteName", dataset: "OwnerSearch" }
+        , { name: "Permittee Business Name", attribute: "permittee_s_business_name", dataset: "OwnerSearch" }, { name: "Permittee License Type", attribute: "permittee_s_license_type", dataset: "OwnerSearch" }];
+    whereOwnerSearchClause = "j.job_type = 'A1'";
+    var MajorAlterationPermitIssuanceBldgAreaStart = null, MajorAlterationPermitIssuanceBldgAreaEnd = null, MajorAlterationPermitIssuanceAssessTotStart = null, MajorAlterationPermitIssuanceAssessTotEnd = null;
+    var MajorAlterationPermitIssuanceAddress = document.getElementById("txtMajorAlterationPermitIssuanceAddress").value;
+    var MajorAlterationPermitIssuanceBorough = document.getElementById("txtMajorAlterationPermitIssuanceBorough").value;
+    var MajorAlterationPermitIssuanceZoningDistrict = document.getElementById("txtMajorAlterationPermitIssuanceZoningDistrict").value;
+    var MajorAlterationPermitIssuanceOwnerName = document.getElementById("txtMajorAlterationPermitIssuanceOwnerName").value;
+    var MajorAlterationPermitIssuancePermitteName = document.getElementById("txtMajorAlterationPermitIssuancePermitteName").value;
+    var MajorAlterationPermitIssuancePermitteeBusinessName = document.getElementById("txtMajorAlterationPermitIssuancePermitteeBusinessName").value;
+    var MajorAlterationPermitIssuancePermitteeLicenseType = document.getElementById("txtMajorAlterationPermitIssuancePermitteeLicenseType").value;
+
+    if (document.getElementById("cbMajorAlterationPermitIssuanceBldgArea").checked == true) {
+        MajorAlterationPermitIssuanceBldgAreaStart = $("#slider-range-MajorAlterationPermitIssuanceBldgArea").slider("values", 0);
+        MajorAlterationPermitIssuanceBldgAreaEnd = $("#slider-range-MajorAlterationPermitIssuanceBldgArea").slider("values", 1);
+        if (whereOwnerSearchClause == "") {
+            whereOwnerSearchClause = "p.BldgArea >= " + MajorAlterationPermitIssuanceBldgAreaStart + " AND p.BldgArea <= " + MajorAlterationPermitIssuanceBldgAreaEnd;
+        }
+        else {
+            whereOwnerSearchClause += " AND p.BldgArea >= " + MajorAlterationPermitIssuanceBldgAreaStart + " AND p.BldgArea <= " + MajorAlterationPermitIssuanceBldgAreaEnd;
+        }
+    }
+    if (document.getElementById("cbMajorAlterationPermitIssuanceAssessTot").checked == true) {
+        MajorAlterationPermitIssuanceAssessTotStart = $("#slider-range-MajorAlterationPermitIssuanceAssessTot").slider("values", 0);
+        MajorAlterationPermitIssuanceAssessTotEnd = $("#slider-range-MajorAlterationPermitIssuanceAssessTot").slider("values", 1);
+        if (whereOwnerSearchClause == "") {
+            whereOwnerSearchClause = "p.AssessTot >= " + MajorAlterationPermitIssuanceAssessTotStart + " AND p.AssessTot <= " + MajorAlterationPermitIssuanceAssessTotEnd;
+        }
+        else {
+            whereOwnerSearchClause += " AND p.AssessTot >= " + MajorAlterationPermitIssuanceAssessTotStart + " AND p.AssessTot <= " + MajorAlterationPermitIssuanceAssessTotEnd;
+        }
+    }
+    if (MajorAlterationPermitIssuanceAddress != "") {
+        if (whereOwnerSearchClause == "") {
+            whereOwnerSearchClause = "p.Address IN (" + MajorAlterationPermitIssuanceAddress + ")";
+        }
+        else {
+            whereOwnerSearchClause += " AND p.Address IN (" + MajorAlterationPermitIssuanceAddress + ")";
+        }
+    }
+    if (MajorAlterationPermitIssuanceBorough != "") {
+        if (whereOwnerSearchClause == "") {
+            whereOwnerSearchClause = "p.Borough IN (" + MajorAlterationPermitIssuanceBorough + ")";
+        }
+        else {
+            whereOwnerSearchClause += " AND p.Borough IN (" + MajorAlterationPermitIssuanceBorough + ")";
+        }
+    }
+    if (MajorAlterationPermitIssuanceZoningDistrict != "") {
+        if (whereOwnerSearchClause == "") {
+            whereOwnerSearchClause = "p.ZoneDist1 IN (" + MajorAlterationPermitIssuanceZoningDistrict + ")";
+        }
+        else {
+            whereOwnerSearchClause += " AND p.ZoneDist1 IN (" + MajorAlterationPermitIssuanceZoningDistrict + ")";
+        }
+    }
+    if (MajorAlterationPermitIssuanceOwnerName != "") {
+        if (whereOwnerSearchClause == "") {
+            whereOwnerSearchClause = "p.OwnerName IN (" + MajorAlterationPermitIssuanceOwnerName + ")";
+        }
+        else {
+            whereOwnerSearchClause += " AND p.OwnerName IN (" + MajorAlterationPermitIssuanceOwnerName + ")";
+        }
+    }
+    if (MajorAlterationPermitIssuancePermitteName != "") {
+        if (whereOwnerSearchClause == "") {
+            whereOwnerSearchClause = "j.permittee_s_first_name + ' ' + j.permittee_s_last_name IN (" + MajorAlterationPermitIssuancePermitteName + ")";
+        }
+        else {
+            whereOwnerSearchClause += " AND j.permittee_s_first_name + ' ' + j.permittee_s_last_name IN (" + MajorAlterationPermitIssuancePermitteName + ")";
+        }
+    }
+    if (MajorAlterationPermitIssuancePermitteeBusinessName != "") {
+        if (whereOwnerSearchClause == "") {
+            whereOwnerSearchClause = "j.permittee_s_business_name IN (" + MajorAlterationPermitIssuancePermitteeBusinessName + ")";
+        }
+        else {
+            whereOwnerSearchClause += " AND j.permittee_s_business_name IN (" + MajorAlterationPermitIssuancePermitteeBusinessName + ")";
+        }
+    }
+    if (MajorAlterationPermitIssuancePermitteeLicenseType != "") {
+        if (whereOwnerSearchClause == "") {
+            whereOwnerSearchClause = "j.permittee_s_license_type IN (" + MajorAlterationPermitIssuancePermitteeLicenseType + ")";
+        }
+        else {
+            whereOwnerSearchClause += " AND j.permittee_s_license_type IN (" + MajorAlterationPermitIssuancePermitteeLicenseType + ")";
+        }
+    }
+    if (document.getElementById("cbIssuanceDateMAPI").checked == true) {
+        IssuanceDateMAPIFrom = document.getElementById("txtIssuanceDateMAPIFrom").value;
+        IssuanceDateMAPITo = document.getElementById("txtIssuanceDateMAPITo").value;
+        if (IssuanceDateMAPIFrom != "" || IssuanceDateMAPITo != "") {
+            if (whereOwnerSearchClause != "") {
+                whereOwnerSearchClause += " AND ";
+            }
+            if (IssuanceDateMAPIFrom != "" && IssuanceDateMAPITo != "") {
+                var dFrom = new Date(IssuanceDateMAPIFrom);
+                var yearFrom = dFrom.getFullYear();
+                var monthFrom = dFrom.getMonth() + 1;
+                monthFrom = monthFrom < 10 ? "0" + monthFrom : monthFrom;
+                var dayFrom = dFrom.getDate();
+                dayFrom = dayFrom < 10 ? "0" + dayFrom : dayFrom;
+                var valueFrom = yearFrom + "-" + monthFrom + "-" + dayFrom;
+
+                var dTo = new Date(IssuanceDateMAPITo);
+                var yearTo = dTo.getFullYear();
+                var monthTo = dTo.getMonth() + 1;
+                monthTo = monthTo < 10 ? "0" + monthTo : monthTo;
+                var dayTo = dTo.getDate();
+                dayTo = dayTo < 10 ? "0" + dayTo : dayTo;
+                var valueTo = yearTo + "-" + monthTo + "-" + dayTo;
+                whereOwnerSearchClause += "j.issuance_date >= '" + valueFrom + "' AND j.issuance_date <= '" + valueTo + "'";
+            }
+            else if (IssuanceDateMAPIFrom != "") {
+                var dFrom = new Date(IssuanceDateMAPIFrom);
+                var yearFrom = dFrom.getFullYear();
+                var monthFrom = dFrom.getMonth() + 1;
+                monthFrom = monthFrom < 10 ? "0" + monthFrom : monthFrom;
+                var dayFrom = dFrom.getDate();
+                dayFrom = dayFrom < 10 ? "0" + dayFrom : dayFrom;
+                var valueFrom = yearFrom + "-" + monthFrom + "-" + dayFrom;
+                whereOwnerSearchClause += "j.issuance_date >= '" + valueFrom + "'";
+            }
+            else if (IssuanceDateMAPITo != "") {
+                var dTo = new Date(IssuanceDateMAPITo);
+                var yearTo = dTo.getFullYear();
+                var monthTo = dTo.getMonth() + 1;
+                monthTo = monthTo < 10 ? "0" + monthTo : monthTo;
+                var dayTo = dTo.getDate();
+                dayTo = dayTo < 10 ? "0" + dayTo : dayTo;
+                var valueTo = yearTo + "-" + monthTo + "-" + dayTo;
+                whereOwnerSearchClause += "j.issuance_date <= '" + valueTo + "'";
+            }
+        }
+    }
+    if (whereOwnerSearchClause == "") {
+        swal("Please choose any search criteria");
+    }
+    else {
+        $('#loading').show();
+        sqlQuery = sqlQueryPermitIssuance + whereOwnerSearchClause;
         $.ajax({
             url: RootUrl + 'Home/SearchDatabase',
             type: "POST",

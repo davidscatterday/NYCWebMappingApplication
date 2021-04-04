@@ -1044,6 +1044,40 @@ namespace NYCMappingWebApp.DataAccessLayer
             return returnResult;
         }
 
+        public List<Select2DTO> GetPermitIssuanceOwnerName(string term)
+        {
+            List<Select2DTO> returnResult = new List<Select2DTO>();
+            using (var ctx = new NYC_Web_Mapping_AppEntities())
+            {
+                ctx.Database.CommandTimeout = 600;
+                var termParametar = !String.IsNullOrEmpty(term) ? new SqlParameter("term", term) : new SqlParameter("term", DBNull.Value);
+                returnResult = ctx.Database.SqlQuery<Select2DTO>("EXEC dbo.Pluto_OwnerName @term ", termParametar).ToList();
+            }
+            return returnResult;
+        }
+        public List<Select2DTO> GetPermitIssuancePermitteName(string term)
+        {
+            List<Select2DTO> returnResult = new List<Select2DTO>();
+            using (var ctx = new NYC_Web_Mapping_AppEntities())
+            {
+                ctx.Database.CommandTimeout = 600;
+                var termParametar = !String.IsNullOrEmpty(term) ? new SqlParameter("term", term) : new SqlParameter("term", DBNull.Value);
+                returnResult = ctx.Database.SqlQuery<Select2DTO>("EXEC dbo.PermitIssuance_PermitteName @term ", termParametar).ToList();
+            }
+            return returnResult;
+        }
+        public List<Select2DTO> GetPermitIssuancePermitteeLicenseType(string term)
+        {
+            List<Select2DTO> returnResult = new List<Select2DTO>();
+            using (var ctx = new NYC_Web_Mapping_AppEntities())
+            {
+                ctx.Database.CommandTimeout = 600;
+                var termParametar = !String.IsNullOrEmpty(term) ? new SqlParameter("term", term) : new SqlParameter("term", DBNull.Value);
+                returnResult = ctx.Database.SqlQuery<Select2DTO>("EXEC dbo.Distinct_GetPermitLicenseType @term ", termParametar).ToList();
+            }
+            return returnResult;
+        }
+
         public string CalculateMD5Hash(string input)
         {
             // step 1, calculate MD5 hash from input

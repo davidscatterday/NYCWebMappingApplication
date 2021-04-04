@@ -158,28 +158,41 @@
                     <div class="panel-body">
                         <div class="form-group">
                             <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
-                                <label>
-                                    Building Class
+                                <label for="cbSaleDateLSD">
+                                    <input id="cbSaleDateLSD" type="checkbox" style="margin-right: 5px">Sale Date
                                 </label>
                             </div>
-                            <div class="col-sm-8" style="padding-left: 0px;">
-                                <input type="text" id="txtLandSaleDemolitionBuildingClass" style="width: 100%;" />
+                            <div class="col-sm-4" style="padding-left: 0px;">
+                                <input type="text" class="date" id="txtSaleDateLSDFrom" style="width: 100%; border: 1px solid;" autocomplete="new-password" />
+                            </div>
+                            <div class="col-sm-4" style="padding-left: 0px;">
+                                <input type="text" class="date" id="txtSaleDateLSDTo" style="width: 100%; border: 1px solid;" autocomplete="new-password" />
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
-                                <label>
-                                    Owner
-                                </label>
-                            </div>
-                            <div class="col-sm-8" style="padding-left: 0px;">
-                                <input type="text" id="txtLandSaleDemolitionOwner" style="width: 100%;" />
-                            </div>
-                        </div>
+                        @*<div class="form-group">
+            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                <label>
+                    Building Class
+                </label>
+            </div>
+            <div class="col-sm-8" style="padding-left: 0px;">
+                <input type="text" id="txtLandSaleDemolitionBuildingClass" style="width: 100%;" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                <label>
+                    Owner
+                </label>
+            </div>
+            <div class="col-sm-8" style="padding-left: 0px;">
+                <input type="text" id="txtLandSaleDemolitionOwner" style="width: 100%;" />
+            </div>
+        </div>*@
                         <div class="form-group text-right" style="margin-top: 10px">
                             <div class="col-sm-12">
                                 <button type="button" class="btn btn-primary btn-sm" onclick="btnOwnerSearchLandSaleDemolition()">Search</button>
-                                <button type="button" class="btn btn-primary btn-sm" onclick="btnResetOwnerSearchLandSaleDemolition()">Reset</button>
+                                <button type="button" class="btn btn-primary btn-sm" onclick="btnResetOwnerSearch()">Reset</button>
                             </div>
                         </div>
                     </div>
@@ -520,6 +533,111 @@
                 </div>
                 <div id="collapse85" class="panel-collapse collapse">
                     <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbIssuanceDateNCPI">
+                                    <input id="cbIssuanceDateNCPI" type="checkbox" style="margin-right: 5px">Permit Issuance Date
+                                </label>
+                            </div>
+                            <div class="col-sm-4" style="padding-left: 0px;">
+                                <input type="text" class="date" id="txtIssuanceDateNCPIFrom" style="width: 100%; border: 1px solid;" autocomplete="new-password" />
+                            </div>
+                            <div class="col-sm-4" style="padding-left: 0px;">
+                                <input type="text" class="date" id="txtIssuanceDateNCPITo" style="width: 100%; border: 1px solid;" autocomplete="new-password" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Address
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtNewConstructionPermitIssuanceAddress" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Borough
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtNewConstructionPermitIssuanceBorough" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Zoning District
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtNewConstructionPermitIssuanceZoningDistrict" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <p id="sliderNewConstructionPermitIssuanceBldgArea" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                    <label for="cbNewConstructionPermitIssuanceBldgArea">
+                                        <input id="cbNewConstructionPermitIssuanceBldgArea" type="checkbox" style="margin-right: 5px">Building Area:
+                                        <input type="text" id="txtNewConstructionPermitIssuanceBldgArea" style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%" onkeyup="txtSlider_KeyUp(this,'NewConstructionPermitIssuanceBldgArea')">
+                                    </label>
+                                </p>
+                                <div id="slider-range-NewConstructionPermitIssuanceBldgArea"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <p id="sliderNewConstructionPermitIssuanceAssessTot" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                    <label for="cbNewConstructionPermitIssuanceAssessTot">
+                                        <input id="cbNewConstructionPermitIssuanceAssessTot" type="checkbox" style="margin-right: 5px">Assessed Total Value:
+                                        <input type="text" id="txtNewConstructionPermitIssuanceAssessTot" style="border:0; color:rgb(213,168,72); font-weight:bold; width: 211px" onkeyup="txtSlider_KeyUp(this,'NewConstructionPermitIssuanceAssessTot')">
+                                    </label>
+                                </p>
+                                <div id="slider-range-NewConstructionPermitIssuanceAssessTot"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Owner Name
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtNewConstructionPermitIssuanceOwnerName" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Permitte Name
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtNewConstructionPermitIssuancePermitteName" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Permittee Business Name
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtNewConstructionPermitIssuancePermitteeBusinessName" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Permittee License Type
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtNewConstructionPermitIssuancePermitteeLicenseType" style="width: 100%;" />
+                            </div>
+                        </div>
                         <div class="form-group text-right" style="margin-top: 10px">
                             <div class="col-sm-12">
                                 <button type="button" class="btn btn-primary btn-sm" onclick="btnOwnerSearchNewConstructionPermitIssuance()">Search</button>
@@ -540,6 +658,111 @@
                 </div>
                 <div id="collapse86" class="panel-collapse collapse">
                     <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbIssuanceDateMAPI">
+                                    <input id="cbIssuanceDateMAPI" type="checkbox" style="margin-right: 5px">Permit Issuance Date
+                                </label>
+                            </div>
+                            <div class="col-sm-4" style="padding-left: 0px;">
+                                <input type="text" class="date" id="txtIssuanceDateMAPIFrom" style="width: 100%; border: 1px solid;" autocomplete="new-password" />
+                            </div>
+                            <div class="col-sm-4" style="padding-left: 0px;">
+                                <input type="text" class="date" id="txtIssuanceDateMAPITo" style="width: 100%; border: 1px solid;" autocomplete="new-password" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Address
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtMajorAlterationPermitIssuanceAddress" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Borough
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtMajorAlterationPermitIssuanceBorough" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Zoning District
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtMajorAlterationPermitIssuanceZoningDistrict" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <p id="sliderMajorAlterationPermitIssuanceBldgArea" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                    <label for="cbMajorAlterationPermitIssuanceBldgArea">
+                                        <input id="cbMajorAlterationPermitIssuanceBldgArea" type="checkbox" style="margin-right: 5px">Building Area:
+                                        <input type="text" id="txtMajorAlterationPermitIssuanceBldgArea" style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%" onkeyup="txtSlider_KeyUp(this,'MajorAlterationPermitIssuanceBldgArea')">
+                                    </label>
+                                </p>
+                                <div id="slider-range-MajorAlterationPermitIssuanceBldgArea"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <p id="sliderMajorAlterationPermitIssuanceAssessTot" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                    <label for="cbMajorAlterationPermitIssuanceAssessTot">
+                                        <input id="cbMajorAlterationPermitIssuanceAssessTot" type="checkbox" style="margin-right: 5px">Assessed Total Value:
+                                        <input type="text" id="txtMajorAlterationPermitIssuanceAssessTot" style="border:0; color:rgb(213,168,72); font-weight:bold; width: 211px" onkeyup="txtSlider_KeyUp(this,'MajorAlterationPermitIssuanceAssessTot')">
+                                    </label>
+                                </p>
+                                <div id="slider-range-MajorAlterationPermitIssuanceAssessTot"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Owner Name
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtMajorAlterationPermitIssuanceOwnerName" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Permitte Name
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtMajorAlterationPermitIssuancePermitteName" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Permittee Business Name
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtMajorAlterationPermitIssuancePermitteeBusinessName" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Permittee License Type
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtMajorAlterationPermitIssuancePermitteeLicenseType" style="width: 100%;" />
+                            </div>
+                        </div>
                         <div class="form-group text-right" style="margin-top: 10px">
                             <div class="col-sm-12">
                                 <button type="button" class="btn btn-primary btn-sm" onclick="btnOwnerSearchMajorAlterationPermitIssuance()">Search</button>
@@ -1137,4 +1360,304 @@
         }
     });
     //#endregion Plan Approval with No Permit Issuance
+
+    //#region New Construction Permit Issuance
+    $("#txtNewConstructionPermitIssuanceAddress").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetTopAddresses',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.AddressList,
+                };
+            }
+        }
+    });
+    $("#txtNewConstructionPermitIssuanceBorough").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetBoroughs',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.BoroughsList,
+                };
+            }
+        }
+    });
+    $("#txtNewConstructionPermitIssuanceZoningDistrict").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetDistinctZoningDistrict',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.PropertySearchZoningDistrictList,
+                };
+            }
+        }
+    });
+    $("#txtNewConstructionPermitIssuanceOwnerName").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetPermitIssuanceOwnerName',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.OwnerNameList,
+                };
+            }
+        }
+    });
+    $("#txtNewConstructionPermitIssuancePermitteName").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetPermitIssuancePermitteName',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.PermitteNameList,
+                };
+            }
+        }
+    });
+    $("#txtNewConstructionPermitIssuancePermitteeBusinessName").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetPersonaTypeSearchGeneralContractor',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.PersonaTypeSearchGeneralContractorList,
+                };
+            }
+        }
+    });
+    $("#txtNewConstructionPermitIssuancePermitteeLicenseType").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetPermitIssuancePermitteeLicenseType',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.PermitteeLicenseTypeList,
+                };
+            }
+        }
+    });
+    //#endregion New Construction Permit Issuance
+
+    //#region Major Alteration Permit Issuance
+    $("#txtMajorAlterationPermitIssuanceAddress").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetTopAddresses',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.AddressList,
+                };
+            }
+        }
+    });
+    $("#txtMajorAlterationPermitIssuanceBorough").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetBoroughs',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.BoroughsList,
+                };
+            }
+        }
+    });
+    $("#txtMajorAlterationPermitIssuanceZoningDistrict").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetDistinctZoningDistrict',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.PropertySearchZoningDistrictList,
+                };
+            }
+        }
+    });
+    $("#txtMajorAlterationPermitIssuanceOwnerName").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetPermitIssuanceOwnerName',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.OwnerNameList,
+                };
+            }
+        }
+    });
+    $("#txtMajorAlterationPermitIssuancePermitteName").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetPermitIssuancePermitteName',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.PermitteNameList,
+                };
+            }
+        }
+    });
+    $("#txtMajorAlterationPermitIssuancePermitteeBusinessName").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetPersonaTypeSearchGeneralContractor',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.PersonaTypeSearchGeneralContractorList,
+                };
+            }
+        }
+    });
+    $("#txtMajorAlterationPermitIssuancePermitteeLicenseType").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetPermitIssuancePermitteeLicenseType',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.PermitteeLicenseTypeList,
+                };
+            }
+        }
+    });
+    //#endregion Major Alteration Permit Issuance
 </script>

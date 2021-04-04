@@ -331,7 +331,9 @@ namespace NYCMappingWebApp.Controllers
         }
         public string CreateCsvLine(DatabaseAttributes elem, bool isHeader)
         {
-            string csvLine = isHeader ? "Borough,Address" : elem.Borough + "," + elem.Address;
+            string borough = elem.Borough != null ? elem.Borough : "";
+            string address = elem.Address != null ? elem.Address.Replace(",", string.Empty) : "";
+            string csvLine = isHeader ? "Borough,Address" : borough + "," + address;
             if (elem.ZipCode != null)
                 csvLine += isHeader ? ",Zip Code" : "," + elem.ZipCode;
             if (elem.Latitude != null)
@@ -449,6 +451,14 @@ namespace NYCMappingWebApp.Controllers
                 csvLine += isHeader ? ",Violation Description" : "," + elem.VIOLATION_DESCRIPTION.Replace(",", string.Empty);
             if (elem.Owner_Type != null)
                 csvLine += isHeader ? ",Owner Type" : "," + elem.Owner_Type.Replace(",", string.Empty);
+            if (elem.issuance_date != null)
+                csvLine += isHeader ? ",Permit Issuance date" : "," + elem.issuance_date_string_format;
+            if (elem.PermitteName != null)
+                csvLine += isHeader ? ",Permitte Name" : "," + elem.PermitteName.Replace(",", string.Empty);
+            if (elem.permittee_s_business_name != null)
+                csvLine += isHeader ? ",Permittee Business Name" : "," + elem.permittee_s_business_name.Replace(",", string.Empty);
+            if (elem.permittee_s_license_type != null)
+                csvLine += isHeader ? ",Permittee License Type" : "," + elem.permittee_s_license_type.Replace(",", string.Empty);
             return csvLine;
 
 
@@ -561,6 +571,22 @@ namespace NYCMappingWebApp.Controllers
         {
             var AddressList = mainDAL.GetDOB_Job_Application_Filings_Address(term);
             return Json(new { AddressList }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetPermitIssuanceOwnerName(string term)
+        {
+            var OwnerNameList = mainDAL.GetPermitIssuanceOwnerName(term);
+            return Json(new { OwnerNameList }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetPermitIssuancePermitteName(string term)
+        {
+            var PermitteNameList = mainDAL.GetPermitIssuancePermitteName(term);
+            return Json(new { PermitteNameList }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetPermitIssuancePermitteeLicenseType(string term)
+        {
+            var PermitteeLicenseTypeList = mainDAL.GetPermitIssuancePermitteeLicenseType(term);
+            return Json(new { PermitteeLicenseTypeList }, JsonRequestBehavior.AllowGet);
         }
     }
 }

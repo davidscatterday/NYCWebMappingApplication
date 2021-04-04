@@ -1616,6 +1616,9 @@ function CreateDatabaseTable(data, zoomTo, clearSelectionLayer) {
                     case "sale_date":
                         value = data[i]["sale_date_string_format"];
                         break;
+                    case "issuance_date":
+                        value = data[i]["issuance_date_string_format"];
+                        break;
                     default:
                         value = data[i][lstTableAttributes[j].attribute];
                         break;
@@ -2278,6 +2281,10 @@ function txtSlider_KeyUp(x, name) {
         case "ConstructionViolationsBldgArea": maxValueTotal = maxConstructionViolationsBldgArea; break
         case "ConstructionViolationsAssessTot": maxValueTotal = maxAssessedTotalValue; break
         case "PlanApprovalWithNoPermitIssuanceTotalConstructionFloorArea": maxValueTotal = maxPropertySearchConstructionFloorArea; break
+        case "NewConstructionPermitIssuanceBldgArea": maxValueTotal = maxConstructionViolationsBldgArea; break
+        case "NewConstructionPermitIssuanceAssessTot": maxValueTotal = maxAssessedTotalValue; break
+        case "MajorAlterationPermitIssuanceBldgArea": maxValueTotal = maxConstructionViolationsBldgArea; break
+        case "MajorAlterationPermitIssuanceAssessTot": maxValueTotal = maxAssessedTotalValue; break
         default: return
     }
     try {
