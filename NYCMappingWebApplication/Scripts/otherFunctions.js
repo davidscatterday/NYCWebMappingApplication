@@ -2285,6 +2285,7 @@ function txtSlider_KeyUp(x, name) {
         case "NewConstructionPermitIssuanceAssessTot": maxValueTotal = maxAssessedTotalValue; break
         case "MajorAlterationPermitIssuanceBldgArea": maxValueTotal = maxConstructionViolationsBldgArea; break
         case "MajorAlterationPermitIssuanceAssessTot": maxValueTotal = maxAssessedTotalValue; break
+        case "LandSaleDemolitionSalePrice": maxValueTotal = maxSalePrice; break
         default: return
     }
     try {

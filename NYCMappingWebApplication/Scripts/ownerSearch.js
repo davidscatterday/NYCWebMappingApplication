@@ -1,7 +1,7 @@
 ﻿var maxPropertySearchConstructionFloorArea = 999999999, maxConstructionViolationsBldgArea = 24000000;
 var whereOwnerSearchClause = "";
 var sqlQueryJobPermit = "select ISNULL(bbl_10_digits, 0) AS BBL, j.Job_Type AS job_type, (j.House + ' ' + j.Street_Name) AS Address, j.Borough, j.TOTAL_CONSTRUCTION_FLOOR_AREA, ISNULL(j.BUILDING_CLASS, '') AS BldgClass, ISNULL(j.Zoning_Dist1, '') AS ZoneDist1, ISNULL(j.Proposed_Height, '') AS Proposed_Height, ISNULL(j.Proposed_Occupancy, '') AS Proposed_Occupancy, (j.Owner_s_First_Name + ' ' + j.Owner_s_Last_Name) AS OwnerName, j.Owner_s_Business_Name AS BusinessName, ISNULL(p.permittee_s_business_name, '') AS GeneralContractor, (j.Applicant_s_First_Name + ' ' + j.Applicant_s_Last_Name) AS Architect, j.Pre_Filing_Date from dbo.DOB_Job_Application_Filings j left join dbo.Permit p on j.Job = p.job__ where ";
-var sqlQueryLandSaleDemolition = "select p.bbl_10_digits AS BBL, ps.address AS Address, p.borough AS Borough, building_class_at_present AS BldgClass, ISNULL(year_built, 0) AS YearBuilt, sale_price, sale_date from dbo.Permit p inner join dbo.PropertySales ps on p.bbl_10_digits = ps.bbl where ";
+var sqlQueryLandSaleDemolition = "select j.BBL, j.Address, j.Borough, j.BUILDING_CLASS AS BldgClass, ISNULL(year_built, 0) AS YearBuilt, sale_price, sale_date, j.Pre_Filing_Date from dbo.DOB_Job_Application_Filings j inner join dbo.PropertySales ps on j.BBL = ps.bbl where ";
 var sqlQueryUnsafeBuildingFacadeCondition = "select s.bbl_10_digits AS BBL, s.borough, s.address, ISNULL(p.ZoneDist1, '') AS ZoneDist1, ISNULL(p.BldgClass, '') AS BldgClass, ISNULL(p.NumFloors, '') AS NumFloors, ISNULL(p.YearBuilt, '') AS YearBuilt, s.owner_name, s.owner_bus_name, s.filing_date, s.filing_status, s.qewi_name, s.qewi_bus_name from dbo.SafetyFacadesComplianceFilings s left join dbo.Pluto p on s.bbl_10_digits = p.BBL where ";
 var sqlQueryConstructionViolations = "select p.BBL, p.Borough, p.Address, v.RESPONDENT_NAME, v.issue_date, p.BldgClass, p.LandUse, p.BldgArea, p.AssessTot, v.VIOLATION_DESCRIPTION from dbo.EcbViolations v inner join dbo.Pluto p on v.bbl_10_digits = p.BBL where ";
 var sqlQueryPlanApprovalWithNoPermitIssuance = "select j.BBL, j.Borough, j.Address, j.Pre_Filing_Date, j.Zoning_Dist1 AS ZoneDist1, j.Proposed_Occupancy, j.TOTAL_CONSTRUCTION_FLOOR_AREA, j.Owner_Type, (j.Owner_s_First_Name + ' ' + j.Owner_s_Last_Name) AS OwnerName, j.Owner_s_Business_Name AS BusinessName from dbo.DOB_Job_Application_Filings j left join dbo.Permit p on j.BBL = p.bbl_10_digits where ";
@@ -18,6 +18,18 @@ $(function () {
     });
     $("#txtPropertySearchConstructionFloorArea").val($("#slider-range-PropertySearchConstructionFloorArea").slider("values", 0).toLocaleString('en') +
         " - " + $("#slider-range-PropertySearchConstructionFloorArea").slider("values", 1).toLocaleString('en'));
+
+    $("#slider-range-LandSaleDemolitionSalePrice").slider({
+        range: true,
+        min: 0,
+        max: maxSalePrice,
+        values: [0, maxSalePrice],
+        slide: function (event, ui) {
+            $("#txtLandSaleDemolitionSalePrice").val(ui.values[0].toLocaleString('en') + " - " + ui.values[1].toLocaleString('en'));
+        }
+    });
+    $("#txtLandSaleDemolitionSalePrice").val($("#slider-range-LandSaleDemolitionSalePrice").slider("values", 0).toLocaleString('en') +
+        " - " + $("#slider-range-LandSaleDemolitionSalePrice").slider("values", 1).toLocaleString('en'));
 
     $("#slider-range-UnsafeBuildingFacadeConditionNumFloors").slider({
         range: true,
@@ -313,6 +325,13 @@ function btnResetOwnerSearch() {
     document.getElementById("cbSaleDateLSD").checked = false;
     document.getElementById("txtSaleDateLSDFrom").value = "";
     document.getElementById("txtSaleDateLSDTo").value = "";
+    document.getElementById("cbFilingDateLSD").checked = false;
+    document.getElementById("txtFilingDateLSDFrom").value = "";
+    document.getElementById("txtFilingDateLSDTo").value = "";
+    document.getElementById("cbLandSaleDemolitionSalePrice").checked = false;
+    $("#slider-range-LandSaleDemolitionSalePrice").slider("values", 0, 0);
+    $("#slider-range-LandSaleDemolitionSalePrice").slider("values", 1, maxSalePrice);
+    $("#txtLandSaleDemolitionSalePrice").val($("#slider-range-LandSaleDemolitionSalePrice").slider("values", 0) + " - " + $("#slider-range-LandSaleDemolitionSalePrice").slider("values", 1).toLocaleString('en'));
 
     $("#txtUnsafeBuildingFacadeConditionAddress").select2("val", "");
     $("#txtUnsafeBuildingFacadeConditionBorough").select2("val", "");
@@ -413,8 +432,9 @@ function btnResetOwnerSearch() {
 function btnOwnerSearchLandSaleDemolition() {
     lstTableAttributes = [{ name: "Borough", attribute: "Borough", dataset: "OwnerSearch" }, { name: "Address", attribute: "Address", dataset: "OwnerSearch" }
         , { name: "Building Class", attribute: "BldgClass", dataset: "OwnerSearch" }, { name: "Year Built", attribute: "YearBuilt", dataset: "OwnerSearch" }
-        , { name: "Sale Price", attribute: "sale_price", dataset: "OwnerSearch" }, { name: "Sale Date", attribute: "sale_date", dataset: "OwnerSearch" }];
-    whereOwnerSearchClause = "p.job_type = 'DM'";
+        , { name: "Sale Price", attribute: "sale_price", dataset: "OwnerSearch" }, { name: "Sale Date", attribute: "sale_date", dataset: "OwnerSearch" }
+        , { name: "Filling Date", attribute: "Pre_Filing_Date", dataset: "OwnerSearch" }];
+    whereOwnerSearchClause = "j.job_type = 'DM'";
     if (document.getElementById("cbSaleDateLSD").checked == true) {
         SaleDateLSDFrom = document.getElementById("txtSaleDateLSDFrom").value;
         SaleDateLSDTo = document.getElementById("txtSaleDateLSDTo").value;
@@ -460,6 +480,63 @@ function btnOwnerSearchLandSaleDemolition() {
                 var valueTo = yearTo + "-" + monthTo + "-" + dayTo;
                 whereOwnerSearchClause += "ps.sale_date <= '" + valueTo + "'";
             }
+        }
+    }
+    if (document.getElementById("cbFilingDateLSD").checked == true) {
+        FilingDateLSDFrom = document.getElementById("txtFilingDateLSDFrom").value;
+        FilingDateLSDTo = document.getElementById("txtFilingDateLSDTo").value;
+        if (FilingDateLSDFrom != "" || FilingDateLSDTo != "") {
+            if (whereOwnerSearchClause != "") {
+                whereOwnerSearchClause += " AND ";
+            }
+            if (FilingDateLSDFrom != "" && FilingDateLSDTo != "") {
+                var dFrom = new Date(FilingDateLSDFrom);
+                var yearFrom = dFrom.getFullYear();
+                var monthFrom = dFrom.getMonth() + 1;
+                monthFrom = monthFrom < 10 ? "0" + monthFrom : monthFrom;
+                var dayFrom = dFrom.getDate();
+                dayFrom = dayFrom < 10 ? "0" + dayFrom : dayFrom;
+                var valueFrom = yearFrom + "-" + monthFrom + "-" + dayFrom;
+
+                var dTo = new Date(FilingDateLSDTo);
+                var yearTo = dTo.getFullYear();
+                var monthTo = dTo.getMonth() + 1;
+                monthTo = monthTo < 10 ? "0" + monthTo : monthTo;
+                var dayTo = dTo.getDate();
+                dayTo = dayTo < 10 ? "0" + dayTo : dayTo;
+                var valueTo = yearTo + "-" + monthTo + "-" + dayTo;
+                whereOwnerSearchClause += "Cast(j.Pre_Filing_Date AS DATE) >= '" + valueFrom + "' AND Cast(j.Pre_Filing_Date AS DATE) <= '" + valueTo + "'";
+            }
+            else if (FilingDateLSDFrom != "") {
+                var dFrom = new Date(FilingDateLSDFrom);
+                var yearFrom = dFrom.getFullYear();
+                var monthFrom = dFrom.getMonth() + 1;
+                monthFrom = monthFrom < 10 ? "0" + monthFrom : monthFrom;
+                var dayFrom = dFrom.getDate();
+                dayFrom = dayFrom < 10 ? "0" + dayFrom : dayFrom;
+                var valueFrom = yearFrom + "-" + monthFrom + "-" + dayFrom;
+                whereOwnerSearchClause += "Cast(j.Pre_Filing_Date AS DATE) >= '" + valueFrom + "'";
+            }
+            else if (FilingDateLSDTo != "") {
+                var dTo = new Date(FilingDateLSDTo);
+                var yearTo = dTo.getFullYear();
+                var monthTo = dTo.getMonth() + 1;
+                monthTo = monthTo < 10 ? "0" + monthTo : monthTo;
+                var dayTo = dTo.getDate();
+                dayTo = dayTo < 10 ? "0" + dayTo : dayTo;
+                var valueTo = yearTo + "-" + monthTo + "-" + dayTo;
+                whereOwnerSearchClause += "Cast(j.Pre_Filing_Date AS DATE) <= '" + valueTo + "'";
+            }
+        }
+    }
+    if (document.getElementById("cbLandSaleDemolitionSalePrice").checked == true) {
+        LandSaleDemolitionSalePriceStart = $("#slider-range-LandSaleDemolitionSalePrice").slider("values", 0);
+        LandSaleDemolitionSalePriceEnd = $("#slider-range-LandSaleDemolitionSalePrice").slider("values", 1);
+        if (whereOwnerSearchClause == "") {
+            whereOwnerSearchClause = "Cast(sale_price AS money) >= " + LandSaleDemolitionSalePriceStart + " AND Cast(sale_price AS money) <= " + LandSaleDemolitionSalePriceEnd;
+        }
+        else {
+            whereOwnerSearchClause += " AND Cast(sale_price AS money) >= " + LandSaleDemolitionSalePriceStart + " AND Cast(sale_price AS money) <= " + LandSaleDemolitionSalePriceEnd;
         }
     }
     if (whereOwnerSearchClause == "") {

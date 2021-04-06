@@ -169,6 +169,30 @@
                                 <input type="text" class="date" id="txtSaleDateLSDTo" style="width: 100%; border: 1px solid;" autocomplete="new-password" />
                             </div>
                         </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbFilingDateLSD">
+                                    <input id="cbFilingDateLSD" type="checkbox" style="margin-right: 5px">Filling Date
+                                </label>
+                            </div>
+                            <div class="col-sm-4" style="padding-left: 0px;">
+                                <input type="text" class="date" id="txtFilingDateLSDFrom" style="width: 100%; border: 1px solid;" autocomplete="new-password" />
+                            </div>
+                            <div class="col-sm-4" style="padding-left: 0px;">
+                                <input type="text" class="date" id="txtFilingDateLSDTo" style="width: 100%; border: 1px solid;" autocomplete="new-password" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <p id="sliderLandSaleDemolitionSalePrice" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                    <label for="cbLandSaleDemolitionSalePrice">
+                                        <input id="cbLandSaleDemolitionSalePrice" type="checkbox" style="margin-right: 5px">Sale Price:
+                                        <input type="text" id="txtLandSaleDemolitionSalePrice" style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%" onkeyup="txtSlider_KeyUp(this,'LandSaleDemolitionSalePrice')">
+                                    </label>
+                                </p>
+                                <div id="slider-range-LandSaleDemolitionSalePrice"></div>
+                            </div>
+                        </div>
                         @*<div class="form-group">
             <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
                 <label>
