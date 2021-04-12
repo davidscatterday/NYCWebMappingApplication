@@ -218,7 +218,8 @@ function btnSearchHeatMapPropertySales() {
                             "sqlQuery": sqlQuery
                         }
                     }).done(function (data) {
-                        CreateDatabaseTable(data, true, true);
+                        showAlerts = false;
+                        CreateDatabaseTable(data, false, true, data.length);
                     }).fail(function (f) {
                         $('#loading').hide();
                         swal("Failed to search the query");
@@ -300,12 +301,7 @@ function btnResetHeatMap() {
     document.getElementById("txtHmEcbViolationsAnalysisPeriod").value = "";
     document.getElementById("numHmEcbViolationsBasePeriod").value = "15";
     document.getElementById("numHmEcbViolationsAnalysisPeriod").value = "15";
-
-    document.getElementById("rbHeatMapPermitsNewBuilding").checked = true;
-    document.getElementById("rbHeatMapPermitsDemolition").checked = false;
-    document.getElementById("rbHeatMapPermitsAlterationType1").checked = false;
-    document.getElementById("rbHeatMapPermitsAlterationType2").checked = false;
-    document.getElementById("rbHeatMapPermitsAlterationType3").checked = false;
+    
     $("#txtPermitWorkTypes").select2("val", "");
     document.getElementById("txtHmPermitsBasePeriod").value = "";
     document.getElementById("txtHmPermitsAnalysisPeriod").value = "";
@@ -521,7 +517,8 @@ function btnSearchHeatMapViolations(StoredProcedure) {
                             "sqlQuery": sqlQuery
                         }
                     }).done(function (data) {
-                        CreateDatabaseTable(data, false, true);
+                        showAlerts = false;
+                        CreateDatabaseTable(data, false, true, data.length);
                         $('#loading').hide();
                     }).fail(function (f) {
                         $('#loading').hide();
@@ -728,7 +725,8 @@ function btnSearchHeatMapPermits() {
                             "sqlQuery": sqlQuery
                         }
                     }).done(function (data) {
-                        CreateDatabaseTable(data, false, true);
+                        showAlerts = false;
+                        CreateDatabaseTable(data, false, true, data.length);
                         $('#loading').hide();
                     }).fail(function (f) {
                         $('#loading').hide();

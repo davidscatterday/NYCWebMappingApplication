@@ -184,6 +184,7 @@
     <Compile Include="DataAccessLayer\AppUserDAL.cs" />
     <Compile Include="DataAccessLayer\MainDAL.cs" />
     <Compile Include="DataAccessLayer\OwnerAnalysisDAL.cs" />
+    <Compile Include="DataAccessLayer\RestDAL.cs" />
     <Compile Include="DataAccessLayer\UserDAL.cs" />
     <Compile Include="Entities\AppUsersENT.cs" />
     <Compile Include="Entities\MainENT.cs" />

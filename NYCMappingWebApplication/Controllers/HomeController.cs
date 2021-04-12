@@ -588,5 +588,17 @@ namespace NYCMappingWebApp.Controllers
             var PermitteeLicenseTypeList = mainDAL.GetPermitIssuancePermitteeLicenseType(term);
             return Json(new { PermitteeLicenseTypeList }, JsonRequestBehavior.AllowGet);
         }
+        
+        public JsonResult SearchDatabaseTopRecords(string sqlQuery, string sqlQueryTotalRecords)
+        {
+            var data = mainDAL.SearchDatabaseTopRecords(sqlQuery, sqlQueryTotalRecords);
+
+            return new JsonResult()
+            {
+                Data = data,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                MaxJsonLength = Int32.MaxValue
+            };
+        }
     }
 }

@@ -211,12 +211,12 @@ function CallCreateTable() {
         data.push({ BBL: selectionLayer.graphics[i].attributes.BBL, Borough: selectionLayer.graphics[i].attributes.Borough, Address: selectionLayer.graphics[i].attributes.Address, BldgClass: selectionLayer.graphics[i].attributes.BldgClass });
     }
     lstTableAttributes = [{ name: 'Borough', attribute: "Borough", dataset: "Pluto" }, { name: 'Address', attribute: "Address", dataset: "Pluto" }, { name: 'Building Class', attribute: "BldgClass", dataset: "Pluto" }];
-    CreateDatabaseTable(data, false, false);
+    showAlerts = false;
+    CreateDatabaseTable(data, false, false, data.length);
     var commaSeparatedBBLs = data.map(function (elem) {
         return "'" + elem.BBL + "'";
     }).join(",");
     sqlQuery = "SELECT Borough,Address,BldgClass FROM dbo.Pluto WHERE BBL IN (" + commaSeparatedBBLs + ")";
-    $('#btnOpenAlerts').hide();
 }
 
 function activateSelectionToolCDL(tool, bth) {

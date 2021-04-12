@@ -193,26 +193,47 @@
                                 <div id="slider-range-LandSaleDemolitionSalePrice"></div>
                             </div>
                         </div>
-                        @*<div class="form-group">
-            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
-                <label>
-                    Building Class
-                </label>
-            </div>
-            <div class="col-sm-8" style="padding-left: 0px;">
-                <input type="text" id="txtLandSaleDemolitionBuildingClass" style="width: 100%;" />
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
-                <label>
-                    Owner
-                </label>
-            </div>
-            <div class="col-sm-8" style="padding-left: 0px;">
-                <input type="text" id="txtLandSaleDemolitionOwner" style="width: 100%;" />
-            </div>
-        </div>*@
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <p id="sliderLandSaleDemolitionYearBuilt" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                    <label for="cbLandSaleDemolitionYearBuilt">
+                                        <input id="cbLandSaleDemolitionYearBuilt" type="checkbox" style="margin-right: 5px">Year Built:
+                                        <input type="text" id="txtLandSaleDemolitionYearBuilt" style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%" onkeyup="txtSlider_KeyUp(this,'LandSaleDemolitionYearBuilt')">
+                                    </label>
+                                </p>
+                                <div id="slider-range-LandSaleDemolitionYearBuilt"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Address
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtLandSaleDemolitionAddress" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Building Class
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtLandSaleDemolitionBuildingClass" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Owner
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtLandSaleDemolitionOwner" style="width: 100%;" />
+                            </div>
+                        </div>
                         <div class="form-group text-right" style="margin-top: 10px">
                             <div class="col-sm-12">
                                 <button type="button" class="btn btn-primary btn-sm" onclick="btnOwnerSearchLandSaleDemolition()">Search</button>
@@ -975,6 +996,27 @@
     //#endregion Property Search
 
     //#region Land Sale Demolition
+    $("#txtLandSaleDemolitionAddress").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetDOB_Job_Application_Filings_Address',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.AddressList,
+                };
+            }
+        }
+    });
     $("#txtLandSaleDemolitionBuildingClass").select2({
         minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
         width: '100%',   // to adjust proper width of select2 wrapped elements

@@ -1,11 +1,18 @@
 ﻿var maxPropertySearchConstructionFloorArea = 999999999, maxConstructionViolationsBldgArea = 24000000;
 var whereOwnerSearchClause = "";
 var sqlQueryJobPermit = "select ISNULL(bbl_10_digits, 0) AS BBL, j.Job_Type AS job_type, (j.House + ' ' + j.Street_Name) AS Address, j.Borough, j.TOTAL_CONSTRUCTION_FLOOR_AREA, ISNULL(j.BUILDING_CLASS, '') AS BldgClass, ISNULL(j.Zoning_Dist1, '') AS ZoneDist1, ISNULL(j.Proposed_Height, '') AS Proposed_Height, ISNULL(j.Proposed_Occupancy, '') AS Proposed_Occupancy, (j.Owner_s_First_Name + ' ' + j.Owner_s_Last_Name) AS OwnerName, j.Owner_s_Business_Name AS BusinessName, ISNULL(p.permittee_s_business_name, '') AS GeneralContractor, (j.Applicant_s_First_Name + ' ' + j.Applicant_s_Last_Name) AS Architect, j.Pre_Filing_Date from dbo.DOB_Job_Application_Filings j left join dbo.Permit p on j.Job = p.job__ where ";
-var sqlQueryLandSaleDemolition = "select j.BBL, j.Address, j.Borough, j.BUILDING_CLASS AS BldgClass, ISNULL(year_built, 0) AS YearBuilt, sale_price, sale_date, j.Pre_Filing_Date from dbo.DOB_Job_Application_Filings j inner join dbo.PropertySales ps on j.BBL = ps.bbl where ";
+var sqlQueryLandSaleDemolition = "select j.BBL, j.Address, j.Borough, ISNULL(j.BUILDING_CLASS, '') AS BldgClass, ISNULL(year_built, 0) AS YearBuilt, sale_price, sale_date, j.Pre_Filing_Date, (j.Owner_s_First_Name + ' ' + j.Owner_s_Last_Name) AS OwnerName, j.Owner_s_Business_Name AS BusinessName from dbo.DOB_Job_Application_Filings j inner join dbo.PropertySales ps on j.BBL = ps.bbl where ";
 var sqlQueryUnsafeBuildingFacadeCondition = "select s.bbl_10_digits AS BBL, s.borough, s.address, ISNULL(p.ZoneDist1, '') AS ZoneDist1, ISNULL(p.BldgClass, '') AS BldgClass, ISNULL(p.NumFloors, '') AS NumFloors, ISNULL(p.YearBuilt, '') AS YearBuilt, s.owner_name, s.owner_bus_name, s.filing_date, s.filing_status, s.qewi_name, s.qewi_bus_name from dbo.SafetyFacadesComplianceFilings s left join dbo.Pluto p on s.bbl_10_digits = p.BBL where ";
 var sqlQueryConstructionViolations = "select p.BBL, p.Borough, p.Address, v.RESPONDENT_NAME, v.issue_date, p.BldgClass, p.LandUse, p.BldgArea, p.AssessTot, v.VIOLATION_DESCRIPTION from dbo.EcbViolations v inner join dbo.Pluto p on v.bbl_10_digits = p.BBL where ";
 var sqlQueryPlanApprovalWithNoPermitIssuance = "select j.BBL, j.Borough, j.Address, j.Pre_Filing_Date, j.Zoning_Dist1 AS ZoneDist1, j.Proposed_Occupancy, j.TOTAL_CONSTRUCTION_FLOOR_AREA, j.Owner_Type, (j.Owner_s_First_Name + ' ' + j.Owner_s_Last_Name) AS OwnerName, j.Owner_s_Business_Name AS BusinessName from dbo.DOB_Job_Application_Filings j left join dbo.Permit p on j.BBL = p.bbl_10_digits where ";
 var sqlQueryPermitIssuance = "select p.BBL, p.Address, p.Borough, j.issuance_date, p.ZoneDist1, ISNULL(p.BldgArea, 0) AS BldgArea, ISNULL(p.AssessTot, 0) AS AssessTot, ISNULL(p.OwnerName, '') AS OwnerName, (j.permittee_s_first_name + ' ' + j.permittee_s_last_name) AS PermitteName, j.permittee_s_business_name, j.permittee_s_license_type from dbo.Permit j inner join dbo.Pluto p on j.bbl_10_digits = p.BBL where ";
+
+var sqlQueryJobPermitTotalRecords = "select count(*) from dbo.DOB_Job_Application_Filings j left join dbo.Permit p on j.Job = p.job__ where ";
+var sqlQueryLandSaleDemolitionTotalRecords = "select count(*) from dbo.DOB_Job_Application_Filings j inner join dbo.PropertySales ps on j.BBL = ps.bbl where ";
+var sqlQueryUnsafeBuildingFacadeConditionTotalRecords = "select count(*) from dbo.SafetyFacadesComplianceFilings s left join dbo.Pluto p on s.bbl_10_digits = p.BBL where ";
+var sqlQueryConstructionViolationsTotalRecords = "select count(*) from dbo.EcbViolations v inner join dbo.Pluto p on v.bbl_10_digits = p.BBL where ";
+var sqlQueryPlanApprovalWithNoPermitIssuanceTotalRecords = "select count(*) from dbo.DOB_Job_Application_Filings j left join dbo.Permit p on j.BBL = p.bbl_10_digits where ";
+var sqlQueryPermitIssuanceTotalRecords = "select count(*) from dbo.Permit j inner join dbo.Pluto p on j.bbl_10_digits = p.BBL where ";
 $(function () {
     $("#slider-range-PropertySearchConstructionFloorArea").slider({
         range: true,
@@ -30,6 +37,18 @@ $(function () {
     });
     $("#txtLandSaleDemolitionSalePrice").val($("#slider-range-LandSaleDemolitionSalePrice").slider("values", 0).toLocaleString('en') +
         " - " + $("#slider-range-LandSaleDemolitionSalePrice").slider("values", 1).toLocaleString('en'));
+
+    $("#slider-range-LandSaleDemolitionYearBuilt").slider({
+        range: true,
+        min: 1650,
+        max: new Date().getFullYear(),
+        values: [1650, new Date().getFullYear()],
+        slide: function (event, ui) {
+            $("#txtLandSaleDemolitionYearBuilt").val(ui.values[0] + " - " + ui.values[1]);
+        }
+    });
+    $("#txtLandSaleDemolitionYearBuilt").val($("#slider-range-LandSaleDemolitionYearBuilt").slider("values", 0) +
+        " - " + $("#slider-range-LandSaleDemolitionYearBuilt").slider("values", 1));
 
     $("#slider-range-UnsafeBuildingFacadeConditionNumFloors").slider({
         range: true,
@@ -287,15 +306,17 @@ function btnOwnerSearch() {
     else {
         $('#loading').show();
         sqlQuery = sqlQueryJobPermit + whereOwnerSearchClause;
+        sqlQueryTotalRecords = sqlQueryJobPermitTotalRecords + whereOwnerSearchClause;
         $.ajax({
-            url: RootUrl + 'Home/SearchDatabase',
+            url: RootUrl + 'Home/SearchDatabaseTopRecords',
             type: "POST",
             data: {
-                "sqlQuery": sqlQuery
+                "sqlQuery": sqlQuery,
+                "sqlQueryTotalRecords": sqlQueryTotalRecords
             }
         }).done(function (data) {
-            CreateDatabaseTable(data, true, true);
-            $('#btnOpenAlerts').hide();
+            showAlerts = false;
+            CreateDatabaseTable(data.attributes, true, true, data.totalRecords);
             $('#loading').hide();
         }).fail(function (f) {
             $('#loading').hide();
@@ -322,6 +343,9 @@ function btnResetOwnerSearch() {
     document.getElementById("txtFilingDateFrom").value = "";
     document.getElementById("txtFilingDateTo").value = "";
 
+    $("#txtLandSaleDemolitionAddress").select2("val", "");
+    $("#txtLandSaleDemolitionBuildingClass").select2("val", "");
+    $("#txtLandSaleDemolitionOwner").select2("val", "");
     document.getElementById("cbSaleDateLSD").checked = false;
     document.getElementById("txtSaleDateLSDFrom").value = "";
     document.getElementById("txtSaleDateLSDTo").value = "";
@@ -332,6 +356,10 @@ function btnResetOwnerSearch() {
     $("#slider-range-LandSaleDemolitionSalePrice").slider("values", 0, 0);
     $("#slider-range-LandSaleDemolitionSalePrice").slider("values", 1, maxSalePrice);
     $("#txtLandSaleDemolitionSalePrice").val($("#slider-range-LandSaleDemolitionSalePrice").slider("values", 0) + " - " + $("#slider-range-LandSaleDemolitionSalePrice").slider("values", 1).toLocaleString('en'));
+    document.getElementById("cbLandSaleDemolitionYearBuilt").checked = false;
+    $("#slider-range-LandSaleDemolitionYearBuilt").slider("values", 0, 0);
+    $("#slider-range-LandSaleDemolitionYearBuilt").slider("values", 1, maxSalePrice);
+    $("#txtLandSaleDemolitionYearBuilt").val($("#slider-range-LandSaleDemolitionYearBuilt").slider("values", 0) + " - " + $("#slider-range-LandSaleDemolitionYearBuilt").slider("values", 1).toLocaleString('en'));
 
     $("#txtUnsafeBuildingFacadeConditionAddress").select2("val", "");
     $("#txtUnsafeBuildingFacadeConditionBorough").select2("val", "");
@@ -433,8 +461,36 @@ function btnOwnerSearchLandSaleDemolition() {
     lstTableAttributes = [{ name: "Borough", attribute: "Borough", dataset: "OwnerSearch" }, { name: "Address", attribute: "Address", dataset: "OwnerSearch" }
         , { name: "Building Class", attribute: "BldgClass", dataset: "OwnerSearch" }, { name: "Year Built", attribute: "YearBuilt", dataset: "OwnerSearch" }
         , { name: "Sale Price", attribute: "sale_price", dataset: "OwnerSearch" }, { name: "Sale Date", attribute: "sale_date", dataset: "OwnerSearch" }
+        , { name: "Owner Name", attribute: "OwnerName", dataset: "OwnerSearch" }, { name: "Business Name", attribute: "BusinessName", dataset: "OwnerSearch" }
         , { name: "Filling Date", attribute: "Pre_Filing_Date", dataset: "OwnerSearch" }];
     whereOwnerSearchClause = "j.job_type = 'DM'";
+    var LandSaleDemolitionAddress = document.getElementById("txtLandSaleDemolitionAddress").value;
+    var LandSaleDemolitionBuildingClass = document.getElementById("txtLandSaleDemolitionBuildingClass").value;
+    var LandSaleDemolitionOwner = document.getElementById("txtLandSaleDemolitionOwner").value;
+    if (LandSaleDemolitionAddress != "") {
+        if (whereOwnerSearchClause == "") {
+            whereOwnerSearchClause = "j.Address IN (" + LandSaleDemolitionAddress + ")";
+        }
+        else {
+            whereOwnerSearchClause += " AND j.Address IN (" + LandSaleDemolitionAddress + ")";
+        }
+    }
+    if (LandSaleDemolitionBuildingClass != "") {
+        if (whereOwnerSearchClause == "") {
+            whereOwnerSearchClause = "j.BUILDING_CLASS IN (" + LandSaleDemolitionBuildingClass + ")";
+        }
+        else {
+            whereOwnerSearchClause += " AND j.BUILDING_CLASS IN (" + LandSaleDemolitionBuildingClass + ")";
+        }
+    }
+    if (LandSaleDemolitionOwner != "") {
+        if (whereOwnerSearchClause == "") {
+            whereOwnerSearchClause = "(j.Owner_s_First_Name + ' ' + j.Owner_s_Last_Name IN (" + LandSaleDemolitionOwner + ") OR j.Owner_s_Business_Name IN (" + LandSaleDemolitionOwner + "))";
+        }
+        else {
+            whereOwnerSearchClause += " AND (j.Owner_s_First_Name + ' ' + j.Owner_s_Last_Name IN (" + LandSaleDemolitionOwner + ") OR j.Owner_s_Business_Name IN (" + LandSaleDemolitionOwner + "))";
+        }
+    }
     if (document.getElementById("cbSaleDateLSD").checked == true) {
         SaleDateLSDFrom = document.getElementById("txtSaleDateLSDFrom").value;
         SaleDateLSDTo = document.getElementById("txtSaleDateLSDTo").value;
@@ -539,21 +595,33 @@ function btnOwnerSearchLandSaleDemolition() {
             whereOwnerSearchClause += " AND Cast(sale_price AS money) >= " + LandSaleDemolitionSalePriceStart + " AND Cast(sale_price AS money) <= " + LandSaleDemolitionSalePriceEnd;
         }
     }
+    if (document.getElementById("cbLandSaleDemolitionYearBuilt").checked == true) {
+        LandSaleDemolitionYearBuiltStart = $("#slider-range-LandSaleDemolitionYearBuilt").slider("values", 0);
+        LandSaleDemolitionYearBuiltEnd = $("#slider-range-LandSaleDemolitionYearBuilt").slider("values", 1);
+        if (whereOwnerSearchClause == "") {
+            whereOwnerSearchClause = "year_built >= " + LandSaleDemolitionYearBuiltStart + " AND year_built <= " + LandSaleDemolitionYearBuiltEnd;
+        }
+        else {
+            whereOwnerSearchClause += " AND year_built >= " + LandSaleDemolitionYearBuiltStart + " AND year_built <= " + LandSaleDemolitionYearBuiltEnd;
+        }
+    }
     if (whereOwnerSearchClause == "") {
         swal("Please choose any search criteria");
     }
     else {
         $('#loading').show();
         sqlQuery = sqlQueryLandSaleDemolition + whereOwnerSearchClause;
+        sqlQueryTotalRecords = sqlQueryLandSaleDemolitionTotalRecords + whereOwnerSearchClause;
         $.ajax({
-            url: RootUrl + 'Home/SearchDatabase',
+            url: RootUrl + 'Home/SearchDatabaseTopRecords',
             type: "POST",
             data: {
-                "sqlQuery": sqlQuery
+                "sqlQuery": sqlQuery,
+                "sqlQueryTotalRecords": sqlQueryTotalRecords
             }
         }).done(function (data) {
-            CreateDatabaseTable(data, true, true);
-            $('#btnOpenAlerts').hide();
+            showAlerts = false;
+            CreateDatabaseTable(data.attributes, true, true, data.totalRecords);
             $('#loading').hide();
         }).fail(function (f) {
             $('#loading').hide();
@@ -725,19 +793,18 @@ function btnOwnerSearchUnsafeBuildingFacadeCondition() {
     }
     else {
         $('#loading').show();
-        if (whereOwnerSearchClause != "") {
-            whereOwnerSearchClause = " where " + whereOwnerSearchClause;
-        }
         sqlQuery = sqlQueryUnsafeBuildingFacadeCondition + whereOwnerSearchClause;
+        sqlQueryTotalRecords = sqlQueryUnsafeBuildingFacadeConditionTotalRecords + whereOwnerSearchClause;
         $.ajax({
-            url: RootUrl + 'Home/SearchDatabase',
+            url: RootUrl + 'Home/SearchDatabaseTopRecords',
             type: "POST",
             data: {
-                "sqlQuery": sqlQuery
+                "sqlQuery": sqlQuery,
+                "sqlQueryTotalRecords": sqlQueryTotalRecords
             }
         }).done(function (data) {
-            CreateDatabaseTable(data, true, true);
-            $('#btnOpenAlerts').hide();
+            showAlerts = false;
+            CreateDatabaseTable(data.attributes, true, true, data.totalRecords);
             $('#loading').hide();
         }).fail(function (f) {
             $('#loading').hide();
@@ -755,6 +822,7 @@ function btnOwnerSearchConstructionViolations() {
     whereOwnerSearchClause = "";
     var ConstructionViolationsBldgAreaStart = null, ConstructionViolationsBldgAreaEnd = null, ConstructionViolationsAssessTotStart = null, ConstructionViolationsAssessTotEnd = null;
     var ConstructionViolationsAddress = document.getElementById("txtConstructionViolationsAddress").value;
+    var ConstructionViolationsAddressWithQuotes = '\'' + ConstructionViolationsAddress.split(',').join('\',\'') + '\'';
     var ConstructionViolationsRespondentName = document.getElementById("txtConstructionViolationsRespondentName").value;
     var ConstructionViolationsBuildingClass = document.getElementById("txtConstructionViolationsBuildingClass").value;
     var ConstructionViolationsLandUse = document.getElementById("txtConstructionViolationsLandUse").value;
@@ -781,10 +849,10 @@ function btnOwnerSearchConstructionViolations() {
     }
     if (ConstructionViolationsAddress != "") {
         if (whereOwnerSearchClause == "") {
-            whereOwnerSearchClause = "p.Address IN (" + ConstructionViolationsAddress + ")";
+            whereOwnerSearchClause = "p.Address IN (" + ConstructionViolationsAddressWithQuotes + ")";
         }
         else {
-            whereOwnerSearchClause += " AND p.Address IN (" + ConstructionViolationsAddress + ")";
+            whereOwnerSearchClause += " AND p.Address IN (" + ConstructionViolationsAddressWithQuotes + ")";
         }
     }
     if (ConstructionViolationsRespondentName != "") {
@@ -816,8 +884,8 @@ function btnOwnerSearchConstructionViolations() {
         IssueDateCVTo = document.getElementById("txtIssueDateCVTo").value;
         if (IssueDateCVFrom != "" || IssueDateCVTo != "") {
             IsViolationSearch = true;
-            if (whereViolationClause != "") {
-                whereViolationClause += " AND ";
+            if (whereOwnerSearchClause != "") {
+                whereOwnerSearchClause += " AND ";
             }
             if (IssueDateCVFrom != "" && IssueDateCVTo != "") {
                 var dFrom = new Date(IssueDateCVFrom);
@@ -835,7 +903,7 @@ function btnOwnerSearchConstructionViolations() {
                 var dayTo = dTo.getDate();
                 dayTo = dayTo < 10 ? "0" + dayTo : dayTo;
                 var valueTo = yearTo + monthTo + dayTo;
-                whereViolationClause += "v.issue_date >= '" + valueFrom + "' AND v.issue_date <= '" + valueTo + "'";
+                whereOwnerSearchClause += "v.issue_date >= '" + valueFrom + "' AND v.issue_date <= '" + valueTo + "'";
             }
             else if (IssueDateCVFrom != "") {
                 var dFrom = new Date(IssueDateCVFrom);
@@ -845,7 +913,7 @@ function btnOwnerSearchConstructionViolations() {
                 var dayFrom = dFrom.getDate();
                 dayFrom = dayFrom < 10 ? "0" + dayFrom : dayFrom;
                 var valueFrom = yearFrom + monthFrom + dayFrom;
-                whereViolationClause += "v.issue_date >= '" + valueFrom + "'";
+                whereOwnerSearchClause += "v.issue_date >= '" + valueFrom + "'";
             }
             else if (IssueDateCVTo != "") {
                 var dTo = new Date(IssueDateCVTo);
@@ -855,7 +923,7 @@ function btnOwnerSearchConstructionViolations() {
                 var dayTo = dTo.getDate();
                 dayTo = dayTo < 10 ? "0" + dayTo : dayTo;
                 var valueTo = yearTo + monthTo + dayTo;
-                whereViolationClause += "v.issue_date <= '" + valueTo + "'";
+                whereOwnerSearchClause += "v.issue_date <= '" + valueTo + "'";
             }
         }
     }
@@ -865,15 +933,17 @@ function btnOwnerSearchConstructionViolations() {
     else {
         $('#loading').show();
         sqlQuery = sqlQueryConstructionViolations + whereOwnerSearchClause;
+        sqlQueryTotalRecords = sqlQueryConstructionViolationsTotalRecords + whereOwnerSearchClause;
         $.ajax({
-            url: RootUrl + 'Home/SearchDatabase',
+            url: RootUrl + 'Home/SearchDatabaseTopRecords',
             type: "POST",
             data: {
-                "sqlQuery": sqlQuery
+                "sqlQuery": sqlQuery,
+                "sqlQueryTotalRecords": sqlQueryTotalRecords
             }
         }).done(function (data) {
-            CreateDatabaseTable(data, true, true);
-            $('#btnOpenAlerts').hide();
+            showAlerts = false;
+            CreateDatabaseTable(data.attributes, true, true, data.totalRecords);
             $('#loading').hide();
         }).fail(function (f) {
             $('#loading').hide();
@@ -990,15 +1060,17 @@ function btnOwnerSearchPlanApprovalWithNoPermitIssuance() {
     else {
         $('#loading').show();
         sqlQuery = sqlQueryPlanApprovalWithNoPermitIssuance + whereOwnerSearchClause;
+        sqlQueryTotalRecords = sqlQueryPlanApprovalWithNoPermitIssuanceTotalRecords + whereOwnerSearchClause;
         $.ajax({
-            url: RootUrl + 'Home/SearchDatabase',
+            url: RootUrl + 'Home/SearchDatabaseTopRecords',
             type: "POST",
             data: {
-                "sqlQuery": sqlQuery
+                "sqlQuery": sqlQuery,
+                "sqlQueryTotalRecords": sqlQueryTotalRecords
             }
         }).done(function (data) {
-            CreateDatabaseTable(data, true, true);
-            $('#btnOpenAlerts').hide();
+            showAlerts = false;
+            CreateDatabaseTable(data.attributes, true, true, data.totalRecords);
             $('#loading').hide();
         }).fail(function (f) {
             $('#loading').hide();
@@ -1016,6 +1088,7 @@ function btnOwnerSearchNewConstructionPermitIssuance() {
     whereOwnerSearchClause = "j.job_type = 'NB'";
     var NewConstructionPermitIssuanceBldgAreaStart = null, NewConstructionPermitIssuanceBldgAreaEnd = null, NewConstructionPermitIssuanceAssessTotStart = null, NewConstructionPermitIssuanceAssessTotEnd = null;
     var NewConstructionPermitIssuanceAddress = document.getElementById("txtNewConstructionPermitIssuanceAddress").value;
+    var NewConstructionPermitIssuanceAddressWithQuotes = '\'' + NewConstructionPermitIssuanceAddress.split(',').join('\',\'') + '\'';
     var NewConstructionPermitIssuanceBorough = document.getElementById("txtNewConstructionPermitIssuanceBorough").value;
     var NewConstructionPermitIssuanceZoningDistrict = document.getElementById("txtNewConstructionPermitIssuanceZoningDistrict").value;
     var NewConstructionPermitIssuanceOwnerName = document.getElementById("txtNewConstructionPermitIssuanceOwnerName").value;
@@ -1045,10 +1118,10 @@ function btnOwnerSearchNewConstructionPermitIssuance() {
     }
     if (NewConstructionPermitIssuanceAddress != "") {
         if (whereOwnerSearchClause == "") {
-            whereOwnerSearchClause = "p.Address IN (" + NewConstructionPermitIssuanceAddress + ")";
+            whereOwnerSearchClause = "p.Address IN (" + NewConstructionPermitIssuanceAddressWithQuotes + ")";
         }
         else {
-            whereOwnerSearchClause += " AND p.Address IN (" + NewConstructionPermitIssuanceAddress + ")";
+            whereOwnerSearchClause += " AND p.Address IN (" + NewConstructionPermitIssuanceAddressWithQuotes + ")";
         }
     }
     if (NewConstructionPermitIssuanceBorough != "") {
@@ -1152,15 +1225,17 @@ function btnOwnerSearchNewConstructionPermitIssuance() {
     else {
         $('#loading').show();
         sqlQuery = sqlQueryPermitIssuance + whereOwnerSearchClause;
+        sqlQueryTotalRecords = sqlQueryPermitIssuanceTotalRecords + whereOwnerSearchClause;
         $.ajax({
-            url: RootUrl + 'Home/SearchDatabase',
+            url: RootUrl + 'Home/SearchDatabaseTopRecords',
             type: "POST",
             data: {
-                "sqlQuery": sqlQuery
+                "sqlQuery": sqlQuery,
+                "sqlQueryTotalRecords": sqlQueryTotalRecords
             }
         }).done(function (data) {
-            CreateDatabaseTable(data, true, true);
-            $('#btnOpenAlerts').hide();
+            showAlerts = false;
+            CreateDatabaseTable(data.attributes, true, true, data.totalRecords);
             $('#loading').hide();
         }).fail(function (f) {
             $('#loading').hide();
@@ -1178,6 +1253,7 @@ function btnOwnerSearchMajorAlterationPermitIssuance() {
     whereOwnerSearchClause = "j.job_type = 'A1'";
     var MajorAlterationPermitIssuanceBldgAreaStart = null, MajorAlterationPermitIssuanceBldgAreaEnd = null, MajorAlterationPermitIssuanceAssessTotStart = null, MajorAlterationPermitIssuanceAssessTotEnd = null;
     var MajorAlterationPermitIssuanceAddress = document.getElementById("txtMajorAlterationPermitIssuanceAddress").value;
+    var MajorAlterationPermitIssuanceAddressWithQuotes = '\'' + MajorAlterationPermitIssuanceAddress.split(',').join('\',\'') + '\'';
     var MajorAlterationPermitIssuanceBorough = document.getElementById("txtMajorAlterationPermitIssuanceBorough").value;
     var MajorAlterationPermitIssuanceZoningDistrict = document.getElementById("txtMajorAlterationPermitIssuanceZoningDistrict").value;
     var MajorAlterationPermitIssuanceOwnerName = document.getElementById("txtMajorAlterationPermitIssuanceOwnerName").value;
@@ -1207,10 +1283,10 @@ function btnOwnerSearchMajorAlterationPermitIssuance() {
     }
     if (MajorAlterationPermitIssuanceAddress != "") {
         if (whereOwnerSearchClause == "") {
-            whereOwnerSearchClause = "p.Address IN (" + MajorAlterationPermitIssuanceAddress + ")";
+            whereOwnerSearchClause = "p.Address IN (" + MajorAlterationPermitIssuanceAddressWithQuotes + ")";
         }
         else {
-            whereOwnerSearchClause += " AND p.Address IN (" + MajorAlterationPermitIssuanceAddress + ")";
+            whereOwnerSearchClause += " AND p.Address IN (" + MajorAlterationPermitIssuanceAddressWithQuotes + ")";
         }
     }
     if (MajorAlterationPermitIssuanceBorough != "") {
@@ -1314,15 +1390,17 @@ function btnOwnerSearchMajorAlterationPermitIssuance() {
     else {
         $('#loading').show();
         sqlQuery = sqlQueryPermitIssuance + whereOwnerSearchClause;
+        sqlQueryTotalRecords = sqlQueryPermitIssuanceTotalRecords + whereOwnerSearchClause;
         $.ajax({
-            url: RootUrl + 'Home/SearchDatabase',
+            url: RootUrl + 'Home/SearchDatabaseTopRecords',
             type: "POST",
             data: {
-                "sqlQuery": sqlQuery
+                "sqlQuery": sqlQuery,
+                "sqlQueryTotalRecords": sqlQueryTotalRecords
             }
         }).done(function (data) {
-            CreateDatabaseTable(data, true, true);
-            $('#btnOpenAlerts').hide();
+            showAlerts = false;
+            CreateDatabaseTable(data.attributes, true, true, data.totalRecords);
             $('#loading').hide();
         }).fail(function (f) {
             $('#loading').hide();

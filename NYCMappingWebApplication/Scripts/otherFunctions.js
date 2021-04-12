@@ -1,4 +1,5 @@
-﻿var maxTotalBuildingFloorArea = 67000000, maxCommercialFloorArea = 24000000, maxResidentialFloorArea = 14000000
+﻿var showAlerts = true;
+var maxTotalBuildingFloorArea = 67000000, maxCommercialFloorArea = 24000000, maxResidentialFloorArea = 14000000
     , maxNumberOfFloors = 210, maxResidentialUnits = 11000, maxAssessedTotalValue = 7200000000
     , maxEnergyStarScore = 100, maxSourceEUI = 29000000, maxSiteEUI = 25000000, maxAnnualMaximumDemand = 2600000, maxTotalGHGEmissions = 540000000
     , maxAssessedValuePerSquareFoot = 12193200, maxSalePrice = 1000000000;
@@ -1567,14 +1568,15 @@ function DatabaseSearch(whereEnergyClause, wherePermitClause, whereViolationClau
             "sqlQuery": sqlQuery
         }
     }).done(function (data) {
-        CreateDatabaseTable(data, true, true);
+        showAlerts = true;
+        CreateDatabaseTable(data, true, true, data.length);
     }).fail(function (f) {
         $('#loading').hide();
         swal("Failed to search the query");
     });
 }
 
-function CreateDatabaseTable(data, zoomTo, clearSelectionLayer) {
+function CreateDatabaseTable(data, zoomTo, clearSelectionLayer, totalRecords) {
     map.graphics.clear();
     if (clearSelectionLayer) {
         selectionLayer.clear();
@@ -1627,7 +1629,8 @@ function CreateDatabaseTable(data, zoomTo, clearSelectionLayer) {
             }
             htmlQueryRecords += "</tr>";
         }
-        if (data.length < 2000) {
+        if (totalRecords < 2000) {
+            $('#divLoadAllRecords').text('');
             if (zoomTo) {
                 MapPlutoGeometrySearch(BBLs);
             }
@@ -1640,6 +1643,9 @@ function CreateDatabaseTable(data, zoomTo, clearSelectionLayer) {
             swal("Your query has more than 2000 records and they won't be selected on the map");
         }
         htmlQueryRecords += '</tr></tbody></table></div>';
+        if (totalRecords != data.length) {
+            htmlQueryRecords += "<p>*Only top 2000 records are shown in the table. If you want to see all " + totalRecords + " records click <a style='cursor: pointer' onclick='btnLoadAllRecords_Click()'>here</a></p>";
+        }
         $('#divSelectItemsTable').text('');
         $('#divSelectItemsTable').append(htmlQueryRecords);
         $("#tblQueryRecords").tablesorter({ widgets: ['zebra'] });
@@ -1647,12 +1653,17 @@ function CreateDatabaseTable(data, zoomTo, clearSelectionLayer) {
         $('#divSelectItemsMoreInfo').show();
         $('#divSelectItemsCount').show();
         $('#btnOpenSaveReport').show();
-        $('#btnOpenAlerts').show();
+        if (showAlerts) {
+            $('#btnOpenAlerts').show();
+        }
+        else {
+            $('#btnOpenAlerts').hide();
+        }
         if (data.length == 1) {
             $('#divSelectItemsCount').text('There is ' + data.length + ' record returned');
         }
         else {
-            $('#divSelectItemsCount').text('There are ' + data.length + ' records returned');
+            $('#divSelectItemsCount').text('There are ' + totalRecords + ' records returned');
         }
         highlightTableRow('tblQueryRecords');
     }
@@ -1665,6 +1676,23 @@ function CreateDatabaseTable(data, zoomTo, clearSelectionLayer) {
         $('#btnOpenAlerts').hide();
         $('#loading').hide();
     }
+}
+
+function btnLoadAllRecords_Click() {
+    $('#loading').show();
+    $.ajax({
+        url: RootUrl + 'Home/SearchDatabase',
+        type: "POST",
+        data: {
+            "sqlQuery": sqlQuery
+        }
+    }).done(function (data) {
+        showAlerts = true;
+        CreateDatabaseTable(data, true, true, data.length);
+    }).fail(function (f) {
+        $('#loading').hide();
+        swal("Failed to search the query");
+    });
 }
 
 function MapPlutoGeometrySearch(BBLs) {
@@ -1992,7 +2020,8 @@ function txtLookaLikeBbl_Change(evt) {
             },
             success: function (data) {
                 sqlQuery = data.sqlQuery;
-                CreateDatabaseTable(data.data, true, true);
+                showAlerts = true;
+                CreateDatabaseTable(data.data, true, true, data.data.length);
                 $('#loading').hide();
             },
             error: function (error) {
@@ -2019,7 +2048,8 @@ function txtLookaLikeAddress_Change(evt) {
             },
             success: function (data) {
                 sqlQuery = data.sqlQuery;
-                CreateDatabaseTable(data.data, true, true);
+                showAlerts = true;
+                CreateDatabaseTable(data.data, true, true, data.data.length);
                 $('#loading').hide();
             },
             error: function (error) {
@@ -2286,6 +2316,7 @@ function txtSlider_KeyUp(x, name) {
         case "MajorAlterationPermitIssuanceBldgArea": maxValueTotal = maxConstructionViolationsBldgArea; break
         case "MajorAlterationPermitIssuanceAssessTot": maxValueTotal = maxAssessedTotalValue; break
         case "LandSaleDemolitionSalePrice": maxValueTotal = maxSalePrice; break
+        case "LandSaleDemolitionYearBuilt": maxValueTotal = new Date().getFullYear(); break
         default: return
     }
     try {
@@ -2371,7 +2402,8 @@ function tabGeneral_Clicked(TabID) {
             break;
         case 6:
             censusTractsFeatures.setVisibility(false);
-            map.setInfoWindowOnClick(false);
+            map.setInfoWindowOnClick(true);
+            serviceFeatures.infoTemplate = new esri.InfoTemplate("Tax Lot Info", infoTemplateContent);
             break;
         case 7:
             censusTractsFeatures.setVisibility(false);

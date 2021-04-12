@@ -286,6 +286,18 @@ namespace NYCMappingWebApp.DataAccessLayer
             }
             return returnResult;
         }
+        public DatabaseTopRecords SearchDatabaseTopRecords(string sqlQuery, string sqlQueryTotalRecords)
+        {
+            string sqlQueryTopRecords = sqlQuery.Replace("select", "select top 2000");
+            DatabaseTopRecords returnResult = new DatabaseTopRecords();
+            using (var ctx = new NYC_Web_Mapping_AppEntities())
+            {
+                ctx.Database.CommandTimeout = 600;
+                returnResult.attributes = ctx.Database.SqlQuery<DatabaseAttributes>(sqlQueryTopRecords).ToList();
+                returnResult.totalRecords = ctx.Database.SqlQuery<int>(sqlQueryTotalRecords).FirstOrDefault();
+            }
+            return returnResult;
+        }
         public List<SelectListItem> GetAllFrequencies()
         {
             List<SelectListItem> returnResult = new List<SelectListItem>();

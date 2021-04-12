@@ -201,6 +201,12 @@ namespace NYCMappingWebApp.Entities
         public string permittee_s_license_type { get; set; }
     }
 
+    public class DatabaseTopRecords
+    {
+        public List<DatabaseAttributes> attributes { get; set; }
+        public int totalRecords { get; set; }
+    }
+
     public class DatabaseMaxValues
     {
         public int? OBJECTID { get; set; }
