@@ -1522,7 +1522,7 @@ function DatabaseSearch(whereEnergyClause, wherePermitClause, whereViolationClau
                 break;
             case "Evictions":
                 if (!fromStatementList.includes(lstTableAttributes[i].dataset)) {
-                    fromStatement += " LEFT JOIN dbo.Evictions ev on p.Address = ev.EVICTION_ADDRESS";
+                    fromStatement += " LEFT JOIN dbo.Evictions ev on p.BBL = ev.BBL";
                 }
                 selectStatementList.push("ev." + lstTableAttributes[i].attribute);
                 break;

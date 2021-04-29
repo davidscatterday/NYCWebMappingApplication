@@ -40,6 +40,17 @@ namespace NYCMappingWebApp.Controllers
             };
         }
 
+        public JsonResult GetEvictionProbabilitiesByBBL(string bbl)
+        {
+            EvictionOutput data = ownerAnalysisDAL.GetEvictionProbabilitiesByBBL(bbl);
+            return new JsonResult()
+            {
+                Data = data,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                MaxJsonLength = Int32.MaxValue
+            };
+        }
+
         public FileResult DownloadOwnerAnalysis(string bbl)
         {
             OwnerAnalysisData data = ownerAnalysisDAL.GetHpdRegistrationsByBBL(bbl);

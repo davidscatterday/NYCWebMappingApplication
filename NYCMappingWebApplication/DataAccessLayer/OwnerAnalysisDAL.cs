@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace NYCMappingWebApp.DataAccessLayer
@@ -137,6 +139,19 @@ namespace NYCMappingWebApp.DataAccessLayer
                 returnResult = ctx.Database.SqlQuery<Select2DTO>("EXEC NYC_Owner_Analysis.dbo.search_getAllAddresses @term ", termParametar).ToList();
             }
             return returnResult;
+        }
+        public EvictionOutput GetEvictionProbabilitiesByBBL(string bbl)
+        {
+            Pluto data = db.Plutoes.Where(w => w.BBL == bbl).FirstOrDefault();
+            string BldgArea = data.BldgArea.HasValue ? data.BldgArea.ToString() : "";
+            string ComArea = data.ComArea.HasValue ? data.ComArea.ToString() : "";
+            string ResArea = data.ResArea.HasValue ? data.ResArea.ToString() : "";
+            string NumFloors = data.NumFloors.HasValue ? data.NumFloors.ToString() : "";
+            string UnitsRes = data.UnitsRes.HasValue ? data.UnitsRes.ToString() : "";
+            string AssessTot = data.AssessTot.HasValue ? data.AssessTot.ToString() : "";
+            string YearBuilt = data.YearBuilt.HasValue ? data.YearBuilt.ToString() : "";
+            EvictionOutput evOutput = RestDAL.InvokeRequestResponseEvictionStatus15KProperties(bbl, data.Borough, data.ZipCode, BldgArea, ComArea, ResArea, NumFloors, UnitsRes, data.ZoneDist1, AssessTot, YearBuilt, data.BldgClass, data.LandUse, null);
+            return evOutput;
         }
     }
 }

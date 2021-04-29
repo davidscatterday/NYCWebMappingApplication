@@ -189,6 +189,7 @@
     <Compile Include="Entities\AppUsersENT.cs" />
     <Compile Include="Entities\MainENT.cs" />
     <Compile Include="Entities\OwnerAnalysisENT.cs" />
+    <Compile Include="Entities\RestENT.cs" />
     <Compile Include="Entities\UserENT.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

@@ -9,10 +9,25 @@
 }
 
 function txtHpdAddresses_Change() {
+    $('#divEvictionProbabilitiesTable').text('');
     selectionLayer.clear();
     var bbl = document.getElementById("txtHpdAddresses").value;
     if (bbl != "") {
         $('#loading').show();
+        $.ajax({
+            url: RootUrl + 'OwnerAnalysis/GetEvictionProbabilitiesByBBL',
+            type: "POST",
+            data: {
+                "bbl": bbl
+            }
+        }).done(function (data) {
+            htmlDataEvictionProbabilities = "<div class='table-responsive'><table><tr><td><b>Future Eviction Event</b> :</td><td>" + data.Scored_Labels + "</tr><tr><td><b>Eviction Probability</b> :</td><td>" + data.Scored_Probabilities +"</tr></table>";
+            $('#divEvictionProbabilitiesTable').text('');
+            $('#divEvictionProbabilitiesTable').append(htmlDataEvictionProbabilities);
+
+        }).fail(function (f) {
+            swal("Failed to search GetEvictionProbabilitiesByBBL");
+        });
         $.ajax({
             url: RootUrl + 'OwnerAnalysis/GetHpdRegistrationsByBBL',
             type: "POST",
