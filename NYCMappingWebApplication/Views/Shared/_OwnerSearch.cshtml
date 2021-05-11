@@ -88,9 +88,15 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
-                                <label>
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;padding-right: 0px;">
+                                <label style="margin-bottom: 0px">
                                     Building Class
+                                </label>
+                                <label id="lblBuildingClassTooltip1" class="control-label tooltiplabel" style="padding-right: 0px; padding-left: 0px; text-align: left; width: 12px;">
+                                    <span class="glyphicon glyphicon-info-sign"></span>
+                                    <span class="tooltiptext" style="left: 110px">
+                                        <p style="margin:0px">To see all building class definitions click on this <a href="https://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html" target="_blank" style="color: blue; text-decoration: underline;">link</a></p>
+                                    </span>
                                 </label>
                             </div>
                             <div class="col-sm-8" style="padding-left: 0px;">
@@ -98,9 +104,21 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
-                                <label>
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;padding-right: 0px;">
+                                <label style="margin-bottom: 0px">
                                     Zoning District
+                                </label>
+                                <label id="lblZoningDistrictTooltip1" class="control-label tooltiplabelZoningDistricts" style="padding-right: 0px; padding-left: 0px; text-align: left; width: 12px;">
+                                    <span class="glyphicon glyphicon-info-sign"></span>
+                                    <span class="tooltiptextZoningDistricts" style="left: 110px">
+                                        <p style="margin:0px">
+                                            <ul>
+                                                <li><b>Residence Districts</b> are characterized by a range of housing types, from detached single-family homes in R1 Districts to residential skyscrapers in R10 Districts.</li>
+                                                <li><b>Commercial Districts</b> are characterized by a range of business activities, from neighborhood retail and services in C1 Districts, to regional commercial areas with department stores and movie theaters in C4 Districts, to gas stations and car repair in C8 Districts. A Commercial Overlay, C1-1 through C1-5 and C2-1 through C2-5 are Commercial areas mapped within a Residential Zoning District. In these areas you can build a residential building, a commercial building, or a mixed use building.</li>
+                                                <li><b>Manufacturing Districts</b> are characterized by a range of industrial and commercial activities, including light manufacturing in M1 Districts and heavy manufacturing in M3 Districts.</li>
+                                            </ul>
+                                        </p>
+                                    </span>
                                 </label>
                             </div>
                             <div class="col-sm-8" style="padding-left: 0px;">
@@ -108,9 +126,28 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
-                                <label>
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;padding-right: 0px;">
+                                <label style="margin-bottom: 0px;width: 98px;">
                                     Proposed Occupancy
+                                </label>
+                                <label id="lblProposedOccupancyTooltip1" class="control-label tooltiplabelZoningDistricts" style="padding-right: 0px; padding-left: 0px; text-align: left; width: 12px;vertical-align: top;">
+                                    <span class="glyphicon glyphicon-info-sign"></span>
+                                    <span class="tooltiptextZoningDistricts" style="left: 110px">
+                                        <p style="margin:0px">
+                                            <ul>
+                                                <li><b>Group A</b> - Places of Assembly Groups</li>
+                                                <li><b>Group B</b> - Business Facilities</li>
+                                                <li><b>Group E</b> - Educational Facilities</li>
+                                                <li><b>Group F</b> - Factory and Industrial</li>
+                                                <li><b>Group H</b> - High Hazard</li>
+                                                <li><b>Group I</b> - Institutional</li>
+                                                <li><b>Group M</b> - Mercantile Facilities</li>
+                                                <li><b>Group R</b> - Residential</li>
+                                                <li><b>Group S</b> - Storage</li>
+                                                <li><b>Group U</b> - Utility and Miscellaneous</li>
+                                            </ul>
+                                        </p>
+                                    </span>
                                 </label>
                             </div>
                             <div class="col-sm-8" style="padding-left: 0px;">
@@ -128,6 +165,97 @@
                             </div>
                             <div class="col-sm-4" style="padding-left: 0px;">
                                 <input type="text" class="date" id="txtFilingDateTo" style="width: 100%; border: 1px solid;" autocomplete="new-password" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordionOwnerSearch" href="#collapse63">
+                            Spider Chart
+                        </a>
+                        <a class="fa fa-angle-down rotate-icon pull-right" data-toggle="collapse" data-parent="#accordionOwnerSearch" href="#collapse63"></a>
+                    </h4>
+                </div>
+                <div id="collapse63" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <p id="sliderSpiderChartEstimatedValue" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                    <label for="cbSpiderChartEstimatedValue">
+                                        <input id="cbSpiderChartEstimatedValue" type="checkbox" style="margin-right: 5px">Estimated Value:
+                                        <input type="text" id="txtSpiderChartEstimatedValue" style="border:0; color:rgb(213,168,72); font-weight:bold; width: 200px" onkeyup="txtSlider_KeyUp(this,'SpiderChartEstimatedValue')">
+                                    </label>
+                                </p>
+                                <div id="slider-range-SpiderChartEstimatedValue"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <p id="sliderSpiderChartPermitIssuanceYear" style="margin-top: 10px; margin-bottom: 0px; margin-left: -5px;">
+                                    <label for="cbSpiderChartPermitIssuanceYear">
+                                        <input id="cbSpiderChartPermitIssuanceYear" type="checkbox" style="margin-right: 5px">Permit Issuance Year:
+                                        <input type="text" id="txtSpiderChartPermitIssuanceYear" style="border:0; color:rgb(213,168,72); font-weight:bold; max-width: 100%" onkeyup="txtSlider_KeyUp(this,'SpiderChartPermitIssuanceYear')">
+                                    </label>
+                                </p>
+                                <div id="slider-range-SpiderChartPermitIssuanceYear"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-top: 5px; margin-left: -5px;">
+                                <label>
+                                    Center Point
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                @Html.DropDownList("ddlCenterPoints", (IEnumerable<SelectListItem>)ViewBag.CenterPoints, "Select Center Point", new { @class = "form-control input-width-xlarge", @onchange = "ddlCenterPoints_SelectionChange(this)" })
+                            </div>
+                        </div>
+                        <div class="form-group" id="divSpiderChartValues" style="display: none">
+                            <div class="col-sm-4" style="margin-top: 5px; margin-left: -5px;">
+                                <label>
+                                    Values
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                @Html.DropDownList("ddlCenterPointValues", (IEnumerable<SelectListItem>)ViewBag.CenterPointValues, "Select Values", new { @class = "form-control input-width-xlarge" })
+                            </div>
+                        </div>
+                        <div class="form-group" id="divSpiderChartOwner" style="display: none">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Owner
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtSpiderChartOwner" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group" id="divSpiderChartGeneralContractor" style="display: none">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    General Contractor
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtSpiderChartGeneralContractor" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group" id="divSpiderChartArchitect" style="display: none">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Architect
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtSpiderChartArchitect" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="form-group text-right" style="margin-top: 10px">
+                            <div class="col-sm-12">
+                                <button type="button" class="btn btn-primary btn-sm" onclick="btnSpiderChart()">Spider Chart</button>
                             </div>
                         </div>
                     </div>
@@ -215,9 +343,15 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
-                                <label>
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;padding-right: 0px;">
+                                <label style="margin-bottom: 0px">
                                     Building Class
+                                </label>
+                                <label id="lblBuildingClassTooltip2" class="control-label tooltiplabel" style="padding-right: 0px; padding-left: 0px; text-align: left; width: 12px;">
+                                    <span class="glyphicon glyphicon-info-sign"></span>
+                                    <span class="tooltiptext" style="left: 110px">
+                                        <p style="margin:0px">To see all building class definitions click on this <a href="https://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html" target="_blank" style="color: blue; text-decoration: underline;">link</a></p>
+                                    </span>
                                 </label>
                             </div>
                             <div class="col-sm-8" style="padding-left: 0px;">
@@ -288,9 +422,21 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
-                                <label>
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;padding-right: 0px;">
+                                <label style="margin-bottom: 0px">
                                     Zoning District
+                                </label>
+                                <label id="lblZoningDistrictTooltip2" class="control-label tooltiplabelZoningDistricts" style="padding-right: 0px; padding-left: 0px; text-align: left; width: 12px;">
+                                    <span class="glyphicon glyphicon-info-sign"></span>
+                                    <span class="tooltiptextZoningDistricts" style="left: 110px">
+                                        <p style="margin:0px">
+                                            <ul>
+                                                <li><b>Residence Districts</b> are characterized by a range of housing types, from detached single-family homes in R1 Districts to residential skyscrapers in R10 Districts.</li>
+                                                <li><b>Commercial Districts</b> are characterized by a range of business activities, from neighborhood retail and services in C1 Districts, to regional commercial areas with department stores and movie theaters in C4 Districts, to gas stations and car repair in C8 Districts. A Commercial Overlay, C1-1 through C1-5 and C2-1 through C2-5 are Commercial areas mapped within a Residential Zoning District. In these areas you can build a residential building, a commercial building, or a mixed use building.</li>
+                                                <li><b>Manufacturing Districts</b> are characterized by a range of industrial and commercial activities, including light manufacturing in M1 Districts and heavy manufacturing in M3 Districts.</li>
+                                            </ul>
+                                        </p>
+                                    </span>
                                 </label>
                             </div>
                             <div class="col-sm-8" style="padding-left: 0px;">
@@ -298,9 +444,15 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
-                                <label>
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;padding-right: 0px;">
+                                <label style="margin-bottom: 0px">
                                     Building Class
+                                </label>
+                                <label id="lblBuildingClassTooltip3" class="control-label tooltiplabel" style="padding-right: 0px; padding-left: 0px; text-align: left; width: 12px;">
+                                    <span class="glyphicon glyphicon-info-sign"></span>
+                                    <span class="tooltiptext" style="left: 110px">
+                                        <p style="margin:0px">To see all building class definitions click on this <a href="https://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html" target="_blank" style="color: blue; text-decoration: underline;">link</a></p>
+                                    </span>
                                 </label>
                             </div>
                             <div class="col-sm-8" style="padding-left: 0px;">
@@ -433,9 +585,15 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
-                                <label>
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;padding-right: 0px;">
+                                <label style="margin-bottom: 0px">
                                     Building Class
+                                </label>
+                                <label id="lblBuildingClassTooltip4" class="control-label tooltiplabel" style="padding-right: 0px; padding-left: 0px; text-align: left; width: 12px;">
+                                    <span class="glyphicon glyphicon-info-sign"></span>
+                                    <span class="tooltiptext" style="left: 110px">
+                                        <p style="margin:0px">To see all building class definitions click on this <a href="https://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html" target="_blank" style="color: blue; text-decoration: underline;">link</a></p>
+                                    </span>
                                 </label>
                             </div>
                             <div class="col-sm-8" style="padding-left: 0px;">
@@ -528,9 +686,21 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
-                                <label>
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;padding-right: 0px;">
+                                <label style="margin-bottom: 0px">
                                     Zoning District
+                                </label>
+                                <label id="lblZoningDistrictTooltip3" class="control-label tooltiplabelZoningDistricts" style="padding-right: 0px; padding-left: 0px; text-align: left; width: 12px;">
+                                    <span class="glyphicon glyphicon-info-sign"></span>
+                                    <span class="tooltiptextZoningDistricts" style="left: 110px">
+                                        <p style="margin:0px">
+                                            <ul>
+                                                <li><b>Residence Districts</b> are characterized by a range of housing types, from detached single-family homes in R1 Districts to residential skyscrapers in R10 Districts.</li>
+                                                <li><b>Commercial Districts</b> are characterized by a range of business activities, from neighborhood retail and services in C1 Districts, to regional commercial areas with department stores and movie theaters in C4 Districts, to gas stations and car repair in C8 Districts. A Commercial Overlay, C1-1 through C1-5 and C2-1 through C2-5 are Commercial areas mapped within a Residential Zoning District. In these areas you can build a residential building, a commercial building, or a mixed use building.</li>
+                                                <li><b>Manufacturing Districts</b> are characterized by a range of industrial and commercial activities, including light manufacturing in M1 Districts and heavy manufacturing in M3 Districts.</li>
+                                            </ul>
+                                        </p>
+                                    </span>
                                 </label>
                             </div>
                             <div class="col-sm-8" style="padding-left: 0px;">
@@ -538,9 +708,28 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
-                                <label>
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;padding-right: 0px;">
+                                <label style="margin-bottom: 0px;width: 98px;">
                                     Proposed Occupancy
+                                </label>
+                                <label id="lblProposedOccupancyTooltip2" class="control-label tooltiplabelZoningDistricts" style="padding-right: 0px; padding-left: 0px; text-align: left; width: 12px;vertical-align: top;">
+                                    <span class="glyphicon glyphicon-info-sign"></span>
+                                    <span class="tooltiptextZoningDistricts" style="left: 110px">
+                                        <p style="margin:0px">
+                                            <ul>
+                                                <li><b>Group A</b> - Places of Assembly Groups</li>
+                                                <li><b>Group B</b> - Business Facilities</li>
+                                                <li><b>Group E</b> - Educational Facilities</li>
+                                                <li><b>Group F</b> - Factory and Industrial</li>
+                                                <li><b>Group H</b> - High Hazard</li>
+                                                <li><b>Group I</b> - Institutional</li>
+                                                <li><b>Group M</b> - Mercantile Facilities</li>
+                                                <li><b>Group R</b> - Residential</li>
+                                                <li><b>Group S</b> - Storage</li>
+                                                <li><b>Group U</b> - Utility and Miscellaneous</li>
+                                            </ul>
+                                        </p>
+                                    </span>
                                 </label>
                             </div>
                             <div class="col-sm-8" style="padding-left: 0px;">
@@ -612,9 +801,21 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
-                                <label>
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;padding-right: 0px;">
+                                <label style="margin-bottom: 0px">
                                     Zoning District
+                                </label>
+                                <label id="lblZoningDistrictTooltip4" class="control-label tooltiplabelZoningDistricts" style="padding-right: 0px; padding-left: 0px; text-align: left; width: 12px;">
+                                    <span class="glyphicon glyphicon-info-sign"></span>
+                                    <span class="tooltiptextZoningDistricts" style="left: 110px">
+                                        <p style="margin:0px">
+                                            <ul>
+                                                <li><b>Residence Districts</b> are characterized by a range of housing types, from detached single-family homes in R1 Districts to residential skyscrapers in R10 Districts.</li>
+                                                <li><b>Commercial Districts</b> are characterized by a range of business activities, from neighborhood retail and services in C1 Districts, to regional commercial areas with department stores and movie theaters in C4 Districts, to gas stations and car repair in C8 Districts. A Commercial Overlay, C1-1 through C1-5 and C2-1 through C2-5 are Commercial areas mapped within a Residential Zoning District. In these areas you can build a residential building, a commercial building, or a mixed use building.</li>
+                                                <li><b>Manufacturing Districts</b> are characterized by a range of industrial and commercial activities, including light manufacturing in M1 Districts and heavy manufacturing in M3 Districts.</li>
+                                            </ul>
+                                        </p>
+                                    </span>
                                 </label>
                             </div>
                             <div class="col-sm-8" style="padding-left: 0px;">
@@ -737,9 +938,21 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
-                                <label>
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;padding-right: 0px;">
+                                <label style="margin-bottom: 0px">
                                     Zoning District
+                                </label>
+                                <label id="lblZoningDistrictTooltip5" class="control-label tooltiplabelZoningDistricts" style="padding-right: 0px; padding-left: 0px; text-align: left; width: 12px;">
+                                    <span class="glyphicon glyphicon-info-sign"></span>
+                                    <span class="tooltiptextZoningDistricts" style="left: 110px">
+                                        <p style="margin:0px">
+                                            <ul>
+                                                <li><b>Residence Districts</b> are characterized by a range of housing types, from detached single-family homes in R1 Districts to residential skyscrapers in R10 Districts.</li>
+                                                <li><b>Commercial Districts</b> are characterized by a range of business activities, from neighborhood retail and services in C1 Districts, to regional commercial areas with department stores and movie theaters in C4 Districts, to gas stations and car repair in C8 Districts. A Commercial Overlay, C1-1 through C1-5 and C2-1 through C2-5 are Commercial areas mapped within a Residential Zoning District. In these areas you can build a residential building, a commercial building, or a mixed use building.</li>
+                                                <li><b>Manufacturing Districts</b> are characterized by a range of industrial and commercial activities, including light manufacturing in M1 Districts and heavy manufacturing in M3 Districts.</li>
+                                            </ul>
+                                        </p>
+                                    </span>
                                 </label>
                             </div>
                             <div class="col-sm-8" style="padding-left: 0px;">
@@ -994,6 +1207,72 @@
         }
     });
     //#endregion Property Search
+
+    //#region Spider Chart
+    $("#txtSpiderChartOwner").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: false,
+        ajax: {
+            url: RootUrl + 'Home/GetPersonaTypeSearchOwner',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.PersonaTypeSearchOwnerList,
+                };
+            }
+        }
+    });
+    $("#txtSpiderChartGeneralContractor").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: false,
+        ajax: {
+            url: RootUrl + 'Home/GetPersonaTypeSearchGeneralContractor',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.PersonaTypeSearchGeneralContractorList,
+                };
+            }
+        }
+    });
+    $("#txtSpiderChartArchitect").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: false,
+        ajax: {
+            url: RootUrl + 'Home/GetPersonaTypeSearchArchitect',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.PersonaTypeSearchArchitectList,
+                };
+            }
+        }
+    });
+    //#endregion Persona Type
 
     //#region Land Sale Demolition
     $("#txtLandSaleDemolitionAddress").select2({

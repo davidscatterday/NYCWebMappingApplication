@@ -36,7 +36,7 @@ function btnSearchHeatMapPropertySales() {
     map.setExtent(initExtent);
     zipCodeFeatures.setVisibility(false);
     myLabelLayer.setVisibility(false);
-    hideBottomPanel();
+    hideResultsPanel();
     $('#divSelectItemsTable').text('');
     $('#divSelectItemsMoreInfo').hide();
     $('#divSelectItemsMessage').hide();
@@ -313,7 +313,7 @@ function btnResetHeatMap() {
     $('#divSelectItemsMessage').hide();
     $('#divSelectItemsCount').hide();
 
-    hideBottomPanel();
+    hideResultsPanel();
 }
 
 function btnSearchHeatMapViolations(StoredProcedure) {
@@ -324,7 +324,7 @@ function btnSearchHeatMapViolations(StoredProcedure) {
     map.setExtent(initExtent);
     zipCodeFeatures.setVisibility(false);
     myLabelLayer.setVisibility(false);
-    hideBottomPanel();
+    hideResultsPanel();
     $('#divSelectItemsTable').text('');
     $('#divSelectItemsMoreInfo').hide();
     $('#divSelectItemsMessage').hide();
@@ -547,7 +547,7 @@ function btnSearchHeatMapPermits() {
     map.setExtent(initExtent);
     zipCodeFeatures.setVisibility(false);
     myLabelLayer.setVisibility(false);
-    hideBottomPanel();
+    hideResultsPanel();
     $('#divSelectItemsTable').text('');
     $('#divSelectItemsMoreInfo').hide();
     $('#divSelectItemsMessage').hide();

@@ -19,6 +19,8 @@ $(document).ready(function () {
         selectionLayerExclusionCriteriaCDL = new GraphicsLayer();
         geometryService = new GeometryService(GeometryServiceUrl);
 
+        selectionLayer.on("click", selectionLayerClickHandler);
+
         //create symbol polygon for districts features
         symbolDistrictFill = new SimpleFillSymbol();
         symbolDistrictFill.setColor(new dojo.Color([51, 255, 204, 0]));
@@ -107,6 +109,58 @@ $(document).ready(function () {
 
         map.addLayers([baseMapLayer, serviceFeatures, districtLayer, censusTractsFeatures, selectionLayer, heatmapLayer, zipCodeFeatures, selectionLayerCDL, selectionLayerExclusionCriteriaCDL]);
 
+        function ColorDistricts() {
+            var queryTask = new esri.tasks.QueryTask(DistrictsUrl);
+            var query = new esri.tasks.Query();
+            query.where = "1=1";
+            query.returnGeometry = true;
+            queryTask.execute(query, function (featureSet) {
+                //Performance enhancer - assign featureSet array to a single variable.
+                var resultFeatures = featureSet.features;
+                if (resultFeatures.length > 0) {
+                    //Loop through each feature returned
+                    for (var i = 0, il = resultFeatures.length; i < il; i++) {
+                        //Feature is a graphic
+                        var graphic = resultFeatures[i];
+                        var districtCode = graphic.attributes["DISTRICT"];
+                        symbolDistrictFillDarkGreen = new SimpleFillSymbol();
+                        symbolDistrictFillDarkGreen.setOutline(new SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, new Color([0, 0, 0]), 1));
+                        symbolDistrictFillDarkGreen.setColor(new dojo.Color([0, 100, 0, 1]));
+                        symbolDistrictFillMediumGreen = new SimpleFillSymbol();
+                        symbolDistrictFillMediumGreen.setOutline(new SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, new Color([0, 0, 0]), 1));
+                        symbolDistrictFillMediumGreen.setColor(new dojo.Color([51, 255, 204, 1]));
+                        symbolDistrictFillLightGreen = new SimpleFillSymbol();
+                        symbolDistrictFillLightGreen.setOutline(new SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, new Color([0, 0, 0]), 1));
+                        symbolDistrictFillLightGreen.setColor(new dojo.Color([0, 255, 0, 1]));
+                        symbolDistrictFillHollow = new SimpleFillSymbol();
+                        symbolDistrictFillHollow.setOutline(new SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, new Color([0, 0, 0]), 1));
+                        symbolDistrictFillHollow.setColor(new dojo.Color([255, 255, 255, 0]));
+                        if (['QW01', 'BKN01'].indexOf(districtCode) >= 0) {
+                            graphic.setSymbol(symbolDistrictFillDarkGreen);
+                            districtLayer.add(graphic);
+                        }
+                        else if (['QW06', 'BKS07'].indexOf(districtCode) >= 0) {
+                            graphic.setSymbol(symbolDistrictFillMediumGreen);
+                            districtLayer.add(graphic);
+                        }
+                        else if (['QE13', 'BKS12', 'QW02', 'QE14', 'MN10', 'BX09', 'BX03', 'BX01', 'BKS06', 'BKN04', 'BKN02', 'BKN16', 'BKS14', 'BKS13', 'BKS10', 'QE07'].indexOf(districtCode) >= 0) {
+                            graphic.setSymbol(symbolDistrictFillLightGreen);
+                            districtLayer.add(graphic);
+                        }
+                        else {
+                            graphic.setSymbol(symbolDistrictFillHollow);
+                            districtLayer.add(graphic);
+                        }
+                    }
+                }
+            }, function (error) {
+                $('#loading').hide();
+                console.log(error);
+            });
+        }
+        function selectionLayerClickHandler(evt) {
+            highlightResultRowById(evt.graphic.attributes.BBL);
+        }
         function addSelectionToMap(evt) {
             localStorage.setItem('ConsumerProfileSearchedDemographics', null);
             localStorage.setItem('ConsumerProfileSearchedSocial', null);
@@ -245,55 +299,5 @@ $(document).ready(function () {
                 jsWaitFunc(--i);
             }, 10000);
         }
-        function ColorDistricts() {
-            var queryTask = new esri.tasks.QueryTask(DistrictsUrl);
-            var query = new esri.tasks.Query();
-            query.where = "1=1";
-            query.returnGeometry = true;
-            queryTask.execute(query, function (featureSet) {
-                //Performance enhancer - assign featureSet array to a single variable.
-                var resultFeatures = featureSet.features;
-                if (resultFeatures.length > 0) {
-                    //Loop through each feature returned
-                    for (var i = 0, il = resultFeatures.length; i < il; i++) {
-                        //Feature is a graphic
-                        var graphic = resultFeatures[i];
-                        var districtCode = graphic.attributes["DISTRICT"];
-                        symbolDistrictFillDarkGreen = new SimpleFillSymbol();
-                        symbolDistrictFillDarkGreen.setOutline(new SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, new Color([0, 0, 0]), 1));
-                        symbolDistrictFillDarkGreen.setColor(new dojo.Color([0, 100, 0, 1]));
-                        symbolDistrictFillMediumGreen = new SimpleFillSymbol();
-                        symbolDistrictFillMediumGreen.setOutline(new SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, new Color([0, 0, 0]), 1));
-                        symbolDistrictFillMediumGreen.setColor(new dojo.Color([51, 255, 204, 1]));
-                        symbolDistrictFillLightGreen = new SimpleFillSymbol();
-                        symbolDistrictFillLightGreen.setOutline(new SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, new Color([0, 0, 0]), 1));
-                        symbolDistrictFillLightGreen.setColor(new dojo.Color([0, 255, 0, 1]));
-                        symbolDistrictFillHollow = new SimpleFillSymbol();
-                        symbolDistrictFillHollow.setOutline(new SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, new Color([0, 0, 0]), 1));
-                        symbolDistrictFillHollow.setColor(new dojo.Color([255, 255, 255, 0]));
-                        if (['QW01', 'BKN01'].indexOf(districtCode) >= 0) {
-                            graphic.setSymbol(symbolDistrictFillDarkGreen);
-                            districtLayer.add(graphic);
-                        }
-                        else if (['QW06', 'BKS07'].indexOf(districtCode) >= 0) {
-                            graphic.setSymbol(symbolDistrictFillMediumGreen);
-                            districtLayer.add(graphic);
-                        }
-                        else if (['QE13', 'BKS12', 'QW02', 'QE14', 'MN10', 'BX09', 'BX03', 'BX01', 'BKS06', 'BKN04', 'BKN02', 'BKN16', 'BKS14', 'BKS13', 'BKS10', 'QE07'].indexOf(districtCode) >= 0) {
-                            graphic.setSymbol(symbolDistrictFillLightGreen);
-                            districtLayer.add(graphic);
-                        }
-                        else {
-                            graphic.setSymbol(symbolDistrictFillHollow);
-                            districtLayer.add(graphic);
-                        }
-                    }
-                }
-            }, function (error) {
-                $('#loading').hide();
-                console.log(error);
-            });
-        }
-
     });
 });

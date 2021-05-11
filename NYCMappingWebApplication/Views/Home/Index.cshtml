@@ -1157,8 +1157,12 @@
     <div class="col-md-8" style="height: 100%; padding-right: 0px;padding-left: 0px;">
         <div id="mapDiv" style="height: 100%">
         </div>
-        <a href="javascript:void(0);" id="divBottomPanelArrowTop" class="slider-bottom-arrow-top" onclick="hideBottomPanel()">&ReverseUpEquilibrium;</a>
-        <a href="javascript:void(0);" id="divBottomPanelArrowBottom" class="slider-bottom-arrow-bottom" onclick="showBottomPanel()">&ReverseUpEquilibrium;</a>
+        <a href="javascript:void(0);" id="divBottomPanelArrowMiddle" class="slider-bottom-arrow-middle" onclick="clickSlideArrowMiddle()">&#xf063;</a>
+        <a href="javascript:void(0);" id="divBottomPanelArrowBottom" class="slider-bottom-arrow-bottom" onclick="clickSlideArrowBottom()">&#xf062;</a>
+
+        <a href="javascript:void(0);" id="divBottomPanelArrowMinimizeTop" class="slider-bottom-arrow-minimize-top" onclick="clickMinimizeTop()">&#xf2d1;</a>
+        <a href="javascript:void(0);" id="divBottomPanelArrowMaximizeMiddle" class="slider-bottom-arrow-maximize-middle" onclick="clickMaximizeMiddle()">&#xf2d0;</a>
+        <a href="javascript:void(0);" id="divBottomPanelArrowMaximizeBottom" class="slider-bottom-arrow-maximize-bottom" onclick="clickMaximizeBottom()">&#xf2d0;</a>
         <div id="divBottomPanel" class="bottomPanel">
             <div class="form-group" style="margin-bottom: 5px;">
                 <div class="col-sm-8">
@@ -1172,7 +1176,7 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-12">
-                    <div id="divSelectItemsTable" style="max-height: 215px; overflow: auto;"></div>
+                    <div id="divSelectItemsTable" style="max-height: 100%; overflow: auto;"></div>
                     <div id="divSelectItemsMessage" style="font-size: 14px; color: red; display: none">There are no selected records</div>
                 </div>
             </div>
@@ -1270,6 +1274,18 @@
                             <div id="divReportItemsMessage" style="font-size: 14px; display: none">You don't have any reports created yet</div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Spider Chart -->
+    <div class="modal fade" id="myModalSpiderChart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="min-width: 900px; min-height: 600px">
+                <div class="modal-body" style="min-width: 800px; min-height: 600px">
+                    <figure class="highcharts-figure" style="min-width: 800px; min-height: 600px">
+                        <div id="divSpiderChart" style="min-width: 800px; min-height: 600px"></div>
+                    </figure>
                 </div>
             </div>
         </div>

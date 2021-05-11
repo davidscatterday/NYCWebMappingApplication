@@ -1,4 +1,4 @@
-﻿var maxPropertySearchConstructionFloorArea = 999999999, maxConstructionViolationsBldgArea = 24000000;
+﻿var maxPropertySearchConstructionFloorArea = 999999999, maxConstructionViolationsBldgArea = 24000000, maxSpiderChartEstimatedValue = 8364043500;
 var whereOwnerSearchClause = "";
 var sqlQueryJobPermit = "select ISNULL(bbl_10_digits, 0) AS BBL, j.Job_Type AS job_type, j.Address, j.Borough, j.TOTAL_CONSTRUCTION_FLOOR_AREA, ISNULL(j.BUILDING_CLASS, '') AS BldgClass, ISNULL(j.Zoning_Dist1, '') AS ZoneDist1, ISNULL(j.Proposed_Height, '') AS Proposed_Height, ISNULL(j.Proposed_Occupancy, '') AS Proposed_Occupancy, (j.Owner_s_First_Name + ' ' + j.Owner_s_Last_Name) AS OwnerName, j.Owner_s_Business_Name AS BusinessName, ISNULL(p.permittee_s_business_name, '') AS GeneralContractor, (j.Applicant_s_First_Name + ' ' + j.Applicant_s_Last_Name) AS Architect, j.Pre_Filing_Date from dbo.DOB_Job_Application_Filings j left join dbo.Permit p on j.Job = p.job__ where ";
 var sqlQueryLandSaleDemolition = "select j.BBL, j.Address, j.Borough, ISNULL(j.BUILDING_CLASS, '') AS BldgClass, ISNULL(year_built, 0) AS YearBuilt, sale_price, sale_date, j.Pre_Filing_Date, (j.Owner_s_First_Name + ' ' + j.Owner_s_Last_Name) AS OwnerName, j.Owner_s_Business_Name AS BusinessName from dbo.DOB_Job_Application_Filings j inner join dbo.PropertySales ps on j.BBL = ps.bbl where ";
@@ -37,6 +37,30 @@ $(function () {
     });
     $("#txtLandSaleDemolitionSalePrice").val($("#slider-range-LandSaleDemolitionSalePrice").slider("values", 0).toLocaleString('en') +
         " - " + $("#slider-range-LandSaleDemolitionSalePrice").slider("values", 1).toLocaleString('en'));
+
+    $("#slider-range-SpiderChartEstimatedValue").slider({
+        range: true,
+        min: 0,
+        max: maxSpiderChartEstimatedValue,
+        values: [0, maxSpiderChartEstimatedValue],
+        slide: function (event, ui) {
+            $("#txtSpiderChartEstimatedValue").val(ui.values[0].toLocaleString('en') + " - " + ui.values[1].toLocaleString('en'));
+        }
+    });
+    $("#txtSpiderChartEstimatedValue").val($("#slider-range-SpiderChartEstimatedValue").slider("values", 0).toLocaleString('en') +
+        " - " + $("#slider-range-SpiderChartEstimatedValue").slider("values", 1).toLocaleString('en'));
+
+    $("#slider-range-SpiderChartPermitIssuanceYear").slider({
+        range: true,
+        min: 1989,
+        max: new Date().getFullYear(),
+        values: [1989, new Date().getFullYear()],
+        slide: function (event, ui) {
+            $("#txtSpiderChartPermitIssuanceYear").val(ui.values[0] + " - " + ui.values[1]);
+        }
+    });
+    $("#txtSpiderChartPermitIssuanceYear").val($("#slider-range-SpiderChartPermitIssuanceYear").slider("values", 0) +
+        " - " + $("#slider-range-SpiderChartPermitIssuanceYear").slider("values", 1));
 
     $("#slider-range-LandSaleDemolitionYearBuilt").slider({
         range: true,
@@ -359,7 +383,7 @@ function btnResetOwnerSearch() {
     document.getElementById("cbLandSaleDemolitionYearBuilt").checked = false;
     $("#slider-range-LandSaleDemolitionYearBuilt").slider("values", 0, 0);
     $("#slider-range-LandSaleDemolitionYearBuilt").slider("values", 1, maxSalePrice);
-    $("#txtLandSaleDemolitionYearBuilt").val($("#slider-range-LandSaleDemolitionYearBuilt").slider("values", 0) + " - " + $("#slider-range-LandSaleDemolitionYearBuilt").slider("values", 1).toLocaleString('en'));
+    $("#txtLandSaleDemolitionYearBuilt").val($("#slider-range-LandSaleDemolitionYearBuilt").slider("values", 0) + " - " + $("#slider-range-LandSaleDemolitionYearBuilt").slider("values", 1));
 
     $("#txtUnsafeBuildingFacadeConditionAddress").select2("val", "");
     $("#txtUnsafeBuildingFacadeConditionBorough").select2("val", "");
@@ -448,8 +472,25 @@ function btnResetOwnerSearch() {
     $("#slider-range-MajorAlterationPermitIssuanceAssessTot").slider("values", 1, maxAssessedTotalValue);
     $("#txtMajorAlterationPermitIssuanceAssessTot").val($("#slider-range-MajorAlterationPermitIssuanceAssessTot").slider("values", 0) + " - " + $("#slider-range-MajorAlterationPermitIssuanceAssessTot").slider("values", 1).toLocaleString('en'));
 
+    $("#ddlCenterPoints").val($("#ddlCenterPoints option:first").val());
+    $("#txtSpiderChartOwner").select2("val", "");
+    $("#txtSpiderChartGeneralContractor").select2("val", "");
+    $("#txtSpiderChartArchitect").select2("val", "");
+    $('#divSpiderChartOwner').hide();
+    $('#divSpiderChartGeneralContractor').hide();
+    $('#divSpiderChartArchitect').hide();
+    $('#divSpiderChartValues').hide();
+    document.getElementById("cbSpiderChartEstimatedValue").checked = false;
+    $("#slider-range-SpiderChartEstimatedValue").slider("values", 0, 0);
+    $("#slider-range-SpiderChartEstimatedValue").slider("values", 1, maxSpiderChartEstimatedValue);
+    $("#txtSpiderChartEstimatedValue").val($("#slider-range-SpiderChartEstimatedValue").slider("values", 0).toLocaleString('en') + " - " + $("#slider-range-SpiderChartEstimatedValue").slider("values", 1).toLocaleString('en'));
+    document.getElementById("cbSpiderChartPermitIssuanceYear").checked = false;
+    $("#slider-range-SpiderChartPermitIssuanceYear").slider("values", 0, 1989);
+    $("#slider-range-SpiderChartPermitIssuanceYear").slider("values", 1, new Date().getFullYear());
+    $("#txtSpiderChartPermitIssuanceYear").val($("#slider-range-SpiderChartPermitIssuanceYear").slider("values", 0) + " - " + $("#slider-range-SpiderChartPermitIssuanceYear").slider("values", 1));
+
     $('.panel-collapse.in').collapse('toggle');
-    hideBottomPanel();
+    hideResultsPanel();
 
     map.graphics.clear();
     selectionLayer.clear();
@@ -612,6 +653,7 @@ function btnOwnerSearchLandSaleDemolition() {
         $('#loading').show();
         sqlQuery = sqlQueryLandSaleDemolition + whereOwnerSearchClause;
         sqlQueryTotalRecords = sqlQueryLandSaleDemolitionTotalRecords + whereOwnerSearchClause;
+        ProjectSearchAdditional = "ps.sale_date >= 'myFormatedDate'";
         $.ajax({
             url: RootUrl + 'Home/SearchDatabaseTopRecords',
             type: "POST",
@@ -620,7 +662,7 @@ function btnOwnerSearchLandSaleDemolition() {
                 "sqlQueryTotalRecords": sqlQueryTotalRecords
             }
         }).done(function (data) {
-            showAlerts = false;
+            showAlerts = true;
             CreateDatabaseTable(data.attributes, true, true, data.totalRecords);
             $('#loading').hide();
         }).fail(function (f) {
@@ -795,6 +837,7 @@ function btnOwnerSearchUnsafeBuildingFacadeCondition() {
         $('#loading').show();
         sqlQuery = sqlQueryUnsafeBuildingFacadeCondition + whereOwnerSearchClause;
         sqlQueryTotalRecords = sqlQueryUnsafeBuildingFacadeConditionTotalRecords + whereOwnerSearchClause;
+        ProjectSearchAdditional = "s.filing_date >= 'myFormatedDate'";
         $.ajax({
             url: RootUrl + 'Home/SearchDatabaseTopRecords',
             type: "POST",
@@ -803,7 +846,7 @@ function btnOwnerSearchUnsafeBuildingFacadeCondition() {
                 "sqlQueryTotalRecords": sqlQueryTotalRecords
             }
         }).done(function (data) {
-            showAlerts = false;
+            showAlerts = true;
             CreateDatabaseTable(data.attributes, true, true, data.totalRecords);
             $('#loading').hide();
         }).fail(function (f) {
@@ -934,6 +977,7 @@ function btnOwnerSearchConstructionViolations() {
         $('#loading').show();
         sqlQuery = sqlQueryConstructionViolations + whereOwnerSearchClause;
         sqlQueryTotalRecords = sqlQueryConstructionViolationsTotalRecords + whereOwnerSearchClause;
+        ProjectSearchAdditional = "v.issue_date >= 'myFormatedDate'";
         $.ajax({
             url: RootUrl + 'Home/SearchDatabaseTopRecords',
             type: "POST",
@@ -942,7 +986,7 @@ function btnOwnerSearchConstructionViolations() {
                 "sqlQueryTotalRecords": sqlQueryTotalRecords
             }
         }).done(function (data) {
-            showAlerts = false;
+            showAlerts = true;
             CreateDatabaseTable(data.attributes, true, true, data.totalRecords);
             $('#loading').hide();
         }).fail(function (f) {
@@ -964,7 +1008,7 @@ function btnOwnerSearchPlanApprovalWithNoPermitIssuance() {
     var PlanApprovalWithNoPermitIssuanceBorough = document.getElementById("txtPlanApprovalWithNoPermitIssuanceBorough").value;
     var PlanApprovalWithNoPermitIssuanceZoningDistrict = document.getElementById("txtPlanApprovalWithNoPermitIssuanceZoningDistrict").value;
     var PlanApprovalWithNoPermitIssuanceProposedOccupancy = document.getElementById("txtPlanApprovalWithNoPermitIssuanceProposedOccupancy").value;
-    
+
     if (document.getElementById("cbPlanApprovalWithNoPermitIssuanceTotalConstructionFloorArea").checked == true) {
         PlanApprovalWithNoPermitIssuanceTotalConstructionFloorAreaStart = $("#slider-range-PlanApprovalWithNoPermitIssuanceTotalConstructionFloorArea").slider("values", 0);
         PlanApprovalWithNoPermitIssuanceTotalConstructionFloorAreaEnd = $("#slider-range-PlanApprovalWithNoPermitIssuanceTotalConstructionFloorArea").slider("values", 1);
@@ -1061,6 +1105,7 @@ function btnOwnerSearchPlanApprovalWithNoPermitIssuance() {
         $('#loading').show();
         sqlQuery = sqlQueryPlanApprovalWithNoPermitIssuance + whereOwnerSearchClause;
         sqlQueryTotalRecords = sqlQueryPlanApprovalWithNoPermitIssuanceTotalRecords + whereOwnerSearchClause;
+        ProjectSearchAdditional = "CAST(j.Pre_Filing_Date AS datetime) >= 'myFormatedDate'";
         $.ajax({
             url: RootUrl + 'Home/SearchDatabaseTopRecords',
             type: "POST",
@@ -1069,7 +1114,7 @@ function btnOwnerSearchPlanApprovalWithNoPermitIssuance() {
                 "sqlQueryTotalRecords": sqlQueryTotalRecords
             }
         }).done(function (data) {
-            showAlerts = false;
+            showAlerts = true;
             CreateDatabaseTable(data.attributes, true, true, data.totalRecords);
             $('#loading').hide();
         }).fail(function (f) {
@@ -1226,6 +1271,7 @@ function btnOwnerSearchNewConstructionPermitIssuance() {
         $('#loading').show();
         sqlQuery = sqlQueryPermitIssuance + whereOwnerSearchClause;
         sqlQueryTotalRecords = sqlQueryPermitIssuanceTotalRecords + whereOwnerSearchClause;
+        ProjectSearchAdditional = "j.issuance_date >= 'myFormatedDate'";
         $.ajax({
             url: RootUrl + 'Home/SearchDatabaseTopRecords',
             type: "POST",
@@ -1234,7 +1280,7 @@ function btnOwnerSearchNewConstructionPermitIssuance() {
                 "sqlQueryTotalRecords": sqlQueryTotalRecords
             }
         }).done(function (data) {
-            showAlerts = false;
+            showAlerts = true;
             CreateDatabaseTable(data.attributes, true, true, data.totalRecords);
             $('#loading').hide();
         }).fail(function (f) {
@@ -1391,6 +1437,7 @@ function btnOwnerSearchMajorAlterationPermitIssuance() {
         $('#loading').show();
         sqlQuery = sqlQueryPermitIssuance + whereOwnerSearchClause;
         sqlQueryTotalRecords = sqlQueryPermitIssuanceTotalRecords + whereOwnerSearchClause;
+        ProjectSearchAdditional = "j.issuance_date >= 'myFormatedDate'";
         $.ajax({
             url: RootUrl + 'Home/SearchDatabaseTopRecords',
             type: "POST",
@@ -1399,12 +1446,187 @@ function btnOwnerSearchMajorAlterationPermitIssuance() {
                 "sqlQueryTotalRecords": sqlQueryTotalRecords
             }
         }).done(function (data) {
-            showAlerts = false;
+            showAlerts = true;
             CreateDatabaseTable(data.attributes, true, true, data.totalRecords);
             $('#loading').hide();
         }).fail(function (f) {
             $('#loading').hide();
             swal("Failed to search the query");
         });
+    }
+}
+
+function ddlCenterPoints_SelectionChange(evt) {
+    if (evt.value != "") {
+        if (evt.value == "1") {//Owner
+            $('#divSpiderChartOwner').show();
+            $('#divSpiderChartGeneralContractor').hide();
+            $('#divSpiderChartArchitect').hide();
+        }
+        else if (evt.value == "2") {//General Contractor
+            $('#divSpiderChartOwner').hide();
+            $('#divSpiderChartGeneralContractor').show();
+            $('#divSpiderChartArchitect').hide();
+        }
+        else if (evt.value == "3") {//Architect
+            $('#divSpiderChartOwner').hide();
+            $('#divSpiderChartGeneralContractor').hide();
+            $('#divSpiderChartArchitect').show();
+        }
+        $('#divSpiderChartValues').show();
+        $.ajax({
+            url: RootUrl + 'Home/GetCenterPointValues',
+            type: "POST",
+            data: {
+                "centerPoint": evt.value
+            }
+        }).done(function (data) {
+            var items = "";
+            $("#ddlCenterPointValues").empty();
+            for (var i = 0; i < data.length; i++) {
+                items += "<option value=\"" + data[i].Value + "\">" + data[i].Text + "</option>";
+            }
+            $("#ddlCenterPointValues").html(items);
+        }).fail(function (f) {
+            swal("Failed to fill the list");
+        });
+    }
+    else {
+        $('#divSpiderChartOwner').hide();
+        $('#divSpiderChartGeneralContractor').hide();
+        $('#divSpiderChartArchitect').hide();
+        $('#divSpiderChartValues').hide();
+    }
+}
+
+function btnSpiderChart() {
+    var centerPoint = document.getElementById("ddlCenterPoints").value;
+    var centerPointValue = document.getElementById("ddlCenterPointValues").value;
+    var value = "";
+    if (centerPoint == "1") {
+        value = document.getElementById("txtSpiderChartOwner").value;
+    }
+    else if (centerPoint == "2") {
+        value = document.getElementById("txtSpiderChartGeneralContractor").value;
+    }
+    else if (centerPoint == "3") {
+        value = document.getElementById("txtSpiderChartArchitect").value;
+    }
+    if (centerPoint != "" && centerPointValue != "" && value != "") {
+        var whereSpiderChartAdditional = "";
+        if (document.getElementById("cbSpiderChartEstimatedValue").checked == true) {
+            SpiderChartEstimatedValueStart = $("#slider-range-SpiderChartEstimatedValue").slider("values", 0);
+            SpiderChartEstimatedValueEnd = $("#slider-range-SpiderChartEstimatedValue").slider("values", 1);
+            if (whereSpiderChartAdditional == "") {
+                whereSpiderChartAdditional = "Cast(j.Enlargement_SQ_Footage AS int)*375 >= " + SpiderChartEstimatedValueStart + " AND Cast(j.Enlargement_SQ_Footage AS int)*375 <= " + SpiderChartEstimatedValueEnd;
+            }
+            else {
+                whereSpiderChartAdditional += " AND Cast(j.Enlargement_SQ_Footage AS int)*375 >= " + SpiderChartEstimatedValueStart + " AND Cast(j.Enlargement_SQ_Footage AS int)*375 <= " + SpiderChartEstimatedValueEnd;
+            }
+        }
+        if (document.getElementById("cbSpiderChartPermitIssuanceYear").checked == true) {
+            SpiderChartPermitIssuanceYearStart = $("#slider-range-SpiderChartPermitIssuanceYear").slider("values", 0);
+            SpiderChartPermitIssuanceYearEnd = $("#slider-range-SpiderChartPermitIssuanceYear").slider("values", 1);
+            if (whereSpiderChartAdditional == "") {
+                whereSpiderChartAdditional = "year(p.issuance_date) >= " + SpiderChartPermitIssuanceYearStart + " AND year(p.issuance_date) <= " + SpiderChartPermitIssuanceYearEnd;
+            }
+            else {
+                whereSpiderChartAdditional += " AND year(p.issuance_date) >= " + SpiderChartPermitIssuanceYearStart + " AND year(p.issuance_date) <= " + SpiderChartPermitIssuanceYearEnd;
+            }
+        }
+        $('#loading').show();
+        $.ajax({
+            url: RootUrl + 'Home/GetSpiderSearchByCenterPointValue',
+            type: "POST",
+            data: {
+                "centerPoint": centerPoint,
+                "centerPointValue": centerPointValue,
+                "value": value,
+                "whereSpiderChartAdditional": whereSpiderChartAdditional
+            }
+        }).done(function (data) {
+            if (data.length > 0) {
+                var title = "";
+                var categories = [];
+                var seriesData = [];
+                for (var i = 0; i < data.length; i++) {
+                    title = data[i].CenterPoint;
+                    categories.push(data[i].CenterPointValue);
+                    seriesData.push(data[i].CountNum);
+                }
+                Highcharts.chart('divSpiderChart', {
+                    chart: {
+                        polar: true,
+                        type: 'line'
+                    },
+                    accessibility: {
+                        description: 'A spiderweb chart'
+                    },
+                    title: {
+                        text: '',
+                        x: -80
+                    },
+                    pane: {
+                        size: '80%'
+                    },
+                    xAxis: {
+                        categories: categories,
+                        tickmarkPlacement: 'on',
+                        lineWidth: 0
+                    },
+                    yAxis: {
+                        gridLineInterpolation: 'polygon',
+                        lineWidth: 0,
+                        min: 0
+                    },
+                    tooltip: {
+                        shared: true,
+                        pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y:,.0f}</b><br/>'
+                    },
+                    //legend: {
+                    //    align: 'right',
+                    //    verticalAlign: 'middle',
+                    //    layout: 'vertical'
+                    //},
+                    series: [{
+                        name: title,
+                        data: seriesData,
+                        pointPlacement: 'on'
+                    },],
+                    responsive: {
+                        rules: [{
+                            condition: {
+                                maxWidth: 500
+                            },
+                            chartOptions: {
+                                //legend: {
+                                //    align: 'center',
+                                //    verticalAlign: 'bottom',
+                                //    layout: 'horizontal'
+                                //},
+                                pane: {
+                                    size: '70%'
+                                }
+                            }
+                        }]
+                    }
+                }, function (chart) {
+                    var arr = chart.options.exporting.buttons.contextButton.menuItems;
+                    var index = arr.indexOf("viewData");
+                    if (index !== -1) arr.splice(index, 1);
+                });
+            }
+            else {
+                document.getElementById("divSpiderChart").innerText = "Data not found";
+            }
+            $('#loading').hide();
+            $("#myModalSpiderChart").modal();
+        }).fail(function (f) {
+            $('#loading').hide();
+            swal("Failed to create the spider chart");
+        });
+    }
+    else {
+        swal("Please first choose values from the lists");
     }
 }

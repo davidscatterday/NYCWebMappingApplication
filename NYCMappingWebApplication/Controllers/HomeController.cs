@@ -32,6 +32,8 @@ namespace NYCMappingWebApp.Controllers
             ViewBag.FilingStatuses = mainDAL.GetAllFilingStatuses();
             ViewBag.YesNoStatuses = mainDAL.GetAllYesNoStatuses();
             ViewBag.Frequencies = mainDAL.GetAllFrequencies();
+            ViewBag.CenterPoints = mainDAL.GetAllCenterPoints();
+            ViewBag.CenterPointValues = mainDAL.GetCenterPointValues("1");
             return View(data);
         }
 
@@ -295,7 +297,7 @@ namespace NYCMappingWebApp.Controllers
             return Json(res, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult CreateAlert(string AlertName, string AlertFrequency, string AlertQuery, bool IsPlutoSearch, bool IsEnergySearch, bool IsPermitSearch, bool IsViolationSearch, bool IsEvictionSearch, bool IsElevatorSearch, bool IsPropertySalesSearch)
+        public JsonResult CreateAlert(string AlertName, string AlertFrequency, string AlertQuery, bool IsPlutoSearch, bool IsEnergySearch, bool IsPermitSearch, bool IsViolationSearch, bool IsEvictionSearch, bool IsElevatorSearch, bool IsPropertySalesSearch, string ProjectSearchAdditional)
         {
             string msg = "Alert created successfully";
             try
@@ -314,6 +316,7 @@ namespace NYCMappingWebApp.Controllers
                     IsEvictionSearch = IsEvictionSearch,
                     IsElevatorSearch = IsElevatorSearch,
                     IsPropertySalesSearch = IsPropertySalesSearch,
+                    ProjectSearchAdditional = ProjectSearchAdditional,
                     DateCreated = DateTime.Now,
                     Last_DateCheck = DateTime.Now,
                     Next_DateCheck = AlertFrequency == "7" ? DateTime.Now.AddDays(7) : DateTime.Now.AddDays(1),
@@ -600,5 +603,20 @@ namespace NYCMappingWebApp.Controllers
                 MaxJsonLength = Int32.MaxValue
             };
         }
+
+        public JsonResult GetCenterPointValues(string centerPoint)
+        {
+            var data = mainDAL.GetCenterPointValues(centerPoint);
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetSpiderSearchByCenterPointValue(string centerPoint, string centerPointValue, string value, string whereSpiderChartAdditional)
+        {
+            var data = mainDAL.GetSpiderSearchByCenterPointValue(centerPoint, centerPointValue, value, whereSpiderChartAdditional);
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

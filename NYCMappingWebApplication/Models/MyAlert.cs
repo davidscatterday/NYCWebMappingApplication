@@ -30,5 +30,6 @@ namespace NYCMappingWebApp.Models
         public bool IsElevatorSearch { get; set; }
         public bool IsPropertySalesSearch { get; set; }
         public Nullable<bool> IsUnread { get; set; }
+        public string ProjectSearchAdditional { get; set; }
     }
 }

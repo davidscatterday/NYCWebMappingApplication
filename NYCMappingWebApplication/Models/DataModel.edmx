@@ -469,6 +469,7 @@ warning 6002: The table/view 'NYC_Web_Mapping_App.dbo.Districts' does not have a
           <Property Name="IsElevatorSearch" Type="bit" Nullable="false" />
           <Property Name="IsPropertySalesSearch" Type="bit" Nullable="false" />
           <Property Name="IsUnread" Type="bit" />
+          <Property Name="ProjectSearchAdditional" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="MyReports">
           <Key>
@@ -592,7 +593,6 @@ warning 6002: The table/view 'NYC_Web_Mapping_App.dbo.Districts' does not have a
         <EntityContainer Name="NYC_Web_Mapping_AppEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="MyReports" EntityType="Self.MyReport" />
           <EntitySet Name="Elevators" EntityType="NYC_Web_Mapping_AppModel.Elevator" />
-          <EntitySet Name="MyAlerts" EntityType="NYC_Web_Mapping_AppModel.MyAlert" />
           <EntitySet Name="ConsumerProfiles" EntityType="NYC_Web_Mapping_AppModel.ConsumerProfile" />
           <EntitySet Name="Districts" EntityType="NYC_Web_Mapping_AppModel.District" />
           <EntitySet Name="Designations" EntityType="NYC_Web_Mapping_AppModel.Designation" />
@@ -606,6 +606,7 @@ warning 6002: The table/view 'NYC_Web_Mapping_App.dbo.Districts' does not have a
           </AssociationSet>
           <EntitySet Name="Loggers" EntityType="NYC_Web_Mapping_AppModel.Logger" />
           <EntitySet Name="Plutoes" EntityType="NYC_Web_Mapping_AppModel.Pluto" />
+          <EntitySet Name="MyAlerts" EntityType="NYC_Web_Mapping_AppModel.MyAlert" />
         </EntityContainer>
         <EntityType Name="Elevator">
           <Key>
@@ -632,27 +633,6 @@ warning 6002: The table/view 'NYC_Web_Mapping_App.dbo.Districts' does not have a
           <Property Name="building_type" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="buildingstories" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="bbl" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="MyAlert">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AlertName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AlertQuery" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Last_OBJECTID" Type="Int32" />
-          <Property Name="Last_DateCheck" Type="DateTime" Precision="3" />
-          <Property Name="Next_DateCheck" Type="DateTime" Precision="3" />
-          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Frequency" Type="Int32" Nullable="false" />
-          <Property Name="IsEnergySearch" Type="Boolean" Nullable="false" />
-          <Property Name="IsPermitSearch" Type="Boolean" Nullable="false" />
-          <Property Name="IsViolationSearch" Type="Boolean" Nullable="false" />
-          <Property Name="IsEvictionSearch" Type="Boolean" Nullable="false" />
-          <Property Name="IsElevatorSearch" Type="Boolean" Nullable="false" />
-          <Property Name="IsPropertySalesSearch" Type="Boolean" Nullable="false" />
-          <Property Name="IsUnread" Type="Boolean" />
         </EntityType>
         <EntityType Name="ConsumerProfile">
           <Key>
@@ -1145,6 +1125,28 @@ warning 6002: The table/view 'NYC_Web_Mapping_App.dbo.Districts' does not have a
           <Property Name="Tract2010" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LandUse" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="MyAlert">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AlertName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AlertQuery" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Last_OBJECTID" Type="Int32" />
+          <Property Name="Last_DateCheck" Type="DateTime" Precision="3" />
+          <Property Name="Next_DateCheck" Type="DateTime" Precision="3" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Frequency" Type="Int32" Nullable="false" />
+          <Property Name="IsEnergySearch" Type="Boolean" Nullable="false" />
+          <Property Name="IsPermitSearch" Type="Boolean" Nullable="false" />
+          <Property Name="IsViolationSearch" Type="Boolean" Nullable="false" />
+          <Property Name="IsEvictionSearch" Type="Boolean" Nullable="false" />
+          <Property Name="IsElevatorSearch" Type="Boolean" Nullable="false" />
+          <Property Name="IsPropertySalesSearch" Type="Boolean" Nullable="false" />
+          <Property Name="IsUnread" Type="Boolean" />
+          <Property Name="ProjectSearchAdditional" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1184,28 +1186,6 @@ warning 6002: The table/view 'NYC_Web_Mapping_App.dbo.Districts' does not have a
                 <ScalarProperty Name="filing_number" ColumnName="filing_number" />
                 <ScalarProperty Name="job_number" ColumnName="job_number" />
                 <ScalarProperty Name="job_filing_number" ColumnName="job_filing_number" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MyAlerts">
-            <EntityTypeMapping TypeName="NYC_Web_Mapping_AppModel.MyAlert">
-              <MappingFragment StoreEntitySet="MyAlerts">
-                <ScalarProperty Name="IsUnread" ColumnName="IsUnread" />
-                <ScalarProperty Name="IsPropertySalesSearch" ColumnName="IsPropertySalesSearch" />
-                <ScalarProperty Name="IsElevatorSearch" ColumnName="IsElevatorSearch" />
-                <ScalarProperty Name="IsEvictionSearch" ColumnName="IsEvictionSearch" />
-                <ScalarProperty Name="IsViolationSearch" ColumnName="IsViolationSearch" />
-                <ScalarProperty Name="IsPermitSearch" ColumnName="IsPermitSearch" />
-                <ScalarProperty Name="IsEnergySearch" ColumnName="IsEnergySearch" />
-                <ScalarProperty Name="Frequency" ColumnName="Frequency" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="Next_DateCheck" ColumnName="Next_DateCheck" />
-                <ScalarProperty Name="Last_DateCheck" ColumnName="Last_DateCheck" />
-                <ScalarProperty Name="Last_OBJECTID" ColumnName="Last_OBJECTID" />
-                <ScalarProperty Name="AlertQuery" ColumnName="AlertQuery" />
-                <ScalarProperty Name="AlertName" ColumnName="AlertName" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1691,6 +1671,29 @@ warning 6002: The table/view 'NYC_Web_Mapping_App.dbo.Districts' does not have a
                 <ScalarProperty Name="Borough" ColumnName="Borough" />
                 <ScalarProperty Name="BBL" ColumnName="BBL" />
                 <ScalarProperty Name="OBJECTID" ColumnName="OBJECTID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MyAlerts">
+            <EntityTypeMapping TypeName="NYC_Web_Mapping_AppModel.MyAlert">
+              <MappingFragment StoreEntitySet="MyAlerts">
+                <ScalarProperty Name="ProjectSearchAdditional" ColumnName="ProjectSearchAdditional" />
+                <ScalarProperty Name="IsUnread" ColumnName="IsUnread" />
+                <ScalarProperty Name="IsPropertySalesSearch" ColumnName="IsPropertySalesSearch" />
+                <ScalarProperty Name="IsElevatorSearch" ColumnName="IsElevatorSearch" />
+                <ScalarProperty Name="IsEvictionSearch" ColumnName="IsEvictionSearch" />
+                <ScalarProperty Name="IsViolationSearch" ColumnName="IsViolationSearch" />
+                <ScalarProperty Name="IsPermitSearch" ColumnName="IsPermitSearch" />
+                <ScalarProperty Name="IsEnergySearch" ColumnName="IsEnergySearch" />
+                <ScalarProperty Name="Frequency" ColumnName="Frequency" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Next_DateCheck" ColumnName="Next_DateCheck" />
+                <ScalarProperty Name="Last_DateCheck" ColumnName="Last_DateCheck" />
+                <ScalarProperty Name="Last_OBJECTID" ColumnName="Last_OBJECTID" />
+                <ScalarProperty Name="AlertQuery" ColumnName="AlertQuery" />
+                <ScalarProperty Name="AlertName" ColumnName="AlertName" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

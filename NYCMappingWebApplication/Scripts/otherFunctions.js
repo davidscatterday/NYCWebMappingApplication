@@ -61,7 +61,7 @@ lstAllTableAttributes.push({ name: 'Sale Price', attribute: "sale_price", datase
 lstAllTableAttributes.push({ name: 'Description', attribute: "DESCRIPTION", dataset: "Designations" });
 
 var sqlQuery = "";
-var IsPlutoSearch = false, IsEnergySearch = false, IsPermitSearch = false, IsViolationSearch = false, IsEvictionSearch = false, IsSocialServiceOrganizationsSearch = false, IsElevatorSearch = false, IsPropertySalesSearch = false, IsDesignationSearch = false;
+var IsPlutoSearch = false, IsEnergySearch = false, IsPermitSearch = false, IsViolationSearch = false, IsEvictionSearch = false, IsSocialServiceOrganizationsSearch = false, IsElevatorSearch = false, IsPropertySalesSearch = false, IsDesignationSearch = false, ProjectSearchAdditional = "";
 $(function () {
     $("#slider-range-TotalBuildingFloorArea").slider({
         range: true,
@@ -335,7 +335,7 @@ function btnReset() {
     $("#slider-range-TotalGHGEmissions").slider("values", 1, maxTotalGHGEmissions);
     $("#txtTotalGHGEmissions").val($("#slider-range-TotalGHGEmissions").slider("values", 0) + " - " + $("#slider-range-TotalGHGEmissions").slider("values", 1).toLocaleString('en'));
 
-    hideBottomPanel();
+    hideResultsPanel();
 
     document.getElementById("cbJobStartDate").checked = false;
     document.getElementById("cbJobType").checked = false;
@@ -1581,7 +1581,7 @@ function CreateDatabaseTable(data, zoomTo, clearSelectionLayer, totalRecords) {
     if (clearSelectionLayer) {
         selectionLayer.clear();
     }
-    showBottomPanel();
+    showResultsPanel();
     if (data.length > 0) {
         var BBLs = "";
         var htmlQueryRecords = '<div class="table-responsive"><table id=\"tblQueryRecords\" class="tablesorter"><thead><tr class=\"clickableRow\">';
@@ -1599,7 +1599,7 @@ function CreateDatabaseTable(data, zoomTo, clearSelectionLayer, totalRecords) {
                     BBLs += "," + data[i].BBL;
                 }
             }
-            htmlQueryRecords += "<tr class=\"clickableRow\" OnClick=\"ShowInfoForSelectedRecord('" + data[i].BBL + "');\">";
+            htmlQueryRecords += "<tr id=" + data[i].BBL + " class=\"clickableRow\" OnClick=\"ShowInfoForSelectedRecord('" + data[i].BBL + "');\">";
 
             for (var j = 0; j < lstTableAttributes.length; j++) {
                 switch (lstTableAttributes[j].attribute) {
@@ -1701,6 +1701,7 @@ function MapPlutoGeometrySearch(BBLs) {
     //initialize query
     query = new esri.tasks.Query();
     query.returnGeometry = true;
+    query.outFields = ["*"];
 
     query.where = "BBL IN (" + BBLs + ")";
 
@@ -1715,6 +1716,10 @@ function MapPlutoGeometrySearch(BBLs) {
                 geometry: graphic.geometry
             });
             myGraphic.symbol = symbolFill;
+            var graphicAttributes = {
+                BBL: graphic.attributes.BBL
+            };
+            myGraphic.attributes = graphicAttributes;
             selectionLayer.add(myGraphic);
             features.push(graphic);
             var spatialRef = new esri.SpatialReference({ wkid: 102718 });
@@ -1838,7 +1843,7 @@ function btnOpenAlerts_Click() {
     //    $(this).addClass("btn btn-primary btn-sm");
     //});
     swal({
-        text: "For Alerts including Property Permits, Property Violations, Housing Evictions or Elevators criteria, please ensure the selected end date is set in the future or empty to receieve alerts in perpetuity",
+        text: "For Alerts including Property Permits, Property Violations, Housing Evictions, Elevators or Project Search criteria, please ensure the selected end date is set in the future or empty to receieve alerts in perpetuity",
         title: "Alert",
         buttons: {
             ResetSearch: { text: 'Reset Search', className: 'btn btn-primary btn-sm' },
@@ -1877,7 +1882,8 @@ function btnSaveMyAlert_Click() {
                 "IsViolationSearch": IsViolationSearch,
                 "IsEvictionSearch": IsEvictionSearch,
                 "IsElevatorSearch": IsElevatorSearch,
-                "IsPropertySalesSearch": IsPropertySalesSearch
+                "IsPropertySalesSearch": IsPropertySalesSearch,
+                "ProjectSearchAdditional": ProjectSearchAdditional
             }
         }).done(function (data) {
             $('#loading').hide();
@@ -2077,7 +2083,7 @@ function ShowInfoForSelectedAlert(AlertID, rowID) {
         else {
             document.getElementById("myAlertBadge").textContent = myDataObject.unreadAlerts;
         }
-        showBottomPanel();
+        showResultsPanel();
         if (data.length > 0) {
             lstTableAttributes = [];
             var htmlAlertData = '<div class="table-responsive"><table id=\"tblAlertData\" class="tablesorter"><thead><tr class=\"clickableRow\">';
@@ -2317,6 +2323,8 @@ function txtSlider_KeyUp(x, name) {
         case "MajorAlterationPermitIssuanceAssessTot": maxValueTotal = maxAssessedTotalValue; break
         case "LandSaleDemolitionSalePrice": maxValueTotal = maxSalePrice; break
         case "LandSaleDemolitionYearBuilt": maxValueTotal = new Date().getFullYear(); break
+        case "SpiderChartPermitIssuanceYear": maxValueTotal = Date().getFullYear(); break
+        case "SpiderChartEstimatedValue": maxValueTotal = maxSpiderChartEstimatedValue; break
         default: return
     }
     try {
@@ -2362,19 +2370,99 @@ function uncheckBuildingClass() {
     }
 }
 
-function showBottomPanel() {
+function clickSlideArrowBottom() {
+    $('#divBottomPanelArrowBottom').hide();
+    $('#divBottomPanelArrowMaximizeBottom').hide();
     $("#divBottomPanel").slideDown(1000, function () {
-        $('#divBottomPanelArrowTop').show();
-        $('#divBottomPanelArrowBottom').hide();
+        $('#divBottomPanelArrowMiddle').show();
+        $('#divBottomPanelArrowMaximizeMiddle').show();
     });
 }
 
-function hideBottomPanel() {
-    $('#divBottomPanelArrowTop').hide();
+function clickSlideArrowMiddle() {
+    $('#divBottomPanelArrowMiddle').hide();
+    $('#divBottomPanelArrowMaximizeMiddle').hide();
     $("#divBottomPanel").slideUp(1000, function () {
         $('#divBottomPanelArrowBottom').show();
+        $('#divBottomPanelArrowMaximizeBottom').show();
     });
 }
+
+function clickMaximizeBottom() {
+    $('#divBottomPanelArrowBottom').hide();
+    $('#divBottomPanelArrowMaximizeBottom').hide();
+    $("#divBottomPanel").slideDown(1000, function () {
+        document.getElementById("divBottomPanel").style.height = "100%";
+        $('#divBottomPanelArrowMinimizeTop').show();
+    });
+}
+
+function clickMaximizeMiddle() {
+    $('#divBottomPanelArrowMiddle').hide();
+    $('#divBottomPanelArrowMaximizeMiddle').hide();
+    $("#divBottomPanel").slideDown(1000, function () {
+        document.getElementById("divBottomPanel").style.height = "100%";
+        $('#divBottomPanelArrowMinimizeTop').show();
+    });
+}
+
+function clickMinimizeTop() {
+    $('#divBottomPanelArrowMinimizeTop').hide();
+    $("#divBottomPanel").slideDown(1000, function () {
+        document.getElementById("divBottomPanel").style.height = "260px";
+        $('#divBottomPanelArrowMiddle').show();
+        $('#divBottomPanelArrowMaximizeMiddle').show();
+    });
+}
+
+function showResultsPanel() {
+    var x = document.getElementById("divBottomPanelArrowBottom");
+    if (window.getComputedStyle(x).display != "none") {
+        $('#divBottomPanelArrowBottom').hide();
+        $('#divBottomPanelArrowMaximizeBottom').hide();
+        $("#divBottomPanel").slideDown(1000, function () {
+            $('#divBottomPanelArrowMiddle').show();
+            $('#divBottomPanelArrowMaximizeMiddle').show();
+        });
+    }
+}
+
+function hideResultsPanel() {
+    var x = document.getElementById("divBottomPanelArrowMinimizeTop");
+    var y = document.getElementById("divBottomPanelArrowMaximizeMiddle");
+    if (window.getComputedStyle(x).display != "none") {
+        clickMinimizeTop();
+        clickSlideArrowMiddle();
+    }
+    else if (window.getComputedStyle(y).display != "none") {
+        clickSlideArrowMiddle();
+    }
+}
+
+function highlightResultRowById(id) {
+    var table = document.getElementById('tblQueryRecords');
+
+    var tableRows = table.rows;
+    for (var row = 0; row < tableRows.length; row++) {
+        if (tableRows[row].id == id) {
+            for (var j = 0; j < tableRows[row].cells.length; j++) {
+                tableRows[row].cells[j].style.backgroundColor = "#99FFFF";
+            }
+            //tableRows[row].style.backgroundColor = "#99FFFF";
+            //tableRows[row].className += " selected";
+
+            $('.bottomPanel').animate({ scrollTop: tableRows[row].offsetTop }, 1000);
+        }
+        else {
+            for (var j = 0; j < tableRows[row].cells.length; j++) {
+                tableRows[row].cells[j].style.backgroundColor = "";
+            }
+            //tableRows[row].style.backgroundColor = "";
+            //tableRows[row].classList.remove('selected');
+        }
+    }
+} //end of function
+
 
 function tabGeneral_Clicked(TabID) {
     switch (TabID) {

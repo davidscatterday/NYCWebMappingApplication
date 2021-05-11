@@ -203,6 +203,28 @@ namespace NYCMappingWebApp.DataAccessLayer
                             }).OrderBy(w => w.Text).Distinct().ToList();
             return returnResult;
         }
+        public List<SelectListItem> GetAllCenterPoints()
+        {
+            List<SelectListItem> returnResult = new List<SelectListItem>();
+            returnResult.Add(new SelectListItem() { Text = "Owner", Value = "1" });
+            returnResult.Add(new SelectListItem() { Text = "General Contractor", Value = "2" });
+            returnResult.Add(new SelectListItem() { Text = "Architect", Value = "3" });
+            return returnResult;
+        }
+        public List<SelectListItem> GetCenterPointValues(string centerPoint)
+        {
+            List<SelectListItem> returnResult = new List<SelectListItem>();
+            returnResult.Add(new SelectListItem() { Text = "Owner", Value = "11" });
+            returnResult.Add(new SelectListItem() { Text = "Owner -> General Contractor", Value = "12" });
+            returnResult.Add(new SelectListItem() { Text = "Owner -> Architect", Value = "13" });
+            returnResult.Add(new SelectListItem() { Text = "General Contractor", Value = "22" });
+            returnResult.Add(new SelectListItem() { Text = "General Contractor -> Owner", Value = "21" });
+            returnResult.Add(new SelectListItem() { Text = "General Contractor -> Architect", Value = "23" });
+            returnResult.Add(new SelectListItem() { Text = "Architect", Value = "33" });
+            returnResult.Add(new SelectListItem() { Text = "Architect -> Owner", Value = "31" });
+            returnResult.Add(new SelectListItem() { Text = "Architect -> General Contractor", Value = "32" });
+            return returnResult.Where(w => !w.Value.Contains(centerPoint)).ToList();
+        }
         public List<SelectListItem> GetAllFilingStatuses()
         {
             List<SelectListItem> returnResult = new List<SelectListItem>();
@@ -488,6 +510,17 @@ namespace NYCMappingWebApp.DataAccessLayer
                 else
                 {
                     sqlQuery += " OR (ps.sale_date > '" + formatedDate + "' AND ps.sale_date < '2030-01-01')";
+                }
+            }
+            if (!String.IsNullOrEmpty(alert.ProjectSearchAdditional))
+            {
+                if (sqlQuery.EndsWith("("))
+                {
+                    sqlQuery += " " + alert.ProjectSearchAdditional.Replace("myFormatedDate", formatedDate);
+                }
+                else
+                {
+                    sqlQuery += " OR " + alert.ProjectSearchAdditional.Replace("myFormatedDate", formatedDate);
                 }
             }
             sqlQuery += ")";
@@ -1086,6 +1119,90 @@ namespace NYCMappingWebApp.DataAccessLayer
                 ctx.Database.CommandTimeout = 600;
                 var termParametar = !String.IsNullOrEmpty(term) ? new SqlParameter("term", term) : new SqlParameter("term", DBNull.Value);
                 returnResult = ctx.Database.SqlQuery<Select2DTO>("EXEC dbo.Distinct_GetPermitLicenseType @term ", termParametar).ToList();
+            }
+            return returnResult;
+        }
+
+        public List<SpiderChartAttributes> GetSpiderSearchByCenterPointValue(string centerPoint, string centerPointValue, string value, string whereSpiderChartAdditional)
+        {
+            string sqlQuery = "";
+            string sqlQuerySelect = "";
+            string sqlQueryFrom = "from NYC_Web_Mapping_App.dbo.Permit p inner join NYC_Web_Mapping_App.dbo.DOB_Job_Application_Filings j on p.job__ = j.Job";
+            string sqlQueryWhere = "";
+            string sqlQueryGroupBy = "";
+            switch (centerPoint + centerPointValue)
+            {
+                case ("122"):
+                    sqlQuerySelect = "select (Owner_s_First_Name + ' ' + Owner_s_Last_Name + ' ' + Owner_s_Business_Name) as CenterPoint, permittee_s_business_name as CenterPointValue, count(p.job__) as CountNum";
+                    sqlQueryWhere = "where (Owner_s_First_Name + ' ' + Owner_s_Last_Name = " + value + ") OR Owner_s_Business_Name = " + value + "";
+                    sqlQueryGroupBy = "group by Owner_s_First_Name,Owner_s_Last_Name,Owner_s_Business_Name,permittee_s_business_name";
+                    break;
+                case ("123"):
+                    sqlQuerySelect = "select (Owner_s_First_Name + ' ' + Owner_s_Last_Name + ' ' + Owner_s_Business_Name) as CenterPoint, (permittee_s_business_name + ' - ' + Applicant_s_First_Name + ' ' + Applicant_s_Last_Name) as CenterPointValue, count(p.job__) as CountNum";
+                    sqlQueryWhere = "where (Owner_s_First_Name + ' ' + Owner_s_Last_Name = " + value + ") OR Owner_s_Business_Name = " + value + "";
+                    sqlQueryGroupBy = "group by Owner_s_First_Name,Owner_s_Last_Name,Owner_s_Business_Name,permittee_s_business_name,Applicant_s_First_Name,Applicant_s_Last_Name";
+                    break;
+                case ("132"):
+                    sqlQuerySelect = "select (Owner_s_First_Name + ' ' + Owner_s_Last_Name + ' ' + Owner_s_Business_Name) as CenterPoint, (Applicant_s_First_Name + ' ' + Applicant_s_Last_Name + ' - ' + permittee_s_business_name) as CenterPointValue, count(p.job__) as CountNum";
+                    sqlQueryWhere = "where (Owner_s_First_Name + ' ' + Owner_s_Last_Name = " + value + ") OR Owner_s_Business_Name = " + value + "";
+                    sqlQueryGroupBy = "group by Owner_s_First_Name,Owner_s_Last_Name,Owner_s_Business_Name,Applicant_s_First_Name,Applicant_s_Last_Name,permittee_s_business_name";
+                    break;
+                case ("133"):
+                    sqlQuerySelect = "select (Owner_s_First_Name + ' ' + Owner_s_Last_Name + ' ' + Owner_s_Business_Name) as CenterPoint, (Applicant_s_First_Name + ' ' + Applicant_s_Last_Name) as CenterPointValue, count(p.job__) as CountNum";
+                    sqlQueryWhere = "where (Owner_s_First_Name + ' ' + Owner_s_Last_Name = " + value + ") OR Owner_s_Business_Name = " + value + "";
+                    sqlQueryGroupBy = "group by Owner_s_First_Name,Owner_s_Last_Name,Owner_s_Business_Name,Applicant_s_First_Name,Applicant_s_Last_Name";
+                    break;
+                case ("211"):
+                    sqlQuerySelect = "select permittee_s_business_name as CenterPoint, (Owner_s_First_Name + ' ' + Owner_s_Last_Name + ' ' + Owner_s_Business_Name) as CenterPointValue, count(p.job__) as CountNum";
+                    sqlQueryWhere = "where permittee_s_business_name = " + value + "";
+                    sqlQueryGroupBy = "group by permittee_s_business_name,Owner_s_First_Name,Owner_s_Last_Name,Owner_s_Business_Name";
+                    break;
+                case ("213"):
+                    sqlQuerySelect = "select permittee_s_business_name as CenterPoint, (Owner_s_First_Name + ' ' + Owner_s_Last_Name + ' ' + Owner_s_Business_Name + ' - ' + Applicant_s_First_Name + ' ' + Applicant_s_Last_Name) as CenterPointValue, count(p.job__) as CountNum";
+                    sqlQueryWhere = "where permittee_s_business_name = " + value + "";
+                    sqlQueryGroupBy = "group by permittee_s_business_name,Owner_s_First_Name,Owner_s_Last_Name,Owner_s_Business_Name,Applicant_s_First_Name,Applicant_s_Last_Name";
+                    break;
+                case ("231"):
+                    sqlQuerySelect = "select permittee_s_business_name as CenterPoint, (Applicant_s_First_Name + ' ' + Applicant_s_Last_Name + ' - ' + Owner_s_First_Name + ' ' + Owner_s_Last_Name + ' ' + Owner_s_Business_Name) as CenterPointValue, count(p.job__) as CountNum";
+                    sqlQueryWhere = "where permittee_s_business_name = " + value + "";
+                    sqlQueryGroupBy = "group by permittee_s_business_name,Applicant_s_First_Name,Applicant_s_Last_Name,Owner_s_First_Name,Owner_s_Last_Name,Owner_s_Business_Name";
+                    break;
+                case ("233"):
+                    sqlQuerySelect = "select permittee_s_business_name as CenterPoint, (Applicant_s_First_Name + ' ' + Applicant_s_Last_Name) as CenterPointValue, count(p.job__) as CountNum";
+                    sqlQueryWhere = "where permittee_s_business_name = " + value + "";
+                    sqlQueryGroupBy = "group by permittee_s_business_name,Applicant_s_First_Name,Applicant_s_Last_Name";
+                    break;
+                case ("311"):
+                    sqlQuerySelect = "select (Applicant_s_First_Name + ' ' + Applicant_s_Last_Name) as CenterPoint, (Owner_s_First_Name + ' ' + Owner_s_Last_Name + ' ' + Owner_s_Business_Name) as CenterPointValue, count(p.job__) as CountNum";
+                    sqlQueryWhere = "where Applicant_s_First_Name + ' ' + Applicant_s_Last_Name = " + value + "";
+                    sqlQueryGroupBy = "group by Applicant_s_First_Name,Applicant_s_Last_Name,Owner_s_First_Name,Owner_s_Last_Name,Owner_s_Business_Name";
+                    break;
+                case ("312"):
+                    sqlQuerySelect = "select (Applicant_s_First_Name + ' ' + Applicant_s_Last_Name) as CenterPoint, (Owner_s_First_Name + ' ' + Owner_s_Last_Name + ' ' + Owner_s_Business_Name + ' - ' + permittee_s_business_name) as CenterPointValue, count(p.job__) as CountNum";
+                    sqlQueryWhere = "where Applicant_s_First_Name + ' ' + Applicant_s_Last_Name = " + value + "";
+                    sqlQueryGroupBy = "group by Applicant_s_First_Name,Applicant_s_Last_Name,Owner_s_First_Name,Owner_s_Last_Name,Owner_s_Business_Name,permittee_s_business_name";
+                    break;
+                case ("321"):
+                    sqlQuerySelect = "select (Applicant_s_First_Name + ' ' + Applicant_s_Last_Name) as CenterPoint, (permittee_s_business_name + ' - ' + Owner_s_First_Name + ' ' + Owner_s_Last_Name + ' ' + Owner_s_Business_Name) as CenterPointValue, count(p.job__) as CountNum";
+                    sqlQueryWhere = "where Applicant_s_First_Name + ' ' + Applicant_s_Last_Name = " + value + "";
+                    sqlQueryGroupBy = "group by Applicant_s_First_Name,Applicant_s_Last_Name,permittee_s_business_name,Owner_s_First_Name,Owner_s_Last_Name,Owner_s_Business_Name";
+                    break;
+                case ("322"):
+                    sqlQuerySelect = "select (Applicant_s_First_Name + ' ' + Applicant_s_Last_Name) as CenterPoint, permittee_s_business_name as CenterPointValue, count(p.job__) as CountNum";
+                    sqlQueryWhere = "where Applicant_s_First_Name + ' ' + Applicant_s_Last_Name = " + value + "";
+                    sqlQueryGroupBy = "group by Applicant_s_First_Name,Applicant_s_Last_Name,permittee_s_business_name";
+                    break;
+            }
+            if (!String.IsNullOrEmpty(whereSpiderChartAdditional))
+            {
+                sqlQueryWhere += " AND " + whereSpiderChartAdditional;
+            }
+            sqlQuery = sqlQuerySelect + " " + sqlQueryFrom + " " + sqlQueryWhere + " " + sqlQueryGroupBy;
+            List<SpiderChartAttributes> returnResult = new List<SpiderChartAttributes>();
+            using (var ctx = new NYC_Web_Mapping_AppEntities())
+            {
+                ctx.Database.CommandTimeout = 600;
+                returnResult = ctx.Database.SqlQuery<SpiderChartAttributes>(sqlQuery).ToList();
             }
             return returnResult;
         }

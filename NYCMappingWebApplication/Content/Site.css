@@ -104,13 +104,32 @@ input[type=text] {
 }
 
 .slider-bottom-arrow-top {
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
     display: none;
     padding: 4px;
-    width: 50px;
+    width: 23px;
     bottom: 260px;
     right: 0px;
     background: #d9dada;
-    font: 400 12px Arial, Helvetica, sans-serif;
+    color: #000;
+    text-decoration: none;
+    position: absolute;
+    z-index: 999;
+    opacity: 0.9;
+}
+
+.slider-bottom-arrow-middle {
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    display: none;
+    padding: 4px;
+    width: 23px;
+    bottom: 260px;
+    right: 0px;
+    background: #d9dada;
     color: #000;
     text-decoration: none;
     position: absolute;
@@ -119,12 +138,14 @@ input[type=text] {
 }
 
 .slider-bottom-arrow-bottom {
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
     padding: 4px;
-    width: 50px;
+    width: 23px;
     bottom: 0px;
     right: 0px;
     background: #d9dada;
-    font: 400 12px Arial, Helvetica, sans-serif;
     color: #000;
     text-decoration: none;
     position: absolute;
@@ -132,15 +153,56 @@ input[type=text] {
     opacity: 0.9;
 }
 
-/*.hideBottomPanel {
-    width: 50px;
+.slider-bottom-arrow-minimize-top {
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
     display: none;
+    padding: 4px;
+    width: 23px;
+    height: 22px;
+    bottom: 100%;
+    right: 0px;
+    background: #d9dada;
+    color: #000;
+    text-decoration: none;
+    position: absolute;
+    z-index: 999;
+    opacity: 0.9;
 }
 
-.showBottomPanel {
-    width: 50px;
+.slider-bottom-arrow-maximize-middle {
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
     display: none;
-}*/
+    padding: 4px;
+    width: 23px;
+    bottom: 260px;
+    right: 23px;
+    background: #d9dada;
+    color: #000;
+    text-decoration: none;
+    position: absolute;
+    z-index: 999;
+    opacity: 0.9;
+}
+
+.slider-bottom-arrow-maximize-bottom {
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    padding: 4px;
+    width: 23px;
+    bottom: 0px;
+    right: 23px;
+    background: #d9dada;
+    color: #000;
+    text-decoration: none;
+    position: absolute;
+    z-index: 999;
+    opacity: 0.9;
+}
 
 .myReportsIcon {
     background: url(/Images/i_saved_reports.png) no-repeat top left;
@@ -369,4 +431,98 @@ input[type=text] {
     margin-top: -.8em;
     text-align: center;
     line-height: 1.6em;
+}
+
+.highcharts-figure, .highcharts-data-table table {
+    min-width: 320px;
+    max-width: 700px;
+    margin: 1em auto;
+}
+
+.highcharts-data-table table {
+    font-family: Verdana, sans-serif;
+    border-collapse: collapse;
+    border: 1px solid #EBEBEB;
+    margin: 10px auto;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+.highcharts-data-table caption {
+    padding: 1em 0;
+    font-size: 1.2em;
+    color: #555;
+}
+
+.highcharts-data-table th {
+    font-weight: 600;
+    padding: 0.5em;
+}
+
+.highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
+    padding: 0.5em;
+}
+
+.highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
+    background: #f8f8f8;
+}
+
+.highcharts-data-table tr:hover {
+    background: #f1f7ff;
+}
+
+/* Tooltip text */
+.tooltiplabel .tooltiptext {
+    visibility: hidden;
+    background-color: white;
+    /*color: #fff;*/
+    text-align: justify;
+    padding: 5px;
+    border-radius: 8px;
+    -moz-border-radius: 0;
+    -webkit-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.15);
+    -moz-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.15);
+    box-shadow: 0 2px 3px 0 rgba(0,0,0,0.15);
+    border: 1px solid #f0eeec;
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 999;
+    width: 413px;
+    top: 100%;
+    left: 50%;
+    margin-left: -100px;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltiplabel:hover .tooltiptext {
+    visibility: visible;
+}
+
+/* Tooltip text */
+.tooltiplabelZoningDistricts .tooltiptextZoningDistricts {
+    font-weight: normal;
+    visibility: hidden;
+    background-color: white;
+    /*color: #fff;*/
+    text-align: justify;
+    padding: 5px;
+    border-radius: 8px;
+    -moz-border-radius: 0;
+    -webkit-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.15);
+    -moz-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.15);
+    box-shadow: 0 2px 3px 0 rgba(0,0,0,0.15);
+    border: 1px solid #f0eeec;
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 999;
+    width: 413px;
+    top: 100%;
+    left: 50%;
+    margin-left: -100px;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltiplabelZoningDistricts:hover .tooltiptextZoningDistricts {
+    visibility: visible;
 }

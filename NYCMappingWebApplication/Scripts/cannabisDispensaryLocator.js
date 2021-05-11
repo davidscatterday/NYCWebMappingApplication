@@ -29,7 +29,7 @@ function btnResetCDL() {
     $("#slider-DistanceCDL").slider("value", 100);
     handle.text(100);
     $('.panel-collapse.in').collapse('toggle');
-    hideBottomPanel();
+    hideResultsPanel();
     map.setExtent(initExtent);
 
     $('#divSelectItemsTable').text('');

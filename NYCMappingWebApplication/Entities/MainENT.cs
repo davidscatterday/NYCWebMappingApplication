@@ -609,4 +609,10 @@ namespace NYCMappingWebApp.Entities
         public Int64? diff_value { get; set; }
         public decimal? diff_percentage { get; set; }
     }
+    public class SpiderChartAttributes
+    {
+        public string CenterPoint { get; set; }
+        public string CenterPointValue { get; set; }
+        public int CountNum { get; set; }
+    }
 }
