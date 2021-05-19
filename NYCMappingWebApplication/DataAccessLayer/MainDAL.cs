@@ -1134,22 +1134,22 @@ namespace NYCMappingWebApp.DataAccessLayer
             {
                 case ("122"):
                     sqlQuerySelect = "select (Owner_s_First_Name + ' ' + Owner_s_Last_Name + ' ' + Owner_s_Business_Name) as CenterPoint, permittee_s_business_name as CenterPointValue, count(p.job__) as CountNum";
-                    sqlQueryWhere = "where (Owner_s_First_Name + ' ' + Owner_s_Last_Name = " + value + ") OR Owner_s_Business_Name = " + value + "";
+                    sqlQueryWhere = "where (Owner_s_First_Name + ' ' + Owner_s_Last_Name = " + value + " OR Owner_s_Business_Name = " + value + ")";
                     sqlQueryGroupBy = "group by Owner_s_First_Name,Owner_s_Last_Name,Owner_s_Business_Name,permittee_s_business_name";
                     break;
                 case ("123"):
                     sqlQuerySelect = "select (Owner_s_First_Name + ' ' + Owner_s_Last_Name + ' ' + Owner_s_Business_Name) as CenterPoint, (permittee_s_business_name + ' - ' + Applicant_s_First_Name + ' ' + Applicant_s_Last_Name) as CenterPointValue, count(p.job__) as CountNum";
-                    sqlQueryWhere = "where (Owner_s_First_Name + ' ' + Owner_s_Last_Name = " + value + ") OR Owner_s_Business_Name = " + value + "";
+                    sqlQueryWhere = "where (Owner_s_First_Name + ' ' + Owner_s_Last_Name = " + value + " OR Owner_s_Business_Name = " + value + ")";
                     sqlQueryGroupBy = "group by Owner_s_First_Name,Owner_s_Last_Name,Owner_s_Business_Name,permittee_s_business_name,Applicant_s_First_Name,Applicant_s_Last_Name";
                     break;
                 case ("132"):
                     sqlQuerySelect = "select (Owner_s_First_Name + ' ' + Owner_s_Last_Name + ' ' + Owner_s_Business_Name) as CenterPoint, (Applicant_s_First_Name + ' ' + Applicant_s_Last_Name + ' - ' + permittee_s_business_name) as CenterPointValue, count(p.job__) as CountNum";
-                    sqlQueryWhere = "where (Owner_s_First_Name + ' ' + Owner_s_Last_Name = " + value + ") OR Owner_s_Business_Name = " + value + "";
+                    sqlQueryWhere = "where (Owner_s_First_Name + ' ' + Owner_s_Last_Name = " + value + " OR Owner_s_Business_Name = " + value + ")";
                     sqlQueryGroupBy = "group by Owner_s_First_Name,Owner_s_Last_Name,Owner_s_Business_Name,Applicant_s_First_Name,Applicant_s_Last_Name,permittee_s_business_name";
                     break;
                 case ("133"):
                     sqlQuerySelect = "select (Owner_s_First_Name + ' ' + Owner_s_Last_Name + ' ' + Owner_s_Business_Name) as CenterPoint, (Applicant_s_First_Name + ' ' + Applicant_s_Last_Name) as CenterPointValue, count(p.job__) as CountNum";
-                    sqlQueryWhere = "where (Owner_s_First_Name + ' ' + Owner_s_Last_Name = " + value + ") OR Owner_s_Business_Name = " + value + "";
+                    sqlQueryWhere = "where (Owner_s_First_Name + ' ' + Owner_s_Last_Name = " + value + " OR Owner_s_Business_Name = " + value + ")";
                     sqlQueryGroupBy = "group by Owner_s_First_Name,Owner_s_Last_Name,Owner_s_Business_Name,Applicant_s_First_Name,Applicant_s_Last_Name";
                     break;
                 case ("211"):

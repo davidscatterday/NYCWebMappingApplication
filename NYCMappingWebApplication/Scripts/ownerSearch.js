@@ -1518,10 +1518,10 @@ function btnSpiderChart() {
             SpiderChartEstimatedValueStart = $("#slider-range-SpiderChartEstimatedValue").slider("values", 0);
             SpiderChartEstimatedValueEnd = $("#slider-range-SpiderChartEstimatedValue").slider("values", 1);
             if (whereSpiderChartAdditional == "") {
-                whereSpiderChartAdditional = "Cast(j.Enlargement_SQ_Footage AS int)*375 >= " + SpiderChartEstimatedValueStart + " AND Cast(j.Enlargement_SQ_Footage AS int)*375 <= " + SpiderChartEstimatedValueEnd;
+                whereSpiderChartAdditional = "Cast(j.Enlargement_SQ_Footage AS bigint)*375 >= " + SpiderChartEstimatedValueStart + " AND Cast(j.Enlargement_SQ_Footage AS bigint)*375 <= " + SpiderChartEstimatedValueEnd;
             }
             else {
-                whereSpiderChartAdditional += " AND Cast(j.Enlargement_SQ_Footage AS int)*375 >= " + SpiderChartEstimatedValueStart + " AND Cast(j.Enlargement_SQ_Footage AS int)*375 <= " + SpiderChartEstimatedValueEnd;
+                whereSpiderChartAdditional += " AND Cast(j.Enlargement_SQ_Footage AS bigint)*375 >= " + SpiderChartEstimatedValueStart + " AND Cast(j.Enlargement_SQ_Footage AS bigint)*375 <= " + SpiderChartEstimatedValueEnd;
             }
         }
         if (document.getElementById("cbSpiderChartPermitIssuanceYear").checked == true) {

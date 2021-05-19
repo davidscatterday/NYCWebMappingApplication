@@ -94,6 +94,7 @@ $(document).ready(function () {
             selectionToolbar = new Draw(map, { showTooltips: false });
             selectionToolbar.on("draw-end", addSelectionToMap);
             selectionToolbarCDL = new Draw(map, { showTooltips: false });
+            selectionToolbarCDL.on("draw-end", addSelectionCDLToMap);
             //ColorDistricts();//color districts
             //getAllTracts(2165);
         });

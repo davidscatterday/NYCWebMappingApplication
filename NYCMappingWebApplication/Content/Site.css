@@ -433,6 +433,15 @@ input[type=text] {
     line-height: 1.6em;
 }
 
+#onPremiseLLs-handle {
+    width: 3em;
+    height: 1.6em;
+    top: 50%;
+    margin-top: -.8em;
+    text-align: center;
+    line-height: 1.6em;
+}
+
 .highcharts-figure, .highcharts-data-table table {
     min-width: 320px;
     max-width: 700px;
@@ -500,7 +509,7 @@ input[type=text] {
 }
 
 /* Tooltip text */
-.tooltiplabelZoningDistricts .tooltiptextZoningDistricts {
+.tooltiplabelLists .tooltiptextLists {
     font-weight: normal;
     visibility: hidden;
     background-color: white;
@@ -523,6 +532,6 @@ input[type=text] {
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */
-.tooltiplabelZoningDistricts:hover .tooltiptextZoningDistricts {
+.tooltiplabelLists:hover .tooltiptextLists {
     visibility: visible;
 }
