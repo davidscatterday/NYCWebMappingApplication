@@ -14,7 +14,7 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/customJs")
 </head>
-<body>
+<body style="overflow: auto">
     <div class="navbar navbar-inverse navbar-fixed-top navbar-inverse-admin">
         <div class="container">
             <div class="navbar-header">
@@ -29,6 +29,15 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Users", "Preview", "AppUsers")</li>
                     <li>@Html.ActionLink("User Tabs", "UserTabs", "Users")</li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Configuration
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Property Attributes", "Index", "ConfigurationPropAttributes")</li>
+                        </ul>
+                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right navbar-right-admin">
                     <li class="list-inline-item text-md" style="margin-right: 5px">

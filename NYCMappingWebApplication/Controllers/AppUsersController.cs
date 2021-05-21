@@ -198,9 +198,9 @@ namespace NYCMappingWebApp.Controllers
                             if (_user != null)
                             {
                                 string IsAdmin = _user.UserRole.RoleName == GlobalVariables.AdminRoleName ? "True" : "False";
-                                GlobalVariables.StoreInCookie("NYCUser", IPGlobalProperties.GetIPGlobalProperties().DomainName, "Username", _user.Username, DateTime.Now.AddDays(1), false);
-                                GlobalVariables.StoreInCookie("NYCUser", IPGlobalProperties.GetIPGlobalProperties().DomainName, "IsLogged", "True", DateTime.Now.AddDays(1), false);
-                                GlobalVariables.StoreInCookie("NYCUser", IPGlobalProperties.GetIPGlobalProperties().DomainName, "IsAdmin", IsAdmin, DateTime.Now.AddDays(1), false);
+                                GlobalVariables.StoreInCookie("NYCUser", IPGlobalProperties.GetIPGlobalProperties().DomainName, "Username", _user.Username, DateTime.Now.AddDays(2), false);
+                                GlobalVariables.StoreInCookie("NYCUser", IPGlobalProperties.GetIPGlobalProperties().DomainName, "IsLogged", "True", DateTime.Now.AddDays(2), false);
+                                GlobalVariables.StoreInCookie("NYCUser", IPGlobalProperties.GetIPGlobalProperties().DomainName, "IsAdmin", IsAdmin, DateTime.Now.AddDays(2), false);
 
                                 if (MD5_Password == mainDAL.CalculateMD5Hash(GlobalVariables.InitPassword))
                                 {

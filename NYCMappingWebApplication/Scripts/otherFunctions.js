@@ -2501,3 +2501,21 @@ function tabGeneral_Clicked(TabID) {
         default: return
     }
 }
+
+function cbTransitZonesLayer_Click(evt) {
+    if (evt.checked) {
+        transitZonesFeatures.setVisibility(true);
+    }
+    else {
+        transitZonesFeatures.setVisibility(false);
+    }
+}
+
+function cbSubwayRoutesLayer_Click(evt) {
+    if (evt.checked) {
+        subwayFeatures.setVisibility(true);
+    }
+    else {
+        subwayFeatures.setVisibility(false);
+    }
+}

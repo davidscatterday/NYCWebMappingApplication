@@ -37,5 +37,6 @@ namespace NYCMappingWebApp.Models
         public virtual DbSet<Logger> Loggers { get; set; }
         public virtual DbSet<Pluto> Plutoes { get; set; }
         public virtual DbSet<MyAlert> MyAlerts { get; set; }
+        public virtual DbSet<Configuration_PropAttributes> Configuration_PropAttributes { get; set; }
     }
 }

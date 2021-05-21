@@ -5,6 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="NYC_Web_Mapping_AppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Configuration_PropAttributes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Attribute" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Visible" Type="bit" Nullable="false" />
+          <Property Name="OrderNum" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="ConsumerProfiles">
           <Key>
             <PropertyRef Name="ID" />
@@ -554,6 +564,7 @@ warning 6002: The table/view 'NYC_Web_Mapping_App.dbo.Districts' does not have a
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="NYC_Web_Mapping_AppModelStoreContainer">
+          <EntitySet Name="Configuration_PropAttributes" EntityType="Self.Configuration_PropAttributes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ConsumerProfiles" EntityType="Self.ConsumerProfiles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Designations" EntityType="Self.Designations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Elevators" EntityType="Self.Elevators" Schema="dbo" store:Type="Tables" />
@@ -607,6 +618,7 @@ warning 6002: The table/view 'NYC_Web_Mapping_App.dbo.Districts' does not have a
           <EntitySet Name="Loggers" EntityType="NYC_Web_Mapping_AppModel.Logger" />
           <EntitySet Name="Plutoes" EntityType="NYC_Web_Mapping_AppModel.Pluto" />
           <EntitySet Name="MyAlerts" EntityType="NYC_Web_Mapping_AppModel.MyAlert" />
+          <EntitySet Name="Configuration_PropAttributes" EntityType="NYC_Web_Mapping_AppModel.Configuration_PropAttributes" />
         </EntityContainer>
         <EntityType Name="Elevator">
           <Key>
@@ -1146,6 +1158,16 @@ warning 6002: The table/view 'NYC_Web_Mapping_App.dbo.Districts' does not have a
           <Property Name="IsPropertySalesSearch" Type="Boolean" Nullable="false" />
           <Property Name="IsUnread" Type="Boolean" />
           <Property Name="ProjectSearchAdditional" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Configuration_PropAttributes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Attribute" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Visible" Type="Boolean" Nullable="false" />
+          <Property Name="OrderNum" Type="Int32" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1693,6 +1715,17 @@ warning 6002: The table/view 'NYC_Web_Mapping_App.dbo.Districts' does not have a
                 <ScalarProperty Name="AlertQuery" ColumnName="AlertQuery" />
                 <ScalarProperty Name="AlertName" ColumnName="AlertName" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Configuration_PropAttributes">
+            <EntityTypeMapping TypeName="NYC_Web_Mapping_AppModel.Configuration_PropAttributes">
+              <MappingFragment StoreEntitySet="Configuration_PropAttributes">
+                <ScalarProperty Name="OrderNum" ColumnName="OrderNum" />
+                <ScalarProperty Name="Visible" ColumnName="Visible" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Attribute" ColumnName="Attribute" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

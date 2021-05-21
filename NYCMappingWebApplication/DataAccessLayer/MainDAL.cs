@@ -17,6 +17,13 @@ namespace NYCMappingWebApp.DataAccessLayer
     public class MainDAL
     {
         private NYC_Web_Mapping_AppEntities db = new NYC_Web_Mapping_AppEntities();
+        public List<Configuration_PropAttributes> GetConfiguration()
+        {
+            List<Configuration_PropAttributes> returnResult = new List<Configuration_PropAttributes>();
+            returnResult = db.Configuration_PropAttributes.Where(w => w.Visible).OrderBy(w => w.OrderNum).ToList();
+
+            return returnResult;
+        }
         public List<Select2DTO> GetAllBoroughs(string term)
         {
             List<Select2DTO> returnResult = new List<Select2DTO>();

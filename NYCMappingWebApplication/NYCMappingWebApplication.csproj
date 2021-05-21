@@ -176,6 +176,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AppUsersController.cs" />
+    <Compile Include="Controllers\ConfigurationPropAttributesController.cs" />
     <Compile Include="Controllers\ConsumerProfilesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MyReportsController.cs" />
@@ -196,6 +197,9 @@
     </Compile>
     <Compile Include="Helpers\GlobalVariables.cs" />
     <Compile Include="Helpers\LevenshteinDistance.cs" />
+    <Compile Include="Models\Configuration_PropAttributes.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ConsumerProfile.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -453,6 +457,7 @@
     <Content Include="Views\AppUsers\ChangePassword.cshtml" />
     <Content Include="Views\AppUsers\ResetPassword.cshtml" />
     <Content Include="Views\Shared\_CannabisDispensaryLocator.cshtml" />
+    <Content Include="Views\ConfigurationPropAttributes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

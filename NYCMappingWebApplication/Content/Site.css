@@ -535,3 +535,12 @@ input[type=text] {
 .tooltiplabelLists:hover .tooltiptextLists {
     visibility: visible;
 }
+
+.divLayers {
+    position: absolute;
+    right: 0px;
+    top: 52px;
+    z-Index: 98;
+    min-width: 70px;
+    max-width: 150px;
+}

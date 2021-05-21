@@ -37,6 +37,12 @@ namespace NYCMappingWebApp.Controllers
             return View(data);
         }
 
+        public JsonResult Configuration()
+        {
+            var data = mainDAL.GetConfiguration();
+            return Json(new { data }, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult GetBoroughs(string term)
         {
             var BoroughsList = mainDAL.GetAllBoroughs(term);

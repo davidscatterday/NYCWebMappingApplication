@@ -10,6 +10,8 @@
     DistrictsUrl = "@(System.Configuration.ConfigurationManager.AppSettings["DistrictsUrl"])";
     CensusTractsUrl = "@(System.Configuration.ConfigurationManager.AppSettings["CensusTractsUrl"])";
     NYCzipCodeUrl = "@(System.Configuration.ConfigurationManager.AppSettings["NYCzipCodeUrl"])";
+    TransitZonesUrl = "@(System.Configuration.ConfigurationManager.AppSettings["TransitZonesUrl"])";
+    SubwayUrl = "@(System.Configuration.ConfigurationManager.AppSettings["SubwayUrl"])";
     //$(function () {
     //    $(".leftcolumn").resizable(
     //        {
@@ -1340,6 +1342,21 @@
                             <tr><td width="35" align="center"><div style="width:30px;height:30px;"><svg overflow="hidden" width="30" height="30" style="touch-action: none;"><defs></defs><path fill="rgb(0, 255, 0)" fill-opacity="1" stroke="rgb(0, 0, 0)" stroke-opacity="1" stroke-width="0.5333333333333333" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="4" path="M -10,-10 L 10,0 L 10,10 L -10,10 L -10,-10 Z" d="M-10-10L 10 0L 10 10L-10 10L-10-10Z" fill-rule="evenodd" stroke-dasharray="none" dojoGfxStrokeStyle="solid" transform="matrix(1.00000000,0.00000000,0.00000000,1.00000000,15.00000000,15.00000000)"></path></svg></div></td><td><table width="95%"><tbody><tr><td align="left">1 Application</td></tr></tbody></table></td></tr>
                         </tbody>
                     </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="divLayers">
+        <div data-dojo-type="dijit/TitlePane"
+             data-dojo-props="title:'Layers', closable:false, open:false">
+            <div data-dojo-type="dijit/layout/ContentPane" style="overflow:auto;">
+                <div id="divMapLayers" style="overflow: auto">
+                    <label style="width: 100%">
+                        <input id="cbTransitZonesLayer" type="checkbox" onclick="cbTransitZonesLayer_Click(this)">Transit Zones
+                    </label>
+                    <label style="width: 100%">
+                        <input id="cbSubwayRoutesLayer" type="checkbox" onclick="cbSubwayRoutesLayer_Click(this)">Subway Routes
+                    </label>
                 </div>
             </div>
         </div>
