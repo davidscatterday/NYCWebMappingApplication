@@ -301,7 +301,8 @@ function btnResetHeatMap() {
     document.getElementById("txtHmEcbViolationsAnalysisPeriod").value = "";
     document.getElementById("numHmEcbViolationsBasePeriod").value = "15";
     document.getElementById("numHmEcbViolationsAnalysisPeriod").value = "15";
-    
+
+    $("#txtPermitJobTypes").select2("val", "");
     $("#txtPermitWorkTypes").select2("val", "");
     document.getElementById("txtHmPermitsBasePeriod").value = "";
     document.getElementById("txtHmPermitsAnalysisPeriod").value = "";

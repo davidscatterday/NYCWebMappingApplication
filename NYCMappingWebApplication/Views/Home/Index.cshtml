@@ -12,6 +12,7 @@
     NYCzipCodeUrl = "@(System.Configuration.ConfigurationManager.AppSettings["NYCzipCodeUrl"])";
     TransitZonesUrl = "@(System.Configuration.ConfigurationManager.AppSettings["TransitZonesUrl"])";
     SubwayUrl = "@(System.Configuration.ConfigurationManager.AppSettings["SubwayUrl"])";
+    SubwayStationsUrl = "@(System.Configuration.ConfigurationManager.AppSettings["SubwayStationsUrl"])";
     //$(function () {
     //    $(".leftcolumn").resizable(
     //        {
@@ -1356,6 +1357,12 @@
                     </label>
                     <label style="width: 100%">
                         <input id="cbSubwayRoutesLayer" type="checkbox" onclick="cbSubwayRoutesLayer_Click(this)">Subway Routes
+                    </label>
+                    <label style="width: 100%">
+                        <input id="cbSubwayStationsLayer" type="checkbox" onclick="cbSubwayStationsLayer_Click(this)">Subway Stations
+                    </label>
+                    <label style="width: 100%">
+                        <input id="cbCommunityDistrictsLayer" type="checkbox" onclick="cbCommunityDistrictsLayer_Click(this)">Community Districts
                     </label>
                 </div>
             </div>

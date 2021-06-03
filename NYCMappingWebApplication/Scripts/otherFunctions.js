@@ -2519,3 +2519,21 @@ function cbSubwayRoutesLayer_Click(evt) {
         subwayFeatures.setVisibility(false);
     }
 }
+
+function cbSubwayStationsLayer_Click(evt) {
+    if (evt.checked) {
+        subwayStopStationsFeatures.setVisibility(true);
+    }
+    else {
+        subwayStopStationsFeatures.setVisibility(false);
+    }
+}
+
+function cbCommunityDistrictsLayer_Click(evt) {
+    if (evt.checked) {
+        districtFeatures.setVisibility(true);
+    }
+    else {
+        districtFeatures.setVisibility(false);
+    }
+}

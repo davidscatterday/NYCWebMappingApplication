@@ -1,4 +1,5 @@
 ﻿var selectionLayer, districtLayer, geometryService, selectionSymbolPoint, selectionSymbolLine, selectionSymbolFill, heatmapLayer, selectionLayerCDL;
+
 $(document).ready(function () {
     dojo.require("dojo.on");
     dojo.require("esri.tasks.geometry");
@@ -62,7 +63,7 @@ $(document).ready(function () {
             });
             //Takes a URL to a non cached map service.
             districtFeatures = new FeatureLayer(DistrictsUrl, {
-                visible: true,
+                visible: false,
                 mode: FeatureLayer.MODE_ONDEMAND,
                 outFields: ["*"]
             });
@@ -92,6 +93,13 @@ $(document).ready(function () {
                 visible: false,
                 mode: FeatureLayer.MODE_ONDEMAND,
                 outFields: ["*"]
+            });
+            //Takes a URL to a non cached map service
+            subwayStopStationsFeatures = new FeatureLayer(SubwayStationsUrl, {
+                visible: false,
+                mode: FeatureLayer.MODE_ONDEMAND,
+                outFields: ["*"],
+                infoTemplate: new InfoTemplate("Subway Station", "${*}")
             });
             zipCodeFeatures.setRenderer(new SimpleRenderer(new SimpleFillSymbol(SimpleFillSymbol.STYLE_NULL, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0, 0, 0]), 2), new Color([255, 255, 0, 0]))));
             esriBasemaps.NYCbasemap = {
@@ -123,7 +131,7 @@ $(document).ready(function () {
             myLabelLayer = new LabelLayer({ id: "districtLabels", visible: true });
             myLabelLayer.addFeatureLayer(districtFeatures, myLabelRenderer, "{DISTRICT}");
 
-            map.addLayers([baseMapLayer, serviceFeatures, districtLayer, censusTractsFeatures, transitZonesFeatures, subwayFeatures, selectionLayer, heatmapLayer, zipCodeFeatures, selectionLayerCDL, selectionLayerExclusionCriteriaCDL]);
+            map.addLayers([baseMapLayer, serviceFeatures, districtLayer, districtFeatures, censusTractsFeatures, transitZonesFeatures, subwayFeatures, subwayStopStationsFeatures, selectionLayer, heatmapLayer, zipCodeFeatures, selectionLayerCDL, selectionLayerExclusionCriteriaCDL]);
 
             function ColorDistricts() {
                 var queryTask = new esri.tasks.QueryTask(DistrictsUrl);

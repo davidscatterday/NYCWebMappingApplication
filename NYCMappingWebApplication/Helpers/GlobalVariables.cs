@@ -59,6 +59,7 @@ namespace NYCMappingWebApp.Helpers
             if (cookie != null)
             {
                 cookie.Expires = DateTime.Now.AddDays(2);
+                HttpContext.Current.Response.Cookies.Set(cookie);
                 string val = (!String.IsNullOrEmpty(keyName)) ? cookie[keyName] : cookie.Value;
                 if (!String.IsNullOrEmpty(val)) return Uri.UnescapeDataString(val);
             }
