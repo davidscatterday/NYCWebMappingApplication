@@ -1,0 +1,62 @@
+﻿@model NYCMappingWebApp.Entities.AppUserLoginInfo
+
+@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+    string infoMessage = TempData["InfoMessage"] as string;
+    string errorMessage = TempData["ErrorMessage"] as string;
+}
+
+@using (Html.BeginForm())
+{
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+            <!-- Tabs Titles -->
+            <!-- Icon -->
+            <div class="fadeIn first">
+                <img src="~/Images/Avatar.png" id="icon" alt="User Icon" />
+            </div>
+
+            <!-- Login Form -->
+            <div class="form-horizontal">
+                <div>
+                    <ul class="login-form">
+                        <li>
+                            <input type="radio" id="LogIn" name="rbLogIn" onclick="rbLogIn_Click(this);" value="1" checked />
+                            <label for="LogIn">Log In</label>
+                        </li>
+                        <li>
+                            <input type="radio" id="SignUp" name="rbLogIn" onclick="rbLogIn_Click(this);" value="2" />
+                            <label for="SignUp">Sign Up</label>
+                        </li>
+                    </ul>
+                </div>
+                @Html.ValidationSummary(true)
+                @Html.ValidationMessageFor(model => model.Username)
+                @Html.TextBoxFor(model => model.Username, new { @class = "fadeIn second", id = "login", name = "login", placeholder = "username" })
+                @Html.ValidationMessageFor(model => model.Password)
+                @Html.TextBoxFor(model => model.Password, new { @class = "fadeIn third", id = "password", name = "login", placeholder = "password", type = "password", @autocomplete = "off" })
+
+                @if (infoMessage != null)
+                {
+                    <div class="form-group">
+                        <div class="alert alert-success fade in" style="margin: 15px">
+                            <label>@infoMessage</label>
+                        </div>
+                    </div>
+                }
+                @if (errorMessage != null)
+                {
+                    <div class="form-group">
+                        <div class="alert alert-danger fade in" style="margin: 15px">
+                            <label>@errorMessage</label>
+                        </div>
+                    </div>
+                }
+
+                <input type="submit" class="fadeIn" id="btnLogIn" name="Command" value="Log In">
+                <input type="submit" class="fadeIn" id="btnSignUp" name="Command" value="Sign Up" style="display: none">
+            </div>
+
+        </div>
+    </div>
+}

@@ -26,13 +26,28 @@ namespace NYCMappingWebApp
 
             bundles.Add(new ScriptBundle("~/bundles/customJs").Include(
                         "~/Scripts/otherFunctions.js",
+                        "~/Scripts/trendAnalysis.js",
+                        "~/Scripts/consumerProfiles.js",
+                        "~/Scripts/ownerAnalysis.js",
+                        "~/Scripts/ownerSearch.js",
+                        "~/Scripts/cannabisDispensaryLocator.js",
                         "~/Scripts/gridmvc.js",
                         "~/Scripts/select2-3.5.2.js",
                         "~/Scripts/gisFunctions.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/emptyLayoutJavascript").Include(
+                        "~/Scripts/emptyLayoutJS.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/loginJS").Include(
+                        "~/Scripts/loginJS.js"));
+
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/font-awesome.css",
+                      "~/Content/Gridmvc.css",
                       "~/Content/site.css",
+                      "~/Content/headerStyle.css",
                       "~/Content/select2-3.5.2.css",
                       "~/Content/themes/base/accordion.css",
                       "~/Content/themes/base/autocomplete.css",
@@ -54,6 +69,10 @@ namespace NYCMappingWebApp
                       "~/Content/themes/base/tabs.css",
                       "~/Content/themes/base/theme.css",
                       "~/Content/themes/base/tooltip.css"));
+
+            bundles.Add(new StyleBundle("~/Login/css").Include(
+                      "~/Content/bootstrap.css",
+                      "~/Content/Login.css"));
         }
     }
 }

@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" href="/Images/favicon.png" />
+    <title>NYC Mapping Web Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @*<link rel="stylesheet" href="https://js.arcgis.com/3.34/dijit/themes/claro/claro.css">*@
+    <link rel="stylesheet" href="https://js.arcgis.com/3.34/dijit/themes/tundra/tundra.css">
+    <link href="http://mottie.github.io/tablesorter/css/theme.default.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://js.arcgis.com/3.34/esri/css/esri.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @Scripts.Render("~/bundles/jquery")
+    <script src="https://js.arcgis.com/3.34/"></script>
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/customJs")
+    <script type="text/javascript">
+        var RootUrl = '@Url.Content("~/")';
+    </script>
+</head>
+<body class="tundra">
+    <nav class="navbar navbar-inverse" style="margin-bottom: 2px; background-color: white; border: none">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="list-inline-item text-md" style="margin-right: 5px">
+                    <a href="/AppUsers/LogOut" class="notification" id="signout">
+                        Sign out
+                    </a>
+                </li>
+                <li class="list-inline-item text-md">
+                    <span style="float: right; margin-top: 17px; font-size: 11px; font-family: helvetica; margin-right: 7px; margin-left: 7px;">Welcome, @NYCMappingWebApp.Helpers.GlobalVariables.GetFromCookie("NYCUser", "Username")</span>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div style="height: 100%; overflow: auto; padding-left: 15px; padding-right: 15px;">
+        @RenderBody()
+    </div>
+    <div id="loading" style="display: none">
+        <img id="loading-image" src="images/ajax-loader-2.gif" alt="Loading..." style="width: 178px; height: 178px" />
+    </div>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

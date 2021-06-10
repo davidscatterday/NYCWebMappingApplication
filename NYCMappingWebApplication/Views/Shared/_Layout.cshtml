@@ -7,14 +7,19 @@
     <title>NYC Mapping Web Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @*<link rel="stylesheet" href="http://js.arcgis.com/3.31/dijit/themes/claro/claro.css">*@
-    <link rel="stylesheet" href="https://js.arcgis.com/3.31/dijit/themes/tundra/tundra.css">
-    <link href="http://mottie.github.io/tablesorter/css/theme.default.css" rel="stylesheet">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    @*<link rel="stylesheet" href="https://js.arcgis.com/3.34/dijit/themes/claro/claro.css">*@
+    <link rel="stylesheet" href="https://js.arcgis.com/3.34/dijit/themes/tundra/tundra.css">
+    <link href="https://mottie.github.io/tablesorter/css/theme.default.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="http://js.arcgis.com/3.31/esri/css/esri.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/3.34/esri/css/esri.css">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @Scripts.Render("~/bundles/jquery")
-    <script src="http://js.arcgis.com/3.31/"></script>
+    <script src="https://js.arcgis.com/3.34/"></script>
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/customJs")
     <script type="text/javascript">
@@ -22,108 +27,50 @@
     </script>
 </head>
 <body class="tundra">
-    @*<nav class="navbar navbar-light navbar-expand-xl bg-light border-0">
-        <div class="container px-4">
-            <div class="navbar-brand workbench-brand">
-                <img src="/Images/NY-REI-Text-Only.png" style="height: 60px; width: auto" class="w-100" alt="eOriginal"> <span class="sr-only">eOriginal</span>
-            </div>
-            <div class="product-name-image workbench-product-name-image">
-                <img src="/closing/ui/dist/img/product_name_closing_center.svg" class="w-100" alt="Closing Center">
-            </div>
-            <div class="righthand-name-menu flex-column align-items-end" id="menuUsername">
-                <div class="header-name d-none d-xl-block text-right">
-                    <span>David</span>
-                    <span>Scatterday</span>
-                </div>
-                <div class="header-hamburger d-xl-none text-right">
-                    <div class="dropdown">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="d-none d-sm-inline">Menu</span>
-                            <span class="eo-icon eo-icon-header-menu ml-1"></span>
+    <nav class="navbar navbar-inverse" style="margin-bottom: 2px; background-color: white; border: none">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav navbar-right">
+                @if (NYCMappingWebApp.Helpers.GlobalVariables.GetFromCookie("NYCUser", "IsAdmin") == "True")
+                {
+                    <li class="list-inline-item text-md" style="margin-right: 5px">
+                        <a href="/AppUsers/Preview" target="_blank" class="notification" id="signout">
+                            Admin Panel
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="/closing/ui/dashboard">My closings</a>
-                            <a class="dropdown-item d-none" href="/closing/ui/profile/enotary">eNotary setup</a>
-                            <a class="dropdown-item" href="/closing/ui/profile">View/edit profile</a>
-                            <a class="dropdown-item" href="/closing/ui/password">Change password</a>
-                            <a class="dropdown-item" href="#support-modal" data-toggle="modal" data-backdrop="static">Support</a>
-                            <a class="dropdown-item logout-link" href="/closing/ui/signOut">Sign out</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
-    <nav class="navbar navbar-light bg-light d-none d-xl-flex">
-        <div class="container px-4 d-none d-xl-flex justify-content-end">
-            <ul class="header-menu list-inline mb-2" id="menuLinks">
-                <li class="list-inline-item text-md">
-                    <a href="/closing/ui/dashboard" class="menu-item" id="closings">
-                        <span class="eo-icon eo-icon-my-closings-small"></span> My closings
+                    </li>
+                }
+                <li class="list-inline-item text-md" style="margin-right: 5px">
+                    <a href="/AppUsers/ChangePassword" class="notification" id="signout">
+                        Change Password
                     </a>
                 </li>
                 <li class="list-inline-item text-md">
-                    <div class="dropdown">
-                        <a class="dropdown-toggle" href="#" role="button" id="myAccountDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="eo-icon eo-icon-my-account"></span> My account
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="myAccountDropdown">
-                            <a class="dropdown-item d-none" href="/closing/ui/profile/enotary">eNotary setup</a>
-                            <a class="dropdown-item" href="/closing/ui/profile">View/edit profile</a>
-                            <a class="dropdown-item" href="/closing/ui/password">Change password</a>
-                        </div>
-                    </div>
-                </li>
-                <li class="list-inline-item text-md">
-                    <a href="#support-modal" class="menu-item" id="support-menu-link" data-toggle="modal" data-backdrop="static">
-                        <span class="eo-icon eo-icon-footer-phone"></span> Support
+                    <a href="#" class="notification" id="support-menu-link" onclick="btnOpenMyReports_Click()">
+                        @*<span class="myReportsIcon"></span>*@ Saved Reports
                     </a>
                 </li>
                 <li class="list-inline-item text-md">
-                    <a href="/closing/ui/signOut" class="menu-item logout-link" id="signout">
-                        <span class="eo-icon eo-icon-sign-out"></span> Sign out
+                    <a href="#" class="notification" onclick="btnOpenMyAlerts_Click()">
+                        <span>Alert</span>
+                        <span id="myAlertBadge" class="badge"></span>
                     </a>
+                </li>
+                <li class="list-inline-item text-md" style="margin-right: 5px">
+                    <a href="/AppUsers/LogOut" class="notification" id="signout">
+                        @*<span class="signOutIcon"></span>*@ Sign out
+                    </a>
+                </li>
+                <li class="list-inline-item text-md">
+                    <span style="float: right; margin-top: 17px; font-size: 11px; font-family: helvetica; margin-right: 7px; margin-left: 7px;">Welcome, @NYCMappingWebApp.Helpers.GlobalVariables.GetFromCookie("NYCUser", "Username")</span>
                 </li>
             </ul>
         </div>
-    </nav>*@
-    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color: white;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); border-color: white;">
-        <div class="container" style="width: 100%">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <img src="~/Images/NY-REI-Text-Only.png" style="height: 60px; width: auto" />
-            </div>
-            <div class="navbar-collapse collapse" style="margin-right: 120px">
-                <span style="float: right; margin-top: 10px; font-size: 17px; font-family: auto;">@User.Identity.Name</span>
-            </div>
-        </div>
-        <div class="navbar navbar-light" style="min-height: 34px; margin-bottom: 0px;">
-            <div class="container" style="width: 100%;">
-                <ul class="header-menu list-inline mb-2" id="menuLinks" style="float: right;margin-right: 120px;">
-                    <li class="list-inline-item text-md">
-                        <a href="#" class="menu-item" id="support-menu-link"  onclick="btnOpenMyReports_Click()">
-                            <span class="myReportsIcon"></span> Saved Reports
-                        </a>
-                    </li>
-                    <li class="list-inline-item text-md">
-                        <a href="/Account/Logout" class="menu-item" id="signout">
-                            <span class="signOutIcon"></span> Sign out
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
+    </nav>
     <div style="height: 100%">
         @RenderBody()
     </div>
     <div id="loading" style="display: none">
         <img id="loading-image" src="images/ajax-loader-2.gif" alt="Loading..." style="width: 178px; height: 178px" />
+        <div id="divLoadingText" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
     </div>
     @RenderSection("scripts", required: false)
 </body>

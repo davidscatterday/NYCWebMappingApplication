@@ -1,0 +1,57 @@
+﻿@model List<NYCMappingWebApp.Models.Configuration_PropAttributes>
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    string infoMessage = TempData["InfoMessage"] as string;
+    string errorMessage = TempData["ErrorMessage"] as string;
+}
+
+@if (infoMessage != null)
+{
+    <div class="form-group">
+        <div class="alert alert-success fade in">
+            @infoMessage
+        </div>
+    </div>
+}
+@if (errorMessage != null)
+{
+    <div class="form-group">
+        <div class="alert alert-danger fade in">
+            @errorMessage
+        </div>
+    </div>
+}
+
+@using (Html.BeginForm("Index", "ConfigurationPropAttributes", null, FormMethod.Post, null))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true)
+        <table style="margin-top: 10px;width: 450px;">
+            <thead>
+                <tr>
+                    <th style="text-align: center">Attribute</th>
+                    <th style="text-align: center">Display Name</th>
+                    <th style="text-align: center">Visible</th>
+                    <th style="text-align: center">Order Num</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    @Html.HiddenFor(model => model[i].ID)
+                <tr>
+                    <td>@Html.TextBoxFor(model => model[i].Attribute, new { @class = "form-control input-width-xlarge", @style = "min-width: 150px;", @readonly = "readonly" })</td>
+                    <td>@Html.TextBoxFor(model => model[i].Name, new { @class = "form-control input-width-xlarge", @style = "min-width: 150px;" })</td>
+                    <td>@Html.CheckBoxFor(model => model[i].Visible, new { @class = "form-control input-width-xlarge", @style = "margin-top: 0px;" })</td>
+                    <td>@Html.TextBoxFor(model => model[i].OrderNum, new { @class = "form-control input-width-xlarge", @style = "min-width: 100px;" })</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        <div class="form-group text-right" style="width: 450px; margin-right: 0px; padding-right: 0px; margin-top: 10px;">
+            <input type="submit" name="Command" value="Save" class="btn btn-primary btn-large" />
+        </div>
+    </div>
+}

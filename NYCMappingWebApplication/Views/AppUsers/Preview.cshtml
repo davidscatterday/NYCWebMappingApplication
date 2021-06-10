@@ -1,0 +1,66 @@
+﻿@using GridMvc.Html
+@using System.Configuration;
+@model List<NYCMappingWebApp.Models.User>
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    string infoMessage = TempData["InfoMessage"] as string;
+    string errorMessage = TempData["ErrorMessage"] as string;
+}
+
+<div class="container body-content">
+    <h2>@ViewBag.Title</h2>
+    @if (infoMessage != null)
+    {
+        <div class="form-group">
+            <div class="alert alert-success fade in">
+                @infoMessage
+            </div>
+        </div>
+    }
+    @if (errorMessage != null)
+    {
+        <div class="form-group">
+            <div class="alert alert-danger fade in">
+                @errorMessage
+            </div>
+        </div>
+    }
+
+    <div class="form-group">
+        @Html.ActionLink("Add New User", "Add", "AppUsers", new { @class = "btn btn-primary btn-large" })
+    </div>
+
+    <div class="form-group">
+        @Html.Grid(Model).Columns(columns =>
+    {
+        columns.Add(model => model.Username, "Username")
+            .Titled("Username")
+            .SetWidth(30);
+        columns.Add(model => model.UserRole.RoleName, "Role")
+            .Titled("Role")
+            .SetWidth(30);
+        columns.Add(model => model.IsDeleted, "Deleted")
+            .Titled("Deleted")
+            .SetWidth(30);
+        columns.Add()
+           .Encoded(false)
+           .Sanitized(false)
+           .SetWidth(30)
+           .RenderValueAs(model => isEditor(model));
+        columns.Add()
+           .Encoded(false)
+           .Sanitized(false)
+           .SetWidth(30)
+           .RenderValueAs(model => resetPassword(model));
+    }).WithPaging(20, 6, "grid1-page").Sortable().Filterable().WithMultipleFilters()
+    </div>
+    @helper resetPassword(NYCMappingWebApp.Models.User model)
+    {
+        <a href="@Url.Action("ResetPassword", "AppUsers", new { User_ID = model.User_ID })">Reset Password</a>
+    }
+    @helper isEditor(NYCMappingWebApp.Models.User model)
+    {
+        <a href="@Url.Action("Edit", "AppUsers", new { User_ID = model.User_ID })">Edit</a>
+    }
+</div>

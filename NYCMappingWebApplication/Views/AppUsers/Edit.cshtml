@@ -1,0 +1,65 @@
+﻿@model NYCMappingWebApp.Entities.AppUserInfo
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    string infoMessage = TempData["InfoMessage"] as string;
+    string errorMessage = TempData["ErrorMessage"] as string;
+}
+
+<h2 class="col-sm-offset-2">Edit User</h2>
+<hr>
+@if (infoMessage != null)
+{
+    <div class="form-group">
+        <div class="alert alert-success fade in">
+            @infoMessage
+        </div>
+    </div>
+}
+@if (errorMessage != null)
+{
+    <div class="form-group">
+        <div class="alert alert-danger fade in">
+            @errorMessage
+        </div>
+    </div>
+}
+
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.User_ID)
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Username</label>
+            <div class="col-sm-10">
+                @Html.TextBoxFor(model => model.Username, new { @class = "form-control input-width-xlarge textBoxControl", id = "txtUsername", @readonly = "readonly", autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.Username, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Role</label>
+            <div class="col-sm-10">
+                @Html.DropDownListFor(
+                 model => model.Role_ID,
+                 Model.RoleNames, "Select Role",
+                 new { @class = "form-control input-width-xlarge textBoxControl", id = "ddlRoleNames" })
+                @Html.ValidationMessageFor(model => model.Role_ID, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Deleted</label>
+            <div class="col-sm-10">
+                @Html.CheckBoxFor(model => model.IsDeleted, new { @class = "form-control input-width-xlarge textBoxControl", id = "cbDeletedUser", autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.IsDeleted, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-4">
+                <input type="submit" value="Save" class="btn btn-primary btn-large" />
+                @Html.ActionLink("Cancel", "Preview", null, new { @class = "btn btn-primary btn-large" })
+            </div>
+        </div>
+    </div>
+}

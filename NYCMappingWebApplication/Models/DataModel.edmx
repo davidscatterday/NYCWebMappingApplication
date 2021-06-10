@@ -5,6 +5,482 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="NYC_Web_Mapping_AppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Configuration_PropAttributes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Attribute" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Visible" Type="bit" Nullable="false" />
+          <Property Name="OrderNum" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ConsumerProfiles">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="State" Type="nvarchar" MaxLength="5" />
+          <Property Name="County" Type="nvarchar" MaxLength="5" />
+          <Property Name="Tract" Type="nvarchar" MaxLength="10" />
+          <Property Name="Year" Type="nvarchar" MaxLength="5" />
+          <Property Name="DP05_0001E" Type="int" />
+          <Property Name="DP05_0002E" Type="int" />
+          <Property Name="DP05_0002PE" Type="float" />
+          <Property Name="DP05_0003E" Type="int" />
+          <Property Name="DP05_0003PE" Type="float" />
+          <Property Name="DP05_0004E" Type="int" />
+          <Property Name="DP05_0009E" Type="int" />
+          <Property Name="DP05_0010E" Type="int" />
+          <Property Name="DP05_0011E" Type="int" />
+          <Property Name="DP05_0012E" Type="int" />
+          <Property Name="DP05_0013E" Type="int" />
+          <Property Name="DP05_0014E" Type="int" />
+          <Property Name="DP05_0015E" Type="int" />
+          <Property Name="DP05_0016E" Type="int" />
+          <Property Name="DP02_0001E" Type="int" />
+          <Property Name="DP02_0001PE" Type="float" />
+          <Property Name="DP02_0002E" Type="int" />
+          <Property Name="DP02_0002PE" Type="float" />
+          <Property Name="DP02_0003E" Type="int" />
+          <Property Name="DP02_0003PE" Type="float" />
+          <Property Name="DP02_0006E" Type="int" />
+          <Property Name="DP02_0006PE" Type="float" />
+          <Property Name="DP02_0008E" Type="int" />
+          <Property Name="DP02_0008PE" Type="float" />
+          <Property Name="DP02_0010E" Type="int" />
+          <Property Name="DP02_0010PE" Type="float" />
+          <Property Name="DP02_0011E" Type="int" />
+          <Property Name="DP02_0011PE" Type="float" />
+          <Property Name="DP02_0012E" Type="int" />
+          <Property Name="DP02_0012PE" Type="float" />
+          <Property Name="DP02_0024E" Type="int" />
+          <Property Name="DP02_0024PE" Type="float" />
+          <Property Name="DP02_0025E" Type="int" />
+          <Property Name="DP02_0025PE" Type="float" />
+          <Property Name="DP02_0026E" Type="int" />
+          <Property Name="DP02_0026PE" Type="float" />
+          <Property Name="DP02_0027E" Type="int" />
+          <Property Name="DP02_0027PE" Type="float" />
+          <Property Name="DP02_0028E" Type="int" />
+          <Property Name="DP02_0028PE" Type="float" />
+          <Property Name="DP02_0029E" Type="int" />
+          <Property Name="DP02_0029PE" Type="float" />
+          <Property Name="DP02_0030E" Type="int" />
+          <Property Name="DP02_0030PE" Type="float" />
+          <Property Name="DP02_0031E" Type="int" />
+          <Property Name="DP02_0031PE" Type="float" />
+          <Property Name="DP02_0032E" Type="int" />
+          <Property Name="DP02_0032PE" Type="float" />
+          <Property Name="DP02_0033E" Type="int" />
+          <Property Name="DP02_0033PE" Type="float" />
+          <Property Name="DP02_0034E" Type="int" />
+          <Property Name="DP02_0034PE" Type="float" />
+          <Property Name="DP02_0035E" Type="int" />
+          <Property Name="DP02_0035PE" Type="float" />
+          <Property Name="DP02_0052E" Type="int" />
+          <Property Name="DP02_0052PE" Type="float" />
+          <Property Name="DP02_0053E" Type="int" />
+          <Property Name="DP02_0053PE" Type="float" />
+          <Property Name="DP02_0054E" Type="int" />
+          <Property Name="DP02_0054PE" Type="float" />
+          <Property Name="DP02_0055E" Type="int" />
+          <Property Name="DP02_0055PE" Type="float" />
+          <Property Name="DP02_0056E" Type="int" />
+          <Property Name="DP02_0056PE" Type="float" />
+          <Property Name="DP02_0057E" Type="int" />
+          <Property Name="DP02_0057PE" Type="float" />
+          <Property Name="DP02_0058E" Type="int" />
+          <Property Name="DP02_0058PE" Type="float" />
+          <Property Name="DP02_0059E" Type="int" />
+          <Property Name="DP02_0059PE" Type="float" />
+          <Property Name="DP02_0060E" Type="int" />
+          <Property Name="DP02_0060PE" Type="float" />
+          <Property Name="DP02_0061E" Type="int" />
+          <Property Name="DP02_0061PE" Type="float" />
+          <Property Name="DP02_0062E" Type="int" />
+          <Property Name="DP02_0062PE" Type="float" />
+          <Property Name="DP02_0063E" Type="int" />
+          <Property Name="DP02_0063PE" Type="float" />
+          <Property Name="DP02_0064E" Type="int" />
+          <Property Name="DP02_0064PE" Type="float" />
+          <Property Name="DP02_0070E" Type="int" />
+          <Property Name="DP02_0070PE" Type="float" />
+          <Property Name="DP02_0071E" Type="int" />
+          <Property Name="DP02_0071PE" Type="float" />
+          <Property Name="DP02_0074E" Type="int" />
+          <Property Name="DP02_0074PE" Type="float" />
+          <Property Name="DP02_0075E" Type="int" />
+          <Property Name="DP02_0075PE" Type="float" />
+          <Property Name="DP02_0076E" Type="int" />
+          <Property Name="DP02_0076PE" Type="float" />
+          <Property Name="DP02_0078E" Type="int" />
+          <Property Name="DP02_0078PE" Type="float" />
+          <Property Name="DP02_0079E" Type="int" />
+          <Property Name="DP02_0079PE" Type="float" />
+          <Property Name="DP02_0080E" Type="int" />
+          <Property Name="DP02_0080PE" Type="float" />
+          <Property Name="DP02_0081E" Type="int" />
+          <Property Name="DP02_0081PE" Type="float" />
+          <Property Name="DP02_0082E" Type="int" />
+          <Property Name="DP02_0082PE" Type="float" />
+          <Property Name="DP02_0083E" Type="int" />
+          <Property Name="DP02_0083PE" Type="float" />
+          <Property Name="DP02_0084E" Type="int" />
+          <Property Name="DP02_0084PE" Type="float" />
+          <Property Name="DP02_0150E" Type="int" />
+          <Property Name="DP02_0150PE" Type="float" />
+          <Property Name="DP02_0151E" Type="int" />
+          <Property Name="DP02_0151PE" Type="float" />
+          <Property Name="DP02_0152E" Type="int" />
+          <Property Name="DP02_0152PE" Type="float" />
+          <Property Name="DP03_0001E" Type="int" />
+          <Property Name="DP03_0001PE" Type="float" />
+          <Property Name="DP03_0003E" Type="int" />
+          <Property Name="DP03_0003PE" Type="float" />
+          <Property Name="DP03_0004E" Type="int" />
+          <Property Name="DP03_0004PE" Type="float" />
+          <Property Name="DP03_0005E" Type="int" />
+          <Property Name="DP03_0005PE" Type="float" />
+          <Property Name="DP03_0007E" Type="int" />
+          <Property Name="DP03_0007PE" Type="float" />
+          <Property Name="DP03_0009E" Type="int" />
+          <Property Name="DP03_0009PE" Type="float" />
+          <Property Name="DP03_0010E" Type="int" />
+          <Property Name="DP03_0010PE" Type="float" />
+          <Property Name="DP03_0012E" Type="int" />
+          <Property Name="DP03_0012PE" Type="float" />
+          <Property Name="DP03_0013E" Type="int" />
+          <Property Name="DP03_0013PE" Type="float" />
+          <Property Name="DP03_0051E" Type="int" />
+          <Property Name="DP03_0051PE" Type="float" />
+          <Property Name="DP03_0052E" Type="int" />
+          <Property Name="DP03_0052PE" Type="float" />
+          <Property Name="DP03_0053E" Type="int" />
+          <Property Name="DP03_0053PE" Type="float" />
+          <Property Name="DP03_0054E" Type="int" />
+          <Property Name="DP03_0054PE" Type="float" />
+          <Property Name="DP03_0055E" Type="int" />
+          <Property Name="DP03_0055PE" Type="float" />
+          <Property Name="DP03_0056E" Type="int" />
+          <Property Name="DP03_0056PE" Type="float" />
+          <Property Name="DP03_0057E" Type="int" />
+          <Property Name="DP03_0057PE" Type="float" />
+          <Property Name="DP03_0058E" Type="int" />
+          <Property Name="DP03_0058PE" Type="float" />
+          <Property Name="DP03_0059E" Type="int" />
+          <Property Name="DP03_0059PE" Type="float" />
+          <Property Name="DP03_0060E" Type="int" />
+          <Property Name="DP03_0060PE" Type="float" />
+          <Property Name="DP03_0061E" Type="int" />
+          <Property Name="DP03_0061PE" Type="float" />
+          <Property Name="DP03_0063E" Type="int" />
+          <Property Name="DP03_0063PE" Type="float" />
+          <Property Name="DP03_0066E" Type="int" />
+          <Property Name="DP03_0066PE" Type="float" />
+          <Property Name="DP03_0068E" Type="int" />
+          <Property Name="DP03_0068PE" Type="float" />
+          <Property Name="DP03_0069E" Type="int" />
+          <Property Name="DP03_0069PE" Type="float" />
+          <Property Name="DP03_0070E" Type="int" />
+          <Property Name="DP03_0070PE" Type="float" />
+          <Property Name="DP03_0071E" Type="int" />
+          <Property Name="DP03_0071PE" Type="float" />
+          <Property Name="DP03_0072E" Type="int" />
+          <Property Name="DP03_0072PE" Type="float" />
+          <Property Name="DP03_0073E" Type="int" />
+          <Property Name="DP03_0073PE" Type="float" />
+          <Property Name="DP03_0095E" Type="int" />
+          <Property Name="DP03_0095PE" Type="float" />
+          <Property Name="DP03_0096E" Type="int" />
+          <Property Name="DP03_0096PE" Type="float" />
+          <Property Name="DP03_0097E" Type="int" />
+          <Property Name="DP03_0097PE" Type="float" />
+          <Property Name="DP03_0098E" Type="int" />
+          <Property Name="DP03_0098PE" Type="float" />
+          <Property Name="DP03_0099E" Type="int" />
+          <Property Name="DP03_0099PE" Type="float" />
+          <Property Name="DP03_0102E" Type="int" />
+          <Property Name="DP03_0102PE" Type="float" />
+          <Property Name="DP03_0103E" Type="int" />
+          <Property Name="DP03_0103PE" Type="float" />
+          <Property Name="DP03_0104E" Type="int" />
+          <Property Name="DP03_0104PE" Type="float" />
+          <Property Name="DP03_0105E" Type="int" />
+          <Property Name="DP03_0105PE" Type="float" />
+          <Property Name="DP03_0106E" Type="int" />
+          <Property Name="DP03_0106PE" Type="float" />
+          <Property Name="DP03_0107E" Type="int" />
+          <Property Name="DP03_0107PE" Type="float" />
+          <Property Name="DP03_0108E" Type="int" />
+          <Property Name="DP03_0108PE" Type="float" />
+          <Property Name="DP03_0109E" Type="int" />
+          <Property Name="DP03_0109PE" Type="float" />
+          <Property Name="DP03_0110E" Type="int" />
+          <Property Name="DP03_0110PE" Type="float" />
+          <Property Name="DP03_0111E" Type="int" />
+          <Property Name="DP03_0111PE" Type="float" />
+          <Property Name="DP03_0112E" Type="int" />
+          <Property Name="DP03_0112PE" Type="float" />
+          <Property Name="DP03_0113E" Type="int" />
+          <Property Name="DP03_0113PE" Type="float" />
+          <Property Name="DP03_0133E" Type="int" />
+          <Property Name="DP03_0133PE" Type="float" />
+          <Property Name="DP03_0134E" Type="int" />
+          <Property Name="DP03_0134PE" Type="float" />
+          <Property Name="DP03_0135E" Type="int" />
+          <Property Name="DP03_0135PE" Type="float" />
+          <Property Name="DP04_0006E" Type="int" />
+          <Property Name="DP04_0006PE" Type="float" />
+          <Property Name="DP04_0007E" Type="int" />
+          <Property Name="DP04_0007PE" Type="float" />
+          <Property Name="DP04_0008E" Type="int" />
+          <Property Name="DP04_0008PE" Type="float" />
+          <Property Name="DP04_0009E" Type="int" />
+          <Property Name="DP04_0009PE" Type="float" />
+          <Property Name="DP04_0010E" Type="int" />
+          <Property Name="DP04_0010PE" Type="float" />
+          <Property Name="DP04_0011E" Type="int" />
+          <Property Name="DP04_0011PE" Type="float" />
+          <Property Name="DP04_0012E" Type="int" />
+          <Property Name="DP04_0012PE" Type="float" />
+          <Property Name="DP04_0013E" Type="int" />
+          <Property Name="DP04_0013PE" Type="float" />
+          <Property Name="DP04_0027E" Type="int" />
+          <Property Name="DP04_0027PE" Type="float" />
+          <Property Name="DP04_0028E" Type="int" />
+          <Property Name="DP04_0028PE" Type="float" />
+          <Property Name="DP04_0029E" Type="int" />
+          <Property Name="DP04_0029PE" Type="float" />
+          <Property Name="DP04_0030E" Type="int" />
+          <Property Name="DP04_0030PE" Type="float" />
+          <Property Name="DP04_0031E" Type="int" />
+          <Property Name="DP04_0031PE" Type="float" />
+          <Property Name="DP04_0032E" Type="int" />
+          <Property Name="DP04_0032PE" Type="float" />
+          <Property Name="DP04_0033E" Type="int" />
+          <Property Name="DP04_0033PE" Type="float" />
+          <Property Name="DP04_0034E" Type="int" />
+          <Property Name="DP04_0034PE" Type="float" />
+          <Property Name="DP04_0035E" Type="int" />
+          <Property Name="DP04_0035PE" Type="float" />
+          <Property Name="DP04_0036E" Type="int" />
+          <Property Name="DP04_0036PE" Type="float" />
+          <Property Name="DP04_0037E" Type="int" />
+          <Property Name="DP04_0037PE" Type="float" />
+          <Property Name="DP04_0038E" Type="int" />
+          <Property Name="DP04_0038PE" Type="float" />
+          <Property Name="DP04_0039E" Type="int" />
+          <Property Name="DP04_0039PE" Type="float" />
+          <Property Name="DP04_0040E" Type="int" />
+          <Property Name="DP04_0040PE" Type="float" />
+          <Property Name="DP04_0041E" Type="int" />
+          <Property Name="DP04_0041PE" Type="float" />
+          <Property Name="DP04_0042E" Type="int" />
+          <Property Name="DP04_0042PE" Type="float" />
+          <Property Name="DP04_0043E" Type="int" />
+          <Property Name="DP04_0043PE" Type="float" />
+          <Property Name="DP04_0044E" Type="int" />
+          <Property Name="DP04_0044PE" Type="float" />
+          <Property Name="DP04_0045E" Type="int" />
+          <Property Name="DP04_0045PE" Type="float" />
+          <Property Name="DP04_0046E" Type="int" />
+          <Property Name="DP04_0046PE" Type="float" />
+          <Property Name="DP04_0047E" Type="int" />
+          <Property Name="DP04_0047PE" Type="float" />
+          <Property Name="DP04_0050E" Type="int" />
+          <Property Name="DP04_0050PE" Type="float" />
+          <Property Name="DP04_0051E" Type="int" />
+          <Property Name="DP04_0051PE" Type="float" />
+          <Property Name="DP04_0052E" Type="int" />
+          <Property Name="DP04_0052PE" Type="float" />
+          <Property Name="DP04_0053E" Type="int" />
+          <Property Name="DP04_0053PE" Type="float" />
+          <Property Name="DP04_0054E" Type="int" />
+          <Property Name="DP04_0054PE" Type="float" />
+          <Property Name="DP04_0055E" Type="int" />
+          <Property Name="DP04_0055PE" Type="float" />
+          <Property Name="DP04_0056E" Type="int" />
+          <Property Name="DP04_0056PE" Type="float" />
+          <Property Name="DP04_0076E" Type="int" />
+          <Property Name="DP04_0076PE" Type="float" />
+          <Property Name="DP04_0077E" Type="int" />
+          <Property Name="DP04_0077PE" Type="float" />
+          <Property Name="DP04_0078E" Type="int" />
+          <Property Name="DP04_0078PE" Type="float" />
+          <Property Name="DP04_0079E" Type="int" />
+          <Property Name="DP04_0079PE" Type="float" />
+          <Property Name="DP04_0090E" Type="int" />
+          <Property Name="DP04_0090PE" Type="float" />
+          <Property Name="DP04_0091E" Type="int" />
+          <Property Name="DP04_0091PE" Type="float" />
+          <Property Name="DP04_0092E" Type="int" />
+          <Property Name="DP04_0092PE" Type="float" />
+          <Property Name="DP04_0093E" Type="int" />
+          <Property Name="DP04_0093PE" Type="float" />
+          <Property Name="DP04_0094E" Type="int" />
+          <Property Name="DP04_0094PE" Type="float" />
+          <Property Name="DP04_0095E" Type="int" />
+          <Property Name="DP04_0095PE" Type="float" />
+          <Property Name="DP04_0096E" Type="int" />
+          <Property Name="DP04_0096PE" Type="float" />
+          <Property Name="DP04_0097E" Type="int" />
+          <Property Name="DP04_0097PE" Type="float" />
+          <Property Name="DP04_0098E" Type="int" />
+          <Property Name="DP04_0098PE" Type="float" />
+          <Property Name="DP04_0099E" Type="int" />
+          <Property Name="DP04_0099PE" Type="float" />
+          <Property Name="DP04_0100E" Type="int" />
+          <Property Name="DP04_0100PE" Type="float" />
+          <Property Name="DP04_0101E" Type="int" />
+          <Property Name="DP04_0101PE" Type="float" />
+          <Property Name="DP04_0110E" Type="int" />
+          <Property Name="DP04_0110PE" Type="float" />
+          <Property Name="DP04_0111E" Type="int" />
+          <Property Name="DP04_0111PE" Type="float" />
+          <Property Name="DP04_0112E" Type="int" />
+          <Property Name="DP04_0112PE" Type="float" />
+          <Property Name="DP04_0113E" Type="int" />
+          <Property Name="DP04_0113PE" Type="float" />
+          <Property Name="DP04_0114E" Type="int" />
+          <Property Name="DP04_0114PE" Type="float" />
+          <Property Name="DP04_0115E" Type="int" />
+          <Property Name="DP04_0115PE" Type="float" />
+          <Property Name="DP04_0126E" Type="int" />
+          <Property Name="DP04_0126PE" Type="float" />
+          <Property Name="DP04_0127E" Type="int" />
+          <Property Name="DP04_0127PE" Type="float" />
+          <Property Name="DP04_0128E" Type="int" />
+          <Property Name="DP04_0128PE" Type="float" />
+          <Property Name="DP04_0129E" Type="int" />
+          <Property Name="DP04_0129PE" Type="float" />
+          <Property Name="DP04_0130E" Type="int" />
+          <Property Name="DP04_0130PE" Type="float" />
+          <Property Name="DP04_0131E" Type="int" />
+          <Property Name="DP04_0131PE" Type="float" />
+          <Property Name="DP04_0132E" Type="int" />
+          <Property Name="DP04_0132PE" Type="float" />
+          <Property Name="DP04_0133E" Type="int" />
+          <Property Name="DP04_0133PE" Type="float" />
+          <Property Name="DP04_0134E" Type="int" />
+          <Property Name="DP04_0134PE" Type="float" />
+          <Property Name="DP04_0136E" Type="int" />
+          <Property Name="DP04_0136PE" Type="float" />
+          <Property Name="DP04_0137E" Type="int" />
+          <Property Name="DP04_0137PE" Type="float" />
+          <Property Name="DP04_0138E" Type="int" />
+          <Property Name="DP04_0138PE" Type="float" />
+          <Property Name="DP04_0139E" Type="int" />
+          <Property Name="DP04_0139PE" Type="float" />
+          <Property Name="DP04_0140E" Type="int" />
+          <Property Name="DP04_0140PE" Type="float" />
+          <Property Name="DP04_0141E" Type="int" />
+          <Property Name="DP04_0141PE" Type="float" />
+          <Property Name="DP04_0142E" Type="int" />
+          <Property Name="DP04_0142PE" Type="float" />
+          <Property Name="DP03_0079E" Type="int" />
+          <Property Name="DP03_0079PE" Type="float" />
+          <Property Name="DP03_0080E" Type="int" />
+          <Property Name="DP03_0080PE" Type="float" />
+          <Property Name="DP03_0081E" Type="nchar" MaxLength="10" />
+          <Property Name="DP03_0081PE" Type="nchar" MaxLength="10" />
+          <Property Name="DP03_0082E" Type="nchar" MaxLength="10" />
+          <Property Name="DP03_0082PE" Type="nchar" MaxLength="10" />
+          <Property Name="DP03_0083E" Type="nchar" MaxLength="10" />
+          <Property Name="DP03_0083PE" Type="nchar" MaxLength="10" />
+          <Property Name="DP03_0084E" Type="nchar" MaxLength="10" />
+          <Property Name="DP03_0084PE" Type="nchar" MaxLength="10" />
+          <Property Name="DP03_0085E" Type="nchar" MaxLength="10" />
+          <Property Name="DP03_0085PE" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Designations">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OBJECTID" Type="int" Nullable="false" />
+          <Property Name="ENUMBER" Type="nvarchar" MaxLength="50" />
+          <Property Name="CEQR_NUM" Type="nvarchar" MaxLength="50" />
+          <Property Name="ULURP_NUM" Type="nvarchar" MaxLength="50" />
+          <Property Name="BOROCODE" Type="int" />
+          <Property Name="TAXBLOCK" Type="int" />
+          <Property Name="TAXLOT" Type="int" />
+          <Property Name="ZONING_MAP" Type="nvarchar" MaxLength="50" />
+          <Property Name="DESCRIPTION" Type="nvarchar(max)" />
+          <Property Name="BBL" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'NYC_Web_Mapping_App.dbo.Districts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Districts">
+          <Key>
+            <PropertyRef Name="OBJECTID" />
+            <PropertyRef Name="DISTRICTCODE" />
+            <PropertyRef Name="DISTRICT" />
+          </Key>
+          <Property Name="OBJECTID" Type="int" Nullable="false" />
+          <Property Name="DISTRICTCODE" Type="int" Nullable="false" />
+          <Property Name="DISTRICT" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Elevators">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="job_filing_number" Type="varchar" MaxLength="50" />
+          <Property Name="job_number" Type="varchar" MaxLength="50" />
+          <Property Name="filing_number" Type="varchar" MaxLength="50" />
+          <Property Name="filing_date" Type="datetime" />
+          <Property Name="filing_type" Type="varchar" MaxLength="50" />
+          <Property Name="elevatordevicetype" Type="varchar" MaxLength="150" />
+          <Property Name="filing_status" Type="varchar" MaxLength="50" />
+          <Property Name="filingstatus_or_filingincludes" Type="varchar" MaxLength="150" />
+          <Property Name="building_code" Type="varchar" MaxLength="50" />
+          <Property Name="electrical_permit_number" Type="varchar" MaxLength="150" />
+          <Property Name="bin" Type="varchar" MaxLength="50" />
+          <Property Name="house_number" Type="varchar" MaxLength="50" />
+          <Property Name="street_name" Type="varchar" MaxLength="150" />
+          <Property Name="zip" Type="varchar" MaxLength="50" />
+          <Property Name="borough" Type="varchar" MaxLength="50" />
+          <Property Name="block" Type="varchar" MaxLength="50" />
+          <Property Name="lot" Type="varchar" MaxLength="50" />
+          <Property Name="building_type" Type="varchar" MaxLength="150" />
+          <Property Name="buildingstories" Type="varchar" MaxLength="150" />
+          <Property Name="bbl" Type="varchar" MaxLength="50" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Logger">
+          <Key>
+            <PropertyRef Name="Logger_ID" />
+          </Key>
+          <Property Name="Logger_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CustomerCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MyAlerts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AlertName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AlertQuery" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Last_OBJECTID" Type="int" />
+          <Property Name="Last_DateCheck" Type="datetime" />
+          <Property Name="Next_DateCheck" Type="datetime" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="Frequency" Type="int" Nullable="false" />
+          <Property Name="IsEnergySearch" Type="bit" Nullable="false" />
+          <Property Name="IsPermitSearch" Type="bit" Nullable="false" />
+          <Property Name="IsViolationSearch" Type="bit" Nullable="false" />
+          <Property Name="IsEvictionSearch" Type="bit" Nullable="false" />
+          <Property Name="IsElevatorSearch" Type="bit" Nullable="false" />
+          <Property Name="IsPropertySalesSearch" Type="bit" Nullable="false" />
+          <Property Name="IsUnread" Type="bit" />
+          <Property Name="ProjectSearchAdditional" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="MyReports">
           <Key>
             <PropertyRef Name="ID" />
@@ -14,8 +490,103 @@
           <Property Name="ReportName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="FileName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="Pluto">
+          <Key>
+            <PropertyRef Name="OBJECTID" />
+          </Key>
+          <Property Name="OBJECTID" Type="int" Nullable="false" />
+          <Property Name="BBL" Type="nvarchar" MaxLength="50" />
+          <Property Name="Borough" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="150" />
+          <Property Name="ZipCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Latitude" Type="nvarchar" MaxLength="50" />
+          <Property Name="Longitude" Type="nvarchar" MaxLength="50" />
+          <Property Name="BldgArea" Type="int" />
+          <Property Name="ComArea" Type="int" />
+          <Property Name="ResArea" Type="int" />
+          <Property Name="NumFloors" Type="float" />
+          <Property Name="UnitsRes" Type="int" />
+          <Property Name="ZoneDist1" Type="nvarchar" MaxLength="50" />
+          <Property Name="Overlay1" Type="nvarchar" MaxLength="50" />
+          <Property Name="Overlay2" Type="nvarchar" MaxLength="50" />
+          <Property Name="AssessTot" Type="float" />
+          <Property Name="YearBuilt" Type="int" />
+          <Property Name="OwnerName" Type="nvarchar" MaxLength="150" />
+          <Property Name="BldgClass" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsRentStabilizedProperty" Type="bit" />
+          <Property Name="CD" Type="int" />
+          <Property Name="Tract2010" Type="nvarchar" MaxLength="50" />
+          <Property Name="LandUse" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Tabs">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TabName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TabID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User_Tabs">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TabIDs" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserRoles">
+          <Key>
+            <PropertyRef Name="UserRole_ID" />
+          </Key>
+          <Property Name="UserRole_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="User_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Role_ID" Type="int" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Users_UserRoles">
+          <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserRoles">
+              <PropertyRef Name="UserRole_ID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="Role_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="NYC_Web_Mapping_AppModelStoreContainer">
+          <EntitySet Name="Configuration_PropAttributes" EntityType="Self.Configuration_PropAttributes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ConsumerProfiles" EntityType="Self.ConsumerProfiles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Designations" EntityType="Self.Designations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Elevators" EntityType="Self.Elevators" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Logger" EntityType="Self.Logger" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MyAlerts" EntityType="Self.MyAlerts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MyReports" EntityType="Self.MyReports" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pluto" EntityType="Self.Pluto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tabs" EntityType="Self.Tabs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User_Tabs" EntityType="Self.User_Tabs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Districts" EntityType="Self.Districts" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Districts].[OBJECTID] AS [OBJECTID], 
+    [Districts].[DISTRICTCODE] AS [DISTRICTCODE], 
+    [Districts].[DISTRICT] AS [DISTRICT]
+    FROM [dbo].[Districts] AS [Districts]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Users_UserRoles" Association="Self.FK_Users_UserRoles">
+            <End Role="UserRoles" EntitySet="UserRoles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -32,7 +603,572 @@
         </EntityType>
         <EntityContainer Name="NYC_Web_Mapping_AppEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="MyReports" EntityType="Self.MyReport" />
+          <EntitySet Name="Elevators" EntityType="NYC_Web_Mapping_AppModel.Elevator" />
+          <EntitySet Name="ConsumerProfiles" EntityType="NYC_Web_Mapping_AppModel.ConsumerProfile" />
+          <EntitySet Name="Districts" EntityType="NYC_Web_Mapping_AppModel.District" />
+          <EntitySet Name="Designations" EntityType="NYC_Web_Mapping_AppModel.Designation" />
+          <EntitySet Name="Tabs" EntityType="NYC_Web_Mapping_AppModel.Tab" />
+          <EntitySet Name="User_Tabs" EntityType="NYC_Web_Mapping_AppModel.User_Tabs" />
+          <EntitySet Name="UserRoles" EntityType="NYC_Web_Mapping_AppModel.UserRole" />
+          <EntitySet Name="Users" EntityType="NYC_Web_Mapping_AppModel.User" />
+          <AssociationSet Name="FK_Users_UserRoles" Association="NYC_Web_Mapping_AppModel.FK_Users_UserRoles">
+            <End Role="UserRole" EntitySet="UserRoles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <EntitySet Name="Loggers" EntityType="NYC_Web_Mapping_AppModel.Logger" />
+          <EntitySet Name="Plutoes" EntityType="NYC_Web_Mapping_AppModel.Pluto" />
+          <EntitySet Name="MyAlerts" EntityType="NYC_Web_Mapping_AppModel.MyAlert" />
+          <EntitySet Name="Configuration_PropAttributes" EntityType="NYC_Web_Mapping_AppModel.Configuration_PropAttributes" />
         </EntityContainer>
+        <EntityType Name="Elevator">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="job_filing_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="job_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="filing_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="filing_date" Type="DateTime" Precision="3" />
+          <Property Name="filing_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="elevatordevicetype" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="filing_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="filingstatus_or_filingincludes" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="building_code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="electrical_permit_number" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="bin" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="house_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="street_name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="zip" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="borough" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="block" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lot" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="building_type" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="buildingstories" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="bbl" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ConsumerProfile">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="State" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="County" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Tract" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Year" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="DP05_0001E" Type="Int32" />
+          <Property Name="DP05_0002E" Type="Int32" />
+          <Property Name="DP05_0002PE" Type="Double" />
+          <Property Name="DP05_0003E" Type="Int32" />
+          <Property Name="DP05_0003PE" Type="Double" />
+          <Property Name="DP05_0004E" Type="Int32" />
+          <Property Name="DP05_0009E" Type="Int32" />
+          <Property Name="DP05_0010E" Type="Int32" />
+          <Property Name="DP05_0011E" Type="Int32" />
+          <Property Name="DP05_0012E" Type="Int32" />
+          <Property Name="DP05_0013E" Type="Int32" />
+          <Property Name="DP05_0014E" Type="Int32" />
+          <Property Name="DP05_0015E" Type="Int32" />
+          <Property Name="DP05_0016E" Type="Int32" />
+          <Property Name="DP02_0001E" Type="Int32" />
+          <Property Name="DP02_0001PE" Type="Double" />
+          <Property Name="DP02_0002E" Type="Int32" />
+          <Property Name="DP02_0002PE" Type="Double" />
+          <Property Name="DP02_0003E" Type="Int32" />
+          <Property Name="DP02_0003PE" Type="Double" />
+          <Property Name="DP02_0006E" Type="Int32" />
+          <Property Name="DP02_0006PE" Type="Double" />
+          <Property Name="DP02_0008E" Type="Int32" />
+          <Property Name="DP02_0008PE" Type="Double" />
+          <Property Name="DP02_0010E" Type="Int32" />
+          <Property Name="DP02_0010PE" Type="Double" />
+          <Property Name="DP02_0011E" Type="Int32" />
+          <Property Name="DP02_0011PE" Type="Double" />
+          <Property Name="DP02_0012E" Type="Int32" />
+          <Property Name="DP02_0012PE" Type="Double" />
+          <Property Name="DP02_0024E" Type="Int32" />
+          <Property Name="DP02_0024PE" Type="Double" />
+          <Property Name="DP02_0025E" Type="Int32" />
+          <Property Name="DP02_0025PE" Type="Double" />
+          <Property Name="DP02_0026E" Type="Int32" />
+          <Property Name="DP02_0026PE" Type="Double" />
+          <Property Name="DP02_0027E" Type="Int32" />
+          <Property Name="DP02_0027PE" Type="Double" />
+          <Property Name="DP02_0028E" Type="Int32" />
+          <Property Name="DP02_0028PE" Type="Double" />
+          <Property Name="DP02_0029E" Type="Int32" />
+          <Property Name="DP02_0029PE" Type="Double" />
+          <Property Name="DP02_0030E" Type="Int32" />
+          <Property Name="DP02_0030PE" Type="Double" />
+          <Property Name="DP02_0031E" Type="Int32" />
+          <Property Name="DP02_0031PE" Type="Double" />
+          <Property Name="DP02_0032E" Type="Int32" />
+          <Property Name="DP02_0032PE" Type="Double" />
+          <Property Name="DP02_0033E" Type="Int32" />
+          <Property Name="DP02_0033PE" Type="Double" />
+          <Property Name="DP02_0034E" Type="Int32" />
+          <Property Name="DP02_0034PE" Type="Double" />
+          <Property Name="DP02_0035E" Type="Int32" />
+          <Property Name="DP02_0035PE" Type="Double" />
+          <Property Name="DP02_0052E" Type="Int32" />
+          <Property Name="DP02_0052PE" Type="Double" />
+          <Property Name="DP02_0053E" Type="Int32" />
+          <Property Name="DP02_0053PE" Type="Double" />
+          <Property Name="DP02_0054E" Type="Int32" />
+          <Property Name="DP02_0054PE" Type="Double" />
+          <Property Name="DP02_0055E" Type="Int32" />
+          <Property Name="DP02_0055PE" Type="Double" />
+          <Property Name="DP02_0056E" Type="Int32" />
+          <Property Name="DP02_0056PE" Type="Double" />
+          <Property Name="DP02_0057E" Type="Int32" />
+          <Property Name="DP02_0057PE" Type="Double" />
+          <Property Name="DP02_0058E" Type="Int32" />
+          <Property Name="DP02_0058PE" Type="Double" />
+          <Property Name="DP02_0059E" Type="Int32" />
+          <Property Name="DP02_0059PE" Type="Double" />
+          <Property Name="DP02_0060E" Type="Int32" />
+          <Property Name="DP02_0060PE" Type="Double" />
+          <Property Name="DP02_0061E" Type="Int32" />
+          <Property Name="DP02_0061PE" Type="Double" />
+          <Property Name="DP02_0062E" Type="Int32" />
+          <Property Name="DP02_0062PE" Type="Double" />
+          <Property Name="DP02_0063E" Type="Int32" />
+          <Property Name="DP02_0063PE" Type="Double" />
+          <Property Name="DP02_0064E" Type="Int32" />
+          <Property Name="DP02_0064PE" Type="Double" />
+          <Property Name="DP02_0070E" Type="Int32" />
+          <Property Name="DP02_0070PE" Type="Double" />
+          <Property Name="DP02_0071E" Type="Int32" />
+          <Property Name="DP02_0071PE" Type="Double" />
+          <Property Name="DP02_0074E" Type="Int32" />
+          <Property Name="DP02_0074PE" Type="Double" />
+          <Property Name="DP02_0075E" Type="Int32" />
+          <Property Name="DP02_0075PE" Type="Double" />
+          <Property Name="DP02_0076E" Type="Int32" />
+          <Property Name="DP02_0076PE" Type="Double" />
+          <Property Name="DP02_0078E" Type="Int32" />
+          <Property Name="DP02_0078PE" Type="Double" />
+          <Property Name="DP02_0079E" Type="Int32" />
+          <Property Name="DP02_0079PE" Type="Double" />
+          <Property Name="DP02_0080E" Type="Int32" />
+          <Property Name="DP02_0080PE" Type="Double" />
+          <Property Name="DP02_0081E" Type="Int32" />
+          <Property Name="DP02_0081PE" Type="Double" />
+          <Property Name="DP02_0082E" Type="Int32" />
+          <Property Name="DP02_0082PE" Type="Double" />
+          <Property Name="DP02_0083E" Type="Int32" />
+          <Property Name="DP02_0083PE" Type="Double" />
+          <Property Name="DP02_0084E" Type="Int32" />
+          <Property Name="DP02_0084PE" Type="Double" />
+          <Property Name="DP02_0150E" Type="Int32" />
+          <Property Name="DP02_0150PE" Type="Double" />
+          <Property Name="DP02_0151E" Type="Int32" />
+          <Property Name="DP02_0151PE" Type="Double" />
+          <Property Name="DP02_0152E" Type="Int32" />
+          <Property Name="DP02_0152PE" Type="Double" />
+          <Property Name="DP03_0001E" Type="Int32" />
+          <Property Name="DP03_0001PE" Type="Double" />
+          <Property Name="DP03_0003E" Type="Int32" />
+          <Property Name="DP03_0003PE" Type="Double" />
+          <Property Name="DP03_0004E" Type="Int32" />
+          <Property Name="DP03_0004PE" Type="Double" />
+          <Property Name="DP03_0005E" Type="Int32" />
+          <Property Name="DP03_0005PE" Type="Double" />
+          <Property Name="DP03_0007E" Type="Int32" />
+          <Property Name="DP03_0007PE" Type="Double" />
+          <Property Name="DP03_0009E" Type="Int32" />
+          <Property Name="DP03_0009PE" Type="Double" />
+          <Property Name="DP03_0010E" Type="Int32" />
+          <Property Name="DP03_0010PE" Type="Double" />
+          <Property Name="DP03_0012E" Type="Int32" />
+          <Property Name="DP03_0012PE" Type="Double" />
+          <Property Name="DP03_0013E" Type="Int32" />
+          <Property Name="DP03_0013PE" Type="Double" />
+          <Property Name="DP03_0051E" Type="Int32" />
+          <Property Name="DP03_0051PE" Type="Double" />
+          <Property Name="DP03_0052E" Type="Int32" />
+          <Property Name="DP03_0052PE" Type="Double" />
+          <Property Name="DP03_0053E" Type="Int32" />
+          <Property Name="DP03_0053PE" Type="Double" />
+          <Property Name="DP03_0054E" Type="Int32" />
+          <Property Name="DP03_0054PE" Type="Double" />
+          <Property Name="DP03_0055E" Type="Int32" />
+          <Property Name="DP03_0055PE" Type="Double" />
+          <Property Name="DP03_0056E" Type="Int32" />
+          <Property Name="DP03_0056PE" Type="Double" />
+          <Property Name="DP03_0057E" Type="Int32" />
+          <Property Name="DP03_0057PE" Type="Double" />
+          <Property Name="DP03_0058E" Type="Int32" />
+          <Property Name="DP03_0058PE" Type="Double" />
+          <Property Name="DP03_0059E" Type="Int32" />
+          <Property Name="DP03_0059PE" Type="Double" />
+          <Property Name="DP03_0060E" Type="Int32" />
+          <Property Name="DP03_0060PE" Type="Double" />
+          <Property Name="DP03_0061E" Type="Int32" />
+          <Property Name="DP03_0061PE" Type="Double" />
+          <Property Name="DP03_0063E" Type="Int32" />
+          <Property Name="DP03_0063PE" Type="Double" />
+          <Property Name="DP03_0066E" Type="Int32" />
+          <Property Name="DP03_0066PE" Type="Double" />
+          <Property Name="DP03_0068E" Type="Int32" />
+          <Property Name="DP03_0068PE" Type="Double" />
+          <Property Name="DP03_0069E" Type="Int32" />
+          <Property Name="DP03_0069PE" Type="Double" />
+          <Property Name="DP03_0070E" Type="Int32" />
+          <Property Name="DP03_0070PE" Type="Double" />
+          <Property Name="DP03_0071E" Type="Int32" />
+          <Property Name="DP03_0071PE" Type="Double" />
+          <Property Name="DP03_0072E" Type="Int32" />
+          <Property Name="DP03_0072PE" Type="Double" />
+          <Property Name="DP03_0073E" Type="Int32" />
+          <Property Name="DP03_0073PE" Type="Double" />
+          <Property Name="DP03_0095E" Type="Int32" />
+          <Property Name="DP03_0095PE" Type="Double" />
+          <Property Name="DP03_0096E" Type="Int32" />
+          <Property Name="DP03_0096PE" Type="Double" />
+          <Property Name="DP03_0097E" Type="Int32" />
+          <Property Name="DP03_0097PE" Type="Double" />
+          <Property Name="DP03_0098E" Type="Int32" />
+          <Property Name="DP03_0098PE" Type="Double" />
+          <Property Name="DP03_0099E" Type="Int32" />
+          <Property Name="DP03_0099PE" Type="Double" />
+          <Property Name="DP03_0102E" Type="Int32" />
+          <Property Name="DP03_0102PE" Type="Double" />
+          <Property Name="DP03_0103E" Type="Int32" />
+          <Property Name="DP03_0103PE" Type="Double" />
+          <Property Name="DP03_0104E" Type="Int32" />
+          <Property Name="DP03_0104PE" Type="Double" />
+          <Property Name="DP03_0105E" Type="Int32" />
+          <Property Name="DP03_0105PE" Type="Double" />
+          <Property Name="DP03_0106E" Type="Int32" />
+          <Property Name="DP03_0106PE" Type="Double" />
+          <Property Name="DP03_0107E" Type="Int32" />
+          <Property Name="DP03_0107PE" Type="Double" />
+          <Property Name="DP03_0108E" Type="Int32" />
+          <Property Name="DP03_0108PE" Type="Double" />
+          <Property Name="DP03_0109E" Type="Int32" />
+          <Property Name="DP03_0109PE" Type="Double" />
+          <Property Name="DP03_0110E" Type="Int32" />
+          <Property Name="DP03_0110PE" Type="Double" />
+          <Property Name="DP03_0111E" Type="Int32" />
+          <Property Name="DP03_0111PE" Type="Double" />
+          <Property Name="DP03_0112E" Type="Int32" />
+          <Property Name="DP03_0112PE" Type="Double" />
+          <Property Name="DP03_0113E" Type="Int32" />
+          <Property Name="DP03_0113PE" Type="Double" />
+          <Property Name="DP03_0133E" Type="Int32" />
+          <Property Name="DP03_0133PE" Type="Double" />
+          <Property Name="DP03_0134E" Type="Int32" />
+          <Property Name="DP03_0134PE" Type="Double" />
+          <Property Name="DP03_0135E" Type="Int32" />
+          <Property Name="DP03_0135PE" Type="Double" />
+          <Property Name="DP04_0006E" Type="Int32" />
+          <Property Name="DP04_0006PE" Type="Double" />
+          <Property Name="DP04_0007E" Type="Int32" />
+          <Property Name="DP04_0007PE" Type="Double" />
+          <Property Name="DP04_0008E" Type="Int32" />
+          <Property Name="DP04_0008PE" Type="Double" />
+          <Property Name="DP04_0009E" Type="Int32" />
+          <Property Name="DP04_0009PE" Type="Double" />
+          <Property Name="DP04_0010E" Type="Int32" />
+          <Property Name="DP04_0010PE" Type="Double" />
+          <Property Name="DP04_0011E" Type="Int32" />
+          <Property Name="DP04_0011PE" Type="Double" />
+          <Property Name="DP04_0012E" Type="Int32" />
+          <Property Name="DP04_0012PE" Type="Double" />
+          <Property Name="DP04_0013E" Type="Int32" />
+          <Property Name="DP04_0013PE" Type="Double" />
+          <Property Name="DP04_0027E" Type="Int32" />
+          <Property Name="DP04_0027PE" Type="Double" />
+          <Property Name="DP04_0028E" Type="Int32" />
+          <Property Name="DP04_0028PE" Type="Double" />
+          <Property Name="DP04_0029E" Type="Int32" />
+          <Property Name="DP04_0029PE" Type="Double" />
+          <Property Name="DP04_0030E" Type="Int32" />
+          <Property Name="DP04_0030PE" Type="Double" />
+          <Property Name="DP04_0031E" Type="Int32" />
+          <Property Name="DP04_0031PE" Type="Double" />
+          <Property Name="DP04_0032E" Type="Int32" />
+          <Property Name="DP04_0032PE" Type="Double" />
+          <Property Name="DP04_0033E" Type="Int32" />
+          <Property Name="DP04_0033PE" Type="Double" />
+          <Property Name="DP04_0034E" Type="Int32" />
+          <Property Name="DP04_0034PE" Type="Double" />
+          <Property Name="DP04_0035E" Type="Int32" />
+          <Property Name="DP04_0035PE" Type="Double" />
+          <Property Name="DP04_0036E" Type="Int32" />
+          <Property Name="DP04_0036PE" Type="Double" />
+          <Property Name="DP04_0037E" Type="Int32" />
+          <Property Name="DP04_0037PE" Type="Double" />
+          <Property Name="DP04_0038E" Type="Int32" />
+          <Property Name="DP04_0038PE" Type="Double" />
+          <Property Name="DP04_0039E" Type="Int32" />
+          <Property Name="DP04_0039PE" Type="Double" />
+          <Property Name="DP04_0040E" Type="Int32" />
+          <Property Name="DP04_0040PE" Type="Double" />
+          <Property Name="DP04_0041E" Type="Int32" />
+          <Property Name="DP04_0041PE" Type="Double" />
+          <Property Name="DP04_0042E" Type="Int32" />
+          <Property Name="DP04_0042PE" Type="Double" />
+          <Property Name="DP04_0043E" Type="Int32" />
+          <Property Name="DP04_0043PE" Type="Double" />
+          <Property Name="DP04_0044E" Type="Int32" />
+          <Property Name="DP04_0044PE" Type="Double" />
+          <Property Name="DP04_0045E" Type="Int32" />
+          <Property Name="DP04_0045PE" Type="Double" />
+          <Property Name="DP04_0046E" Type="Int32" />
+          <Property Name="DP04_0046PE" Type="Double" />
+          <Property Name="DP04_0047E" Type="Int32" />
+          <Property Name="DP04_0047PE" Type="Double" />
+          <Property Name="DP04_0050E" Type="Int32" />
+          <Property Name="DP04_0050PE" Type="Double" />
+          <Property Name="DP04_0051E" Type="Int32" />
+          <Property Name="DP04_0051PE" Type="Double" />
+          <Property Name="DP04_0052E" Type="Int32" />
+          <Property Name="DP04_0052PE" Type="Double" />
+          <Property Name="DP04_0053E" Type="Int32" />
+          <Property Name="DP04_0053PE" Type="Double" />
+          <Property Name="DP04_0054E" Type="Int32" />
+          <Property Name="DP04_0054PE" Type="Double" />
+          <Property Name="DP04_0055E" Type="Int32" />
+          <Property Name="DP04_0055PE" Type="Double" />
+          <Property Name="DP04_0056E" Type="Int32" />
+          <Property Name="DP04_0056PE" Type="Double" />
+          <Property Name="DP04_0076E" Type="Int32" />
+          <Property Name="DP04_0076PE" Type="Double" />
+          <Property Name="DP04_0077E" Type="Int32" />
+          <Property Name="DP04_0077PE" Type="Double" />
+          <Property Name="DP04_0078E" Type="Int32" />
+          <Property Name="DP04_0078PE" Type="Double" />
+          <Property Name="DP04_0079E" Type="Int32" />
+          <Property Name="DP04_0079PE" Type="Double" />
+          <Property Name="DP04_0090E" Type="Int32" />
+          <Property Name="DP04_0090PE" Type="Double" />
+          <Property Name="DP04_0091E" Type="Int32" />
+          <Property Name="DP04_0091PE" Type="Double" />
+          <Property Name="DP04_0092E" Type="Int32" />
+          <Property Name="DP04_0092PE" Type="Double" />
+          <Property Name="DP04_0093E" Type="Int32" />
+          <Property Name="DP04_0093PE" Type="Double" />
+          <Property Name="DP04_0094E" Type="Int32" />
+          <Property Name="DP04_0094PE" Type="Double" />
+          <Property Name="DP04_0095E" Type="Int32" />
+          <Property Name="DP04_0095PE" Type="Double" />
+          <Property Name="DP04_0096E" Type="Int32" />
+          <Property Name="DP04_0096PE" Type="Double" />
+          <Property Name="DP04_0097E" Type="Int32" />
+          <Property Name="DP04_0097PE" Type="Double" />
+          <Property Name="DP04_0098E" Type="Int32" />
+          <Property Name="DP04_0098PE" Type="Double" />
+          <Property Name="DP04_0099E" Type="Int32" />
+          <Property Name="DP04_0099PE" Type="Double" />
+          <Property Name="DP04_0100E" Type="Int32" />
+          <Property Name="DP04_0100PE" Type="Double" />
+          <Property Name="DP04_0101E" Type="Int32" />
+          <Property Name="DP04_0101PE" Type="Double" />
+          <Property Name="DP04_0110E" Type="Int32" />
+          <Property Name="DP04_0110PE" Type="Double" />
+          <Property Name="DP04_0111E" Type="Int32" />
+          <Property Name="DP04_0111PE" Type="Double" />
+          <Property Name="DP04_0112E" Type="Int32" />
+          <Property Name="DP04_0112PE" Type="Double" />
+          <Property Name="DP04_0113E" Type="Int32" />
+          <Property Name="DP04_0113PE" Type="Double" />
+          <Property Name="DP04_0114E" Type="Int32" />
+          <Property Name="DP04_0114PE" Type="Double" />
+          <Property Name="DP04_0115E" Type="Int32" />
+          <Property Name="DP04_0115PE" Type="Double" />
+          <Property Name="DP04_0126E" Type="Int32" />
+          <Property Name="DP04_0126PE" Type="Double" />
+          <Property Name="DP04_0127E" Type="Int32" />
+          <Property Name="DP04_0127PE" Type="Double" />
+          <Property Name="DP04_0128E" Type="Int32" />
+          <Property Name="DP04_0128PE" Type="Double" />
+          <Property Name="DP04_0129E" Type="Int32" />
+          <Property Name="DP04_0129PE" Type="Double" />
+          <Property Name="DP04_0130E" Type="Int32" />
+          <Property Name="DP04_0130PE" Type="Double" />
+          <Property Name="DP04_0131E" Type="Int32" />
+          <Property Name="DP04_0131PE" Type="Double" />
+          <Property Name="DP04_0132E" Type="Int32" />
+          <Property Name="DP04_0132PE" Type="Double" />
+          <Property Name="DP04_0133E" Type="Int32" />
+          <Property Name="DP04_0133PE" Type="Double" />
+          <Property Name="DP04_0134E" Type="Int32" />
+          <Property Name="DP04_0134PE" Type="Double" />
+          <Property Name="DP04_0136E" Type="Int32" />
+          <Property Name="DP04_0136PE" Type="Double" />
+          <Property Name="DP04_0137E" Type="Int32" />
+          <Property Name="DP04_0137PE" Type="Double" />
+          <Property Name="DP04_0138E" Type="Int32" />
+          <Property Name="DP04_0138PE" Type="Double" />
+          <Property Name="DP04_0139E" Type="Int32" />
+          <Property Name="DP04_0139PE" Type="Double" />
+          <Property Name="DP04_0140E" Type="Int32" />
+          <Property Name="DP04_0140PE" Type="Double" />
+          <Property Name="DP04_0141E" Type="Int32" />
+          <Property Name="DP04_0141PE" Type="Double" />
+          <Property Name="DP04_0142E" Type="Int32" />
+          <Property Name="DP04_0142PE" Type="Double" />
+          <Property Name="DP03_0079E" Type="Int32" />
+          <Property Name="DP03_0079PE" Type="Double" />
+          <Property Name="DP03_0080E" Type="Int32" />
+          <Property Name="DP03_0080PE" Type="Double" />
+          <Property Name="DP03_0081E" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="DP03_0081PE" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="DP03_0082E" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="DP03_0082PE" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="DP03_0083E" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="DP03_0083PE" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="DP03_0084E" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="DP03_0084PE" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="DP03_0085E" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="DP03_0085PE" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="District">
+          <Key>
+            <PropertyRef Name="OBJECTID" />
+            <PropertyRef Name="DISTRICTCODE" />
+            <PropertyRef Name="DISTRICT1" />
+          </Key>
+          <Property Name="OBJECTID" Type="Int32" Nullable="false" />
+          <Property Name="DISTRICTCODE" Type="Int32" Nullable="false" />
+          <Property Name="DISTRICT1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Designation">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OBJECTID" Type="Int32" Nullable="false" />
+          <Property Name="ENUMBER" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CEQR_NUM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ULURP_NUM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BOROCODE" Type="Int32" />
+          <Property Name="TAXBLOCK" Type="Int32" />
+          <Property Name="TAXLOT" Type="Int32" />
+          <Property Name="ZONING_MAP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BBL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Tab">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TabName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TabID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User_Tabs">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TabIDs" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="UserRole_ID" />
+          </Key>
+          <Property Name="UserRole_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="NYC_Web_Mapping_AppModel.FK_Users_UserRoles" FromRole="UserRole" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="User_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Role_ID" Type="Int32" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="UserRole" Relationship="NYC_Web_Mapping_AppModel.FK_Users_UserRoles" FromRole="User" ToRole="UserRole" />
+        </EntityType>
+        <Association Name="FK_Users_UserRoles">
+          <End Type="NYC_Web_Mapping_AppModel.UserRole" Role="UserRole" Multiplicity="1" />
+          <End Type="NYC_Web_Mapping_AppModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserRole">
+              <PropertyRef Name="UserRole_ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Role_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Logger">
+          <Key>
+            <PropertyRef Name="Logger_ID" />
+          </Key>
+          <Property Name="Logger_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Pluto">
+          <Key>
+            <PropertyRef Name="OBJECTID" />
+          </Key>
+          <Property Name="OBJECTID" Type="Int32" Nullable="false" />
+          <Property Name="BBL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Borough" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ZipCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BldgArea" Type="Int32" />
+          <Property Name="ComArea" Type="Int32" />
+          <Property Name="ResArea" Type="Int32" />
+          <Property Name="NumFloors" Type="Double" />
+          <Property Name="UnitsRes" Type="Int32" />
+          <Property Name="ZoneDist1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Overlay1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Overlay2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AssessTot" Type="Double" />
+          <Property Name="YearBuilt" Type="Int32" />
+          <Property Name="OwnerName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="BldgClass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsRentStabilizedProperty" Type="Boolean" />
+          <Property Name="CD" Type="Int32" />
+          <Property Name="Tract2010" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LandUse" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="MyAlert">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AlertName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AlertQuery" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Last_OBJECTID" Type="Int32" />
+          <Property Name="Last_DateCheck" Type="DateTime" Precision="3" />
+          <Property Name="Next_DateCheck" Type="DateTime" Precision="3" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Frequency" Type="Int32" Nullable="false" />
+          <Property Name="IsEnergySearch" Type="Boolean" Nullable="false" />
+          <Property Name="IsPermitSearch" Type="Boolean" Nullable="false" />
+          <Property Name="IsViolationSearch" Type="Boolean" Nullable="false" />
+          <Property Name="IsEvictionSearch" Type="Boolean" Nullable="false" />
+          <Property Name="IsElevatorSearch" Type="Boolean" Nullable="false" />
+          <Property Name="IsPropertySalesSearch" Type="Boolean" Nullable="false" />
+          <Property Name="IsUnread" Type="Boolean" />
+          <Property Name="ProjectSearchAdditional" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Configuration_PropAttributes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Attribute" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Visible" Type="Boolean" Nullable="false" />
+          <Property Name="OrderNum" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -46,6 +1182,551 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="FileName" ColumnName="FileName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Elevators">
+            <EntityTypeMapping TypeName="NYC_Web_Mapping_AppModel.Elevator">
+              <MappingFragment StoreEntitySet="Elevators">
+                <ScalarProperty Name="bbl" ColumnName="bbl" />
+                <ScalarProperty Name="buildingstories" ColumnName="buildingstories" />
+                <ScalarProperty Name="building_type" ColumnName="building_type" />
+                <ScalarProperty Name="lot" ColumnName="lot" />
+                <ScalarProperty Name="block" ColumnName="block" />
+                <ScalarProperty Name="borough" ColumnName="borough" />
+                <ScalarProperty Name="zip" ColumnName="zip" />
+                <ScalarProperty Name="street_name" ColumnName="street_name" />
+                <ScalarProperty Name="house_number" ColumnName="house_number" />
+                <ScalarProperty Name="bin" ColumnName="bin" />
+                <ScalarProperty Name="electrical_permit_number" ColumnName="electrical_permit_number" />
+                <ScalarProperty Name="building_code" ColumnName="building_code" />
+                <ScalarProperty Name="filingstatus_or_filingincludes" ColumnName="filingstatus_or_filingincludes" />
+                <ScalarProperty Name="filing_status" ColumnName="filing_status" />
+                <ScalarProperty Name="elevatordevicetype" ColumnName="elevatordevicetype" />
+                <ScalarProperty Name="filing_type" ColumnName="filing_type" />
+                <ScalarProperty Name="filing_date" ColumnName="filing_date" />
+                <ScalarProperty Name="filing_number" ColumnName="filing_number" />
+                <ScalarProperty Name="job_number" ColumnName="job_number" />
+                <ScalarProperty Name="job_filing_number" ColumnName="job_filing_number" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConsumerProfiles">
+            <EntityTypeMapping TypeName="NYC_Web_Mapping_AppModel.ConsumerProfile">
+              <MappingFragment StoreEntitySet="ConsumerProfiles">
+                <ScalarProperty Name="DP03_0085PE" ColumnName="DP03_0085PE" />
+                <ScalarProperty Name="DP03_0085E" ColumnName="DP03_0085E" />
+                <ScalarProperty Name="DP03_0084PE" ColumnName="DP03_0084PE" />
+                <ScalarProperty Name="DP03_0084E" ColumnName="DP03_0084E" />
+                <ScalarProperty Name="DP03_0083PE" ColumnName="DP03_0083PE" />
+                <ScalarProperty Name="DP03_0083E" ColumnName="DP03_0083E" />
+                <ScalarProperty Name="DP03_0082PE" ColumnName="DP03_0082PE" />
+                <ScalarProperty Name="DP03_0082E" ColumnName="DP03_0082E" />
+                <ScalarProperty Name="DP03_0081PE" ColumnName="DP03_0081PE" />
+                <ScalarProperty Name="DP03_0081E" ColumnName="DP03_0081E" />
+                <ScalarProperty Name="DP03_0080PE" ColumnName="DP03_0080PE" />
+                <ScalarProperty Name="DP03_0080E" ColumnName="DP03_0080E" />
+                <ScalarProperty Name="DP03_0079PE" ColumnName="DP03_0079PE" />
+                <ScalarProperty Name="DP03_0079E" ColumnName="DP03_0079E" />
+                <ScalarProperty Name="DP04_0142PE" ColumnName="DP04_0142PE" />
+                <ScalarProperty Name="DP04_0142E" ColumnName="DP04_0142E" />
+                <ScalarProperty Name="DP04_0141PE" ColumnName="DP04_0141PE" />
+                <ScalarProperty Name="DP04_0141E" ColumnName="DP04_0141E" />
+                <ScalarProperty Name="DP04_0140PE" ColumnName="DP04_0140PE" />
+                <ScalarProperty Name="DP04_0140E" ColumnName="DP04_0140E" />
+                <ScalarProperty Name="DP04_0139PE" ColumnName="DP04_0139PE" />
+                <ScalarProperty Name="DP04_0139E" ColumnName="DP04_0139E" />
+                <ScalarProperty Name="DP04_0138PE" ColumnName="DP04_0138PE" />
+                <ScalarProperty Name="DP04_0138E" ColumnName="DP04_0138E" />
+                <ScalarProperty Name="DP04_0137PE" ColumnName="DP04_0137PE" />
+                <ScalarProperty Name="DP04_0137E" ColumnName="DP04_0137E" />
+                <ScalarProperty Name="DP04_0136PE" ColumnName="DP04_0136PE" />
+                <ScalarProperty Name="DP04_0136E" ColumnName="DP04_0136E" />
+                <ScalarProperty Name="DP04_0134PE" ColumnName="DP04_0134PE" />
+                <ScalarProperty Name="DP04_0134E" ColumnName="DP04_0134E" />
+                <ScalarProperty Name="DP04_0133PE" ColumnName="DP04_0133PE" />
+                <ScalarProperty Name="DP04_0133E" ColumnName="DP04_0133E" />
+                <ScalarProperty Name="DP04_0132PE" ColumnName="DP04_0132PE" />
+                <ScalarProperty Name="DP04_0132E" ColumnName="DP04_0132E" />
+                <ScalarProperty Name="DP04_0131PE" ColumnName="DP04_0131PE" />
+                <ScalarProperty Name="DP04_0131E" ColumnName="DP04_0131E" />
+                <ScalarProperty Name="DP04_0130PE" ColumnName="DP04_0130PE" />
+                <ScalarProperty Name="DP04_0130E" ColumnName="DP04_0130E" />
+                <ScalarProperty Name="DP04_0129PE" ColumnName="DP04_0129PE" />
+                <ScalarProperty Name="DP04_0129E" ColumnName="DP04_0129E" />
+                <ScalarProperty Name="DP04_0128PE" ColumnName="DP04_0128PE" />
+                <ScalarProperty Name="DP04_0128E" ColumnName="DP04_0128E" />
+                <ScalarProperty Name="DP04_0127PE" ColumnName="DP04_0127PE" />
+                <ScalarProperty Name="DP04_0127E" ColumnName="DP04_0127E" />
+                <ScalarProperty Name="DP04_0126PE" ColumnName="DP04_0126PE" />
+                <ScalarProperty Name="DP04_0126E" ColumnName="DP04_0126E" />
+                <ScalarProperty Name="DP04_0115PE" ColumnName="DP04_0115PE" />
+                <ScalarProperty Name="DP04_0115E" ColumnName="DP04_0115E" />
+                <ScalarProperty Name="DP04_0114PE" ColumnName="DP04_0114PE" />
+                <ScalarProperty Name="DP04_0114E" ColumnName="DP04_0114E" />
+                <ScalarProperty Name="DP04_0113PE" ColumnName="DP04_0113PE" />
+                <ScalarProperty Name="DP04_0113E" ColumnName="DP04_0113E" />
+                <ScalarProperty Name="DP04_0112PE" ColumnName="DP04_0112PE" />
+                <ScalarProperty Name="DP04_0112E" ColumnName="DP04_0112E" />
+                <ScalarProperty Name="DP04_0111PE" ColumnName="DP04_0111PE" />
+                <ScalarProperty Name="DP04_0111E" ColumnName="DP04_0111E" />
+                <ScalarProperty Name="DP04_0110PE" ColumnName="DP04_0110PE" />
+                <ScalarProperty Name="DP04_0110E" ColumnName="DP04_0110E" />
+                <ScalarProperty Name="DP04_0101PE" ColumnName="DP04_0101PE" />
+                <ScalarProperty Name="DP04_0101E" ColumnName="DP04_0101E" />
+                <ScalarProperty Name="DP04_0100PE" ColumnName="DP04_0100PE" />
+                <ScalarProperty Name="DP04_0100E" ColumnName="DP04_0100E" />
+                <ScalarProperty Name="DP04_0099PE" ColumnName="DP04_0099PE" />
+                <ScalarProperty Name="DP04_0099E" ColumnName="DP04_0099E" />
+                <ScalarProperty Name="DP04_0098PE" ColumnName="DP04_0098PE" />
+                <ScalarProperty Name="DP04_0098E" ColumnName="DP04_0098E" />
+                <ScalarProperty Name="DP04_0097PE" ColumnName="DP04_0097PE" />
+                <ScalarProperty Name="DP04_0097E" ColumnName="DP04_0097E" />
+                <ScalarProperty Name="DP04_0096PE" ColumnName="DP04_0096PE" />
+                <ScalarProperty Name="DP04_0096E" ColumnName="DP04_0096E" />
+                <ScalarProperty Name="DP04_0095PE" ColumnName="DP04_0095PE" />
+                <ScalarProperty Name="DP04_0095E" ColumnName="DP04_0095E" />
+                <ScalarProperty Name="DP04_0094PE" ColumnName="DP04_0094PE" />
+                <ScalarProperty Name="DP04_0094E" ColumnName="DP04_0094E" />
+                <ScalarProperty Name="DP04_0093PE" ColumnName="DP04_0093PE" />
+                <ScalarProperty Name="DP04_0093E" ColumnName="DP04_0093E" />
+                <ScalarProperty Name="DP04_0092PE" ColumnName="DP04_0092PE" />
+                <ScalarProperty Name="DP04_0092E" ColumnName="DP04_0092E" />
+                <ScalarProperty Name="DP04_0091PE" ColumnName="DP04_0091PE" />
+                <ScalarProperty Name="DP04_0091E" ColumnName="DP04_0091E" />
+                <ScalarProperty Name="DP04_0090PE" ColumnName="DP04_0090PE" />
+                <ScalarProperty Name="DP04_0090E" ColumnName="DP04_0090E" />
+                <ScalarProperty Name="DP04_0079PE" ColumnName="DP04_0079PE" />
+                <ScalarProperty Name="DP04_0079E" ColumnName="DP04_0079E" />
+                <ScalarProperty Name="DP04_0078PE" ColumnName="DP04_0078PE" />
+                <ScalarProperty Name="DP04_0078E" ColumnName="DP04_0078E" />
+                <ScalarProperty Name="DP04_0077PE" ColumnName="DP04_0077PE" />
+                <ScalarProperty Name="DP04_0077E" ColumnName="DP04_0077E" />
+                <ScalarProperty Name="DP04_0076PE" ColumnName="DP04_0076PE" />
+                <ScalarProperty Name="DP04_0076E" ColumnName="DP04_0076E" />
+                <ScalarProperty Name="DP04_0056PE" ColumnName="DP04_0056PE" />
+                <ScalarProperty Name="DP04_0056E" ColumnName="DP04_0056E" />
+                <ScalarProperty Name="DP04_0055PE" ColumnName="DP04_0055PE" />
+                <ScalarProperty Name="DP04_0055E" ColumnName="DP04_0055E" />
+                <ScalarProperty Name="DP04_0054PE" ColumnName="DP04_0054PE" />
+                <ScalarProperty Name="DP04_0054E" ColumnName="DP04_0054E" />
+                <ScalarProperty Name="DP04_0053PE" ColumnName="DP04_0053PE" />
+                <ScalarProperty Name="DP04_0053E" ColumnName="DP04_0053E" />
+                <ScalarProperty Name="DP04_0052PE" ColumnName="DP04_0052PE" />
+                <ScalarProperty Name="DP04_0052E" ColumnName="DP04_0052E" />
+                <ScalarProperty Name="DP04_0051PE" ColumnName="DP04_0051PE" />
+                <ScalarProperty Name="DP04_0051E" ColumnName="DP04_0051E" />
+                <ScalarProperty Name="DP04_0050PE" ColumnName="DP04_0050PE" />
+                <ScalarProperty Name="DP04_0050E" ColumnName="DP04_0050E" />
+                <ScalarProperty Name="DP04_0047PE" ColumnName="DP04_0047PE" />
+                <ScalarProperty Name="DP04_0047E" ColumnName="DP04_0047E" />
+                <ScalarProperty Name="DP04_0046PE" ColumnName="DP04_0046PE" />
+                <ScalarProperty Name="DP04_0046E" ColumnName="DP04_0046E" />
+                <ScalarProperty Name="DP04_0045PE" ColumnName="DP04_0045PE" />
+                <ScalarProperty Name="DP04_0045E" ColumnName="DP04_0045E" />
+                <ScalarProperty Name="DP04_0044PE" ColumnName="DP04_0044PE" />
+                <ScalarProperty Name="DP04_0044E" ColumnName="DP04_0044E" />
+                <ScalarProperty Name="DP04_0043PE" ColumnName="DP04_0043PE" />
+                <ScalarProperty Name="DP04_0043E" ColumnName="DP04_0043E" />
+                <ScalarProperty Name="DP04_0042PE" ColumnName="DP04_0042PE" />
+                <ScalarProperty Name="DP04_0042E" ColumnName="DP04_0042E" />
+                <ScalarProperty Name="DP04_0041PE" ColumnName="DP04_0041PE" />
+                <ScalarProperty Name="DP04_0041E" ColumnName="DP04_0041E" />
+                <ScalarProperty Name="DP04_0040PE" ColumnName="DP04_0040PE" />
+                <ScalarProperty Name="DP04_0040E" ColumnName="DP04_0040E" />
+                <ScalarProperty Name="DP04_0039PE" ColumnName="DP04_0039PE" />
+                <ScalarProperty Name="DP04_0039E" ColumnName="DP04_0039E" />
+                <ScalarProperty Name="DP04_0038PE" ColumnName="DP04_0038PE" />
+                <ScalarProperty Name="DP04_0038E" ColumnName="DP04_0038E" />
+                <ScalarProperty Name="DP04_0037PE" ColumnName="DP04_0037PE" />
+                <ScalarProperty Name="DP04_0037E" ColumnName="DP04_0037E" />
+                <ScalarProperty Name="DP04_0036PE" ColumnName="DP04_0036PE" />
+                <ScalarProperty Name="DP04_0036E" ColumnName="DP04_0036E" />
+                <ScalarProperty Name="DP04_0035PE" ColumnName="DP04_0035PE" />
+                <ScalarProperty Name="DP04_0035E" ColumnName="DP04_0035E" />
+                <ScalarProperty Name="DP04_0034PE" ColumnName="DP04_0034PE" />
+                <ScalarProperty Name="DP04_0034E" ColumnName="DP04_0034E" />
+                <ScalarProperty Name="DP04_0033PE" ColumnName="DP04_0033PE" />
+                <ScalarProperty Name="DP04_0033E" ColumnName="DP04_0033E" />
+                <ScalarProperty Name="DP04_0032PE" ColumnName="DP04_0032PE" />
+                <ScalarProperty Name="DP04_0032E" ColumnName="DP04_0032E" />
+                <ScalarProperty Name="DP04_0031PE" ColumnName="DP04_0031PE" />
+                <ScalarProperty Name="DP04_0031E" ColumnName="DP04_0031E" />
+                <ScalarProperty Name="DP04_0030PE" ColumnName="DP04_0030PE" />
+                <ScalarProperty Name="DP04_0030E" ColumnName="DP04_0030E" />
+                <ScalarProperty Name="DP04_0029PE" ColumnName="DP04_0029PE" />
+                <ScalarProperty Name="DP04_0029E" ColumnName="DP04_0029E" />
+                <ScalarProperty Name="DP04_0028PE" ColumnName="DP04_0028PE" />
+                <ScalarProperty Name="DP04_0028E" ColumnName="DP04_0028E" />
+                <ScalarProperty Name="DP04_0027PE" ColumnName="DP04_0027PE" />
+                <ScalarProperty Name="DP04_0027E" ColumnName="DP04_0027E" />
+                <ScalarProperty Name="DP04_0013PE" ColumnName="DP04_0013PE" />
+                <ScalarProperty Name="DP04_0013E" ColumnName="DP04_0013E" />
+                <ScalarProperty Name="DP04_0012PE" ColumnName="DP04_0012PE" />
+                <ScalarProperty Name="DP04_0012E" ColumnName="DP04_0012E" />
+                <ScalarProperty Name="DP04_0011PE" ColumnName="DP04_0011PE" />
+                <ScalarProperty Name="DP04_0011E" ColumnName="DP04_0011E" />
+                <ScalarProperty Name="DP04_0010PE" ColumnName="DP04_0010PE" />
+                <ScalarProperty Name="DP04_0010E" ColumnName="DP04_0010E" />
+                <ScalarProperty Name="DP04_0009PE" ColumnName="DP04_0009PE" />
+                <ScalarProperty Name="DP04_0009E" ColumnName="DP04_0009E" />
+                <ScalarProperty Name="DP04_0008PE" ColumnName="DP04_0008PE" />
+                <ScalarProperty Name="DP04_0008E" ColumnName="DP04_0008E" />
+                <ScalarProperty Name="DP04_0007PE" ColumnName="DP04_0007PE" />
+                <ScalarProperty Name="DP04_0007E" ColumnName="DP04_0007E" />
+                <ScalarProperty Name="DP04_0006PE" ColumnName="DP04_0006PE" />
+                <ScalarProperty Name="DP04_0006E" ColumnName="DP04_0006E" />
+                <ScalarProperty Name="DP03_0135PE" ColumnName="DP03_0135PE" />
+                <ScalarProperty Name="DP03_0135E" ColumnName="DP03_0135E" />
+                <ScalarProperty Name="DP03_0134PE" ColumnName="DP03_0134PE" />
+                <ScalarProperty Name="DP03_0134E" ColumnName="DP03_0134E" />
+                <ScalarProperty Name="DP03_0133PE" ColumnName="DP03_0133PE" />
+                <ScalarProperty Name="DP03_0133E" ColumnName="DP03_0133E" />
+                <ScalarProperty Name="DP03_0113PE" ColumnName="DP03_0113PE" />
+                <ScalarProperty Name="DP03_0113E" ColumnName="DP03_0113E" />
+                <ScalarProperty Name="DP03_0112PE" ColumnName="DP03_0112PE" />
+                <ScalarProperty Name="DP03_0112E" ColumnName="DP03_0112E" />
+                <ScalarProperty Name="DP03_0111PE" ColumnName="DP03_0111PE" />
+                <ScalarProperty Name="DP03_0111E" ColumnName="DP03_0111E" />
+                <ScalarProperty Name="DP03_0110PE" ColumnName="DP03_0110PE" />
+                <ScalarProperty Name="DP03_0110E" ColumnName="DP03_0110E" />
+                <ScalarProperty Name="DP03_0109PE" ColumnName="DP03_0109PE" />
+                <ScalarProperty Name="DP03_0109E" ColumnName="DP03_0109E" />
+                <ScalarProperty Name="DP03_0108PE" ColumnName="DP03_0108PE" />
+                <ScalarProperty Name="DP03_0108E" ColumnName="DP03_0108E" />
+                <ScalarProperty Name="DP03_0107PE" ColumnName="DP03_0107PE" />
+                <ScalarProperty Name="DP03_0107E" ColumnName="DP03_0107E" />
+                <ScalarProperty Name="DP03_0106PE" ColumnName="DP03_0106PE" />
+                <ScalarProperty Name="DP03_0106E" ColumnName="DP03_0106E" />
+                <ScalarProperty Name="DP03_0105PE" ColumnName="DP03_0105PE" />
+                <ScalarProperty Name="DP03_0105E" ColumnName="DP03_0105E" />
+                <ScalarProperty Name="DP03_0104PE" ColumnName="DP03_0104PE" />
+                <ScalarProperty Name="DP03_0104E" ColumnName="DP03_0104E" />
+                <ScalarProperty Name="DP03_0103PE" ColumnName="DP03_0103PE" />
+                <ScalarProperty Name="DP03_0103E" ColumnName="DP03_0103E" />
+                <ScalarProperty Name="DP03_0102PE" ColumnName="DP03_0102PE" />
+                <ScalarProperty Name="DP03_0102E" ColumnName="DP03_0102E" />
+                <ScalarProperty Name="DP03_0099PE" ColumnName="DP03_0099PE" />
+                <ScalarProperty Name="DP03_0099E" ColumnName="DP03_0099E" />
+                <ScalarProperty Name="DP03_0098PE" ColumnName="DP03_0098PE" />
+                <ScalarProperty Name="DP03_0098E" ColumnName="DP03_0098E" />
+                <ScalarProperty Name="DP03_0097PE" ColumnName="DP03_0097PE" />
+                <ScalarProperty Name="DP03_0097E" ColumnName="DP03_0097E" />
+                <ScalarProperty Name="DP03_0096PE" ColumnName="DP03_0096PE" />
+                <ScalarProperty Name="DP03_0096E" ColumnName="DP03_0096E" />
+                <ScalarProperty Name="DP03_0095PE" ColumnName="DP03_0095PE" />
+                <ScalarProperty Name="DP03_0095E" ColumnName="DP03_0095E" />
+                <ScalarProperty Name="DP03_0073PE" ColumnName="DP03_0073PE" />
+                <ScalarProperty Name="DP03_0073E" ColumnName="DP03_0073E" />
+                <ScalarProperty Name="DP03_0072PE" ColumnName="DP03_0072PE" />
+                <ScalarProperty Name="DP03_0072E" ColumnName="DP03_0072E" />
+                <ScalarProperty Name="DP03_0071PE" ColumnName="DP03_0071PE" />
+                <ScalarProperty Name="DP03_0071E" ColumnName="DP03_0071E" />
+                <ScalarProperty Name="DP03_0070PE" ColumnName="DP03_0070PE" />
+                <ScalarProperty Name="DP03_0070E" ColumnName="DP03_0070E" />
+                <ScalarProperty Name="DP03_0069PE" ColumnName="DP03_0069PE" />
+                <ScalarProperty Name="DP03_0069E" ColumnName="DP03_0069E" />
+                <ScalarProperty Name="DP03_0068PE" ColumnName="DP03_0068PE" />
+                <ScalarProperty Name="DP03_0068E" ColumnName="DP03_0068E" />
+                <ScalarProperty Name="DP03_0066PE" ColumnName="DP03_0066PE" />
+                <ScalarProperty Name="DP03_0066E" ColumnName="DP03_0066E" />
+                <ScalarProperty Name="DP03_0063PE" ColumnName="DP03_0063PE" />
+                <ScalarProperty Name="DP03_0063E" ColumnName="DP03_0063E" />
+                <ScalarProperty Name="DP03_0061PE" ColumnName="DP03_0061PE" />
+                <ScalarProperty Name="DP03_0061E" ColumnName="DP03_0061E" />
+                <ScalarProperty Name="DP03_0060PE" ColumnName="DP03_0060PE" />
+                <ScalarProperty Name="DP03_0060E" ColumnName="DP03_0060E" />
+                <ScalarProperty Name="DP03_0059PE" ColumnName="DP03_0059PE" />
+                <ScalarProperty Name="DP03_0059E" ColumnName="DP03_0059E" />
+                <ScalarProperty Name="DP03_0058PE" ColumnName="DP03_0058PE" />
+                <ScalarProperty Name="DP03_0058E" ColumnName="DP03_0058E" />
+                <ScalarProperty Name="DP03_0057PE" ColumnName="DP03_0057PE" />
+                <ScalarProperty Name="DP03_0057E" ColumnName="DP03_0057E" />
+                <ScalarProperty Name="DP03_0056PE" ColumnName="DP03_0056PE" />
+                <ScalarProperty Name="DP03_0056E" ColumnName="DP03_0056E" />
+                <ScalarProperty Name="DP03_0055PE" ColumnName="DP03_0055PE" />
+                <ScalarProperty Name="DP03_0055E" ColumnName="DP03_0055E" />
+                <ScalarProperty Name="DP03_0054PE" ColumnName="DP03_0054PE" />
+                <ScalarProperty Name="DP03_0054E" ColumnName="DP03_0054E" />
+                <ScalarProperty Name="DP03_0053PE" ColumnName="DP03_0053PE" />
+                <ScalarProperty Name="DP03_0053E" ColumnName="DP03_0053E" />
+                <ScalarProperty Name="DP03_0052PE" ColumnName="DP03_0052PE" />
+                <ScalarProperty Name="DP03_0052E" ColumnName="DP03_0052E" />
+                <ScalarProperty Name="DP03_0051PE" ColumnName="DP03_0051PE" />
+                <ScalarProperty Name="DP03_0051E" ColumnName="DP03_0051E" />
+                <ScalarProperty Name="DP03_0013PE" ColumnName="DP03_0013PE" />
+                <ScalarProperty Name="DP03_0013E" ColumnName="DP03_0013E" />
+                <ScalarProperty Name="DP03_0012PE" ColumnName="DP03_0012PE" />
+                <ScalarProperty Name="DP03_0012E" ColumnName="DP03_0012E" />
+                <ScalarProperty Name="DP03_0010PE" ColumnName="DP03_0010PE" />
+                <ScalarProperty Name="DP03_0010E" ColumnName="DP03_0010E" />
+                <ScalarProperty Name="DP03_0009PE" ColumnName="DP03_0009PE" />
+                <ScalarProperty Name="DP03_0009E" ColumnName="DP03_0009E" />
+                <ScalarProperty Name="DP03_0007PE" ColumnName="DP03_0007PE" />
+                <ScalarProperty Name="DP03_0007E" ColumnName="DP03_0007E" />
+                <ScalarProperty Name="DP03_0005PE" ColumnName="DP03_0005PE" />
+                <ScalarProperty Name="DP03_0005E" ColumnName="DP03_0005E" />
+                <ScalarProperty Name="DP03_0004PE" ColumnName="DP03_0004PE" />
+                <ScalarProperty Name="DP03_0004E" ColumnName="DP03_0004E" />
+                <ScalarProperty Name="DP03_0003PE" ColumnName="DP03_0003PE" />
+                <ScalarProperty Name="DP03_0003E" ColumnName="DP03_0003E" />
+                <ScalarProperty Name="DP03_0001PE" ColumnName="DP03_0001PE" />
+                <ScalarProperty Name="DP03_0001E" ColumnName="DP03_0001E" />
+                <ScalarProperty Name="DP02_0152PE" ColumnName="DP02_0152PE" />
+                <ScalarProperty Name="DP02_0152E" ColumnName="DP02_0152E" />
+                <ScalarProperty Name="DP02_0151PE" ColumnName="DP02_0151PE" />
+                <ScalarProperty Name="DP02_0151E" ColumnName="DP02_0151E" />
+                <ScalarProperty Name="DP02_0150PE" ColumnName="DP02_0150PE" />
+                <ScalarProperty Name="DP02_0150E" ColumnName="DP02_0150E" />
+                <ScalarProperty Name="DP02_0084PE" ColumnName="DP02_0084PE" />
+                <ScalarProperty Name="DP02_0084E" ColumnName="DP02_0084E" />
+                <ScalarProperty Name="DP02_0083PE" ColumnName="DP02_0083PE" />
+                <ScalarProperty Name="DP02_0083E" ColumnName="DP02_0083E" />
+                <ScalarProperty Name="DP02_0082PE" ColumnName="DP02_0082PE" />
+                <ScalarProperty Name="DP02_0082E" ColumnName="DP02_0082E" />
+                <ScalarProperty Name="DP02_0081PE" ColumnName="DP02_0081PE" />
+                <ScalarProperty Name="DP02_0081E" ColumnName="DP02_0081E" />
+                <ScalarProperty Name="DP02_0080PE" ColumnName="DP02_0080PE" />
+                <ScalarProperty Name="DP02_0080E" ColumnName="DP02_0080E" />
+                <ScalarProperty Name="DP02_0079PE" ColumnName="DP02_0079PE" />
+                <ScalarProperty Name="DP02_0079E" ColumnName="DP02_0079E" />
+                <ScalarProperty Name="DP02_0078PE" ColumnName="DP02_0078PE" />
+                <ScalarProperty Name="DP02_0078E" ColumnName="DP02_0078E" />
+                <ScalarProperty Name="DP02_0076PE" ColumnName="DP02_0076PE" />
+                <ScalarProperty Name="DP02_0076E" ColumnName="DP02_0076E" />
+                <ScalarProperty Name="DP02_0075PE" ColumnName="DP02_0075PE" />
+                <ScalarProperty Name="DP02_0075E" ColumnName="DP02_0075E" />
+                <ScalarProperty Name="DP02_0074PE" ColumnName="DP02_0074PE" />
+                <ScalarProperty Name="DP02_0074E" ColumnName="DP02_0074E" />
+                <ScalarProperty Name="DP02_0071PE" ColumnName="DP02_0071PE" />
+                <ScalarProperty Name="DP02_0071E" ColumnName="DP02_0071E" />
+                <ScalarProperty Name="DP02_0070PE" ColumnName="DP02_0070PE" />
+                <ScalarProperty Name="DP02_0070E" ColumnName="DP02_0070E" />
+                <ScalarProperty Name="DP02_0064PE" ColumnName="DP02_0064PE" />
+                <ScalarProperty Name="DP02_0064E" ColumnName="DP02_0064E" />
+                <ScalarProperty Name="DP02_0063PE" ColumnName="DP02_0063PE" />
+                <ScalarProperty Name="DP02_0063E" ColumnName="DP02_0063E" />
+                <ScalarProperty Name="DP02_0062PE" ColumnName="DP02_0062PE" />
+                <ScalarProperty Name="DP02_0062E" ColumnName="DP02_0062E" />
+                <ScalarProperty Name="DP02_0061PE" ColumnName="DP02_0061PE" />
+                <ScalarProperty Name="DP02_0061E" ColumnName="DP02_0061E" />
+                <ScalarProperty Name="DP02_0060PE" ColumnName="DP02_0060PE" />
+                <ScalarProperty Name="DP02_0060E" ColumnName="DP02_0060E" />
+                <ScalarProperty Name="DP02_0059PE" ColumnName="DP02_0059PE" />
+                <ScalarProperty Name="DP02_0059E" ColumnName="DP02_0059E" />
+                <ScalarProperty Name="DP02_0058PE" ColumnName="DP02_0058PE" />
+                <ScalarProperty Name="DP02_0058E" ColumnName="DP02_0058E" />
+                <ScalarProperty Name="DP02_0057PE" ColumnName="DP02_0057PE" />
+                <ScalarProperty Name="DP02_0057E" ColumnName="DP02_0057E" />
+                <ScalarProperty Name="DP02_0056PE" ColumnName="DP02_0056PE" />
+                <ScalarProperty Name="DP02_0056E" ColumnName="DP02_0056E" />
+                <ScalarProperty Name="DP02_0055PE" ColumnName="DP02_0055PE" />
+                <ScalarProperty Name="DP02_0055E" ColumnName="DP02_0055E" />
+                <ScalarProperty Name="DP02_0054PE" ColumnName="DP02_0054PE" />
+                <ScalarProperty Name="DP02_0054E" ColumnName="DP02_0054E" />
+                <ScalarProperty Name="DP02_0053PE" ColumnName="DP02_0053PE" />
+                <ScalarProperty Name="DP02_0053E" ColumnName="DP02_0053E" />
+                <ScalarProperty Name="DP02_0052PE" ColumnName="DP02_0052PE" />
+                <ScalarProperty Name="DP02_0052E" ColumnName="DP02_0052E" />
+                <ScalarProperty Name="DP02_0035PE" ColumnName="DP02_0035PE" />
+                <ScalarProperty Name="DP02_0035E" ColumnName="DP02_0035E" />
+                <ScalarProperty Name="DP02_0034PE" ColumnName="DP02_0034PE" />
+                <ScalarProperty Name="DP02_0034E" ColumnName="DP02_0034E" />
+                <ScalarProperty Name="DP02_0033PE" ColumnName="DP02_0033PE" />
+                <ScalarProperty Name="DP02_0033E" ColumnName="DP02_0033E" />
+                <ScalarProperty Name="DP02_0032PE" ColumnName="DP02_0032PE" />
+                <ScalarProperty Name="DP02_0032E" ColumnName="DP02_0032E" />
+                <ScalarProperty Name="DP02_0031PE" ColumnName="DP02_0031PE" />
+                <ScalarProperty Name="DP02_0031E" ColumnName="DP02_0031E" />
+                <ScalarProperty Name="DP02_0030PE" ColumnName="DP02_0030PE" />
+                <ScalarProperty Name="DP02_0030E" ColumnName="DP02_0030E" />
+                <ScalarProperty Name="DP02_0029PE" ColumnName="DP02_0029PE" />
+                <ScalarProperty Name="DP02_0029E" ColumnName="DP02_0029E" />
+                <ScalarProperty Name="DP02_0028PE" ColumnName="DP02_0028PE" />
+                <ScalarProperty Name="DP02_0028E" ColumnName="DP02_0028E" />
+                <ScalarProperty Name="DP02_0027PE" ColumnName="DP02_0027PE" />
+                <ScalarProperty Name="DP02_0027E" ColumnName="DP02_0027E" />
+                <ScalarProperty Name="DP02_0026PE" ColumnName="DP02_0026PE" />
+                <ScalarProperty Name="DP02_0026E" ColumnName="DP02_0026E" />
+                <ScalarProperty Name="DP02_0025PE" ColumnName="DP02_0025PE" />
+                <ScalarProperty Name="DP02_0025E" ColumnName="DP02_0025E" />
+                <ScalarProperty Name="DP02_0024PE" ColumnName="DP02_0024PE" />
+                <ScalarProperty Name="DP02_0024E" ColumnName="DP02_0024E" />
+                <ScalarProperty Name="DP02_0012PE" ColumnName="DP02_0012PE" />
+                <ScalarProperty Name="DP02_0012E" ColumnName="DP02_0012E" />
+                <ScalarProperty Name="DP02_0011PE" ColumnName="DP02_0011PE" />
+                <ScalarProperty Name="DP02_0011E" ColumnName="DP02_0011E" />
+                <ScalarProperty Name="DP02_0010PE" ColumnName="DP02_0010PE" />
+                <ScalarProperty Name="DP02_0010E" ColumnName="DP02_0010E" />
+                <ScalarProperty Name="DP02_0008PE" ColumnName="DP02_0008PE" />
+                <ScalarProperty Name="DP02_0008E" ColumnName="DP02_0008E" />
+                <ScalarProperty Name="DP02_0006PE" ColumnName="DP02_0006PE" />
+                <ScalarProperty Name="DP02_0006E" ColumnName="DP02_0006E" />
+                <ScalarProperty Name="DP02_0003PE" ColumnName="DP02_0003PE" />
+                <ScalarProperty Name="DP02_0003E" ColumnName="DP02_0003E" />
+                <ScalarProperty Name="DP02_0002PE" ColumnName="DP02_0002PE" />
+                <ScalarProperty Name="DP02_0002E" ColumnName="DP02_0002E" />
+                <ScalarProperty Name="DP02_0001PE" ColumnName="DP02_0001PE" />
+                <ScalarProperty Name="DP02_0001E" ColumnName="DP02_0001E" />
+                <ScalarProperty Name="DP05_0016E" ColumnName="DP05_0016E" />
+                <ScalarProperty Name="DP05_0015E" ColumnName="DP05_0015E" />
+                <ScalarProperty Name="DP05_0014E" ColumnName="DP05_0014E" />
+                <ScalarProperty Name="DP05_0013E" ColumnName="DP05_0013E" />
+                <ScalarProperty Name="DP05_0012E" ColumnName="DP05_0012E" />
+                <ScalarProperty Name="DP05_0011E" ColumnName="DP05_0011E" />
+                <ScalarProperty Name="DP05_0010E" ColumnName="DP05_0010E" />
+                <ScalarProperty Name="DP05_0009E" ColumnName="DP05_0009E" />
+                <ScalarProperty Name="DP05_0004E" ColumnName="DP05_0004E" />
+                <ScalarProperty Name="DP05_0003PE" ColumnName="DP05_0003PE" />
+                <ScalarProperty Name="DP05_0003E" ColumnName="DP05_0003E" />
+                <ScalarProperty Name="DP05_0002PE" ColumnName="DP05_0002PE" />
+                <ScalarProperty Name="DP05_0002E" ColumnName="DP05_0002E" />
+                <ScalarProperty Name="DP05_0001E" ColumnName="DP05_0001E" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Tract" ColumnName="Tract" />
+                <ScalarProperty Name="County" ColumnName="County" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Districts">
+            <EntityTypeMapping TypeName="NYC_Web_Mapping_AppModel.District">
+              <MappingFragment StoreEntitySet="Districts">
+                <ScalarProperty Name="DISTRICT1" ColumnName="DISTRICT" />
+                <ScalarProperty Name="DISTRICTCODE" ColumnName="DISTRICTCODE" />
+                <ScalarProperty Name="OBJECTID" ColumnName="OBJECTID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Designations">
+            <EntityTypeMapping TypeName="NYC_Web_Mapping_AppModel.Designation">
+              <MappingFragment StoreEntitySet="Designations">
+                <ScalarProperty Name="BBL" ColumnName="BBL" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="ZONING_MAP" ColumnName="ZONING_MAP" />
+                <ScalarProperty Name="TAXLOT" ColumnName="TAXLOT" />
+                <ScalarProperty Name="TAXBLOCK" ColumnName="TAXBLOCK" />
+                <ScalarProperty Name="BOROCODE" ColumnName="BOROCODE" />
+                <ScalarProperty Name="ULURP_NUM" ColumnName="ULURP_NUM" />
+                <ScalarProperty Name="CEQR_NUM" ColumnName="CEQR_NUM" />
+                <ScalarProperty Name="ENUMBER" ColumnName="ENUMBER" />
+                <ScalarProperty Name="OBJECTID" ColumnName="OBJECTID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tabs">
+            <EntityTypeMapping TypeName="NYC_Web_Mapping_AppModel.Tab">
+              <MappingFragment StoreEntitySet="Tabs">
+                <ScalarProperty Name="TabID" ColumnName="TabID" />
+                <ScalarProperty Name="TabName" ColumnName="TabName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User_Tabs">
+            <EntityTypeMapping TypeName="NYC_Web_Mapping_AppModel.User_Tabs">
+              <MappingFragment StoreEntitySet="User_Tabs">
+                <ScalarProperty Name="TabIDs" ColumnName="TabIDs" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoles">
+            <EntityTypeMapping TypeName="NYC_Web_Mapping_AppModel.UserRole">
+              <MappingFragment StoreEntitySet="UserRoles">
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="UserRole_ID" ColumnName="UserRole_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="NYC_Web_Mapping_AppModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Role_ID" ColumnName="Role_ID" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Loggers">
+            <EntityTypeMapping TypeName="NYC_Web_Mapping_AppModel.Logger">
+              <MappingFragment StoreEntitySet="Logger">
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Logger_ID" ColumnName="Logger_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Plutoes">
+            <EntityTypeMapping TypeName="NYC_Web_Mapping_AppModel.Pluto">
+              <MappingFragment StoreEntitySet="Pluto">
+                <ScalarProperty Name="LandUse" ColumnName="LandUse" />
+                <ScalarProperty Name="Tract2010" ColumnName="Tract2010" />
+                <ScalarProperty Name="CD" ColumnName="CD" />
+                <ScalarProperty Name="IsRentStabilizedProperty" ColumnName="IsRentStabilizedProperty" />
+                <ScalarProperty Name="BldgClass" ColumnName="BldgClass" />
+                <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
+                <ScalarProperty Name="YearBuilt" ColumnName="YearBuilt" />
+                <ScalarProperty Name="AssessTot" ColumnName="AssessTot" />
+                <ScalarProperty Name="Overlay2" ColumnName="Overlay2" />
+                <ScalarProperty Name="Overlay1" ColumnName="Overlay1" />
+                <ScalarProperty Name="ZoneDist1" ColumnName="ZoneDist1" />
+                <ScalarProperty Name="UnitsRes" ColumnName="UnitsRes" />
+                <ScalarProperty Name="NumFloors" ColumnName="NumFloors" />
+                <ScalarProperty Name="ResArea" ColumnName="ResArea" />
+                <ScalarProperty Name="ComArea" ColumnName="ComArea" />
+                <ScalarProperty Name="BldgArea" ColumnName="BldgArea" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Borough" ColumnName="Borough" />
+                <ScalarProperty Name="BBL" ColumnName="BBL" />
+                <ScalarProperty Name="OBJECTID" ColumnName="OBJECTID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MyAlerts">
+            <EntityTypeMapping TypeName="NYC_Web_Mapping_AppModel.MyAlert">
+              <MappingFragment StoreEntitySet="MyAlerts">
+                <ScalarProperty Name="ProjectSearchAdditional" ColumnName="ProjectSearchAdditional" />
+                <ScalarProperty Name="IsUnread" ColumnName="IsUnread" />
+                <ScalarProperty Name="IsPropertySalesSearch" ColumnName="IsPropertySalesSearch" />
+                <ScalarProperty Name="IsElevatorSearch" ColumnName="IsElevatorSearch" />
+                <ScalarProperty Name="IsEvictionSearch" ColumnName="IsEvictionSearch" />
+                <ScalarProperty Name="IsViolationSearch" ColumnName="IsViolationSearch" />
+                <ScalarProperty Name="IsPermitSearch" ColumnName="IsPermitSearch" />
+                <ScalarProperty Name="IsEnergySearch" ColumnName="IsEnergySearch" />
+                <ScalarProperty Name="Frequency" ColumnName="Frequency" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Next_DateCheck" ColumnName="Next_DateCheck" />
+                <ScalarProperty Name="Last_DateCheck" ColumnName="Last_DateCheck" />
+                <ScalarProperty Name="Last_OBJECTID" ColumnName="Last_OBJECTID" />
+                <ScalarProperty Name="AlertQuery" ColumnName="AlertQuery" />
+                <ScalarProperty Name="AlertName" ColumnName="AlertName" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Configuration_PropAttributes">
+            <EntityTypeMapping TypeName="NYC_Web_Mapping_AppModel.Configuration_PropAttributes">
+              <MappingFragment StoreEntitySet="Configuration_PropAttributes">
+                <ScalarProperty Name="OrderNum" ColumnName="OrderNum" />
+                <ScalarProperty Name="Visible" ColumnName="Visible" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Attribute" ColumnName="Attribute" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -6,6 +6,19 @@
     <edmx:Diagrams>
       <Diagram DiagramId="54e82e73e8e34a38a6df6d3779a800ee" Name="Diagram1">
         <EntityTypeShape EntityType="NYC_Web_Mapping_AppModel.MyReport" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="NYC_Web_Mapping_AppModel.Elevator" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="NYC_Web_Mapping_AppModel.ConsumerProfile" Width="1.5" PointX="5.375" PointY="6.75" />
+        <EntityTypeShape EntityType="NYC_Web_Mapping_AppModel.District" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="NYC_Web_Mapping_AppModel.Designation" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="NYC_Web_Mapping_AppModel.Tab" Width="1.5" PointX="7.375" PointY="4.75" />
+        <EntityTypeShape EntityType="NYC_Web_Mapping_AppModel.User_Tabs" Width="1.5" PointX="7.375" PointY="7.75" />
+        <EntityTypeShape EntityType="NYC_Web_Mapping_AppModel.UserRole" Width="1.5" PointX="9.375" PointY="1.25" />
+        <EntityTypeShape EntityType="NYC_Web_Mapping_AppModel.User" Width="1.5" PointX="11.625" PointY="0.875" />
+        <AssociationConnector Association="NYC_Web_Mapping_AppModel.FK_Users_UserRoles" />
+        <EntityTypeShape EntityType="NYC_Web_Mapping_AppModel.Logger" Width="1.5" PointX="9.375" PointY="4.75" />
+        <EntityTypeShape EntityType="NYC_Web_Mapping_AppModel.Pluto" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="NYC_Web_Mapping_AppModel.MyAlert" Width="1.5" PointX="3.125" PointY="6.75" />
+        <EntityTypeShape EntityType="NYC_Web_Mapping_AppModel.Configuration_PropAttributes" Width="1.5" PointX="9.375" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

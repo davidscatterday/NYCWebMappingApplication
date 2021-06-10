@@ -1,0 +1,319 @@
+﻿
+<div class="form-group">
+    <div class="col-sm-12" style="padding-left: 0px">
+        <div class="panel-group" id="accordionTrendAnalysis">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordionTrendAnalysis" href="#collapse30">
+                            Location
+                        </a>
+                        <a class="fa fa-angle-down rotate-icon pull-right" data-toggle="collapse" data-parent="#accordionTrendAnalysis" href="#collapse30"></a>
+                    </h4>
+                </div>
+                <div id="collapse30" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <label for="cbBoroughTA">
+                                    <input id="cbBoroughTA" type="checkbox" style="margin-right: 5px">Borough
+                                </label>
+                                <input type="text" id="txtBoroughsTA" placeholder="Select Borough" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <label for="cbDistrictTA">
+                                    <input id="cbDistrictTA" type="checkbox" style="margin-right: 5px" onclick='cbDistrictTA_Click(this);'>Community District
+                                </label>
+                                <input type="text" id="txtDistrictsTA" placeholder="Select Community District" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-5">
+                                <label for="cbZipCodeRangeTA">
+                                    <input id="cbZipCodeRangeTA" type="checkbox" style="margin-right: 5px">Zip Code Range
+                                </label>
+                            </div>
+                            <div class="col-sm-3" style="width: 29.166666655%">
+                                <input type="text" id="txtZipCodeRangeTAFrom" style="width: 100%" onkeyup="this.value=this.value.replace(/[^\d]/,'')" />
+                            </div>
+                            <div class="col-sm-3" style="width: 29.166666655%"><input type="text" id="txtZipCodeRangeTATo" style="width: 100%" onkeyup="this.value=this.value.replace(/[^\d]/,'')" /></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordionTrendAnalysis" href="#collapse31">
+                            Property Sales
+                        </a>
+                        <a class="fa fa-angle-down rotate-icon pull-right" data-toggle="collapse" data-parent="#accordionTrendAnalysis" href="#collapse31"></a>
+                    </h4>
+                </div>
+                <div id="collapse31" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="form-group" style="padding-left: 10px">
+                            <label class="radio-inline">
+                                <input type="radio" name="rbHeatMapPropertySales" id="rbHeatMapByNumberOfPropertySales" value="NumberOfPropertySales" checked /> Number of Property Sales
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="rbHeatMapPropertySales" id="rbHeatMapByAveragePropertySalesPrice" value="AveragePropertySalesPrice" /> Average Property Sales Price
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbHmPsBasePeriod">
+                                    Base Period
+                                </label>
+                            </div>
+                            <div class="col-sm-4" style="padding-left: 0px;">
+                                <input type="text" class="date" id="txtHmPsBasePeriod" style="width: 100%; border: 1px solid;" />
+                            </div>
+                            <div class="col-sm-2" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    +/-days
+                                </label>
+                            </div>
+                            <div class="col-sm-2" style="padding-left: 0px;">
+                                <input type="number" id="numHmPsBasePeriod" value="15" style="width: 100%" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Analysis Period
+                                </label>
+                            </div>
+                            <div class="col-sm-4" style="padding-left: 0px;">
+                                <input type="text" class="date" id="txtHmPsAnalysisPeriod" style="width: 100%; border: 1px solid;" />
+                            </div>
+                            <div class="col-sm-2" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    +/-days
+                                </label>
+                            </div>
+                            <div class="col-sm-2" style="padding-left: 0px;">
+                                <input type="number" id="numHmPsAnalysisPeriod" value="15" style="width: 100%" />
+                            </div>
+                        </div>
+                        <div class="form-group text-right">
+                            <div class="col-sm-offset-7 col-sm-5">
+                                <button type="button" class="btn btn-primary btn-sm" onclick="btnSearchHeatMapPropertySales()">Search</button>
+                                <button type="button" class="btn btn-primary btn-sm" onclick="btnResetHeatMap()">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordionTrendAnalysis" href="#collapse32">
+                            Violations
+                        </a>
+                        <a class="fa fa-angle-down rotate-icon pull-right" data-toggle="collapse" data-parent="#accordionTrendAnalysis" href="#collapse32"></a>
+                    </h4>
+                </div>
+                <div id="collapse32" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-top: 5px; margin-left: -5px;">
+                                <label>
+                                    Violation Type
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtEcbViolationTypes" placeholder="Select Violation Type" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbHmEcbViolationsBasePeriod">
+                                    Base Period
+                                </label>
+                            </div>
+                            <div class="col-sm-4" style="padding-left: 0px;">
+                                <input type="text" class="date" id="txtHmEcbViolationsBasePeriod" style="width: 100%; border: 1px solid;" />
+                            </div>
+                            <div class="col-sm-2" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    +/-days
+                                </label>
+                            </div>
+                            <div class="col-sm-2" style="padding-left: 0px;">
+                                <input type="number" id="numHmEcbViolationsBasePeriod" value="15" style="width: 100%" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Analysis Period
+                                </label>
+                            </div>
+                            <div class="col-sm-4" style="padding-left: 0px;">
+                                <input type="text" class="date" id="txtHmEcbViolationsAnalysisPeriod" style="width: 100%; border: 1px solid;" />
+                            </div>
+                            <div class="col-sm-2" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    +/-days
+                                </label>
+                            </div>
+                            <div class="col-sm-2" style="padding-left: 0px;">
+                                <input type="number" id="numHmEcbViolationsAnalysisPeriod" value="15" style="width: 100%" />
+                            </div>
+                        </div>
+                        <div class="form-group text-right">
+                            <div class="col-sm-offset-7 col-sm-5">
+                                <button type="button" class="btn btn-primary btn-sm" onclick="btnSearchHeatMapViolations(1)">Search</button>
+                                <button type="button" class="btn btn-primary btn-sm" onclick="btnResetHeatMap()">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordionTrendAnalysis" href="#collapse33">
+                            Permits
+                        </a>
+                        <a class="fa fa-angle-down rotate-icon pull-right" data-toggle="collapse" data-parent="#accordionTrendAnalysis" href="#collapse33"></a>
+                    </h4>
+                </div>
+                <div id="collapse33" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-top: 5px; margin-left: -5px;">
+                                <label>
+                                    Job Type
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtPermitJobTypes" placeholder="Select Work Type" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-top: 5px; margin-left: -5px;">
+                                <label>
+                                    Work Type
+                                </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-left: 0px;">
+                                <input type="text" id="txtPermitWorkTypes" placeholder="Select Work Type" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label for="cbHmPermitsBasePeriod">
+                                    Base Period
+                                </label>
+                            </div>
+                            <div class="col-sm-4" style="padding-left: 0px;">
+                                <input type="text" class="date" id="txtHmPermitsBasePeriod" style="width: 100%; border: 1px solid;" />
+                            </div>
+                            <div class="col-sm-2" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    +/-days
+                                </label>
+                            </div>
+                            <div class="col-sm-2" style="padding-left: 0px;">
+                                <input type="number" id="numHmPermitsBasePeriod" value="15" style="width: 100%" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    Analysis Period
+                                </label>
+                            </div>
+                            <div class="col-sm-4" style="padding-left: 0px;">
+                                <input type="text" class="date" id="txtHmPermitsAnalysisPeriod" style="width: 100%; border: 1px solid;" />
+                            </div>
+                            <div class="col-sm-2" style="margin-bottom: 0px; margin-left: -5px;">
+                                <label>
+                                    +/-days
+                                </label>
+                            </div>
+                            <div class="col-sm-2" style="padding-left: 0px;">
+                                <input type="number" id="numHmPermitsAnalysisPeriod" value="15" style="width: 100%" />
+                            </div>
+                        </div>
+                        <div class="form-group text-right">
+                            <div class="col-sm-offset-7 col-sm-5">
+                                <button type="button" class="btn btn-primary btn-sm" onclick="btnSearchHeatMapPermits()">Search</button>
+                                <button type="button" class="btn btn-primary btn-sm" onclick="btnResetHeatMap()">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $("#txtEcbViolationTypes").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetTrendAnalysisEcbViolationTypes',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.EcbViolationTypesList,
+                };
+            }
+        }
+    });
+    $("#txtPermitWorkTypes").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetTrendAnalysisPermitWorkTypes',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.PermitWorkTypesList,
+                };
+            }
+        }
+    });
+    $("#txtPermitJobTypes").select2({
+        minimumInputLength: 0,  // minimumInputLength for sending ajax request to server
+        width: '100%',   // to adjust proper width of select2 wrapped elements
+        allowClear: true,
+        multiple: true,
+        ajax: {
+            url: RootUrl + 'Home/GetTrendAnalysisPermitJobTypes',
+            type: "POST",
+            dataType: 'json',
+            data: function (term) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data.PermitJobTypesList,
+                };
+            }
+        }
+    });
+</script>

@@ -4,11 +4,11 @@ html, body, body-content, map {
     width: 100%;
     margin: 0;
     padding: 0;
-    font-family: Lato;
+    font-family: 'Helvetica', 'Arial', sans-serif;
 }
 
 body {
-    padding-top: 94px;
+    padding-bottom: 50px;
     overflow: hidden;
 }
 
@@ -57,20 +57,45 @@ table.clickableRow tr.selected {
 }
 
 input[type=text] {
-  border: none;
-  border-bottom: 1px solid #c5c5c5;
+    border: none;
+    border-bottom: 1px solid #c5c5c5;
 }
 
-.navbar-inverse .navbar-toggle {
-    border-color: burlywood !important;
-    background-color: burlywood !important;
+.navbar-inverse-admin {
+    background-color: #428bca;
+    border-color: #428bca;
+}
+
+    .navbar-inverse-admin .navbar-nav > li > a {
+        color: #ffffff !important;
+        font-size: 14px
+    }
+
+    .navbar-inverse-admin .navbar-brand {
+        color: #ffffff !important;
+    }
+
+    .navbar-inverse-admin .navbar-nav > .dropdown > a .caret {
+        border-top-color: #ffffff;
+        border-bottom-color: #ffffff;
+    }
+
+    .navbar-inverse-admin .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+        color: #ffffff !important;
+        background-color: #7b97f3;
+    }
+
+.navbar-right-admin {
+    color: white !important;
+    font-size: 14px
 }
 
 .bottomPanel {
+    display: none;
     width: 100%;
     height: 260px;
     position: absolute;
-    bottom: -260px;
+    bottom: 0px; /*260px;*/
     overflow: auto;
     overflow-x: hidden;
     z-index: 99;
@@ -78,13 +103,16 @@ input[type=text] {
     opacity: 0.9;
 }
 
-.slider-bottom-arrow {
+.slider-bottom-arrow-top {
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    display: none;
     padding: 4px;
-    width: 102px;
-    bottom: 0px;
+    width: 23px;
+    bottom: 260px;
     right: 0px;
     background: #d9dada;
-    font: 400 12px Arial, Helvetica, sans-serif;
     color: #000;
     text-decoration: none;
     position: absolute;
@@ -92,12 +120,88 @@ input[type=text] {
     opacity: 0.9;
 }
 
-.hideBottomPanel {
-    width: 50px;
+.slider-bottom-arrow-middle {
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    display: none;
+    padding: 4px;
+    width: 23px;
+    bottom: 260px;
+    right: 0px;
+    background: #d9dada;
+    color: #000;
+    text-decoration: none;
+    position: absolute;
+    z-index: 999;
+    opacity: 0.9;
 }
 
-.showBottomPanel {
-    width: 50px;
+.slider-bottom-arrow-bottom {
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    padding: 4px;
+    width: 23px;
+    bottom: 0px;
+    right: 0px;
+    background: #d9dada;
+    color: #000;
+    text-decoration: none;
+    position: absolute;
+    z-index: 999;
+    opacity: 0.9;
+}
+
+.slider-bottom-arrow-minimize-top {
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    display: none;
+    padding: 4px;
+    width: 23px;
+    height: 22px;
+    bottom: 100%;
+    right: 0px;
+    background: #d9dada;
+    color: #000;
+    text-decoration: none;
+    position: absolute;
+    z-index: 999;
+    opacity: 0.9;
+}
+
+.slider-bottom-arrow-maximize-middle {
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    display: none;
+    padding: 4px;
+    width: 23px;
+    bottom: 260px;
+    right: 23px;
+    background: #d9dada;
+    color: #000;
+    text-decoration: none;
+    position: absolute;
+    z-index: 999;
+    opacity: 0.9;
+}
+
+.slider-bottom-arrow-maximize-bottom {
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    padding: 4px;
+    width: 23px;
+    bottom: 0px;
+    right: 23px;
+    background: #d9dada;
+    color: #000;
+    text-decoration: none;
+    position: absolute;
+    z-index: 999;
+    opacity: 0.9;
 }
 
 .myReportsIcon {
@@ -108,6 +212,7 @@ input[type=text] {
     float: left;
     margin-right: 5px;
 }
+
 .signOutIcon {
     background: url(/Images/i_logout.png) no-repeat top left;
     width: 16px;
@@ -117,6 +222,325 @@ input[type=text] {
     margin-right: 5px;
 }
 
-#ui-datepicker-div{
+#ui-datepicker-div {
     z-index: 100 !important;
+}
+
+.notification {
+    font-family: helvetica;
+    font-size: 11px;
+    color: black !important;
+    text-decoration: none;
+    padding: 5px 6px;
+    position: relative;
+    display: inline-block;
+    border-radius: 2px;
+}
+
+    .notification .badge {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        padding: 5px 10px;
+        border-radius: 50%;
+        background: red;
+        color: white;
+    }
+
+.modal-footer {
+    border-top: none !important;
+}
+
+.classSelectButtons {
+    border: 1px solid #759dc0;
+    padding: 2px 4px 4px 4px;
+    color: #000000;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+    background-repeat: repeat-x;
+    background-image: linear-gradient(#ffffff 0px, rgba(255, 255, 255, 0) 3px, rgba(255, 255, 255, 0.75) 100%);
+    /*width: 69px;*/
+    margin-bottom: 7px;
+}
+
+.classSelectButtonsActive {
+    border: 1px dotted #759dc0;
+    padding: 2px 4px 4px 4px;
+    color: #000000;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+    background-repeat: repeat-x;
+    background-image: linear-gradient(#ffffff 0px, rgba(255, 255, 255, 0) 3px, rgba(255, 255, 255, 0.75) 100%);
+    /*width: 71px;*/
+    margin-bottom: 7px;
+    margin-left: -1px;
+}
+
+#infoColorRamp {
+    display: none;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 10px;
+    background-color: #ddd;
+    font: 14px Helvetica;
+    width: 120px;
+    text-align: center;
+    border-radius: 0 10px 0 0;
+}
+
+#infoColorRampDistricts {
+    display: none;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 10px;
+    background-color: #ddd;
+    font: 14px Arial;
+    width: 160px;
+    text-align: center;
+    border-radius: 0 10px 0 0;
+}
+
+.panel-default > .panel-heading {
+    color: #333;
+    background-color: white;
+    border-color: #ddd;
+}
+
+.swal-button:hover {
+    font-family: helvetica;
+    font-weight: normal;
+    color: #fff;
+    background-color: #286090;
+    border-color: #204d74;
+}
+
+.swal-button {
+    font-family: helvetica;
+    font-weight: normal;
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+}
+
+.grid-footer {
+    text-align: right;
+}
+
+.grid-row {
+    background-color: white !important;
+}
+
+.buttonDelete {
+    color: #337ab7;
+    text-decoration: none;
+    font-family: helvetica;
+}
+
+    .buttonDelete:hover {
+        color: #23527c;
+        text-decoration: underline;
+        font-family: helvetica;
+    }
+
+.panel-title > a {
+    font-size: 14px !important;
+}
+
+.ui-tabs.ui-tabs-vertical {
+    padding: 0;
+    width: 100%;
+}
+
+    .ui-tabs.ui-tabs-vertical .ui-widget-header {
+        border: none;
+    }
+
+    .ui-tabs.ui-tabs-vertical .ui-tabs-nav {
+        float: left;
+        width: 64px;
+        background: white;
+        border-radius: 4px 0 0 4px;
+        border-right: 1px solid white;
+    }
+
+        .ui-tabs.ui-tabs-vertical .ui-tabs-nav li {
+            clear: left;
+            width: 100%;
+            margin: 0.2em 0;
+            border: 1px solid gray;
+            border-width: 1px 0 1px 1px;
+            border-radius: 4px 0 0 4px;
+            overflow: hidden;
+            position: relative;
+            right: -2px;
+            z-index: 2;
+        }
+
+            .ui-tabs.ui-tabs-vertical .ui-tabs-nav li a {
+                display: block;
+                width: 100%;
+                padding: 0.6em 1em;
+            }
+
+                .ui-tabs.ui-tabs-vertical .ui-tabs-nav li a:hover {
+                    cursor: pointer;
+                }
+
+            .ui-tabs.ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active {
+                margin-bottom: 0.2em;
+                padding-bottom: 0;
+                border-right: 1px solid white;
+            }
+
+            .ui-tabs.ui-tabs-vertical .ui-tabs-nav li:last-child {
+                margin-bottom: 10px;
+            }
+
+    .ui-tabs.ui-tabs-vertical .ui-tabs-panel {
+        float: left;
+        width: calc(100% - 64px);
+        height: 100%;
+        border-left: 1px solid gray;
+        border-radius: 0;
+        position: relative;
+        left: -1px;
+    }
+
+.sizer .actionsPane .actionList a {
+    float: right;
+    margin-top: -25px;
+    display: none;
+}
+
+.textBoxControl {
+    width: 500px !important;
+    border: solid !important;
+    border-width: 1px !important;
+}
+
+#custom-handle {
+    width: 3em;
+    height: 1.6em;
+    top: 50%;
+    margin-top: -.8em;
+    text-align: center;
+    line-height: 1.6em;
+}
+
+#onPremiseLLs-handle {
+    width: 3em;
+    height: 1.6em;
+    top: 50%;
+    margin-top: -.8em;
+    text-align: center;
+    line-height: 1.6em;
+}
+
+.highcharts-figure, .highcharts-data-table table {
+    min-width: 320px;
+    max-width: 700px;
+    margin: 1em auto;
+}
+
+.highcharts-data-table table {
+    font-family: Verdana, sans-serif;
+    border-collapse: collapse;
+    border: 1px solid #EBEBEB;
+    margin: 10px auto;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+.highcharts-data-table caption {
+    padding: 1em 0;
+    font-size: 1.2em;
+    color: #555;
+}
+
+.highcharts-data-table th {
+    font-weight: 600;
+    padding: 0.5em;
+}
+
+.highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
+    padding: 0.5em;
+}
+
+.highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
+    background: #f8f8f8;
+}
+
+.highcharts-data-table tr:hover {
+    background: #f1f7ff;
+}
+
+/* Tooltip text */
+.tooltiplabel .tooltiptext {
+    visibility: hidden;
+    background-color: white;
+    /*color: #fff;*/
+    text-align: justify;
+    padding: 5px;
+    border-radius: 8px;
+    -moz-border-radius: 0;
+    -webkit-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.15);
+    -moz-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.15);
+    box-shadow: 0 2px 3px 0 rgba(0,0,0,0.15);
+    border: 1px solid #f0eeec;
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 999;
+    width: 413px;
+    top: 100%;
+    left: 50%;
+    margin-left: -100px;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltiplabel:hover .tooltiptext {
+    visibility: visible;
+}
+
+/* Tooltip text */
+.tooltiplabelLists .tooltiptextLists {
+    font-weight: normal;
+    visibility: hidden;
+    background-color: white;
+    /*color: #fff;*/
+    text-align: justify;
+    padding: 5px;
+    border-radius: 8px;
+    -moz-border-radius: 0;
+    -webkit-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.15);
+    -moz-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.15);
+    box-shadow: 0 2px 3px 0 rgba(0,0,0,0.15);
+    border: 1px solid #f0eeec;
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 999;
+    width: 413px;
+    top: 100%;
+    left: 50%;
+    margin-left: -100px;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltiplabelLists:hover .tooltiptextLists {
+    visibility: visible;
+}
+
+.divLayers {
+    position: absolute;
+    right: 0px;
+    top: 52px;
+    z-Index: 98;
+    min-width: 70px;
+    max-width: 175px;
 }
