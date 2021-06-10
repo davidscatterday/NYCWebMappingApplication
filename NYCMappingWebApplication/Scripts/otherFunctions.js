@@ -2473,7 +2473,8 @@ function tabGeneral_Clicked(TabID) {
             break;
         case 2:
             censusTractsFeatures.setVisibility(false);
-            map.setInfoWindowOnClick(false);
+            map.setInfoWindowOnClick(true);
+            serviceFeatures.infoTemplate = new esri.InfoTemplate("Tax Lot Info", infoTemplateContent);
             break;
         case 3:
             censusTractsFeatures.setVisibility(true);

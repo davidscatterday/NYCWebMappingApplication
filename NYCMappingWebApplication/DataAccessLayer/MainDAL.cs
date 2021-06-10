@@ -579,7 +579,7 @@ namespace NYCMappingWebApp.DataAccessLayer
         public ReturnLookaLike SearchLookaLikeByBBL(string bbl)
         {
             ReturnLookaLike result = new ReturnLookaLike();
-            string sqlQuery = "select p.Borough,p.Address,p.AssessTot,p.YearBuilt,p.BldgArea,p.NumFloors from dbo.Pluto p where ";
+            string sqlQuery = "select p.BBL,p.Borough,p.Address,p.AssessTot,p.YearBuilt,p.BldgArea,p.NumFloors from dbo.Pluto p where ";
             string whereClause = "";
             var plutoEntity = db.Plutoes.Where(w => w.BBL == bbl).FirstOrDefault();
             if (plutoEntity != null)
@@ -650,7 +650,7 @@ namespace NYCMappingWebApp.DataAccessLayer
         {
             ReturnLookaLike result = new ReturnLookaLike();
 
-            string sqlQuery = "select p.Borough,p.Address,p.AssessTot,p.YearBuilt,p.BldgArea,p.NumFloors  from dbo.Pluto p where ";
+            string sqlQuery = "select p.BBL,p.Borough,p.Address,p.AssessTot,p.YearBuilt,p.BldgArea,p.NumFloors  from dbo.Pluto p where ";
             string whereClause = "";
             var plutoEntity = db.Plutoes.Where(w => w.Address == adr).FirstOrDefault();
             if (plutoEntity != null)
