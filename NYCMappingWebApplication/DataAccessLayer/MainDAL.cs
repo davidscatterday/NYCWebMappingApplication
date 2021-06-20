@@ -554,12 +554,12 @@ namespace NYCMappingWebApp.DataAccessLayer
         {
             List<Select2DTO> returnResult = new List<Select2DTO>();
             returnResult = (from d in db.Plutoes
-                            where d.Address != null && (term == "" || d.Address.ToLower().Contains(term.ToLower()))
+                            where !String.IsNullOrEmpty(d.Address) && (term == "" || d.Address.ToLower().Contains(term.ToLower()))
                             select new Select2DTO()
                             {
                                 id = d.Address.ToString(),
                                 text = d.Address
-                            }).Take(1000).ToList();
+                            }).Take(1000).Distinct().ToList();
             return returnResult;
         }
 

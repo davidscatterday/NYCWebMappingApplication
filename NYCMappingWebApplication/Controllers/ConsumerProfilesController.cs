@@ -19,7 +19,7 @@ namespace NYCMappingWebApp.Controllers
         MainDAL mainDAL = new MainDAL();
         private NYC_Web_Mapping_AppEntities db = new NYC_Web_Mapping_AppEntities();
         // GET: ConsumerProfiles/Preview
-        public ActionResult Preview(string tracts)
+        public ActionResult Preview(string tracts, string variables)
         {
             List<string> lstBronxTracts = new List<string>();
             List<string> lstBrooklinTracts = new List<string>();
@@ -27,6 +27,7 @@ namespace NYCMappingWebApp.Controllers
             List<string> lstQueensTracts = new List<string>();
             List<string> lstStatenIslandTracts = new List<string>();
             DataConsumerProfiles data = new DataConsumerProfiles();
+            data.Variables = variables == null ? "" : variables;
             string selectStatement = "";
             foreach (string variable in GlobalVariables.ConsumerProfilesVariables.Split(','))
             {

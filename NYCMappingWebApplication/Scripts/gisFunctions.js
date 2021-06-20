@@ -1,4 +1,4 @@
-﻿var selectionLayer, districtLayer, geometryService, selectionSymbolPoint, selectionSymbolLine, selectionSymbolFill, heatmapLayer, selectionLayerCDL;
+﻿var selectionLayer, districtLayer, geometryService, selectionSymbolPoint, selectionSymbolLine, selectionSymbolFill, heatmapLayer, selectionLayerCDL, selectionLayerCensusTracts;
 
 $(document).ready(function () {
     dojo.require("dojo.on");
@@ -22,6 +22,7 @@ $(document).ready(function () {
             heatmapLayer = new GraphicsLayer();
             selectionLayerCDL = new GraphicsLayer();
             selectionLayerExclusionCriteriaCDL = new GraphicsLayer();
+            selectionLayerCensusTracts = new GraphicsLayer();
             geometryService = new GeometryService(GeometryServiceUrl);
 
             selectionLayer.on("click", selectionLayerClickHandler);
@@ -131,7 +132,7 @@ $(document).ready(function () {
             myLabelLayer = new LabelLayer({ id: "districtLabels", visible: true });
             myLabelLayer.addFeatureLayer(districtFeatures, myLabelRenderer, "{DISTRICT}");
 
-            map.addLayers([baseMapLayer, serviceFeatures, districtLayer, districtFeatures, censusTractsFeatures, transitZonesFeatures, subwayFeatures, subwayStopStationsFeatures, selectionLayer, heatmapLayer, zipCodeFeatures, selectionLayerCDL, selectionLayerExclusionCriteriaCDL]);
+            map.addLayers([baseMapLayer, serviceFeatures, districtLayer, districtFeatures, censusTractsFeatures, transitZonesFeatures, subwayFeatures, subwayStopStationsFeatures, selectionLayerCensusTracts, selectionLayer, heatmapLayer, zipCodeFeatures, selectionLayerCDL, selectionLayerExclusionCriteriaCDL]);
 
             function ColorDistricts() {
                 var queryTask = new esri.tasks.QueryTask(DistrictsUrl);

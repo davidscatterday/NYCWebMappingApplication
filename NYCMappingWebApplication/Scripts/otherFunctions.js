@@ -2468,34 +2468,41 @@ function tabGeneral_Clicked(TabID) {
     switch (TabID) {
         case 1:
             censusTractsFeatures.setVisibility(false);
+            document.getElementById("cbCensusTractsLayer").checked = false;
             map.setInfoWindowOnClick(true);
             serviceFeatures.infoTemplate = new esri.InfoTemplate("Tax Lot Info", infoTemplateContent);
             break;
         case 2:
             censusTractsFeatures.setVisibility(false);
+            document.getElementById("cbCensusTractsLayer").checked = false;
             map.setInfoWindowOnClick(true);
             serviceFeatures.infoTemplate = new esri.InfoTemplate("Tax Lot Info", infoTemplateContent);
             break;
         case 3:
             censusTractsFeatures.setVisibility(true);
+            document.getElementById("cbCensusTractsLayer").checked = true;
             map.setInfoWindowOnClick(false);
             break;
         case 4:
             censusTractsFeatures.setVisibility(false);
+            document.getElementById("cbCensusTractsLayer").checked = false;
             map.setInfoWindowOnClick(false);
             break;
         case 5:
             censusTractsFeatures.setVisibility(false);
+            document.getElementById("cbCensusTractsLayer").checked = false;
             map.setInfoWindowOnClick(true);
             serviceFeatures.infoTemplate = null;
             break;
         case 6:
             censusTractsFeatures.setVisibility(false);
+            document.getElementById("cbCensusTractsLayer").checked = false;
             map.setInfoWindowOnClick(true);
             serviceFeatures.infoTemplate = new esri.InfoTemplate("Tax Lot Info", infoTemplateContent);
             break;
         case 7:
             censusTractsFeatures.setVisibility(false);
+            document.getElementById("cbCensusTractsLayer").checked = false;
             map.setInfoWindowOnClick(true);
             serviceFeatures.infoTemplate = new esri.InfoTemplate("Tax Lot Info", infoTemplateContent);
             break;
@@ -2536,5 +2543,23 @@ function cbCommunityDistrictsLayer_Click(evt) {
     }
     else {
         districtFeatures.setVisibility(false);
+    }
+}
+
+function cbCensusTractsLayer_Click(evt) {
+    if (evt.checked) {
+        censusTractsFeatures.setVisibility(true);
+    }
+    else {
+        censusTractsFeatures.setVisibility(false);
+    }
+}
+
+function cbCensusTractSelections_Click(evt) {
+    if (evt.checked) {
+        selectionLayerCensusTracts.setVisibility(true);
+    }
+    else {
+        selectionLayerCensusTracts.setVisibility(false);
     }
 }

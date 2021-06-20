@@ -238,6 +238,7 @@ namespace NYCMappingWebApp.Entities
     {
         public ConsumerProfiles SelectedArea { get; set; }
         public ConsumerProfiles NewYorkCity { get; set; }
+        public string Variables { get; set; }
     }
     public class ConsumerProfiles
     {
