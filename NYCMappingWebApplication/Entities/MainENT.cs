@@ -600,6 +600,32 @@ namespace NYCMappingWebApp.Entities
         public double? DP04_0141PE { get; set; }
         public int? DP04_0142E { get; set; }
         public double? DP04_0142PE { get; set; }
+        public int? DP05_0036E { get; set; }
+        public double? DP05_0036PE { get; set; }
+        public int? DP05_0037E { get; set; }
+        public double? DP05_0037PE { get; set; }
+        public int? DP05_0038E { get; set; }
+        public double? DP05_0038PE { get; set; }
+        public int? DP05_0039E { get; set; }
+        public double? DP05_0039PE { get; set; }
+        public int? DP05_0044E { get; set; }
+        public double? DP05_0044PE { get; set; }
+        public int? DP05_0045E { get; set; }
+        public double? DP05_0045PE { get; set; }
+        public int? DP05_0046E { get; set; }
+        public double? DP05_0046PE { get; set; }
+        public int? DP05_0047E { get; set; }
+        public double? DP05_0047PE { get; set; }
+        public int? DP05_0048E { get; set; }
+        public double? DP05_0048PE { get; set; }
+        public int? DP05_0049E { get; set; }
+        public double? DP05_0049PE { get; set; }
+        public int? DP05_0050E { get; set; }
+        public double? DP05_0050PE { get; set; }
+        public int? DP05_0052E { get; set; }
+        public double? DP05_0052PE { get; set; }
+        public int? DP05_0071E { get; set; }
+        public double? DP05_0071PE { get; set; }
     }
     public class HeatmapAttributes
     {

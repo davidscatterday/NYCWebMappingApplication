@@ -22,7 +22,7 @@ namespace NYCMappingWebApp.Controllers
         public ActionResult Preview(string tracts, string variables)
         {
             List<string> lstBronxTracts = new List<string>();
-            List<string> lstBrooklinTracts = new List<string>();
+            List<string> lstBrooklynTracts = new List<string>();
             List<string> lstManhattanTracts = new List<string>();
             List<string> lstQueensTracts = new List<string>();
             List<string> lstStatenIslandTracts = new List<string>();
@@ -51,7 +51,7 @@ namespace NYCMappingWebApp.Controllers
                 switch (splitByItem[1])
                 {
                     case ("005"): lstBronxTracts.Add("36" + splitByItem[1] + splitByItem[0]); break;
-                    case ("047"): lstBrooklinTracts.Add("36" + splitByItem[1] + splitByItem[0]); break;
+                    case ("047"): lstBrooklynTracts.Add("36" + splitByItem[1] + splitByItem[0]); break;
                     case ("061"): lstManhattanTracts.Add("36" + splitByItem[1] + splitByItem[0]); break;
                     case ("081"): lstQueensTracts.Add("36" + splitByItem[1] + splitByItem[0]); break;
                     case ("085"): lstStatenIslandTracts.Add("36" + splitByItem[1] + splitByItem[0]); break;
@@ -63,9 +63,9 @@ namespace NYCMappingWebApp.Controllers
             {
                 headerMessage += "<br/><b style='font-size: 17px;color: black;'> Bronx:</b> <span style='font-weight: normal'>" + string.Join(", ", lstBronxTracts.OrderBy(x => Int64.Parse(x))) + "</span>";
             }
-            if (lstBrooklinTracts.Count > 0)
+            if (lstBrooklynTracts.Count > 0)
             {
-                headerMessage += "<br/><b style='font-size: 17px;color: black;'>Brooklin:</b> <span style='font-weight: normal'>" + string.Join(", ", lstBrooklinTracts.OrderBy(x => Int64.Parse(x))) + "</span>";
+                headerMessage += "<br/><b style='font-size: 17px;color: black;'>Brooklyn:</b> <span style='font-weight: normal'>" + string.Join(", ", lstBrooklynTracts.OrderBy(x => Int64.Parse(x))) + "</span>";
             }
             if (lstManhattanTracts.Count > 0)
             {
@@ -234,9 +234,132 @@ namespace NYCMappingWebApp.Controllers
                     workSheetDemographics.Cells["E15"].Value = Math.Round((double)(100 * data.NewYorkCity.DP05_0016E.Value) / data.NewYorkCity.DP05_0001E.Value, 1) + "%";
                     workSheetDemographics.Cells["F15"].Value = String.Format("{0:n0}", (data.SelectedArea.DP05_0016E - data.NewYorkCity.DP05_0016E));
                     workSheetDemographics.Cells["G15"].Value = data.SelectedArea.DP05_0016E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP05_0016E.Value) / data.SelectedArea.DP05_0001E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP05_0016E.Value) / data.NewYorkCity.DP05_0001E.Value, 1), 1).ToString() : "";
+
+                    workSheetDemographics.Cells["A17:G17"].Merge = true;
+                    workSheetDemographics.Cells["A17"].Value = "Race";
+                    workSheetDemographics.Cells["A18:A19"].Merge = true;
+                    workSheetDemographics.Cells["B18:C18"].Merge = true;
+                    workSheetDemographics.Cells["B18"].Value = "Selected Area";
+                    workSheetDemographics.Cells["D18:E18"].Merge = true;
+                    workSheetDemographics.Cells["D18"].Value = "New York City";
+                    workSheetDemographics.Cells["F18:G18"].Merge = true;
+                    workSheetDemographics.Cells["F18"].Value = "Difference";
+
+                    workSheetDemographics.Cells["B19"].Value = "Number";
+                    workSheetDemographics.Cells["C19"].Value = "Percent";
+                    workSheetDemographics.Cells["D19"].Value = "Number";
+                    workSheetDemographics.Cells["E19"].Value = "Percent";
+                    workSheetDemographics.Cells["F19"].Value = "Number";
+                    workSheetDemographics.Cells["G19"].Value = "Pctg. Pt.";
+
+                    workSheetDemographics.Cells["A20"].Value = "Total Race Identified";
+                    workSheetDemographics.Cells["B20"].Value = String.Format("{0:n0}", data.SelectedArea.DP05_0036E);
+                    workSheetDemographics.Cells["C20"].Value = "100%";
+                    workSheetDemographics.Cells["D20"].Value = String.Format("{0:n0}", data.NewYorkCity.DP05_0036E);
+                    workSheetDemographics.Cells["E20"].Value = "100%";
+                    workSheetDemographics.Cells["F20"].Value = String.Format("{0:n0}", (data.SelectedArea.DP05_0036E - data.NewYorkCity.DP05_0036E));
+                    workSheetDemographics.Cells["G20"].Value = "0.0";
+
+                    workSheetDemographics.Cells["A21"].Value = "White";
+                    workSheetDemographics.Cells["B21"].Value = String.Format("{0:n0}", data.SelectedArea.DP05_0037E);
+                    workSheetDemographics.Cells["C21"].Value = data.SelectedArea.DP05_0037E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP05_0037E.Value) / data.SelectedArea.DP05_0036E.Value, 1) + "%" : "";
+                    workSheetDemographics.Cells["D21"].Value = String.Format("{0:n0}", data.NewYorkCity.DP05_0037E);
+                    workSheetDemographics.Cells["E21"].Value = Math.Round((double)(100 * data.NewYorkCity.DP05_0037E.Value) / data.NewYorkCity.DP05_0036E.Value, 1) + "%";
+                    workSheetDemographics.Cells["F21"].Value = String.Format("{0:n0}", (data.SelectedArea.DP05_0037E - data.NewYorkCity.DP05_0037E));
+                    workSheetDemographics.Cells["G21"].Value = data.SelectedArea.DP05_0037E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP05_0037E.Value) / data.SelectedArea.DP05_0036E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP05_0037E.Value) / data.NewYorkCity.DP05_0036E.Value, 1), 1).ToString() : "";
+
+                    workSheetDemographics.Cells["A22"].Value = "Black or African American";
+                    workSheetDemographics.Cells["B22"].Value = String.Format("{0:n0}", data.SelectedArea.DP05_0038E);
+                    workSheetDemographics.Cells["C22"].Value = data.SelectedArea.DP05_0038E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP05_0038E.Value) / data.SelectedArea.DP05_0036E.Value, 1) + "%" : "";
+                    workSheetDemographics.Cells["D22"].Value = String.Format("{0:n0}", data.NewYorkCity.DP05_0038E);
+                    workSheetDemographics.Cells["E22"].Value = Math.Round((double)(100 * data.NewYorkCity.DP05_0038E.Value) / data.NewYorkCity.DP05_0036E.Value, 1) + "%";
+                    workSheetDemographics.Cells["F22"].Value = String.Format("{0:n0}", (data.SelectedArea.DP05_0038E - data.NewYorkCity.DP05_0038E));
+                    workSheetDemographics.Cells["G22"].Value = data.SelectedArea.DP05_0038E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP05_0038E.Value) / data.SelectedArea.DP05_0036E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP05_0038E.Value) / data.NewYorkCity.DP05_0036E.Value, 1), 1).ToString() : "";
+
+                    workSheetDemographics.Cells["A23"].Value = "American Indian and Alaska Native";
+                    workSheetDemographics.Cells["B23"].Value = String.Format("{0:n0}", data.SelectedArea.DP05_0039E);
+                    workSheetDemographics.Cells["C23"].Value = data.SelectedArea.DP05_0039E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP05_0039E.Value) / data.SelectedArea.DP05_0036E.Value, 1) + "%" : "";
+                    workSheetDemographics.Cells["D23"].Value = String.Format("{0:n0}", data.NewYorkCity.DP05_0039E);
+                    workSheetDemographics.Cells["E23"].Value = Math.Round((double)(100 * data.NewYorkCity.DP05_0039E.Value) / data.NewYorkCity.DP05_0036E.Value, 1) + "%";
+                    workSheetDemographics.Cells["F23"].Value = String.Format("{0:n0}", (data.SelectedArea.DP05_0039E - data.NewYorkCity.DP05_0039E));
+                    workSheetDemographics.Cells["G23"].Value = data.SelectedArea.DP05_0039E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP05_0039E.Value) / data.SelectedArea.DP05_0036E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP05_0039E.Value) / data.NewYorkCity.DP05_0036E.Value, 1), 1).ToString() : "";
+
+                    workSheetDemographics.Cells["A24"].Value = "Asian";
+                    workSheetDemographics.Cells["B24"].Value = String.Format("{0:n0}", data.SelectedArea.DP05_0044E);
+                    workSheetDemographics.Cells["C24"].Value = data.SelectedArea.DP05_0044E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP05_0044E.Value) / data.SelectedArea.DP05_0036E.Value, 1) + "%" : "";
+                    workSheetDemographics.Cells["D24"].Value = String.Format("{0:n0}", data.NewYorkCity.DP05_0044E);
+                    workSheetDemographics.Cells["E24"].Value = Math.Round((double)(100 * data.NewYorkCity.DP05_0044E.Value) / data.NewYorkCity.DP05_0036E.Value, 1) + "%";
+                    workSheetDemographics.Cells["F24"].Value = String.Format("{0:n0}", (data.SelectedArea.DP05_0044E - data.NewYorkCity.DP05_0044E));
+                    workSheetDemographics.Cells["G24"].Value = data.SelectedArea.DP05_0044E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP05_0044E.Value) / data.SelectedArea.DP05_0036E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP05_0044E.Value) / data.NewYorkCity.DP05_0036E.Value, 1), 1).ToString() : "";
+
+                    workSheetDemographics.Cells["A25"].Value = "Asian Indian";
+                    workSheetDemographics.Cells["B25"].Value = String.Format("{0:n0}", data.SelectedArea.DP05_0045E);
+                    workSheetDemographics.Cells["C25"].Value = data.SelectedArea.DP05_0045E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP05_0045E.Value) / data.SelectedArea.DP05_0036E.Value, 1) + "%" : "";
+                    workSheetDemographics.Cells["D25"].Value = String.Format("{0:n0}", data.NewYorkCity.DP05_0045E);
+                    workSheetDemographics.Cells["E25"].Value = Math.Round((double)(100 * data.NewYorkCity.DP05_0045E.Value) / data.NewYorkCity.DP05_0036E.Value, 1) + "%";
+                    workSheetDemographics.Cells["F25"].Value = String.Format("{0:n0}", (data.SelectedArea.DP05_0045E - data.NewYorkCity.DP05_0045E));
+                    workSheetDemographics.Cells["G25"].Value = data.SelectedArea.DP05_0045E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP05_0045E.Value) / data.SelectedArea.DP05_0036E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP05_0045E.Value) / data.NewYorkCity.DP05_0036E.Value, 1), 1).ToString() : "";
+
+                    workSheetDemographics.Cells["A26"].Value = "Chinese";
+                    workSheetDemographics.Cells["B26"].Value = String.Format("{0:n0}", data.SelectedArea.DP05_0046E);
+                    workSheetDemographics.Cells["C26"].Value = data.SelectedArea.DP05_0046E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP05_0046E.Value) / data.SelectedArea.DP05_0036E.Value, 1) + "%" : "";
+                    workSheetDemographics.Cells["D26"].Value = String.Format("{0:n0}", data.NewYorkCity.DP05_0046E);
+                    workSheetDemographics.Cells["E26"].Value = Math.Round((double)(100 * data.NewYorkCity.DP05_0046E.Value) / data.NewYorkCity.DP05_0036E.Value, 1) + "%";
+                    workSheetDemographics.Cells["F26"].Value = String.Format("{0:n0}", (data.SelectedArea.DP05_0046E - data.NewYorkCity.DP05_0046E));
+                    workSheetDemographics.Cells["G26"].Value = data.SelectedArea.DP05_0046E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP05_0046E.Value) / data.SelectedArea.DP05_0036E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP05_0046E.Value) / data.NewYorkCity.DP05_0036E.Value, 1), 1).ToString() : "";
+
+                    workSheetDemographics.Cells["A27"].Value = "Filipino";
+                    workSheetDemographics.Cells["B27"].Value = String.Format("{0:n0}", data.SelectedArea.DP05_0047E);
+                    workSheetDemographics.Cells["C27"].Value = data.SelectedArea.DP05_0047E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP05_0047E.Value) / data.SelectedArea.DP05_0036E.Value, 1) + "%" : "";
+                    workSheetDemographics.Cells["D27"].Value = String.Format("{0:n0}", data.NewYorkCity.DP05_0047E);
+                    workSheetDemographics.Cells["E27"].Value = Math.Round((double)(100 * data.NewYorkCity.DP05_0047E.Value) / data.NewYorkCity.DP05_0036E.Value, 1) + "%";
+                    workSheetDemographics.Cells["F27"].Value = String.Format("{0:n0}", (data.SelectedArea.DP05_0047E - data.NewYorkCity.DP05_0047E));
+                    workSheetDemographics.Cells["G27"].Value = data.SelectedArea.DP05_0047E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP05_0047E.Value) / data.SelectedArea.DP05_0036E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP05_0047E.Value) / data.NewYorkCity.DP05_0036E.Value, 1), 1).ToString() : "";
+
+                    workSheetDemographics.Cells["A28"].Value = "Japanese";
+                    workSheetDemographics.Cells["B28"].Value = String.Format("{0:n0}", data.SelectedArea.DP05_0048E);
+                    workSheetDemographics.Cells["C28"].Value = data.SelectedArea.DP05_0048E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP05_0048E.Value) / data.SelectedArea.DP05_0036E.Value, 1) + "%" : "";
+                    workSheetDemographics.Cells["D28"].Value = String.Format("{0:n0}", data.NewYorkCity.DP05_0048E);
+                    workSheetDemographics.Cells["E28"].Value = Math.Round((double)(100 * data.NewYorkCity.DP05_0048E.Value) / data.NewYorkCity.DP05_0036E.Value, 1) + "%";
+                    workSheetDemographics.Cells["F28"].Value = String.Format("{0:n0}", (data.SelectedArea.DP05_0048E - data.NewYorkCity.DP05_0048E));
+                    workSheetDemographics.Cells["G28"].Value = data.SelectedArea.DP05_0048E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP05_0048E.Value) / data.SelectedArea.DP05_0036E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP05_0048E.Value) / data.NewYorkCity.DP05_0036E.Value, 1), 1).ToString() : "";
+
+                    workSheetDemographics.Cells["A29"].Value = "Korean";
+                    workSheetDemographics.Cells["B29"].Value = String.Format("{0:n0}", data.SelectedArea.DP05_0049E);
+                    workSheetDemographics.Cells["C29"].Value = data.SelectedArea.DP05_0049E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP05_0049E.Value) / data.SelectedArea.DP05_0036E.Value, 1) + "%" : "";
+                    workSheetDemographics.Cells["D29"].Value = String.Format("{0:n0}", data.NewYorkCity.DP05_0049E);
+                    workSheetDemographics.Cells["E29"].Value = Math.Round((double)(100 * data.NewYorkCity.DP05_0049E.Value) / data.NewYorkCity.DP05_0036E.Value, 1) + "%";
+                    workSheetDemographics.Cells["F29"].Value = String.Format("{0:n0}", (data.SelectedArea.DP05_0049E - data.NewYorkCity.DP05_0049E));
+                    workSheetDemographics.Cells["G29"].Value = data.SelectedArea.DP05_0049E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP05_0049E.Value) / data.SelectedArea.DP05_0036E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP05_0049E.Value) / data.NewYorkCity.DP05_0036E.Value, 1), 1).ToString() : "";
+
+                    workSheetDemographics.Cells["A30"].Value = "Vietnamese";
+                    workSheetDemographics.Cells["B30"].Value = String.Format("{0:n0}", data.SelectedArea.DP05_0050E);
+                    workSheetDemographics.Cells["C30"].Value = data.SelectedArea.DP05_0050E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP05_0050E.Value) / data.SelectedArea.DP05_0036E.Value, 1) + "%" : "";
+                    workSheetDemographics.Cells["D30"].Value = String.Format("{0:n0}", data.NewYorkCity.DP05_0050E);
+                    workSheetDemographics.Cells["E30"].Value = Math.Round((double)(100 * data.NewYorkCity.DP05_0050E.Value) / data.NewYorkCity.DP05_0036E.Value, 1) + "%";
+                    workSheetDemographics.Cells["F30"].Value = String.Format("{0:n0}", (data.SelectedArea.DP05_0050E - data.NewYorkCity.DP05_0050E));
+                    workSheetDemographics.Cells["G30"].Value = data.SelectedArea.DP05_0050E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP05_0050E.Value) / data.SelectedArea.DP05_0036E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP05_0050E.Value) / data.NewYorkCity.DP05_0036E.Value, 1), 1).ToString() : "";
+
+                    workSheetDemographics.Cells["A31"].Value = "Native Hawaiian and Other Pacific Islander";
+                    workSheetDemographics.Cells["B31"].Value = String.Format("{0:n0}", data.SelectedArea.DP05_0052E);
+                    workSheetDemographics.Cells["C31"].Value = data.SelectedArea.DP05_0052E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP05_0052E.Value) / data.SelectedArea.DP05_0036E.Value, 1) + "%" : "";
+                    workSheetDemographics.Cells["D31"].Value = String.Format("{0:n0}", data.NewYorkCity.DP05_0052E);
+                    workSheetDemographics.Cells["E31"].Value = Math.Round((double)(100 * data.NewYorkCity.DP05_0052E.Value) / data.NewYorkCity.DP05_0036E.Value, 1) + "%";
+                    workSheetDemographics.Cells["F31"].Value = String.Format("{0:n0}", (data.SelectedArea.DP05_0052E - data.NewYorkCity.DP05_0052E));
+                    workSheetDemographics.Cells["G31"].Value = data.SelectedArea.DP05_0052E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP05_0052E.Value) / data.SelectedArea.DP05_0036E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP05_0052E.Value) / data.NewYorkCity.DP05_0036E.Value, 1), 1).ToString() : "";
+
+                    workSheetDemographics.Cells["A32"].Value = "Hispanic or Latino (of any race)";
+                    workSheetDemographics.Cells["B32"].Value = String.Format("{0:n0}", data.SelectedArea.DP05_0071E);
+                    workSheetDemographics.Cells["C32"].Value = data.SelectedArea.DP05_0071E.HasValue ? Math.Round((double)(100 * data.SelectedArea.DP05_0071E.Value) / data.SelectedArea.DP05_0036E.Value, 1) + "%" : "";
+                    workSheetDemographics.Cells["D32"].Value = String.Format("{0:n0}", data.NewYorkCity.DP05_0071E);
+                    workSheetDemographics.Cells["E32"].Value = Math.Round((double)(100 * data.NewYorkCity.DP05_0071E.Value) / data.NewYorkCity.DP05_0036E.Value, 1) + "%";
+                    workSheetDemographics.Cells["F32"].Value = String.Format("{0:n0}", (data.SelectedArea.DP05_0071E - data.NewYorkCity.DP05_0071E));
+                    workSheetDemographics.Cells["G32"].Value = data.SelectedArea.DP05_0071E.HasValue ? Math.Round(Math.Round((double)(100 * data.SelectedArea.DP05_0071E.Value) / data.SelectedArea.DP05_0036E.Value, 1) - Math.Round((double)(100 * data.NewYorkCity.DP05_0071E.Value) / data.NewYorkCity.DP05_0036E.Value, 1), 1).ToString() : "";
+
                     workSheetDemographics.Cells[workSheetDemographics.Dimension.Address].AutoFitColumns();
                     //Header
                     SetHeaderStyle(workSheetDemographics, "A1");
+                    SetHeaderStyle(workSheetDemographics, "A17");
                     #endregion Demographics
                     #region Social
                     ExcelWorksheet workSheetSocial = xlPackage.Workbook.Worksheets.Add("Social");

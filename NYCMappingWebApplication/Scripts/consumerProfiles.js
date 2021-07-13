@@ -1,4 +1,4 @@
-﻿var maxDP05_0001E = 28272, maxDP05_0002E = 11964, maxDP05_0003E = 16308, maxDP05_0004E = 1249, maxDP05_0009E = 2420, maxDP05_0010E = 4432, maxDP05_0011E = 4041, maxDP05_0012E = 3346, maxDP05_0013E = 1776, maxDP05_0014E = 2156, maxDP05_0015E = 3970, maxDP05_0016E = 2701
+﻿var maxDP05_0001E = 28272, maxDP05_0002E = 11964, maxDP05_0003E = 16308, maxDP05_0004E = 1249, maxDP05_0009E = 2420, maxDP05_0010E = 4432, maxDP05_0011E = 4041, maxDP05_0012E = 3346, maxDP05_0013E = 1776, maxDP05_0014E = 2156, maxDP05_0015E = 3970, maxDP05_0016E = 2701, maxDP05_0036E = 26818, maxDP05_0037E = 14325, maxDP05_0038E = 17050, maxDP05_0039E = 540, maxDP05_0044E = 7638, maxDP05_0045E = 2912, maxDP05_0046E = 7222, maxDP05_0047E = 1035, maxDP05_0048E = 393, maxDP05_0049E = 2188, maxDP05_0050E = 313, maxDP05_0052E = 268, maxDP05_0071E = 3409
     , maxDP02_0001E = 12827, maxDP02_0002E = 6960, maxDP02_0003E = 2088, maxDP02_0006E = 1315, maxDP02_0008E = 2921, maxDP02_0010E = 5867, maxDP02_0011E = 5824, maxDP02_0012E = 3700
     , maxDP02_0024E = 9688, maxDP02_0025E = 5822, maxDP02_0026E = 3517, maxDP02_0027E = 498, maxDP02_0028E = 946, maxDP02_0029E = 1014, maxDP02_0030E = 14730, maxDP02_0031E = 5849, maxDP02_0032E = 3266, maxDP02_0033E = 632, maxDP02_0034E = 2259, maxDP02_0035E = 2876
     , maxDP02_0052E = 5449, maxDP02_0053E = 455, maxDP02_0054E = 487, maxDP02_0055E = 2614, maxDP02_0056E = 1104, maxDP02_0057E = 3346, maxDP02_0058E = 21771, maxDP02_0059E = 2721, maxDP02_0060E = 2642, maxDP02_0061E = 6510, maxDP02_0062E = 4119, maxDP02_0063E = 1998, maxDP02_0064E = 5889
@@ -20,6 +20,7 @@
     , maxDP04_0134E = 3501, maxDP04_0136E = 7921, maxDP04_0137E = 1564, maxDP04_0138E = 1557, maxDP04_0139E = 1136, maxDP04_0140E = 1105, maxDP04_0141E = 885, maxDP04_0142E = 2893;
 var minDP05_0002PE = 0, maxDP05_0002PE = 100, minDP05_0003PE = 0, maxDP05_0003PE = 100, minDP05_0009PE = 0, maxDP05_0009PE = 55, minDP05_0010PE = 0, maxDP05_0010PE = 74, minDP05_0011PE = 0, maxDP05_0011PE = 57
     , minDP05_0012PE = 0, maxDP05_0012PE = 42, minDP05_0013PE = 0, maxDP05_0013PE = 37, minDP05_0014PE = 0, maxDP05_0014PE = 67, minDP05_0015PE = 0, maxDP05_0015PE = 100, minDP05_0016PE = 0, maxDP05_0016PE = 39
+    , minDP05_0037PE = 0, maxDP05_0037PE = 100, minDP05_0038PE = 0, maxDP05_0038PE = 100, minDP05_0039PE = 0, maxDP05_0039PE = 28, minDP05_0044PE = 0, maxDP05_0044PE = 85.2, minDP05_0045PE = 0, maxDP05_0045PE = 45.9, minDP05_0046PE = 0, maxDP05_0046PE = 81.8, minDP05_0047PE = 0, maxDP05_0047PE = 23.8, minDP05_0048PE = 0, maxDP05_0048PE = 9.8, minDP05_0049PE = 0, maxDP05_0049PE = 38.8, minDP05_0050PE = 0, maxDP05_0050PE = 6.5, minDP05_0052PE = 0, maxDP05_0052PE = 6.6, minDP05_0071PE = 0, maxDP05_0071PE = 54.5
     , minDP02_0002PE = 0, maxDP02_0002PE = 100, minDP02_0003PE = 0, maxDP02_0003PE = 100, minDP02_0006PE = 0, maxDP02_0006PE = 89, minDP02_0008PE = 0, maxDP02_0008PE = 100, minDP02_0010PE = 0, maxDP02_0010PE = 100, minDP02_0011PE = 0, maxDP02_0011PE = 100, minDP02_0012PE = 0, maxDP02_0012PE = 100
     , minDP02_0025PE = 10.8, maxDP02_0025PE = 100, minDP02_0026PE = 0, maxDP02_0026PE = 86.2, minDP02_0027PE = 0, maxDP02_0027PE = 17.4, minDP02_0028PE = 0, maxDP02_0028PE = 20.5, minDP02_0029PE = 0, maxDP02_0029PE = 37.5, minDP02_0031PE = 0, maxDP02_0031PE = 100, minDP02_0032PE = 0, maxDP02_0032PE = 100, minDP02_0033PE = 0, maxDP02_0033PE = 100, minDP02_0034PE = 0, maxDP02_0034PE = 100, minDP02_0035PE = 0, maxDP02_0035PE = 100
     , minDP02_0053PE = 0, maxDP02_0053PE = 100, minDP02_0054PE = 0, maxDP02_0054PE = 40, minDP02_0055PE = 0, maxDP02_0055PE = 68.3, minDP02_0056PE = 0, maxDP02_0056PE = 100, minDP02_0057PE = 0, maxDP02_0057PE = 100
@@ -183,6 +184,162 @@ $(function () {
     });
     $("#txtDP05_0016E").val($("#slider-range-DP05_0016E").slider("values", 0).toLocaleString('en') +
         " - " + $("#slider-range-DP05_0016E").slider("values", 1).toLocaleString('en'));
+
+    $("#slider-range-DP05_0036E").slider({
+        range: true,
+        min: 0,
+        max: maxDP05_0036E,
+        values: [0, maxDP05_0036E],
+        slide: function (event, ui) {
+            $("#txtDP05_0036E").val(ui.values[0].toLocaleString('en') + " - " + ui.values[1].toLocaleString('en'));
+        }
+    });
+    $("#txtDP05_0036E").val($("#slider-range-DP05_0036E").slider("values", 0).toLocaleString('en') +
+        " - " + $("#slider-range-DP05_0036E").slider("values", 1).toLocaleString('en'));
+
+    $("#slider-range-DP05_0037E").slider({
+        range: true,
+        min: 0,
+        max: maxDP05_0037E,
+        values: [0, maxDP05_0037E],
+        slide: function (event, ui) {
+            $("#txtDP05_0037E").val(ui.values[0].toLocaleString('en') + " - " + ui.values[1].toLocaleString('en'));
+        }
+    });
+    $("#txtDP05_0037E").val($("#slider-range-DP05_0037E").slider("values", 0).toLocaleString('en') +
+        " - " + $("#slider-range-DP05_0037E").slider("values", 1).toLocaleString('en'));
+
+    $("#slider-range-DP05_0038E").slider({
+        range: true,
+        min: 0,
+        max: maxDP05_0038E,
+        values: [0, maxDP05_0038E],
+        slide: function (event, ui) {
+            $("#txtDP05_0038E").val(ui.values[0].toLocaleString('en') + " - " + ui.values[1].toLocaleString('en'));
+        }
+    });
+    $("#txtDP05_0038E").val($("#slider-range-DP05_0038E").slider("values", 0).toLocaleString('en') +
+        " - " + $("#slider-range-DP05_0038E").slider("values", 1).toLocaleString('en'));
+
+    $("#slider-range-DP05_0039E").slider({
+        range: true,
+        min: 0,
+        max: maxDP05_0039E,
+        values: [0, maxDP05_0039E],
+        slide: function (event, ui) {
+            $("#txtDP05_0039E").val(ui.values[0].toLocaleString('en') + " - " + ui.values[1].toLocaleString('en'));
+        }
+    });
+    $("#txtDP05_0039E").val($("#slider-range-DP05_0039E").slider("values", 0).toLocaleString('en') +
+        " - " + $("#slider-range-DP05_0039E").slider("values", 1).toLocaleString('en'));
+
+    $("#slider-range-DP05_0044E").slider({
+        range: true,
+        min: 0,
+        max: maxDP05_0044E,
+        values: [0, maxDP05_0044E],
+        slide: function (event, ui) {
+            $("#txtDP05_0044E").val(ui.values[0].toLocaleString('en') + " - " + ui.values[1].toLocaleString('en'));
+        }
+    });
+    $("#txtDP05_0044E").val($("#slider-range-DP05_0044E").slider("values", 0).toLocaleString('en') +
+        " - " + $("#slider-range-DP05_0044E").slider("values", 1).toLocaleString('en'));
+
+    $("#slider-range-DP05_0045E").slider({
+        range: true,
+        min: 0,
+        max: maxDP05_0045E,
+        values: [0, maxDP05_0045E],
+        slide: function (event, ui) {
+            $("#txtDP05_0045E").val(ui.values[0].toLocaleString('en') + " - " + ui.values[1].toLocaleString('en'));
+        }
+    });
+    $("#txtDP05_0045E").val($("#slider-range-DP05_0045E").slider("values", 0).toLocaleString('en') +
+        " - " + $("#slider-range-DP05_0045E").slider("values", 1).toLocaleString('en'));
+
+    $("#slider-range-DP05_0046E").slider({
+        range: true,
+        min: 0,
+        max: maxDP05_0046E,
+        values: [0, maxDP05_0046E],
+        slide: function (event, ui) {
+            $("#txtDP05_0046E").val(ui.values[0].toLocaleString('en') + " - " + ui.values[1].toLocaleString('en'));
+        }
+    });
+    $("#txtDP05_0046E").val($("#slider-range-DP05_0046E").slider("values", 0).toLocaleString('en') +
+        " - " + $("#slider-range-DP05_0046E").slider("values", 1).toLocaleString('en'));
+
+    $("#slider-range-DP05_0047E").slider({
+        range: true,
+        min: 0,
+        max: maxDP05_0047E,
+        values: [0, maxDP05_0047E],
+        slide: function (event, ui) {
+            $("#txtDP05_0047E").val(ui.values[0].toLocaleString('en') + " - " + ui.values[1].toLocaleString('en'));
+        }
+    });
+    $("#txtDP05_0047E").val($("#slider-range-DP05_0047E").slider("values", 0).toLocaleString('en') +
+        " - " + $("#slider-range-DP05_0047E").slider("values", 1).toLocaleString('en'));
+
+    $("#slider-range-DP05_0048E").slider({
+        range: true,
+        min: 0,
+        max: maxDP05_0048E,
+        values: [0, maxDP05_0048E],
+        slide: function (event, ui) {
+            $("#txtDP05_0048E").val(ui.values[0].toLocaleString('en') + " - " + ui.values[1].toLocaleString('en'));
+        }
+    });
+    $("#txtDP05_0048E").val($("#slider-range-DP05_0048E").slider("values", 0).toLocaleString('en') +
+        " - " + $("#slider-range-DP05_0048E").slider("values", 1).toLocaleString('en'));
+
+    $("#slider-range-DP05_0049E").slider({
+        range: true,
+        min: 0,
+        max: maxDP05_0049E,
+        values: [0, maxDP05_0049E],
+        slide: function (event, ui) {
+            $("#txtDP05_0049E").val(ui.values[0].toLocaleString('en') + " - " + ui.values[1].toLocaleString('en'));
+        }
+    });
+    $("#txtDP05_0049E").val($("#slider-range-DP05_0049E").slider("values", 0).toLocaleString('en') +
+        " - " + $("#slider-range-DP05_0049E").slider("values", 1).toLocaleString('en'));
+
+    $("#slider-range-DP05_0050E").slider({
+        range: true,
+        min: 0,
+        max: maxDP05_0050E,
+        values: [0, maxDP05_0050E],
+        slide: function (event, ui) {
+            $("#txtDP05_0050E").val(ui.values[0].toLocaleString('en') + " - " + ui.values[1].toLocaleString('en'));
+        }
+    });
+    $("#txtDP05_0050E").val($("#slider-range-DP05_0050E").slider("values", 0).toLocaleString('en') +
+        " - " + $("#slider-range-DP05_0050E").slider("values", 1).toLocaleString('en'));
+
+    $("#slider-range-DP05_0052E").slider({
+        range: true,
+        min: 0,
+        max: maxDP05_0052E,
+        values: [0, maxDP05_0052E],
+        slide: function (event, ui) {
+            $("#txtDP05_0052E").val(ui.values[0].toLocaleString('en') + " - " + ui.values[1].toLocaleString('en'));
+        }
+    });
+    $("#txtDP05_0052E").val($("#slider-range-DP05_0052E").slider("values", 0).toLocaleString('en') +
+        " - " + $("#slider-range-DP05_0052E").slider("values", 1).toLocaleString('en'));
+
+    $("#slider-range-DP05_0071E").slider({
+        range: true,
+        min: 0,
+        max: maxDP05_0071E,
+        values: [0, maxDP05_0071E],
+        slide: function (event, ui) {
+            $("#txtDP05_0071E").val(ui.values[0].toLocaleString('en') + " - " + ui.values[1].toLocaleString('en'));
+        }
+    });
+    $("#txtDP05_0071E").val($("#slider-range-DP05_0071E").slider("values", 0).toLocaleString('en') +
+        " - " + $("#slider-range-DP05_0071E").slider("values", 1).toLocaleString('en'));
 
     $("#slider-range-DP02_0001E").slider({
         range: true,
@@ -2305,6 +2462,162 @@ $(function () {
     });
     $("#txtDP05_0016PE").val($("#slider-range-DP05_0016PE").slider("values", 0).toLocaleString('en') +
         "% - " + $("#slider-range-DP05_0016PE").slider("values", 1).toLocaleString('en') + "%");
+    
+    $("#slider-range-DP05_0037PE").slider({
+        range: true,
+        min: minDP05_0037PE,
+        max: maxDP05_0037PE,
+        step: 0.1,
+        values: [minDP05_0037PE, maxDP05_0037PE],
+        slide: function (event, ui) {
+            $("#txtDP05_0037PE").val(ui.values[0].toLocaleString('en') + "% - " + ui.values[1].toLocaleString('en') + "%");
+        }
+    });
+    $("#txtDP05_0037PE").val($("#slider-range-DP05_0037PE").slider("values", 0).toLocaleString('en') +
+        "% - " + $("#slider-range-DP05_0037PE").slider("values", 1).toLocaleString('en') + "%");
+
+    $("#slider-range-DP05_0038PE").slider({
+        range: true,
+        min: minDP05_0038PE,
+        max: maxDP05_0038PE,
+        step: 0.1,
+        values: [minDP05_0038PE, maxDP05_0038PE],
+        slide: function (event, ui) {
+            $("#txtDP05_0038PE").val(ui.values[0].toLocaleString('en') + "% - " + ui.values[1].toLocaleString('en') + "%");
+        }
+    });
+    $("#txtDP05_0038PE").val($("#slider-range-DP05_0038PE").slider("values", 0).toLocaleString('en') +
+        "% - " + $("#slider-range-DP05_0038PE").slider("values", 1).toLocaleString('en') + "%");
+
+    $("#slider-range-DP05_0039PE").slider({
+        range: true,
+        min: minDP05_0039PE,
+        max: maxDP05_0039PE,
+        step: 0.1,
+        values: [minDP05_0039PE, maxDP05_0039PE],
+        slide: function (event, ui) {
+            $("#txtDP05_0039PE").val(ui.values[0].toLocaleString('en') + "% - " + ui.values[1].toLocaleString('en') + "%");
+        }
+    });
+    $("#txtDP05_0039PE").val($("#slider-range-DP05_0039PE").slider("values", 0).toLocaleString('en') +
+        "% - " + $("#slider-range-DP05_0039PE").slider("values", 1).toLocaleString('en') + "%");
+
+    $("#slider-range-DP05_0044PE").slider({
+        range: true,
+        min: minDP05_0044PE,
+        max: maxDP05_0044PE,
+        step: 0.1,
+        values: [minDP05_0044PE, maxDP05_0044PE],
+        slide: function (event, ui) {
+            $("#txtDP05_0044PE").val(ui.values[0].toLocaleString('en') + "% - " + ui.values[1].toLocaleString('en') + "%");
+        }
+    });
+    $("#txtDP05_0044PE").val($("#slider-range-DP05_0044PE").slider("values", 0).toLocaleString('en') +
+        "% - " + $("#slider-range-DP05_0044PE").slider("values", 1).toLocaleString('en') + "%");
+
+    $("#slider-range-DP05_0045PE").slider({
+        range: true,
+        min: minDP05_0045PE,
+        max: maxDP05_0045PE,
+        step: 0.1,
+        values: [minDP05_0045PE, maxDP05_0045PE],
+        slide: function (event, ui) {
+            $("#txtDP05_0045PE").val(ui.values[0].toLocaleString('en') + "% - " + ui.values[1].toLocaleString('en') + "%");
+        }
+    });
+    $("#txtDP05_0045PE").val($("#slider-range-DP05_0045PE").slider("values", 0).toLocaleString('en') +
+        "% - " + $("#slider-range-DP05_0045PE").slider("values", 1).toLocaleString('en') + "%");
+
+    $("#slider-range-DP05_0046PE").slider({
+        range: true,
+        min: minDP05_0046PE,
+        max: maxDP05_0046PE,
+        step: 0.1,
+        values: [minDP05_0046PE, maxDP05_0046PE],
+        slide: function (event, ui) {
+            $("#txtDP05_0046PE").val(ui.values[0].toLocaleString('en') + "% - " + ui.values[1].toLocaleString('en') + "%");
+        }
+    });
+    $("#txtDP05_0046PE").val($("#slider-range-DP05_0046PE").slider("values", 0).toLocaleString('en') +
+        "% - " + $("#slider-range-DP05_0046PE").slider("values", 1).toLocaleString('en') + "%");
+
+    $("#slider-range-DP05_0047PE").slider({
+        range: true,
+        min: minDP05_0047PE,
+        max: maxDP05_0047PE,
+        step: 0.1,
+        values: [minDP05_0047PE, maxDP05_0047PE],
+        slide: function (event, ui) {
+            $("#txtDP05_0047PE").val(ui.values[0].toLocaleString('en') + "% - " + ui.values[1].toLocaleString('en') + "%");
+        }
+    });
+    $("#txtDP05_0047PE").val($("#slider-range-DP05_0047PE").slider("values", 0).toLocaleString('en') +
+        "% - " + $("#slider-range-DP05_0047PE").slider("values", 1).toLocaleString('en') + "%");
+
+    $("#slider-range-DP05_0048PE").slider({
+        range: true,
+        min: minDP05_0048PE,
+        max: maxDP05_0048PE,
+        step: 0.1,
+        values: [minDP05_0048PE, maxDP05_0048PE],
+        slide: function (event, ui) {
+            $("#txtDP05_0048PE").val(ui.values[0].toLocaleString('en') + "% - " + ui.values[1].toLocaleString('en') + "%");
+        }
+    });
+    $("#txtDP05_0048PE").val($("#slider-range-DP05_0048PE").slider("values", 0).toLocaleString('en') +
+        "% - " + $("#slider-range-DP05_0048PE").slider("values", 1).toLocaleString('en') + "%");
+
+    $("#slider-range-DP05_0049PE").slider({
+        range: true,
+        min: minDP05_0049PE,
+        max: maxDP05_0049PE,
+        step: 0.1,
+        values: [minDP05_0049PE, maxDP05_0049PE],
+        slide: function (event, ui) {
+            $("#txtDP05_0049PE").val(ui.values[0].toLocaleString('en') + "% - " + ui.values[1].toLocaleString('en') + "%");
+        }
+    });
+    $("#txtDP05_0049PE").val($("#slider-range-DP05_0049PE").slider("values", 0).toLocaleString('en') +
+        "% - " + $("#slider-range-DP05_0049PE").slider("values", 1).toLocaleString('en') + "%");
+
+    $("#slider-range-DP05_0050PE").slider({
+        range: true,
+        min: minDP05_0050PE,
+        max: maxDP05_0050PE,
+        step: 0.1,
+        values: [minDP05_0050PE, maxDP05_0050PE],
+        slide: function (event, ui) {
+            $("#txtDP05_0050PE").val(ui.values[0].toLocaleString('en') + "% - " + ui.values[1].toLocaleString('en') + "%");
+        }
+    });
+    $("#txtDP05_0050PE").val($("#slider-range-DP05_0050PE").slider("values", 0).toLocaleString('en') +
+        "% - " + $("#slider-range-DP05_0050PE").slider("values", 1).toLocaleString('en') + "%");
+
+    $("#slider-range-DP05_0052PE").slider({
+        range: true,
+        min: minDP05_0052PE,
+        max: maxDP05_0052PE,
+        step: 0.1,
+        values: [minDP05_0052PE, maxDP05_0052PE],
+        slide: function (event, ui) {
+            $("#txtDP05_0052PE").val(ui.values[0].toLocaleString('en') + "% - " + ui.values[1].toLocaleString('en') + "%");
+        }
+    });
+    $("#txtDP05_0052PE").val($("#slider-range-DP05_0052PE").slider("values", 0).toLocaleString('en') +
+        "% - " + $("#slider-range-DP05_0052PE").slider("values", 1).toLocaleString('en') + "%");
+
+    $("#slider-range-DP05_0071PE").slider({
+        range: true,
+        min: minDP05_0071PE,
+        max: maxDP05_0071PE,
+        step: 0.1,
+        values: [minDP05_0071PE, maxDP05_0071PE],
+        slide: function (event, ui) {
+            $("#txtDP05_0071PE").val(ui.values[0].toLocaleString('en') + "% - " + ui.values[1].toLocaleString('en') + "%");
+        }
+    });
+    $("#txtDP05_0071PE").val($("#slider-range-DP05_0071PE").slider("values", 0).toLocaleString('en') +
+        "% - " + $("#slider-range-DP05_0071PE").slider("values", 1).toLocaleString('en') + "%");
 
     $("#slider-range-DP02_0002PE").slider({
         range: true,
@@ -4090,6 +4403,71 @@ function btnResetCP() {
     $("#slider-range-DP05_0016E").slider("values", 1, maxDP05_0016E);
     $("#txtDP05_0016E").val($("#slider-range-DP05_0016E").slider("values", 0) + " - " + $("#slider-range-DP05_0016E").slider("values", 1).toLocaleString('en'));
 
+    document.getElementById("cbDP05_0036E").checked = false;
+    $("#slider-range-DP05_0036E").slider("values", 0, 0);
+    $("#slider-range-DP05_0036E").slider("values", 1, maxDP05_0036E);
+    $("#txtDP05_0036E").val($("#slider-range-DP05_0036E").slider("values", 0) + " - " + $("#slider-range-DP05_0036E").slider("values", 1).toLocaleString('en'));
+
+    document.getElementById("cbDP05_0037E").checked = false;
+    $("#slider-range-DP05_0037E").slider("values", 0, 0);
+    $("#slider-range-DP05_0037E").slider("values", 1, maxDP05_0037E);
+    $("#txtDP05_0037E").val($("#slider-range-DP05_0037E").slider("values", 0) + " - " + $("#slider-range-DP05_0037E").slider("values", 1).toLocaleString('en'));
+
+    document.getElementById("cbDP05_0038E").checked = false;
+    $("#slider-range-DP05_0038E").slider("values", 0, 0);
+    $("#slider-range-DP05_0038E").slider("values", 1, maxDP05_0038E);
+    $("#txtDP05_0038E").val($("#slider-range-DP05_0038E").slider("values", 0) + " - " + $("#slider-range-DP05_0038E").slider("values", 1).toLocaleString('en'));
+
+    document.getElementById("cbDP05_0039E").checked = false;
+    $("#slider-range-DP05_0039E").slider("values", 0, 0);
+    $("#slider-range-DP05_0039E").slider("values", 1, maxDP05_0039E);
+    $("#txtDP05_0039E").val($("#slider-range-DP05_0039E").slider("values", 0) + " - " + $("#slider-range-DP05_0039E").slider("values", 1).toLocaleString('en'));
+
+    document.getElementById("cbDP05_0044E").checked = false;
+    $("#slider-range-DP05_0044E").slider("values", 0, 0);
+    $("#slider-range-DP05_0044E").slider("values", 1, maxDP05_0044E);
+    $("#txtDP05_0044E").val($("#slider-range-DP05_0044E").slider("values", 0) + " - " + $("#slider-range-DP05_0044E").slider("values", 1).toLocaleString('en'));
+
+    document.getElementById("cbDP05_0045E").checked = false;
+    $("#slider-range-DP05_0045E").slider("values", 0, 0);
+    $("#slider-range-DP05_0045E").slider("values", 1, maxDP05_0045E);
+    $("#txtDP05_0045E").val($("#slider-range-DP05_0045E").slider("values", 0) + " - " + $("#slider-range-DP05_0045E").slider("values", 1).toLocaleString('en'));
+
+    document.getElementById("cbDP05_0046E").checked = false;
+    $("#slider-range-DP05_0046E").slider("values", 0, 0);
+    $("#slider-range-DP05_0046E").slider("values", 1, maxDP05_0046E);
+    $("#txtDP05_0046E").val($("#slider-range-DP05_0046E").slider("values", 0) + " - " + $("#slider-range-DP05_0046E").slider("values", 1).toLocaleString('en'));
+
+    document.getElementById("cbDP05_0047E").checked = false;
+    $("#slider-range-DP05_0047E").slider("values", 0, 0);
+    $("#slider-range-DP05_0047E").slider("values", 1, maxDP05_0047E);
+    $("#txtDP05_0047E").val($("#slider-range-DP05_0047E").slider("values", 0) + " - " + $("#slider-range-DP05_0047E").slider("values", 1).toLocaleString('en'));
+
+    document.getElementById("cbDP05_0048E").checked = false;
+    $("#slider-range-DP05_0048E").slider("values", 0, 0);
+    $("#slider-range-DP05_0048E").slider("values", 1, maxDP05_0048E);
+    $("#txtDP05_0048E").val($("#slider-range-DP05_0048E").slider("values", 0) + " - " + $("#slider-range-DP05_0048E").slider("values", 1).toLocaleString('en'));
+
+    document.getElementById("cbDP05_0049E").checked = false;
+    $("#slider-range-DP05_0049E").slider("values", 0, 0);
+    $("#slider-range-DP05_0049E").slider("values", 1, maxDP05_0049E);
+    $("#txtDP05_0049E").val($("#slider-range-DP05_0049E").slider("values", 0) + " - " + $("#slider-range-DP05_0049E").slider("values", 1).toLocaleString('en'));
+
+    document.getElementById("cbDP05_0050E").checked = false;
+    $("#slider-range-DP05_0050E").slider("values", 0, 0);
+    $("#slider-range-DP05_0050E").slider("values", 1, maxDP05_0050E);
+    $("#txtDP05_0050E").val($("#slider-range-DP05_0050E").slider("values", 0) + " - " + $("#slider-range-DP05_0050E").slider("values", 1).toLocaleString('en'));
+
+    document.getElementById("cbDP05_0052E").checked = false;
+    $("#slider-range-DP05_0052E").slider("values", 0, 0);
+    $("#slider-range-DP05_0052E").slider("values", 1, maxDP05_0052E);
+    $("#txtDP05_0052E").val($("#slider-range-DP05_0052E").slider("values", 0) + " - " + $("#slider-range-DP05_0052E").slider("values", 1).toLocaleString('en'));
+
+    document.getElementById("cbDP05_0071E").checked = false;
+    $("#slider-range-DP05_0071E").slider("values", 0, 0);
+    $("#slider-range-DP05_0071E").slider("values", 1, maxDP05_0071E);
+    $("#txtDP05_0071E").val($("#slider-range-DP05_0071E").slider("values", 0) + " - " + $("#slider-range-DP05_0071E").slider("values", 1).toLocaleString('en'));
+
     document.getElementById("cbDP02_0001E").checked = false;
     $("#slider-range-DP02_0001E").slider("values", 0, 0);
     $("#slider-range-DP02_0001E").slider("values", 1, maxDP02_0001E);
@@ -4969,6 +5347,66 @@ function btnResetCP() {
     $("#slider-range-DP05_0016PE").slider("values", 0, minDP05_0016PE);
     $("#slider-range-DP05_0016PE").slider("values", 1, maxDP05_0016PE);
     $("#txtDP05_0016PE").val($("#slider-range-DP05_0016PE").slider("values", 0) + " - " + $("#slider-range-DP05_0016PE").slider("values", 1).toLocaleString('en'));
+    
+    document.getElementById("cbDP05_0037PE").checked = false;
+    $("#slider-range-DP05_0037PE").slider("values", 0, minDP05_0037PE);
+    $("#slider-range-DP05_0037PE").slider("values", 1, maxDP05_0037PE);
+    $("#txtDP05_0037PE").val($("#slider-range-DP05_0037PE").slider("values", 0) + " - " + $("#slider-range-DP05_0037PE").slider("values", 1).toLocaleString('en'));
+
+    document.getElementById("cbDP05_0038PE").checked = false;
+    $("#slider-range-DP05_0038PE").slider("values", 0, minDP05_0038PE);
+    $("#slider-range-DP05_0038PE").slider("values", 1, maxDP05_0038PE);
+    $("#txtDP05_0038PE").val($("#slider-range-DP05_0038PE").slider("values", 0) + " - " + $("#slider-range-DP05_0038PE").slider("values", 1).toLocaleString('en'));
+
+    document.getElementById("cbDP05_0039PE").checked = false;
+    $("#slider-range-DP05_0039PE").slider("values", 0, minDP05_0039PE);
+    $("#slider-range-DP05_0039PE").slider("values", 1, maxDP05_0039PE);
+    $("#txtDP05_0039PE").val($("#slider-range-DP05_0039PE").slider("values", 0) + " - " + $("#slider-range-DP05_0039PE").slider("values", 1).toLocaleString('en'));
+
+    document.getElementById("cbDP05_0044PE").checked = false;
+    $("#slider-range-DP05_0044PE").slider("values", 0, minDP05_0044PE);
+    $("#slider-range-DP05_0044PE").slider("values", 1, maxDP05_0044PE);
+    $("#txtDP05_0044PE").val($("#slider-range-DP05_0044PE").slider("values", 0) + " - " + $("#slider-range-DP05_0044PE").slider("values", 1).toLocaleString('en'));
+
+    document.getElementById("cbDP05_0045PE").checked = false;
+    $("#slider-range-DP05_0045PE").slider("values", 0, minDP05_0045PE);
+    $("#slider-range-DP05_0045PE").slider("values", 1, maxDP05_0045PE);
+    $("#txtDP05_0045PE").val($("#slider-range-DP05_0045PE").slider("values", 0) + " - " + $("#slider-range-DP05_0045PE").slider("values", 1).toLocaleString('en'));
+
+    document.getElementById("cbDP05_0046PE").checked = false;
+    $("#slider-range-DP05_0046PE").slider("values", 0, minDP05_0046PE);
+    $("#slider-range-DP05_0046PE").slider("values", 1, maxDP05_0046PE);
+    $("#txtDP05_0046PE").val($("#slider-range-DP05_0046PE").slider("values", 0) + " - " + $("#slider-range-DP05_0046PE").slider("values", 1).toLocaleString('en'));
+
+    document.getElementById("cbDP05_0047PE").checked = false;
+    $("#slider-range-DP05_0047PE").slider("values", 0, minDP05_0047PE);
+    $("#slider-range-DP05_0047PE").slider("values", 1, maxDP05_0047PE);
+    $("#txtDP05_0047PE").val($("#slider-range-DP05_0047PE").slider("values", 0) + " - " + $("#slider-range-DP05_0047PE").slider("values", 1).toLocaleString('en'));
+
+    document.getElementById("cbDP05_0048PE").checked = false;
+    $("#slider-range-DP05_0048PE").slider("values", 0, minDP05_0048PE);
+    $("#slider-range-DP05_0048PE").slider("values", 1, maxDP05_0048PE);
+    $("#txtDP05_0048PE").val($("#slider-range-DP05_0048PE").slider("values", 0) + " - " + $("#slider-range-DP05_0048PE").slider("values", 1).toLocaleString('en'));
+
+    document.getElementById("cbDP05_0049PE").checked = false;
+    $("#slider-range-DP05_0049PE").slider("values", 0, minDP05_0049PE);
+    $("#slider-range-DP05_0049PE").slider("values", 1, maxDP05_0049PE);
+    $("#txtDP05_0049PE").val($("#slider-range-DP05_0049PE").slider("values", 0) + " - " + $("#slider-range-DP05_0049PE").slider("values", 1).toLocaleString('en'));
+
+    document.getElementById("cbDP05_0050PE").checked = false;
+    $("#slider-range-DP05_0050PE").slider("values", 0, minDP05_0050PE);
+    $("#slider-range-DP05_0050PE").slider("values", 1, maxDP05_0050PE);
+    $("#txtDP05_0050PE").val($("#slider-range-DP05_0050PE").slider("values", 0) + " - " + $("#slider-range-DP05_0050PE").slider("values", 1).toLocaleString('en'));
+
+    document.getElementById("cbDP05_0052PE").checked = false;
+    $("#slider-range-DP05_0052PE").slider("values", 0, minDP05_0052PE);
+    $("#slider-range-DP05_0052PE").slider("values", 1, maxDP05_0052PE);
+    $("#txtDP05_0052PE").val($("#slider-range-DP05_0052PE").slider("values", 0) + " - " + $("#slider-range-DP05_0052PE").slider("values", 1).toLocaleString('en'));
+
+    document.getElementById("cbDP05_0071PE").checked = false;
+    $("#slider-range-DP05_0071PE").slider("values", 0, minDP05_0071PE);
+    $("#slider-range-DP05_0071PE").slider("values", 1, maxDP05_0071PE);
+    $("#txtDP05_0071PE").val($("#slider-range-DP05_0071PE").slider("values", 0) + " - " + $("#slider-range-DP05_0071PE").slider("values", 1).toLocaleString('en'));
 
     document.getElementById("cbDP02_0002PE").checked = false;
     $("#slider-range-DP02_0002PE").slider("values", 0, minDP02_0002PE);
@@ -5720,6 +6158,7 @@ function CreateSearch(whereClauseCP) {
     var BoroughCP = null, DP05_0001EStart = null, DP05_0001EEnd = null, DP05_0002EStart = null, DP05_0002EEnd = null, DP05_0003EStart = null, DP05_0003EEnd = null, DP05_0004EStart = null, DP05_0004EEnd = null
         , DP05_0009EStart = null, DP05_0009EEnd = null, DP05_0010EStart = null, DP05_0010EEnd = null, DP05_0011EStart = null, DP05_0011EEnd = null, DP05_0012EStart = null, DP05_0012EEnd = null
         , DP05_0013EStart = null, DP05_0013EEnd = null, DP05_0014EStart = null, DP05_0014EEnd = null, DP05_0015EStart = null, DP05_0015EEnd = null, DP05_0016EStart = null, DP05_0016EEnd = null
+        , DP05_0036EStart = null, DP05_0036EEnd = null, DP05_0037EStart = null, DP05_0037EEnd = null, DP05_0038EStart = null, DP05_0038EEnd = null, DP05_0039EStart = null, DP05_0039EEnd = null, DP05_0044EStart = null, DP05_0044EEnd = null, DP05_0045EStart = null, DP05_0045EEnd = null, DP05_0046EStart = null, DP05_0046EEnd = null, DP05_0047EStart = null, DP05_0047EEnd = null, DP05_0048EStart = null, DP05_0048EEnd = null, DP05_0049EStart = null, DP05_0049EEnd = null, DP05_0050EStart = null, DP05_0050EEnd = null, DP05_0052EStart = null, DP05_0052EEnd = null, DP05_0071EStart = null, DP05_0071EEnd = null
         , DP02_0001EStart = null, DP02_0001EEnd = null, DP02_0002EStart = null, DP02_0002EEnd = null, DP02_0003EStart = null, DP02_0003EEnd = null, DP02_0006EStart = null, DP02_0006EEnd = null
         , DP02_0008EStart = null, DP02_0008EEnd = null, DP02_0010EStart = null, DP02_0010EEnd = null, DP02_0011EStart = null, DP02_0011EEnd = null, DP02_0012EStart = null, DP02_0012EEnd = null
         , DP02_0024EStart = null, DP02_0024EEnd = null, DP02_0025EStart = null, DP02_0025EEnd = null, DP02_0026EStart = null, DP02_0026EEnd = null, DP02_0027EStart = null, DP02_0027EEnd = null, DP02_0028EStart = null, DP02_0028EEnd = null, DP02_0029EStart = null, DP02_0029EEnd = null
@@ -5743,6 +6182,7 @@ function CreateSearch(whereClauseCP) {
         , DP04_0126EStart = null, DP04_0126EEnd = null, DP04_0127EStart = null, DP04_0127EEnd = null, DP04_0128EStart = null, DP04_0128EEnd = null, DP04_0129EStart = null, DP04_0129EEnd = null, DP04_0130EStart = null, DP04_0130EEnd = null, DP04_0131EStart = null, DP04_0131EEnd = null, DP04_0132EStart = null, DP04_0132EEnd = null, DP04_0133EStart = null, DP04_0133EEnd = null
         , DP04_0134EStart = null, DP04_0134EEnd = null, DP04_0136EStart = null, DP04_0136EEnd = null, DP04_0137EStart = null, DP04_0137EEnd = null, DP04_0138EStart = null, DP04_0138EEnd = null, DP04_0139EStart = null, DP04_0139EEnd = null, DP04_0140EStart = null, DP04_0140EEnd = null, DP04_0141EStart = null, DP04_0141EEnd = null, DP04_0142EStart = null, DP04_0142EEnd = null;
     var DP05_0002PEStart = null, DP05_0002PEEnd = null, DP05_0003PEStart = null, DP05_0003PEEnd = null, DP05_0009PEStart = null, DP05_0009PEEnd = null, DP05_0010PEStart = null, DP05_0010PEEnd = null, DP05_0011PEStart = null, DP05_0011PEEnd = null, DP05_0012PEStart = null, DP05_0012PEEnd = null, DP05_0013PEStart = null, DP05_0013PEEnd = null, DP05_0014PEStart = null, DP05_0014PEEnd = null, DP05_0015PEStart = null, DP05_0015PEEnd = null, DP05_0016PEStart = null, DP05_0016PEEnd = null
+        , DP05_0037PEStart = null, DP05_0037PEEnd = null, DP05_0038PEStart = null, DP05_0038PEEnd = null, DP05_0039PEStart = null, DP05_0039PEEnd = null, DP05_0044PEStart = null, DP05_0044PEEnd = null, DP05_0045PEStart = null, DP05_0045PEEnd = null, DP05_0046PEStart = null, DP05_0046PEEnd = null, DP05_0047PEStart = null, DP05_0047PEEnd = null, DP05_0048PEStart = null, DP05_0048PEEnd = null, DP05_0049PEStart = null, DP05_0049PEEnd = null, DP05_0050PEStart = null, DP05_0050PEEnd = null, DP05_0052PEStart = null, DP05_0052PEEnd = null, DP05_0071PEStart = null, DP05_0071PEEnd = null
         , DP02_0002PEStart = null, DP02_0002PEEnd = null, DP02_0003PEStart = null, DP02_0003PEEnd = null, DP02_0006PEStart = null, DP02_0006PEEnd = null, DP02_0008PEStart = null, DP02_0008PEEnd = null, DP02_0010PEStart = null, DP02_0010PEEnd = null, DP02_0011PEStart = null, DP02_0011PEEnd = null, DP02_0012PEStart = null, DP02_0012PEEnd = null
         , DP02_0025PEStart = null, DP02_0025PEEnd = null, DP02_0026PEStart = null, DP02_0026PEEnd = null, DP02_0027PEStart = null, DP02_0027PEEnd = null, DP02_0028PEStart = null, DP02_0028PEEnd = null, DP02_0029PEStart = null, DP02_0029PEEnd = null, DP02_0031PEStart = null, DP02_0031PEEnd = null, DP02_0032PEStart = null, DP02_0032PEEnd = null, DP02_0033PEStart = null, DP02_0033PEEnd = null, DP02_0034PEStart = null, DP02_0034PEEnd = null, DP02_0035PEStart = null, DP02_0035PEEnd = null
         , DP02_0053PEStart = null, DP02_0053PEEnd = null, DP02_0054PEStart = null, DP02_0054PEEnd = null, DP02_0055PEStart = null, DP02_0055PEEnd = null, DP02_0056PEStart = null, DP02_0056PEEnd = null, DP02_0057PEStart = null, DP02_0057PEEnd = null
@@ -5904,6 +6344,149 @@ function CreateSearch(whereClauseCP) {
             whereClauseCP += " AND DP05_0016E >= " + DP05_0016EStart + " AND DP05_0016E <= " + DP05_0016EEnd;
         }
         searchedDemographics += "<br /> 75 to 84 years between " + DP05_0016EStart + " and " + DP05_0016EEnd;
+    }
+    if (document.getElementById("cbDP05_0036E").checked == true) {
+        DP05_0036EStart = $("#slider-range-DP05_0036E").slider("values", 0);
+        DP05_0036EEnd = $("#slider-range-DP05_0036E").slider("values", 1);
+        if (whereClauseCP == "") {
+            whereClauseCP = "DP05_0036E >= " + DP05_0036EStart + " AND DP05_0036E <= " + DP05_0036EEnd;
+        }
+        else {
+            whereClauseCP += " AND DP05_0036E >= " + DP05_0036EStart + " AND DP05_0036E <= " + DP05_0036EEnd;
+        }
+        searchedDemographics += "<br /> Total Race Identified between " + DP05_0036EStart + " and " + DP05_0036EEnd;
+    }
+    if (document.getElementById("cbDP05_0037E").checked == true) {
+        DP05_0037EStart = $("#slider-range-DP05_0037E").slider("values", 0);
+        DP05_0037EEnd = $("#slider-range-DP05_0037E").slider("values", 1);
+        if (whereClauseCP == "") {
+            whereClauseCP = "DP05_0037E >= " + DP05_0037EStart + " AND DP05_0037E <= " + DP05_0037EEnd;
+        }
+        else {
+            whereClauseCP += " AND DP05_0037E >= " + DP05_0037EStart + " AND DP05_0037E <= " + DP05_0037EEnd;
+        }
+        searchedDemographics += "<br /> White between " + DP05_0037EStart + " and " + DP05_0037EEnd;
+    }
+    if (document.getElementById("cbDP05_0038E").checked == true) {
+        DP05_0038EStart = $("#slider-range-DP05_0038E").slider("values", 0);
+        DP05_0038EEnd = $("#slider-range-DP05_0038E").slider("values", 1);
+        if (whereClauseCP == "") {
+            whereClauseCP = "DP05_0038E >= " + DP05_0038EStart + " AND DP05_0038E <= " + DP05_0038EEnd;
+        }
+        else {
+            whereClauseCP += " AND DP05_0038E >= " + DP05_0038EStart + " AND DP05_0038E <= " + DP05_0038EEnd;
+        }
+        searchedDemographics += "<br /> Black or African American between " + DP05_0038EStart + " and " + DP05_0038EEnd;
+    }
+    if (document.getElementById("cbDP05_0039E").checked == true) {
+        DP05_0039EStart = $("#slider-range-DP05_0039E").slider("values", 0);
+        DP05_0039EEnd = $("#slider-range-DP05_0039E").slider("values", 1);
+        if (whereClauseCP == "") {
+            whereClauseCP = "DP05_0039E >= " + DP05_0039EStart + " AND DP05_0039E <= " + DP05_0039EEnd;
+        }
+        else {
+            whereClauseCP += " AND DP05_0039E >= " + DP05_0039EStart + " AND DP05_0039E <= " + DP05_0039EEnd;
+        }
+        searchedDemographics += "<br /> American Indian and Alaska Native between " + DP05_0039EStart + " and " + DP05_0039EEnd;
+    }
+    if (document.getElementById("cbDP05_0044E").checked == true) {
+        DP05_0044EStart = $("#slider-range-DP05_0044E").slider("values", 0);
+        DP05_0044EEnd = $("#slider-range-DP05_0044E").slider("values", 1);
+        if (whereClauseCP == "") {
+            whereClauseCP = "DP05_0044E >= " + DP05_0044EStart + " AND DP05_0044E <= " + DP05_0044EEnd;
+        }
+        else {
+            whereClauseCP += " AND DP05_0044E >= " + DP05_0044EStart + " AND DP05_0044E <= " + DP05_0044EEnd;
+        }
+        searchedDemographics += "<br /> Asian between " + DP05_0044EStart + " and " + DP05_0044EEnd;
+    }
+    if (document.getElementById("cbDP05_0045E").checked == true) {
+        DP05_0045EStart = $("#slider-range-DP05_0045E").slider("values", 0);
+        DP05_0045EEnd = $("#slider-range-DP05_0045E").slider("values", 1);
+        if (whereClauseCP == "") {
+            whereClauseCP = "DP05_0045E >= " + DP05_0045EStart + " AND DP05_0045E <= " + DP05_0045EEnd;
+        }
+        else {
+            whereClauseCP += " AND DP05_0045E >= " + DP05_0045EStart + " AND DP05_0045E <= " + DP05_0045EEnd;
+        }
+        searchedDemographics += "<br /> Asian Indian between " + DP05_0045EStart + " and " + DP05_0045EEnd;
+    }
+    if (document.getElementById("cbDP05_0046E").checked == true) {
+        DP05_0046EStart = $("#slider-range-DP05_0046E").slider("values", 0);
+        DP05_0046EEnd = $("#slider-range-DP05_0046E").slider("values", 1);
+        if (whereClauseCP == "") {
+            whereClauseCP = "DP05_0046E >= " + DP05_0046EStart + " AND DP05_0046E <= " + DP05_0046EEnd;
+        }
+        else {
+            whereClauseCP += " AND DP05_0046E >= " + DP05_0046EStart + " AND DP05_0046E <= " + DP05_0046EEnd;
+        }
+        searchedDemographics += "<br /> Chinese between " + DP05_0046EStart + " and " + DP05_0046EEnd;
+    }
+    if (document.getElementById("cbDP05_0047E").checked == true) {
+        DP05_0047EStart = $("#slider-range-DP05_0047E").slider("values", 0);
+        DP05_0047EEnd = $("#slider-range-DP05_0047E").slider("values", 1);
+        if (whereClauseCP == "") {
+            whereClauseCP = "DP05_0047E >= " + DP05_0047EStart + " AND DP05_0047E <= " + DP05_0047EEnd;
+        }
+        else {
+            whereClauseCP += " AND DP05_0047E >= " + DP05_0047EStart + " AND DP05_0047E <= " + DP05_0047EEnd;
+        }
+        searchedDemographics += "<br /> Filipino between " + DP05_0047EStart + " and " + DP05_0047EEnd;
+    }
+    if (document.getElementById("cbDP05_0048E").checked == true) {
+        DP05_0048EStart = $("#slider-range-DP05_0048E").slider("values", 0);
+        DP05_0048EEnd = $("#slider-range-DP05_0048E").slider("values", 1);
+        if (whereClauseCP == "") {
+            whereClauseCP = "DP05_0048E >= " + DP05_0048EStart + " AND DP05_0048E <= " + DP05_0048EEnd;
+        }
+        else {
+            whereClauseCP += " AND DP05_0048E >= " + DP05_0048EStart + " AND DP05_0048E <= " + DP05_0048EEnd;
+        }
+        searchedDemographics += "<br /> Japanese between " + DP05_0048EStart + " and " + DP05_0048EEnd;
+    }
+    if (document.getElementById("cbDP05_0049E").checked == true) {
+        DP05_0049EStart = $("#slider-range-DP05_0049E").slider("values", 0);
+        DP05_0049EEnd = $("#slider-range-DP05_0049E").slider("values", 1);
+        if (whereClauseCP == "") {
+            whereClauseCP = "DP05_0049E >= " + DP05_0049EStart + " AND DP05_0049E <= " + DP05_0049EEnd;
+        }
+        else {
+            whereClauseCP += " AND DP05_0049E >= " + DP05_0049EStart + " AND DP05_0049E <= " + DP05_0049EEnd;
+        }
+        searchedDemographics += "<br /> Korean between " + DP05_0049EStart + " and " + DP05_0049EEnd;
+    }
+    if (document.getElementById("cbDP05_0050E").checked == true) {
+        DP05_0050EStart = $("#slider-range-DP05_0050E").slider("values", 0);
+        DP05_0050EEnd = $("#slider-range-DP05_0050E").slider("values", 1);
+        if (whereClauseCP == "") {
+            whereClauseCP = "DP05_0050E >= " + DP05_0050EStart + " AND DP05_0050E <= " + DP05_0050EEnd;
+        }
+        else {
+            whereClauseCP += " AND DP05_0050E >= " + DP05_0050EStart + " AND DP05_0050E <= " + DP05_0050EEnd;
+        }
+        searchedDemographics += "<br /> Vietnamese between " + DP05_0050EStart + " and " + DP05_0050EEnd;
+    }
+    if (document.getElementById("cbDP05_0052E").checked == true) {
+        DP05_0052EStart = $("#slider-range-DP05_0052E").slider("values", 0);
+        DP05_0052EEnd = $("#slider-range-DP05_0052E").slider("values", 1);
+        if (whereClauseCP == "") {
+            whereClauseCP = "DP05_0052E >= " + DP05_0052EStart + " AND DP05_0052E <= " + DP05_0052EEnd;
+        }
+        else {
+            whereClauseCP += " AND DP05_0052E >= " + DP05_0052EStart + " AND DP05_0052E <= " + DP05_0052EEnd;
+        }
+        searchedDemographics += "<br /> Native Hawaiian and Other Pacific Islander between " + DP05_0052EStart + " and " + DP05_0052EEnd;
+    }
+    if (document.getElementById("cbDP05_0071E").checked == true) {
+        DP05_0071EStart = $("#slider-range-DP05_0071E").slider("values", 0);
+        DP05_0071EEnd = $("#slider-range-DP05_0071E").slider("values", 1);
+        if (whereClauseCP == "") {
+            whereClauseCP = "DP05_0071E >= " + DP05_0071EStart + " AND DP05_0071E <= " + DP05_0071EEnd;
+        }
+        else {
+            whereClauseCP += " AND DP05_0071E >= " + DP05_0071EStart + " AND DP05_0071E <= " + DP05_0071EEnd;
+        }
+        searchedDemographics += "<br /> Hispanic or Latino (of any race) between " + DP05_0071EStart + " and " + DP05_0071EEnd;
     }
     if (document.getElementById("cbDP02_0001E").checked == true) {
         DP02_0001EStart = $("#slider-range-DP02_0001E").slider("values", 0);
@@ -7850,6 +8433,150 @@ function CreateSearch(whereClauseCP) {
             whereClauseCP += " AND DP05_0001E <> 0 AND (CAST(100 AS float) * CAST(DP05_0016E AS float) / CAST(DP05_0001E AS float)) >= " + DP05_0016PEStart + " AND (CAST(100 AS float) * CAST(DP05_0016E AS float) / CAST(DP05_0001E AS float)) <= " + DP05_0016PEEnd;
         }
         searchedDemographics += "<br /> 75 to 84 years between " + DP05_0016PEStart + "% and " + DP05_0016PEEnd + "%";
+    }
+    
+    if (document.getElementById("cbDP05_0037PE").checked == true) {
+        DP05_0037PEStart = $("#slider-range-DP05_0037PE").slider("values", 0);
+        DP05_0037PEEnd = $("#slider-range-DP05_0037PE").slider("values", 1);
+        if (whereClauseCP == "") {
+            whereClauseCP = "DP05_0036E <> 0 AND (CAST(100 AS float) * CAST(DP05_0037E AS float) / CAST(DP05_0036E AS float)) >= " + DP05_0037PEStart + " AND (CAST(100 AS float) * CAST(DP05_0037E AS float) / CAST(DP05_0036E AS float)) <= " + DP05_0037PEEnd;
+        }
+        else {
+            whereClauseCP += " AND DP05_0036E <> 0 AND (CAST(100 AS float) * CAST(DP05_0037E AS float) / CAST(DP05_0036E AS float)) >= " + DP05_0037PEStart + " AND (CAST(100 AS float) * CAST(DP05_0037E AS float) / CAST(DP05_0036E AS float)) <= " + DP05_0037PEEnd;
+        }
+        searchedDemographics += "<br /> White between " + DP05_0037PEStart + "% and " + DP05_0037PEEnd + "%";
+    }
+
+    if (document.getElementById("cbDP05_0038PE").checked == true) {
+        DP05_0038PEStart = $("#slider-range-DP05_0038PE").slider("values", 0);
+        DP05_0038PEEnd = $("#slider-range-DP05_0038PE").slider("values", 1);
+        if (whereClauseCP == "") {
+            whereClauseCP = "DP05_0036E <> 0 AND (CAST(100 AS float) * CAST(DP05_0038E AS float) / CAST(DP05_0036E AS float)) >= " + DP05_0038PEStart + " AND (CAST(100 AS float) * CAST(DP05_0038E AS float) / CAST(DP05_0036E AS float)) <= " + DP05_0038PEEnd;
+        }
+        else {
+            whereClauseCP += " AND DP05_0036E <> 0 AND (CAST(100 AS float) * CAST(DP05_0038E AS float) / CAST(DP05_0036E AS float)) >= " + DP05_0038PEStart + " AND (CAST(100 AS float) * CAST(DP05_0038E AS float) / CAST(DP05_0036E AS float)) <= " + DP05_0038PEEnd;
+        }
+        searchedDemographics += "<br /> Black or African American between " + DP05_0038PEStart + "% and " + DP05_0038PEEnd + "%";
+    }
+
+    if (document.getElementById("cbDP05_0039PE").checked == true) {
+        DP05_0039PEStart = $("#slider-range-DP05_0039PE").slider("values", 0);
+        DP05_0039PEEnd = $("#slider-range-DP05_0039PE").slider("values", 1);
+        if (whereClauseCP == "") {
+            whereClauseCP = "DP05_0036E <> 0 AND (CAST(100 AS float) * CAST(DP05_0039E AS float) / CAST(DP05_0036E AS float)) >= " + DP05_0039PEStart + " AND (CAST(100 AS float) * CAST(DP05_0039E AS float) / CAST(DP05_0036E AS float)) <= " + DP05_0039PEEnd;
+        }
+        else {
+            whereClauseCP += " AND DP05_0036E <> 0 AND (CAST(100 AS float) * CAST(DP05_0039E AS float) / CAST(DP05_0036E AS float)) >= " + DP05_0039PEStart + " AND (CAST(100 AS float) * CAST(DP05_0039E AS float) / CAST(DP05_0036E AS float)) <= " + DP05_0039PEEnd;
+        }
+        searchedDemographics += "<br /> American Indian and Alaska Native between " + DP05_0039PEStart + "% and " + DP05_0039PEEnd + "%";
+    }
+
+    if (document.getElementById("cbDP05_0044PE").checked == true) {
+        DP05_0044PEStart = $("#slider-range-DP05_0044PE").slider("values", 0);
+        DP05_0044PEEnd = $("#slider-range-DP05_0044PE").slider("values", 1);
+        if (whereClauseCP == "") {
+            whereClauseCP = "DP05_0036E <> 0 AND (CAST(100 AS float) * CAST(DP05_0044E AS float) / CAST(DP05_0036E AS float)) >= " + DP05_0044PEStart + " AND (CAST(100 AS float) * CAST(DP05_0044E AS float) / CAST(DP05_0036E AS float)) <= " + DP05_0044PEEnd;
+        }
+        else {
+            whereClauseCP += " AND DP05_0036E <> 0 AND (CAST(100 AS float) * CAST(DP05_0044E AS float) / CAST(DP05_0036E AS float)) >= " + DP05_0044PEStart + " AND (CAST(100 AS float) * CAST(DP05_0044E AS float) / CAST(DP05_0036E AS float)) <= " + DP05_0044PEEnd;
+        }
+        searchedDemographics += "<br /> Asian between " + DP05_0044PEStart + "% and " + DP05_0044PEEnd + "%";
+    }
+
+    if (document.getElementById("cbDP05_0045PE").checked == true) {
+        DP05_0045PEStart = $("#slider-range-DP05_0045PE").slider("values", 0);
+        DP05_0045PEEnd = $("#slider-range-DP05_0045PE").slider("values", 1);
+        if (whereClauseCP == "") {
+            whereClauseCP = "DP05_0036E <> 0 AND (CAST(100 AS float) * CAST(DP05_0045E AS float) / CAST(DP05_0036E AS float)) >= " + DP05_0045PEStart + " AND (CAST(100 AS float) * CAST(DP05_0045E AS float) / CAST(DP05_0036E AS float)) <= " + DP05_0045PEEnd;
+        }
+        else {
+            whereClauseCP += " AND DP05_0036E <> 0 AND (CAST(100 AS float) * CAST(DP05_0045E AS float) / CAST(DP05_0036E AS float)) >= " + DP05_0045PEStart + " AND (CAST(100 AS float) * CAST(DP05_0045E AS float) / CAST(DP05_0036E AS float)) <= " + DP05_0045PEEnd;
+        }
+        searchedDemographics += "<br /> Asian Indian between " + DP05_0045PEStart + "% and " + DP05_0045PEEnd + "%";
+    }
+
+    if (document.getElementById("cbDP05_0046PE").checked == true) {
+        DP05_0046PEStart = $("#slider-range-DP05_0046PE").slider("values", 0);
+        DP05_0046PEEnd = $("#slider-range-DP05_0046PE").slider("values", 1);
+        if (whereClauseCP == "") {
+            whereClauseCP = "DP05_0036E <> 0 AND (CAST(100 AS float) * CAST(DP05_0046E AS float) / CAST(DP05_0036E AS float)) >= " + DP05_0046PEStart + " AND (CAST(100 AS float) * CAST(DP05_0046E AS float) / CAST(DP05_0036E AS float)) <= " + DP05_0046PEEnd;
+        }
+        else {
+            whereClauseCP += " AND DP05_0036E <> 0 AND (CAST(100 AS float) * CAST(DP05_0046E AS float) / CAST(DP05_0036E AS float)) >= " + DP05_0046PEStart + " AND (CAST(100 AS float) * CAST(DP05_0046E AS float) / CAST(DP05_0036E AS float)) <= " + DP05_0046PEEnd;
+        }
+        searchedDemographics += "<br /> Chinese between " + DP05_0046PEStart + "% and " + DP05_0046PEEnd + "%";
+    }
+
+    if (document.getElementById("cbDP05_0047PE").checked == true) {
+        DP05_0047PEStart = $("#slider-range-DP05_0047PE").slider("values", 0);
+        DP05_0047PEEnd = $("#slider-range-DP05_0047PE").slider("values", 1);
+        if (whereClauseCP == "") {
+            whereClauseCP = "DP05_0036E <> 0 AND (CAST(100 AS float) * CAST(DP05_0047E AS float) / CAST(DP05_0036E AS float)) >= " + DP05_0047PEStart + " AND (CAST(100 AS float) * CAST(DP05_0047E AS float) / CAST(DP05_0036E AS float)) <= " + DP05_0047PEEnd;
+        }
+        else {
+            whereClauseCP += " AND DP05_0036E <> 0 AND (CAST(100 AS float) * CAST(DP05_0047E AS float) / CAST(DP05_0036E AS float)) >= " + DP05_0047PEStart + " AND (CAST(100 AS float) * CAST(DP05_0047E AS float) / CAST(DP05_0036E AS float)) <= " + DP05_0047PEEnd;
+        }
+        searchedDemographics += "<br /> Filipino between " + DP05_0047PEStart + "% and " + DP05_0047PEEnd + "%";
+    }
+
+    if (document.getElementById("cbDP05_0048PE").checked == true) {
+        DP05_0048PEStart = $("#slider-range-DP05_0048PE").slider("values", 0);
+        DP05_0048PEEnd = $("#slider-range-DP05_0048PE").slider("values", 1);
+        if (whereClauseCP == "") {
+            whereClauseCP = "DP05_0036E <> 0 AND (CAST(100 AS float) * CAST(DP05_0048E AS float) / CAST(DP05_0036E AS float)) >= " + DP05_0048PEStart + " AND (CAST(100 AS float) * CAST(DP05_0048E AS float) / CAST(DP05_0036E AS float)) <= " + DP05_0048PEEnd;
+        }
+        else {
+            whereClauseCP += " AND DP05_0036E <> 0 AND (CAST(100 AS float) * CAST(DP05_0048E AS float) / CAST(DP05_0036E AS float)) >= " + DP05_0048PEStart + " AND (CAST(100 AS float) * CAST(DP05_0048E AS float) / CAST(DP05_0036E AS float)) <= " + DP05_0048PEEnd;
+        }
+        searchedDemographics += "<br /> Japanese between " + DP05_0048PEStart + "% and " + DP05_0048PEEnd + "%";
+    }
+
+    if (document.getElementById("cbDP05_0049PE").checked == true) {
+        DP05_0049PEStart = $("#slider-range-DP05_0049PE").slider("values", 0);
+        DP05_0049PEEnd = $("#slider-range-DP05_0049PE").slider("values", 1);
+        if (whereClauseCP == "") {
+            whereClauseCP = "DP05_0036E <> 0 AND (CAST(100 AS float) * CAST(DP05_0049E AS float) / CAST(DP05_0036E AS float)) >= " + DP05_0049PEStart + " AND (CAST(100 AS float) * CAST(DP05_0049E AS float) / CAST(DP05_0036E AS float)) <= " + DP05_0049PEEnd;
+        }
+        else {
+            whereClauseCP += " AND DP05_0036E <> 0 AND (CAST(100 AS float) * CAST(DP05_0049E AS float) / CAST(DP05_0036E AS float)) >= " + DP05_0049PEStart + " AND (CAST(100 AS float) * CAST(DP05_0049E AS float) / CAST(DP05_0036E AS float)) <= " + DP05_0049PEEnd;
+        }
+        searchedDemographics += "<br /> Korean between " + DP05_0049PEStart + "% and " + DP05_0049PEEnd + "%";
+    }
+
+    if (document.getElementById("cbDP05_0050PE").checked == true) {
+        DP05_0050PEStart = $("#slider-range-DP05_0050PE").slider("values", 0);
+        DP05_0050PEEnd = $("#slider-range-DP05_0050PE").slider("values", 1);
+        if (whereClauseCP == "") {
+            whereClauseCP = "DP05_0036E <> 0 AND (CAST(100 AS float) * CAST(DP05_0050E AS float) / CAST(DP05_0036E AS float)) >= " + DP05_0050PEStart + " AND (CAST(100 AS float) * CAST(DP05_0050E AS float) / CAST(DP05_0036E AS float)) <= " + DP05_0050PEEnd;
+        }
+        else {
+            whereClauseCP += " AND DP05_0036E <> 0 AND (CAST(100 AS float) * CAST(DP05_0050E AS float) / CAST(DP05_0036E AS float)) >= " + DP05_0050PEStart + " AND (CAST(100 AS float) * CAST(DP05_0050E AS float) / CAST(DP05_0036E AS float)) <= " + DP05_0050PEEnd;
+        }
+        searchedDemographics += "<br /> Vietnamese between " + DP05_0050PEStart + "% and " + DP05_0050PEEnd + "%";
+    }
+
+    if (document.getElementById("cbDP05_0052PE").checked == true) {
+        DP05_0052PEStart = $("#slider-range-DP05_0052PE").slider("values", 0);
+        DP05_0052PEEnd = $("#slider-range-DP05_0052PE").slider("values", 1);
+        if (whereClauseCP == "") {
+            whereClauseCP = "DP05_0036E <> 0 AND (CAST(100 AS float) * CAST(DP05_0052E AS float) / CAST(DP05_0036E AS float)) >= " + DP05_0052PEStart + " AND (CAST(100 AS float) * CAST(DP05_0052E AS float) / CAST(DP05_0036E AS float)) <= " + DP05_0052PEEnd;
+        }
+        else {
+            whereClauseCP += " AND DP05_0036E <> 0 AND (CAST(100 AS float) * CAST(DP05_0052E AS float) / CAST(DP05_0036E AS float)) >= " + DP05_0052PEStart + " AND (CAST(100 AS float) * CAST(DP05_0052E AS float) / CAST(DP05_0036E AS float)) <= " + DP05_0052PEEnd;
+        }
+        searchedDemographics += "<br /> Native Hawaiian and Other Pacific Islander between " + DP05_0052PEStart + "% and " + DP05_0052PEEnd + "%";
+    }
+
+    if (document.getElementById("cbDP05_0071PE").checked == true) {
+        DP05_0071PEStart = $("#slider-range-DP05_0071PE").slider("values", 0);
+        DP05_0071PEEnd = $("#slider-range-DP05_0071PE").slider("values", 1);
+        if (whereClauseCP == "") {
+            whereClauseCP = "DP05_0036E <> 0 AND (CAST(100 AS float) * CAST(DP05_0071E AS float) / CAST(DP05_0036E AS float)) >= " + DP05_0071PEStart + " AND (CAST(100 AS float) * CAST(DP05_0071E AS float) / CAST(DP05_0036E AS float)) <= " + DP05_0071PEEnd;
+        }
+        else {
+            whereClauseCP += " AND DP05_0036E <> 0 AND (CAST(100 AS float) * CAST(DP05_0071E AS float) / CAST(DP05_0036E AS float)) >= " + DP05_0071PEStart + " AND (CAST(100 AS float) * CAST(DP05_0071E AS float) / CAST(DP05_0036E AS float)) <= " + DP05_0071PEEnd;
+        }
+        searchedDemographics += "<br /> Hispanic or Latino (of any race) between " + DP05_0071PEStart + "% and " + DP05_0071PEEnd + "%";
     }
 
     if (document.getElementById("cbDP02_0002PE").checked == true) {
